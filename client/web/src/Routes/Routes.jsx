@@ -5,6 +5,7 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
+import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication"
 import { Dashboard } from "../Structure/Dashboard"
 
@@ -13,9 +14,15 @@ const Route = () => {
     <>
       <Router>
         <Switch>
-          <PrivateRoute exact path="/" component={Dashboard}/>
-          <PublicRoute path="/login" component={Login}/>
-          <PublicRoute render={() => <div>Error 404</div>} />
+          <PrivateRoute exact path="/" >
+            <Dashboard />
+          </PrivateRoute>
+          <PublicRoute path="/login" >
+            <Login />
+          </PublicRoute>
+          <PublicRoute>
+            <div>Error 404</div>
+          </PublicRoute>
         </Switch>
       </Router>
     </>

@@ -58,17 +58,15 @@ const userLoginProcess = () => async (dispatch) => {
 const logoutProcess = () => async (dispatch) => {
   dispatch(logoutRequest());
   try {
-    localStorage.removeItem("token")
-    localStorage.removeItem("name")
-    localStorage.removeItem("email")
-    localStorage.removeItem("profilePic")
     return dispatch(logoutSuccess());
   } catch (err) {
+    return dispatch(logoutFailure());
+  }
+  finally{
     localStorage.removeItem("token")
     localStorage.removeItem("name")
     localStorage.removeItem("email")
     localStorage.removeItem("profilePic")
-    return dispatch(logoutFailure());
   }
 };
 

@@ -8,18 +8,23 @@ const REACT_APP_AUTH_GOOGLE_LOGIN_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGIN_
 
 const Login = () => {
   const dispatch = useDispatch();
+  const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
+  let isAuth = localStorage.getItem("token")
+  console.log("login");
+
   const loginUser = () => {
     window.open(REACT_APP_AUTH_GOOGLE_LOGIN_URL, "_self");
   };
-  const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
+
   useEffect(() => {
     dispatch(authActions.userLoginProcess());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  return localStorage.getItem("token") ? (
+
+  return isAuth ? (
     <Redirect push to="/" />
   ) : isLoggingIn ? (
-    <p>Is loading</p>
+    <p>...loading</p>
   ) : (
     <>
       <GoogleButton

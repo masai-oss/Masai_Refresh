@@ -19,6 +19,12 @@ const axiosInterceptor = () => {
       return Promise.reject(error);
     }
   );
+
+  axios.interceptors.request.use((request) => {
+    return request
+  }, (error) => {
+    return Promise.reject(error);
+  })
 };
 
 export { axiosInterceptor };
