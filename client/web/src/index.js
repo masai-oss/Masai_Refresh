@@ -1,11 +1,16 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './index.css';
-import App from './App';
+import ReactDom from 'react-dom'
+import { Provider } from 'react-redux'
+import { Route } from './Routes/Routes';
+import { store } from "./store"
+import { axiosInterceptor } from "./Utils/axiosInterceptor"
 
-ReactDOM.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>,
-  document.getElementById('root')
-);
+axiosInterceptor() //used to track request 
+
+const rootElement = document.getElementById("root")
+ReactDom.render(
+  <Provider store = {store}>
+      <Route />
+  </Provider>,
+  rootElement
+)
