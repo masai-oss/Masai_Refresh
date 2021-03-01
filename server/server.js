@@ -4,12 +4,18 @@ const dotenv = require("dotenv");
 const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
+const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
-const userAuthRoute = require("./resources/routes/userAuthRoute");
 const cookieParser = require("cookie-parser");
 require("./resources/services/passportSetup");
 
+const userAuthRoute = require("./resources/routes/userAuthRoute");
+const topicRoute = require("./resources/routes/topicRoute");
+
 dotenv.config();
+
+app.use(bodyParser.json());
+app.use(bodyParser.urlencoded({ extended: true }));
 
 const PORT = process.env.PORT || 5050;
 const MONGO_URI = process.env.MONGO_URI;
@@ -55,6 +61,7 @@ app.use(
 
 
 app.use("/api/auth", userAuthRoute);
+app.use("/api/topic", topicRoute);
 
 app.listen(PORT, () => {
   console.log(`server is listening at ${PORT}`);
