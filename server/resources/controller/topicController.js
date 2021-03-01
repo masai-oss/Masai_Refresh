@@ -60,7 +60,7 @@ const deleteTopic = async ( req, res ) => {
     try{
         let result = await Topic.deleteOne({_id: id})
         if(result.deletedCount === 0){
-            return res.status(404).json({error: true, message: "The Topic could not be deleted as the infomrmation provided could not match any record"})
+            return res.status(404).json({error: true, message: "The Topic could not be deleted as the information provided could not match any record"})
         }
         res.status(200).json({error: false, message: "The topic has been deleted"})
     }
