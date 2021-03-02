@@ -1,8 +1,40 @@
 {
-    "post" : [
-        {
-            "id" : 1,
-            "name" : "something"
-        }
+    "questions": [
+      {
+        "type":"SHORT",
+        "statement":"What is the difference between `canvas` and `svg`?",
+        "answer":"* SVG has better scalability. So it can be printed with high quality at any resolution.\n* Canvas has poor scalability. Hence it is not suitable for printing on higher resolution",
+        "explanation": ""
+      },
+      {
+        "type": "TF",
+        "statement": "`JSON.parse();` Parses JSON to a JavaScript value",
+        "explanation": "Parses JSON to a JavaScript value",
+        "correct": true
+      },
+      {
+        "type": "MCQ",
+        "statement": "What will be the output of the following JavaScript code? \n```javascript \n[1, 2, 3].map(num => {  \nif (typeof num === 'number') return;  \nreturn num * 2;});\n```",
+        "explanation": "The above code snippet returns undefined.",
+        "options": [
+          {
+            "text": "Prints the contents of each property of o",
+            "correct": false
+          },
+          {
+            "text": "Returns undefined",
+            "correct": true
+          },
+          {
+            "text": "Prints only one property",
+            "correct": false
+          },
+          {
+            "text": "Prints the address of elements",
+            "correct": false
+          }
+        ]
+      }
     ]
-}
+  }
+  
