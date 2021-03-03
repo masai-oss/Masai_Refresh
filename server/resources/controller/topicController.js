@@ -28,9 +28,10 @@ const getTopicById = async ( req, res ) => {
 }
 
 const getTopicByName = async ( req, res ) => {
-    const { name } = req.params
-
+    let { name } = req.params
+    
     try{
+        name = name.toUpperCase()
         let result = await Topic.findOne({name}).exec()
         if(!result){
             return res.status(404).json({error: true, message: "Given topic name does not exist"})
@@ -43,11 +44,17 @@ const getTopicByName = async ( req, res ) => {
 }
 
 const addTopic = async ( req, res ) => {
-    const { name, icon } = req.body
+    const { name, icon } = req.body  
 
     try{
-        await new Topic({name, icon}, {questions:0}).save()
-        res.status(201).json({error: false, message: "The topic has been created"})
+        let temp = await Topic.findOne({name}).exec()
+        if(!temp){
+            await new Topic({name, icon}, {questions:0}).save()
+            res.status(201).json({error: false, message: "The topic has been created."})
+        }
+        else{
+            res.status(409).json({error: true, message: "The topic cannot be created as it already exists."})
+        }
     }
     catch(err){
         res.status(400).json({error: true, message: err})
