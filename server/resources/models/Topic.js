@@ -8,7 +8,8 @@ const topicSchema = new Schema(
     name: {
         type: String,
         required: true,
-        enum: [...Object.values(topics_enum)]
+        enum: [...Object.values(topics_enum)],
+        unique: true
     },
     icon: {
         type: String,
