@@ -46,7 +46,7 @@ const addTopic = async ( req, res ) => {
     const { name, icon } = req.body
 
     try{
-        await new Topic({name, icon}).save()
+        await new Topic({name, icon}, {questions:0}).save()
         res.status(201).json({error: false, message: "The topic has been created"})
     }
     catch(err){

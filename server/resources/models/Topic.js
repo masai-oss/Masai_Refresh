@@ -8,6 +8,7 @@ const topicSchema = new Schema(
     name: {
       type: String,
       required: true,
+      unique:true,
       enum: [...Object.values(topics_enum)],
     },
     icon: {
@@ -18,10 +19,12 @@ const topicSchema = new Schema(
       _id: false,
       id: {
         type: String,
-        default: uuid.v4(),
-        unique: true,
-        immutable: true,
+        default: function () {
+          return uuid.v4()
+        },
         required: true,
+        unique: true,
+        immutable: true
       },
       type: {
         type: String,

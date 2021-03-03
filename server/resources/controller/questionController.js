@@ -11,13 +11,11 @@ const addQuestion = async (req, res) => {
   const question = req.body;
   const { error } = questionAddValidate({ ...question, name });
   if (error) {
-      return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Adding question failed",
-        reason: error.details[0].message,
-      });
+    return res.status(400).json({
+      error: true,
+      message: "Adding question failed",
+      reason: error.details[0].message,
+    });
   }
   try {
     let findTopic = await Topic.find({ name: name });
@@ -49,36 +47,30 @@ const addQuestion = async (req, res) => {
 const updateQuestion = async (req, res) => {
   const { topic: name, id } = req.params;
   const questionData = req.body;
-  const { stats, id: questionId, ...question } = questionData
-  const { error: statsError } = statsValidate(stats)
+  const { stats, id: questionId, topic, ...question } = questionData;
+  const { error: statsError } = statsValidate(stats);
   if (statsError) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Updating question failed check Stats",
-        reason: statsError.details[0].message 
-      });
+    return res.status(400).json({
+      error: true,
+      message: "Updating question failed check Stats",
+      reason: statsError.details[0].message,
+    });
   }
-  const { error: idTopicError } = idTopicValidation(req.params)
-  if ( idTopicError) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Updating question failed check id and topic",
-        reason: idTopicError.details[0].message 
-      });
+  const { error: idTopicError } = idTopicValidation(req.params);
+  if (idTopicError) {
+    return res.status(400).json({
+      error: true,
+      message: "Updating question failed check id and topic",
+      reason: idTopicError.details[0].message,
+    });
   }
   const { error: questionError } = questionAddValidate({ ...question, name });
   if (questionError) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Updating question failed check question",
-        reason: questionError.details[0].message,
-      });
+    return res.status(400).json({
+      error: true,
+      message: "Updating question failed check question",
+      reason: questionError.details[0].message,
+    });
   }
   try {
     let updatedQuestion = await Topic.updateOne(
@@ -114,15 +106,13 @@ const updateQuestion = async (req, res) => {
 
 const deleteQuestion = async (req, res) => {
   const { id, topic: name } = req.params;
-  const { error } = idTopicValidation(req.params)
+  const { error } = idTopicValidation(req.params);
   if (error) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Deleting question failed",
-        reason: error.details[0].message,
-      });
+    return res.status(400).json({
+      error: true,
+      message: "Deleting question failed",
+      reason: error.details[0].message,
+    });
   }
   try {
     let deleteQuestion = await Topic.updateOne(
@@ -154,40 +144,93 @@ const deleteQuestion = async (req, res) => {
   }
 };
 
+const pagination = (page, limit, questions) => {
+  const startIndex = (page - 1) * limit;
+  const endIndex = page * limit;
+
+  const results = {};
+  let size = questions.length;
+  results.limit = limit;
+  results.totalCount = size;
+  results.maxPage = Math.ceil(size / limit);
+  results.currentPage = page;
+  if (size > limit) {
+    if (endIndex < size) {
+      results.next = {
+        page: page + 1,
+        limit: limit,
+      };
+    }
+    if (startIndex > 0) {
+      let maxPage = Math.ceil(size / limit);
+      results.prev = {
+        page: maxPage < page ? maxPage : page - 1,
+        limit: limit,
+      };
+    }
+  }
+  if (startIndex > size) {
+    results.current = [];
+    return results;
+  }
+  let currenInfo =
+    size > limit ? questions.slice(startIndex, endIndex) : questions;
+  results.current = currenInfo;
+  return results;
+};
+
 const getAllQuestion = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
   try {
-    let allQuestions = await Topic.find({}, { _id: 0, icon: 0 });
-    if (!allQuestions) {
+    if (page < 1) throw new Error("The page no must be greater than 0");
+    let questions = await Topic.aggregate([
+      {
+        $addFields: {
+          "questions.topic": "$name",
+        },
+      },
+      {
+        $group: {
+          _id: 0,
+          allQuestions: { $push: "$questions" },
+        },
+      },
+    ]);
+    if (!questions[0].allQuestions.length) {
       return res.status(400).json({
         error: true,
-        message: "Something went wrong",
+        message: "No questions are present",
       });
     }
+    let allQuestions = [];
+    questions[0].allQuestions.forEach((topicQue) => {
+      allQuestions.push(...topicQue);
+    });
+    let paginatedResults = pagination(page, limit, allQuestions);
     return res.status(200).json({
       error: false,
       message: "Successfully got Questions",
-      questions: allQuestions,
+      questions: paginatedResults,
     });
   } catch (err) {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err,
+      reason: err.message,
     });
   }
 };
 
 const getQuestionByTopic = async (req, res) => {
   const { topic: name } = req.params;
-  const { error } = topicValidation(req.params)
+  const { error } = topicValidation(req.params);
   if (error) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Getting question failed",
-        reason: error.details[0].message,
-      });
+    return res.status(400).json({
+      error: true,
+      message: "Getting question failed",
+      reason: error.details[0].message,
+    });
   }
   try {
     let findedQuestion = await Topic.find(
@@ -196,13 +239,13 @@ const getQuestionByTopic = async (req, res) => {
       },
       { _id: 0, icon: 0, name: 0 }
     );
-    const { questions } = findedQuestion[0];
-    if (!questions.length) {
+    if (!findedQuestion.length) {
       return res.status(400).json({
         error: true,
         message: `No Questions present in ${name}`,
       });
     }
+    const [{ questions }] = findedQuestion;
     return res.status(200).json({
       error: false,
       message: "Question found successfully",
@@ -218,26 +261,13 @@ const getQuestionByTopic = async (req, res) => {
 };
 
 const getQuestionById = async (req, res) => {
-  const { topic: name, id } = req.params;
-  const { error } = idTopicValidation(req.params)
-  if (error) {
-    return res
-      .status(400)
-      .json({
-        error: true,
-        message: "Getting question failed",
-        reason: error.details[0].message,
-      });
-  }
+  const { id } = req.params;
   try {
-    let findedQuestion = await Topic.findOne(
-      {
-        name: name,
-      },
-      { questions: { $elemMatch: { id: id } } }
+    let findedQuestion = await Topic.find(
+      { questions: { $elemMatch: { id: id } } },
+      { "questions.$": 1, _id: 0 }
     );
-    const { questions } = findedQuestion;
-    if (!questions.length) {
+    if (!findedQuestion.length) {
       return res.status(400).json({
         error: true,
         message: "Question not present",

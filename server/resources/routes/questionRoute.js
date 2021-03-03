@@ -11,11 +11,11 @@ const {
 const { checkAdmin } = require("../utils/validation/adminValidation");
 
 
-questionRoute.post("/addQuestion/:topic", authenticateToken, checkAdmin, addQuestion);
-questionRoute.get("/getQuestionById/:topic/:id", authenticateToken, checkAdmin, getQuestionById);
-questionRoute.get("/getAllQuestionByTopic/:topic",authenticateToken, checkAdmin, getQuestionByTopic);
-questionRoute.get("/getAllQuestions",authenticateToken, checkAdmin, getAllQuestion)
-questionRoute.put("/updateQuestion/:topic/:id",authenticateToken, checkAdmin, updateQuestion);
-questionRoute.delete("/deleteQuestion/:topic/:id",authenticateToken, checkAdmin, deleteQuestion)
+questionRoute.post("/create/:topic", authenticateToken, checkAdmin, addQuestion);
+questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
+questionRoute.get("/byTopic/:topic",authenticateToken, checkAdmin, getQuestionByTopic);
+questionRoute.get("/all",authenticateToken, checkAdmin, getAllQuestion)
+questionRoute.put("/update/:topic/:id",authenticateToken, checkAdmin, updateQuestion);
+questionRoute.delete("/delete/:topic/:id",authenticateToken, checkAdmin, deleteQuestion)
 
 module.exports = questionRoute;
