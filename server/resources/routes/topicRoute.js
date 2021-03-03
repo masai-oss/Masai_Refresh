@@ -10,8 +10,8 @@ const {
 } = require("../controller/topicController");
 
 topicRoute.get('/', getAllTopics);
-topicRoute.get('/byId/:id', getTopicById);
-topicRoute.get('/byName/:name', getTopicByName);
+topicRoute.get('/id/:id', getTopicById);
+topicRoute.get('/name/:name', getTopicByName);
 topicRoute.post('/create', addTopic);
 topicRoute.delete('/:id', deleteTopic);
 topicRoute.patch('/:id', editTopic);
