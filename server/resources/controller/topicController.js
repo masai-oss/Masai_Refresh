@@ -49,7 +49,7 @@ const addTopic = async ( req, res ) => {
     try{
         let temp = await Topic.findOne({name}).exec()
         if(!temp){
-            await new Topic({name, icon}).save()
+            await new Topic({name, icon}, {questions:0}).save()
             res.status(201).json({error: false, message: "The topic has been created."})
         }
         else{
