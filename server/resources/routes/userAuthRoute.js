@@ -5,6 +5,7 @@ const {
   isLoggedIn,
   successRedirect,
   getUser,
+  loginUser,
   loginFailure
 } = require("../controller/authController");
 
@@ -24,5 +25,9 @@ userAuthRoute.get(
 userAuthRoute.get("/current_user", isLoggedIn, getUser);
 userAuthRoute.get("/login/failed", loginFailure);
 userAuthRoute.get("/logout", logoutController);
+
+// Android will do authentication internally, 
+// Android will send the info sent by google to backend will be stored and token will be sent as response
+userAuthRoute.post("/login_user", loginUser)
 
 module.exports = userAuthRoute;

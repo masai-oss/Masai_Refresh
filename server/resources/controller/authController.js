@@ -1,6 +1,7 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const dotenv = require("dotenv");
+const userInfoValidation = require("../utils/validation/authValidation");
 dotenv.config();
 
 const CLIENT_HOME_PAGE_URL = process.env.CLIENT_HOME_PAGE_URL;
@@ -77,13 +78,13 @@ const authenticateToken = (req, res, next) => {
     });
   }
   jwt.verify(token, SECRET_KEY_TO_ACCESS, async (err, user) => {
-    const { email, id } = user;
     if (err) {
       return res.status(403).json({
         error: true,
         message: "token not able to authenticate",
       });
     }
+    const { email, id } = user;
     try {
       req.id = id;
       const isAdmin = email.split("@")[1] === ADMIN_CONTROL_EMAIL;
@@ -105,11 +106,72 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+const loginUser = async (req, res) => {
+  const { name, email, profilePic, googleId } = req.body;
+  const { error } = userInfoValidation(req.body);
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: error.details[0].message,
+    });
+  }
+  let domain = email.split("@")[1]
+  let check = (domain === ADMIN_CONTROL_EMAIL) || (domain === "gmail.com")
+  if (!check) {
+    return res.status(200).json({
+      error: "true",
+      message: "Domain can only be Admin type or gmail"
+    })
+  }
+  try {
+    const currentUser = await User.findOne({
+      oauth: { $elemMatch: { provider: "google", identifier: googleId } },
+    }, { __v: 0, oauth:0 });
+    if (!currentUser) {
+      let role = domain === ADMIN_CONTROL_EMAIL ? "admin" : "user";
+      const newUser = await new User({
+        name: name,
+        email: email,
+        role: role,
+        profilePic: profilePic,
+        oauth: [
+          {
+            provider: "google",
+            identifier: googleId,
+          },
+        ],
+      }, {oauth:0}).save();
+      const createdToken = createToken(newUser);
+      const { _id } = newUser
+      return res.status(200).set("Cache-Control", "no-store").json({
+        error: false,
+        message: "user has been successfully authenticated",
+        user: { _id, role },
+        token: createdToken,
+      });
+    }
+    const createdToken = createToken(currentUser);
+    const { _id, role } = currentUser
+    return res.status(200).set("Cache-Control", "no-store").json({
+        error: false,
+        message: "user has been successfully authenticated",
+        user: {_id, role},
+        token: createdToken,
+      });
+  } catch (err) {
+    res.status(400).json({
+      error: true,
+      message: err,
+    });
+  }
+};
+
 module.exports = {
   logoutController,
   isLoggedIn,
   successRedirect,
   getUser,
   loginFailure,
+  loginUser,
   authenticateToken,
 };
