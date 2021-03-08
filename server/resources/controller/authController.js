@@ -111,21 +111,24 @@ const getUserInfoToken = (user) => {
   const {
     _doc: { oauth, ...userInfo },
   } = user;
-  const { _id, email } = userInfo
+  const { _id, email } = userInfo;
   const token = createToken({ _id, email });
-  return { userInfo, token }
+  return { userInfo, token };
 };
 
 const loginUser = async (req, res) => {
   const { googleToken } = req.body;
   if (googleToken === undefined) {
-    throw new Error("Google Token must be sent");
+    return res.status(400).json({
+      error: true,
+      message: "Google Token must be present",
+    });
   }
   try {
     const client = new OAuth2Client(GOOGLE_ANDROID_CLIENT_ID);
     const ticket = await client.verifyIdToken({
       idToken: googleToken,
-      audience: GOOGLE_ANDROID_CLIENT_ID
+      audience: GOOGLE_ANDROID_CLIENT_ID,
     });
     const payload = ticket.getPayload();
     const { sub: id, email, name, picture } = payload;
@@ -162,15 +165,14 @@ const loginUser = async (req, res) => {
       user: userInfo,
       token: token,
     });
-  } catch (error) {
+  } catch (err) {
     res.status(401).json({
       authenticated: false,
       error: true,
-      message: error,
+      message: err,
     });
   }
 };
-
 
 module.exports = {
   logoutController,

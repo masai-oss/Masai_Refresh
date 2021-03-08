@@ -1,2 +1,1 @@
-const Joi = require('joi')
-
+const Joi = require("joi");
