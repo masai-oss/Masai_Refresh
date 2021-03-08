@@ -4,21 +4,17 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-android-extensions'
 }
-
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
-
     defaultConfig {
-        applicationId "com.example.myapplication"
-        minSdkVersion 21
+        applicationId "com.masai.mvvmapplication"
+        minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
         versionName "1.0"
-
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -33,9 +29,7 @@ android {
         jvmTarget = '1.8'
     }
 }
-
 dependencies {
-
     def jetpack_version = "2.1.0"
     def arch_version = '2.2.0-alpha01'
     def retrofit_version = "2.6.1"
@@ -76,31 +70,8 @@ dependencies {
     testImplementation "com.squareup.okhttp3:mockwebserver:3.6.0"
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.github.bumptech.glide:glide:4.8.0'
-    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-
     implementation 'de.hdodenhof:circleimageview:3.1.0'
 
-    //MarkDown Lib
-
-    final def
-            markwon_version =
-                    '4.6.2'
-    implementation "io.noties.markwon:core:$markwon_version"
-    implementation "io.noties.markwon:editor:$markwon_version"
-    implementation "io.noties.markwon:ext-latex:$markwon_version"
-    implementation "io.noties.markwon:ext-strikethrough:$markwon_version"
-    implementation "io.noties.markwon:ext-tables:$markwon_version"
-    implementation "io.noties.markwon:ext-tasklist:$markwon_version"
-    implementation "io.noties.markwon:html:$markwon_version"
-    implementation "io.noties.markwon:image:$markwon_version"
-    implementation "io.noties.markwon:image-coil:$markwon_version"
-    implementation "io.noties.markwon:image-glide:$markwon_version"
-    implementation "io.noties.markwon:image-picasso:$markwon_version"
-    implementation "io.noties.markwon:inline-parser:$markwon_version"
-    implementation "io.noties.markwon:linkify:$markwon_version"
-    implementation "io.noties.markwon:recycler:$markwon_version"
-    implementation "io.noties.markwon:recycler-table:$markwon_version"
-    implementation "io.noties.markwon:simple-ext:$markwon_version"
-    implementation "io.noties.markwon:syntax-highlight:$markwon_version"
+    implementation 'com.github.bumptech.glide:glide:4.8.0'
+    annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }
