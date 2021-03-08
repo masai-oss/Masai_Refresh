@@ -1,12 +1,15 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/User");
 const dotenv = require("dotenv");
-const userInfoValidation = require("../utils/validation/authValidation");
+const { OAuth2Client } = require("google-auth-library");
 dotenv.config();
 
 const CLIENT_HOME_PAGE_URL = process.env.CLIENT_HOME_PAGE_URL;
 const SECRET_KEY_TO_ACCESS = process.env.SECRET_KEY_TO_ACCESS;
 const ADMIN_CONTROL_EMAIL = process.env.ADMIN_CONTROL_EMAIL;
+const GOOGLE_ANDROID_CLIENT_ID = process.env.GOOGLE_ANDROID_CLIENT_ID;
+
+const client = new OAuth2Client(GOOGLE_ANDROID_CLIENT_ID);
 
 const createToken = (user) => {
   let { email, _id } = user;
@@ -25,7 +28,7 @@ const createToken = (user) => {
 const getUser = (req, res) => {
   if (req.user) {
     const token = createToken(req.user);
-    res.status(200).set('Cache-Control', 'no-store').json({
+    res.status(200).set("Cache-Control", "no-store").json({
       error: false,
       message: "user has been successfully authenticated",
       user: req.user,
@@ -59,7 +62,7 @@ const logoutController = (req, res) => {
 const isLoggedIn = (req, res, next) => {
   if (!req.isAuthenticated()) {
     res.status(401).json({
-      error:true,
+      error: true,
       authenticated: false,
       message: "user has not been authenticated",
     });
@@ -106,65 +109,69 @@ const authenticateToken = (req, res, next) => {
   });
 };
 
+const getUserInfoToken = (user) => {
+  const {
+    _doc: { oauth, ...userInfo },
+  } = user;
+  const { _id, email } = userInfo
+  const token = createToken({ _id, email });
+  return { userInfo, token }
+};
+
 const loginUser = async (req, res) => {
-  const { name, email, profilePic, googleId } = req.body;
-  const { error } = userInfoValidation(req.body);
-  if (error) {
-    return res.status(400).json({
-      error: true,
-      message: error.details[0].message,
-    });
-  }
-  let domain = email.split("@")[1]
-  let check = (domain === ADMIN_CONTROL_EMAIL) || (domain === "gmail.com")
-  if (!check) {
-    return res.status(200).json({
-      error: "true",
-      message: "Domain can only be Admin type or gmail"
-    })
+  const { googleToken } = req.body;
+  if (googleToken === undefined) {
+    throw new Error("Google Token must be sent");
   }
   try {
+    const ticket = await client.verifyIdToken({
+      idToken: googleToken,
+      audience: GOOGLE_ANDROID_CLIENT_ID
+    });
+    const payload = ticket.getPayload();
+    const { sub: id, email, name, picture } = payload;
     const currentUser = await User.findOne({
-      oauth: { $elemMatch: { provider: "google", identifier: googleId } },
-    }, { __v: 0, oauth:0 });
+      oauth: { $elemMatch: { provider: "google", identifier: id } },
+    });
     if (!currentUser) {
-      let role = domain === ADMIN_CONTROL_EMAIL ? "admin" : "user";
+      const role =
+        email.split("@")[1] === ADMIN_CONTROL_EMAIL ? "admin" : "user";
       const newUser = await new User({
         name: name,
         email: email,
         role: role,
-        profilePic: profilePic,
+        profilePic: picture,
         oauth: [
           {
             provider: "google",
-            identifier: googleId,
+            identifier: id,
           },
         ],
-      }, {oauth:0}).save();
-      const createdToken = createToken(newUser);
-      const { _id } = newUser
-      return res.status(200).set("Cache-Control", "no-store").json({
+      }).save();
+      const { userInfo, token } = getUserInfoToken(newUser);
+      res.status(200).set("Cache-Control", "no-store").json({
         error: false,
         message: "user has been successfully authenticated",
-        user: { _id, role },
-        token: createdToken,
+        user: userInfo,
+        token: token,
       });
     }
-    const createdToken = createToken(currentUser);
-    const { _id, role } = currentUser
-    return res.status(200).set("Cache-Control", "no-store").json({
-        error: false,
-        message: "user has been successfully authenticated",
-        user: {_id, role},
-        token: createdToken,
-      });
-  } catch (err) {
-    res.status(400).json({
+    const { userInfo, token } = getUserInfoToken(currentUser);
+    res.status(200).set("Cache-Control", "no-store").json({
+      error: false,
+      message: "user has been successfully authenticated",
+      user: userInfo,
+      token: token,
+    });
+  } catch (error) {
+    res.status(401).json({
+      authenticated: false,
       error: true,
-      message: err,
+      message: error,
     });
   }
 };
+
 
 module.exports = {
   logoutController,
