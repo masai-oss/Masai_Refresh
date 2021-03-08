@@ -9,8 +9,6 @@ const SECRET_KEY_TO_ACCESS = process.env.SECRET_KEY_TO_ACCESS;
 const ADMIN_CONTROL_EMAIL = process.env.ADMIN_CONTROL_EMAIL;
 const GOOGLE_ANDROID_CLIENT_ID = process.env.GOOGLE_ANDROID_CLIENT_ID;
 
-const client = new OAuth2Client(GOOGLE_ANDROID_CLIENT_ID);
-
 const createToken = (user) => {
   let { email, _id } = user;
   const isAdmin = email.split("@")[1] === ADMIN_CONTROL_EMAIL;
@@ -124,6 +122,7 @@ const loginUser = async (req, res) => {
     throw new Error("Google Token must be sent");
   }
   try {
+    const client = new OAuth2Client(GOOGLE_ANDROID_CLIENT_ID);
     const ticket = await client.verifyIdToken({
       idToken: googleToken,
       audience: GOOGLE_ANDROID_CLIENT_ID
