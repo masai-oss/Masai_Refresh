@@ -9,7 +9,7 @@ passport.serializeUser((user, done) => {
 
 passport.deserializeUser((user, done) => {
   const { _id: id } = user;
-  User.findById(id, { __v: 0, oauth:0 })
+  User.findById(id, { __v: 0, oauth: 0 })
     .then((user) => {
       done(null, user);
     })

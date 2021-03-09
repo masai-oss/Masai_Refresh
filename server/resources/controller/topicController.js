@@ -1,16 +1,13 @@
-const Topic = require('../models/Topic')
+const Topic = require("../models/Topic");
 
-
-const getAllTopics = async ( req, res ) => {
-
-    try{
-        let result = await Topic.find().exec()
-        res.status(200).json({error: false, data: result})
-    }
-    catch(err){
-        res.status(400).json({error: true, message: err})
-    } 
-}
+const getAllTopics = async (req, res) => {
+  try {
+    let result = await Topic.find().exec();
+    res.status(200).json({ error: false, data: result });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err });
+  }
+};
 
 
 const getTopicsSummary = async ( req, res ) => {
@@ -56,64 +53,78 @@ const getTopicByName = async ( req, res ) => {
     } 
 }
 
-const addTopic = async ( req, res ) => {
-    const { name, icon } = req.body  
+const addTopic = async (req, res) => {
+  const { name, icon } = req.body;
 
-    try{
-        let temp = await Topic.findOne({name}).exec()
-        if(!temp){
-            await new Topic({name, icon}, {questions:0}).save()
-            res.status(201).json({error: false, message: "The topic has been created."})
-        }
-        else{
-            res.status(409).json({error: true, message: "The topic cannot be created as it already exists."})
-        }
+  try {
+    let temp = await Topic.findOne({ name }).exec();
+    if (!temp) {
+      await new Topic({ name, icon }, { questions: 0 }).save();
+      res
+        .status(201)
+        .json({ error: false, message: "The topic has been created." });
+    } else {
+      res
+        .status(409)
+        .json({
+          error: true,
+          message: "The topic cannot be created as it already exists.",
+        });
     }
-    catch(err){
-        res.status(400).json({error: true, message: err})
-    }
-}
- 
-const deleteTopic = async ( req, res ) => {
-    const { id } = req.params
+  } catch (err) {
+    res.status(400).json({ error: true, message: err });
+  }
+};
 
-    try{
-        let result = await Topic.deleteOne({_id: id})
-        if(result.deletedCount === 0){
-            return res.status(404).json({error: true, message: "The Topic could not be deleted as the information provided could not match any record"})
-        }
-        res.status(200).json({error: false, message: "The topic has been deleted"})
-    }
-    catch(err){
-        res.status(400).json({error: true, message: err})
-    }
-}
+const deleteTopic = async (req, res) => {
+  const { id } = req.params;
 
-const editTopic = async ( req, res ) => {
-    const { id } = req.params
-    const data = req.body
+  try {
+    let result = await Topic.deleteOne({ _id: id });
+    if (result.deletedCount === 0) {
+      return res
+        .status(404)
+        .json({
+          error: true,
+          message:
+            "The Topic could not be deleted as the information provided could not match any record",
+        });
+    }
+    res
+      .status(200)
+      .json({ error: false, message: "The topic has been deleted" });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err });
+  }
+};
 
-    try{
-        let result = await Topic.updateOne({_id: id}, data)
-        res.status(200).json({error: false, message: "The topic has been updated"})
-    }
-    catch(err){
-        res.status(400).json({error: true, message: err})
-    }
-}
+const editTopic = async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
 
-const replaceTopic = async ( req, res ) => {
-    const { id } = req.params
-    const data = req.body
+  try {
+    let result = await Topic.updateOne({ _id: id }, data);
+    res
+      .status(200)
+      .json({ error: false, message: "The topic has been updated" });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err });
+  }
+};
 
-    try{
-        let result = await Topic.replaceOne({_id: id}, data)
-        res.status(200).json({error: false, message: "The topic has been replaced"})
-    }
-    catch(err){
-        res.status(400).json({error: true, message: err})
-    }
-}
+const replaceTopic = async (req, res) => {
+  const { id } = req.params;
+  const data = req.body;
+
+  try {
+    let result = await Topic.replaceOne({ _id: id }, data);
+    res
+      .status(200)
+      .json({ error: false, message: "The topic has been replaced" });
+  } catch (err) {
+    res.status(400).json({ error: true, message: err });
+  }
+};
 
 module.exports = {
     getAllTopics,
@@ -125,3 +136,4 @@ module.exports = {
     replaceTopic,
     getTopicsSummary
 }
+
