@@ -12,6 +12,19 @@ const getAllTopics = async ( req, res ) => {
     } 
 }
 
+
+const getTopicsSummary = async ( req, res ) => {
+
+    try{
+        let result = await Topic.aggregate([{ $project: {name:1, total_questions: {$size: "$questions"}}}]).exec()
+        res.status(200).json({error: false, data: result})
+    }
+    catch(err){
+        res.status(400).json({error: true, message: err})
+    } 
+}
+
+
 const getTopicById = async ( req, res ) => {
     const { id } = req.params
 
@@ -109,5 +122,6 @@ module.exports = {
     addTopic,
     deleteTopic,
     editTopic,
-    replaceTopic
+    replaceTopic,
+    getTopicsSummary
 }

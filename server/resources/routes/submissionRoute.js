@@ -1,7 +1,8 @@
-const practiceRoute = require("express").Router();
+const submissionRoute = require("express").Router();
 const {
-
+    createSubmission
 } = require("../controller/submissionController");
 
+submissionRoute.get('/create/:topic_id', createSubmission);
 
-module.exports = practiceRoute;
+module.exports = submissionRoute;

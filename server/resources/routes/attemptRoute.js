@@ -1,8 +1,9 @@
-const practiceRoute = require("express").Router();
+const attemptRoute = require("express").Router();
 const {
-    // startAttempt
+    createAttempt
 } = require("../controller/attemptController");
+const { authenticateToken } = require("../controller/authController");
 
-// practiceRoute.get('/start', startAttempt);
+attemptRoute.post('/create/:topic_id', authenticateToken, createAttempt);
 
-module.exports = practiceRoute;
+module.exports = attemptRoute;

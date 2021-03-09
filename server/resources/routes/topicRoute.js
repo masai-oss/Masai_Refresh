@@ -6,12 +6,14 @@ const {
     addTopic,
     deleteTopic,
     editTopic,
-    replaceTopic
+    replaceTopic,
+    getTopicsSummary
 } = require("../controller/topicController");
 
 topicRoute.get('/', getAllTopics);
 topicRoute.get('/id/:id', getTopicById);
 topicRoute.get('/name/:name', getTopicByName);
+topicRoute.get('/summary', getTopicsSummary);
 topicRoute.post('/create', addTopic);
 topicRoute.delete('/:id', deleteTopic);
 topicRoute.patch('/:id', editTopic);

@@ -77,13 +77,13 @@ const authenticateToken = (req, res, next) => {
     });
   }
   jwt.verify(token, SECRET_KEY_TO_ACCESS, async (err, user) => {
-    const { email, id } = user;
     if (err) {
       return res.status(403).json({
         error: true,
         message: "token not able to authenticate",
       });
     }
+    const { email, id } = user;
     try {
       req.id = id;
       const isAdmin = email.split("@")[1] === ADMIN_CONTROL_EMAIL;

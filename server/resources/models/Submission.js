@@ -1,6 +1,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const outcomeEnum = require('../utils/enums/OutcomeEnum')
+const QuestionTypeEnum = require("../utils/enums/QuestionTypeEnum");
 
 const submissionSchema = new Schema(
     {
@@ -39,6 +40,11 @@ const submissionSchema = new Schema(
                             type: Schema.Types.ObjectId,
                             required: true
                         },
+                        type: {
+                          type: String,
+                          required: true,
+                          enum: [...Object.values(QuestionTypeEnum)],
+                        },
                         outcome: {
                             type: String,
                             default: outcomeEnum.SKIPPED,
@@ -48,9 +54,24 @@ const submissionSchema = new Schema(
                             required: true,
                             type: String
                         },
-                        response: String,
-                        selected: Number,
-                        decision: Boolean
+                        response: {
+                          type: Schema.Types.Mixed,
+                          required: function () {
+                            return this.type === QuestionTypeEnum.SHORT;
+                          }
+                        },
+                        selected: {
+                          type: Schema.Types.Mixed,
+                          required: function () {
+                            return this.type === QuestionTypeEnum.MCQ;
+                          }
+                        },
+                        decision: {
+                          type: Schema.Types.Mixed,
+                          required: function () {
+                            return this.type === QuestionTypeEnum.TF;
+                          }
+                        },
                     }
                 ],
                 stats: {
@@ -83,4 +104,4 @@ const submissionSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model("topic", submissionSchema);
+module.exports = mongoose.model("submission", submissionSchema);
