@@ -12,6 +12,8 @@ require("./resources/services/passportSetup");
 const userAuthRoute = require("./resources/routes/userAuthRoute");
 const topicRoute = require("./resources/routes/topicRoute");
 const questionRoute = require("./resources/routes/questionRoute");
+const attemptRoute = require("./resources/routes/attemptRoute");
+const submissionRoute = require("./resources/routes/submissionRoute");
 
 dotenv.config();
 
@@ -64,6 +66,8 @@ app.use(
 app.use("/api/auth", userAuthRoute);
 app.use("/api/topic", topicRoute);
 app.use("/api/question", questionRoute)
+app.use("/api/attempt", attemptRoute)
+app.use("/api/submission", submissionRoute)
 
 app.listen(PORT, () => {
   console.log(`server is listening at ${PORT}`);
