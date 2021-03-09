@@ -16,16 +16,6 @@ const topicSchema = new Schema(
       required: true,
     },
     questions: [{
-      _id: false,
-      id: {
-        type: String,
-        default: function () {
-          return uuid.v4()
-        },
-        required: true,
-        unique: true,
-        immutable: true
-      },
       type: {
         type: String,
         required: true,
