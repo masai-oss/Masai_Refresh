@@ -45,9 +45,9 @@ const addQuestion = async (req, res) => {
 };
 
 const updateQuestion = async (req, res) => {
-  const { topic: name, id } = req.params;
+  const { topic: name, id: _id } = req.params;
   const questionData = req.body;
-  const { stats, id: questionId, topic, ...question } = questionData;
+  const { stats, _id: questionId, topic, ...question } = questionData;
   const { error: statsError } = statsValidate(stats);
   if (statsError) {
     return res.status(400).json({
@@ -76,11 +76,11 @@ const updateQuestion = async (req, res) => {
     let updatedQuestion = await Topic.updateOne(
       {
         name: name,
-        "questions.id": id,
+        "questions._id": _id,
       },
       {
         $set: {
-          "questions.$": { ...question, id, stats },
+          "questions.$": { ...question, _id, stats },
         },
       }
     );
@@ -121,7 +121,7 @@ const deleteQuestion = async (req, res) => {
       },
       {
         $pull: {
-          questions: { id: id },
+          questions: { _id: id },
         },
       }
     );
@@ -210,7 +210,9 @@ const getAllQuestion = async (req, res) => {
     }
     let allQuestions = [];
     questions[0].allQuestions.forEach((topicQue) => {
-      allQuestions.push(...topicQue);
+      if (topicQue.length !== undefined) {
+        allQuestions.push(...topicQue);
+      }
     });
     let paginatedResults = pagination(page, limit, allQuestions);
     return res.status(200).json({
@@ -242,7 +244,7 @@ const getQuestionByTopic = async (req, res) => {
       {
         name: name,
       },
-      { _id: 0, icon: 0, name: 0 }
+      { icon: 0, name: 0 }
     );
     if (!findedQuestion.length) {
       return res.status(400).json({
@@ -269,7 +271,7 @@ const getQuestionById = async (req, res) => {
   const { id } = req.params;
   try {
     let findedQuestion = await Topic.find(
-      { questions: { $elemMatch: { id: id } } },
+      { questions: { $elemMatch: { _id: id } } },
       { "questions.$": 1, _id: 0 }
     );
     if (!findedQuestion.length) {
@@ -278,6 +280,7 @@ const getQuestionById = async (req, res) => {
         message: "Question not present",
       });
     }
+    const [{ questions }] = findedQuestion;
     return res.status(200).json({
       error: false,
       message: "Question found successfully",
