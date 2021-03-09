@@ -183,7 +183,12 @@ const getAllQuestion = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
   try {
-    if (page < 1) throw new Error("The page no must be greater than 0");
+    if (page < 1) {
+      return res.status(400).json({
+        error: true,
+        message: "The Page No must be greater than 0",
+      });
+    }
     let questions = await Topic.aggregate([
       {
         $addFields: {
