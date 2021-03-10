@@ -62,7 +62,20 @@ const createAttempt = async ( req, res ) => {
 }
 
 const nextAttempt = async(req, res) => {
-    
+    let { topic_id, attempt_id, question, submission_id } = req.body
+
+    // try{
+    //     await Submission.aggregate([
+    //         {
+    //             $match: {
+    //                 _id: require('mongodb').ObjectID(topic_id)
+    //             }
+    //         }
+    //     ])
+    // }
+    // catch(err){
+    //     res.status(400).json({error: true, message: err})
+    // }
 }
 
 module.exports = {
