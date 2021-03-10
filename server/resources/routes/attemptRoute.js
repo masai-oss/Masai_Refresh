@@ -4,6 +4,6 @@ const {
 } = require("../controller/attemptController");
 const { authenticateToken } = require("../controller/authController");
 
-attemptRoute.post('/create/:topic_id', authenticateToken, createAttempt);
+attemptRoute.post('/create', authenticateToken, createAttempt);
 
 module.exports = attemptRoute;
