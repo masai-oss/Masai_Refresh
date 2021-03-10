@@ -4,8 +4,7 @@ const TopicsEnum = require('../utils/enums/TopicsEnum')
 
 const createAttempt = async ( req, res ) => {
     let { id : user_id } = req
-    let { topic_id } = req.params
-    let { size } = req.body
+    let { size, topic_id } = req.body
     if(!size){
         size = 5
     }
@@ -50,7 +49,7 @@ const createAttempt = async ( req, res ) => {
             let submission = await Submission.findOne({topic_id, user_id})
             let attempts = submission.attempts
             let latestAttempt = attempts[attempts.length - 1]
-            res.status(200).json({error: false, data: { questions: latestAttempt.questions, id: latestAttempt._id }})
+            res.status(200).json({error: false, data: { questions: latestAttempt.questions, attempt_id: latestAttempt._id, submission_id: submission._id  }})
         }
         else{
             throw "New Practice Quiz attempt could not be created."
