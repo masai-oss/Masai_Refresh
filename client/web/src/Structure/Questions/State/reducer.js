@@ -1,7 +1,7 @@
 import { questionConstant } from "./actionTypes";
 
 const initState = {
-  questions: [],
+  question: "",
   isLoading: false,
   isError: false,
   errorMessage: "",
@@ -29,7 +29,7 @@ const practise = (state = initState, { type, payload }) => {
         isLoading: false,
         isError: false,
         errorMessage: "",
-        questions: payload.data,
+        question: payload.data,
       };
 
     default:

@@ -1,6 +1,6 @@
 import React from "react";
 
-function TrueFalseQuestion({ data }) {
+function TrueFalseQuestion({ data, answer, answering }) {
   return (
     <div>
       <div>{data.statement}</div>

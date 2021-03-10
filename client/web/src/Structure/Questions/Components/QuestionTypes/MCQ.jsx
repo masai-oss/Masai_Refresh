@@ -1,6 +1,6 @@
 import React from "react";
 
-function MCQ({ data }) {
+function MCQ({ data, answer, answering }) {
   const { statement, options } = data;
   return (
     <div>

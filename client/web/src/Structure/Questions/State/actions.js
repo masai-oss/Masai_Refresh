@@ -18,8 +18,49 @@ export const getQuestionFailure = (payload) => ({
 
 export const getQuestions = (payload) => (dispatch) => {
   dispatch(getQuestionRequest());
-  axios
-    .get("http://localhost:3004/questions")
+  axios({
+    method: "POST",
+    url: `/api/quiz/attempt/${payload.questionNo}`,
+    headers: "bearer-token",
+    data: {
+      topic: `${payload.topic}`,
+      topicId: `${payload.topicId}`,
+      status: "begin",
+    },
+  })
     .then((res) => dispatch(getQuestionsSuccess(res)))
     .catch((err) => dispatch(getQuestionFailure(err)));
+};
+
+export const attemptNextQuestion = (payload) => (dispatch) => {
+  dispatch(getQuestionRequest());
+  axios({
+    method: "POST",
+    url: `/api/quiz/attempt/${payload.questionNo}`,
+    headers: "bearer-token",
+    data: {
+      quizId: `${payload.quizId}`,
+      status: "continue",
+    },
+  })
+    .then((res) => dispatch(getQuestionsSuccess(res)))
+    .catch((err) => dispatch(getQuestionFailure(err)));
+};
+
+export const getNextQuestion = (payload) => (dispatch) => {
+  axios({
+    method: "POST",
+    url: `/api/quiz/answer/${payload.questionNo - 1}`,
+    headers: "",
+    data: {
+      topic: `${payload.topic}`,
+      quizId: `${payload.quizId}`,
+      questionId: `${payload.questionId}`,
+      type: `${payload.type}`,
+      answer: `${payload.answer}`,
+    },
+  })
+    .then((res) => dispatch(saveAnswer(res)))
+    .then(() => dispatch(attemptNextQuestion(payload)))
+    .catch((err) => dispatch(failure(err)));
 };
