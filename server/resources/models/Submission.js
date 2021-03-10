@@ -47,12 +47,12 @@ const submissionSchema = new Schema(
                         },
                         outcome: {
                             type: String,
-                            default: outcomeEnum.SKIPPED,
                             enum: [...Object.values(outcomeEnum)]
                         },
                         time: {
-                            required: true,
-                            type: String
+                            type: Number,
+                            min: 0,
+                            default: null
                         },
                         response: {
                           type: Schema.Types.Mixed,
@@ -71,9 +71,13 @@ const submissionSchema = new Schema(
                           required: function () {
                             return this.type === QuestionTypeEnum.TF;
                           }
-                        },
+                        }
                     }
                 ],
+                isStatsUpdated: {
+                    type: Boolean,
+                    default: false
+                },
                 stats: {
                     alloted: {
                         type: Number,
@@ -92,8 +96,8 @@ const submissionSchema = new Schema(
                         default: 0
                     },
                     time: {
-                        required: true,
-                        type: Number
+                        type: Number,
+                        min: 0
                     }
                 }
             }
@@ -104,4 +108,4 @@ const submissionSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model("submission", submissionSchema);
+module.exports = mongoose.model("submissions", submissionSchema);
