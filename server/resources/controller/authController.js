@@ -90,7 +90,7 @@ const authenticateToken = (req, res, next) => {
       req.id = id;
       const isAdmin = email.split("@")[1] === ADMIN_CONTROL_EMAIL;
       const currentUser = await User.find({ _id: id });
-      if (!currentUser) {
+      if (!currentUser.length) {
         return res.status(401).json({
           error: true,
           message: "User was not present",
@@ -98,7 +98,7 @@ const authenticateToken = (req, res, next) => {
       }
       req.isAdmin = isAdmin;
       next();
-    } catch (error) {
+    } catch (err) {
       res.status(400).json({
         error: true,
         message: err,
