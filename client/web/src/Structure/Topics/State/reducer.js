@@ -1,10 +1,13 @@
-import { topicConstant } from "./actionTypes";
+import { topicConstant, questionsConstants } from "./actionTypes";
 
 const initState = {
     isLoading: false,
     isError: false,
     errMsg:'',
-  topicsData:[]
+    topicsData: [],
+    questions: [],
+    attemptId: '',
+  submissionId:''
 };
 
 const topics = (state = initState, { type, payload }) => {
@@ -22,7 +25,6 @@ const topics = (state = initState, { type, payload }) => {
        topicsData:payload.data
       };
       case topicConstant.GET_TOPICS_FAILURE:
-          console.log(payload)
       return {
         ...state,
         isLoading: false,
@@ -30,6 +32,27 @@ const topics = (state = initState, { type, payload }) => {
         // errMsg: payload.data.message,
       };
    
+      case questionsConstants.ATTEMPT_QUIZ_LOADING:
+          return {
+              ...state,
+              isLoading: true,
+              isError: false,
+              errMsg:''
+          }
+      
+      case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
+          console.log(payload)
+          return {
+              ...state,
+                //   questions:payload
+          }
+      
+      case questionsConstants.ATTEMPT_QUIZ_FAILURE:
+          return {
+              ...state,
+              isError: true,
+              //errMsg:payload.data.message
+          }
   
     default:
       return state;

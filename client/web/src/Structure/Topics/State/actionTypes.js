@@ -4,4 +4,11 @@ const topicConstant = {
   GET_TOPICS_FAILURE: "GET_TOPICS_FAILURE",
 };
 
-export { topicConstant };
+const questionsConstants = {
+ ATTEMPT_QUIZ_LOADING: 'ATTEMPT_QUIZ_LOADING',   
+ ATTEMPT_QUIZ_SUCCESS: 'ATTEMPT_QUIZ_SUCCESS',   
+ ATTEMPT_QUIZ_FAILURE: 'ATTEMPT_QUIZ_FAILURE'   
+}
+
+export { topicConstant, questionsConstants };
+  
