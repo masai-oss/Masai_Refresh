@@ -6,15 +6,20 @@ const {
     addTopic,
     deleteTopic,
     editTopic,
-    replaceTopic
+    replaceTopic,
+    getTopicsSummary
 } = require("../controller/topicController");
+const { authenticateToken } = require("../controller/authController");
+const { checkAdmin } = require("../utils/validation/adminValidation");
 
-topicRoute.get('/', getAllTopics);
-topicRoute.get('/byId/:id', getTopicById);
-topicRoute.get('/byName/:name', getTopicByName);
-topicRoute.post('/create', addTopic);
-topicRoute.delete('/:id', deleteTopic);
-topicRoute.patch('/:id', editTopic);
-topicRoute.put('/:id', replaceTopic);
+
+topicRoute.get('/', authenticateToken, checkAdmin, getAllTopics);
+topicRoute.get("/id/:id", authenticateToken, checkAdmin, getTopicById);
+topicRoute.get("/name/:name", authenticateToken, checkAdmin, getTopicByName);
+topicRoute.get("/summary", authenticateToken, getTopicsSummary);
+topicRoute.post("/create", authenticateToken, checkAdmin, addTopic);
+topicRoute.delete("/:id", authenticateToken, checkAdmin, deleteTopic);
+topicRoute.patch("/:id", authenticateToken, checkAdmin, editTopic);
+topicRoute.put("/:id", authenticateToken, checkAdmin, replaceTopic);
 
 module.exports = topicRoute;

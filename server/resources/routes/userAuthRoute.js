@@ -5,7 +5,8 @@ const {
   isLoggedIn,
   successRedirect,
   getUser,
-  loginFailure
+  loginUser,
+  loginFailure,
 } = require("../controller/authController");
 
 userAuthRoute.get(
@@ -24,5 +25,8 @@ userAuthRoute.get(
 userAuthRoute.get("/current_user", isLoggedIn, getUser);
 userAuthRoute.get("/login/failed", loginFailure);
 userAuthRoute.get("/logout", logoutController);
+
+// Android will send the info sent by google to backend will be verified, stored and token will be sent as response
+userAuthRoute.post("/login_user", loginUser);
 
 module.exports = userAuthRoute;
