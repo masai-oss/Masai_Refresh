@@ -2,7 +2,6 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const topics_enum = require("../utils/enums/TopicsEnum");
 const QuestionTypeEnum = require("../utils/enums/QuestionTypeEnum");
-const uuid = require("uuid")
 const topicSchema = new Schema(
   {
     name: {
@@ -33,13 +32,13 @@ const topicSchema = new Schema(
         type: Boolean,
         required: function () {
           return this.type === QuestionTypeEnum.TF;
-        },
+        }
       },
       answer: {
         type: String,
         required: function () {
           return this.type === QuestionTypeEnum.SHORT;
-        },
+        }
       },
       options: {
         type: [
