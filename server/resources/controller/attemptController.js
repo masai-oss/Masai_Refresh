@@ -61,6 +61,11 @@ const createAttempt = async ( req, res ) => {
     } 
 }
 
+const nextAttempt = async(req, res) => {
+    
+}
+
 module.exports = {
-    createAttempt
+    createAttempt,
+    nextAttempt
 }

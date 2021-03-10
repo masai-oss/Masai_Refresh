@@ -78,6 +78,11 @@ const submissionSchema = new Schema(
                     type: Boolean,
                     default: false
                 },
+                current_question: {
+                    type: Number,
+                    default: 0,
+                    required: true
+                },
                 stats: {
                     alloted: {
                         type: Number,
