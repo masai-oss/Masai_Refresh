@@ -1,7 +1,7 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
-import { authentication } from "./Structure/Authentication"
-import {admin} from './Structure/Admin/State/reducer'
+import { authentication } from "./Structure/Admin/index"
+import {admin} from './Structure/Admin/index'
 
 const reducers = {
   admin, 
