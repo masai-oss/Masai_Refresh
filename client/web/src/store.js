@@ -4,7 +4,8 @@ import { authentication } from "./Structure/Authentication"
 import {admin} from './Structure/Admin/State/reducer'
 
 const reducers = {
-  admin
+  admin, 
+  authentication
 }
 
 let composeEnhancers = compose;
