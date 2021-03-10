@@ -3,9 +3,6 @@ import { adminConstants } from "./actionTypes";
 const initState = {
     topicsData: [],
     isLoading: false,
-    isPosting: false,
-    isDeleting: false,
-    isUpdating: false,
     topicPostedSuccessfully: false,
     topicPostFailed: false,
     errorMessage: "",
@@ -34,21 +31,21 @@ const admin = (state= initState, {type, payload}) => {
         case adminConstants.POST_CRUD_TOPICS_REQUEST:
             return{
                 ...state,
-                isPosting: true,
+                isLoading: true,
                 topicPostedSuccessfully: false
             }
         case adminConstants.POST_CRUD_TOPICS_SUCCESS:
             return{
                 ...state,
                 topicsData: [...state.topicsData, ...payload],
-                isPosting: false,
+                isLoading: false,
                 topicPostedSuccessfully: true
             }
         case adminConstants.POST_CRUD_TOPICS_FAILURE:
             return{
                 ...state,
                 errorMessage: payload,
-                isPosting: false
+                isLoading: false
             }
         case adminConstants.GET_BY_CRUD_TOPIC_ID_REQUEST:
             return{
@@ -70,35 +67,35 @@ const admin = (state= initState, {type, payload}) => {
         case adminConstants.DELETE_CRUD_TOPIC_REQUEST:
             return{
                 ...state,
-                isDeleting: true,
+                isLoading: true,
             }
         case adminConstants.DELETE_CRUD_TOPIC_SUCCESS:
             return{
                 ...state,
-                isDeleting: false,
+                isLoading: false,
             }
         case adminConstants.DELETE_CRUD_TOPIC_FAILURE:
             return{
                 ...state,
                 errorMessage: payload,
-                isDeleting: false
+                isLoading: false
             }
         case adminConstants.PUT_CRUD_TOPIC_REQUEST:
             return{
                 ...state,
-                isUpdating: true,
+                isLoading: true,
                 topicPostedSuccessfully: false
             }
         case adminConstants.PUT_CRUD_TOPIC_SUCCESS:
             return{
                 ...state,
-                isUpdating: false,
+                isLoading: false,
             }
         case adminConstants.PUT_CRUD_TOPIC_FAILURE:
             return{
                 ...state,
                 errorMessage: payload,
-                isUpdating: false
+                isLoading: false
             }
         default:
             return{
