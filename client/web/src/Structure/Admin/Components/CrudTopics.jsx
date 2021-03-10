@@ -27,7 +27,6 @@ export const CrudTopics = () => {
 
     const deleteTopic = () => {
         const id = topicsData.find(el => el.name == topicName1)._id
-        // console.log(id)
         setTopicName1("")
         dispatch(adminActions.deleteCrudTopic(id))
         

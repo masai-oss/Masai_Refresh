@@ -17,7 +17,6 @@ export const SearchByTopic = () => {
             name: topicName,
             icon: "/fakePath"
         }
-        console.log(params.id)
         dispatch(adminActions.updateCrudTopics(payload, params.id))
         setTimeout(() => {
             window.location.reload()
@@ -26,7 +25,7 @@ export const SearchByTopic = () => {
 
     useEffect(() => {
         dispatch(adminActions.getCrudTopicById(params.id))
-    }, [])
+    }, [dispatch, params.id])
 
     console.log(currentTopicData)
     return (

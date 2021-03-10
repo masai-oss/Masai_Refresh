@@ -26,14 +26,14 @@ const getCrudTopicsFailure = (payload) => {
 
 const getCrudTopics = () => async (dispatch) => {
     dispatch(getCrudTopicsRequest())
-
+    let token = localStorage.getItem("token");
     const config = {
         method: "get",
-        url: TOPIC_API
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        //   "Content-Type": "application/json",
-        // },
+        url: TOPIC_API,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
     };
 
     try {
@@ -71,15 +71,15 @@ const postCrudTopicsFailure = (payload) => {
 
 const postCrudTopics = (payload) => async (dispatch) => {
     dispatch(postCrudTopicsRequest())
-
+    let token = localStorage.getItem("token");
     const config = {
         method: "post",
         url: `${TOPIC_API}/create`,
-        data: payload
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        //   "Content-Type": "application/json",
-        // },
+        data: payload,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
     };
 
     try {
@@ -117,14 +117,14 @@ const getCrudTopicByIdFailure = (payload) => {
 
 const getCrudTopicById = (payload) => async (dispatch) => {
     dispatch(getCrudTopicByIdRequest())
-
+    let token = localStorage.getItem("token");
     const config = {
         method: "get",
-        url: `${TOPIC_API}/id/${payload}`
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        //   "Content-Type": "application/json",
-        // },
+        url: `${TOPIC_API}/id/${payload}`,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
     };
 
     try {
@@ -161,14 +161,14 @@ const deleteCrudTopicFailure = (payload) => {
 
 const deleteCrudTopic = (payload) => async (dispatch) => {
     dispatch(deleteCrudTopicRequest())
-
+    let token = localStorage.getItem("token");
     const config = {
         method: "delete",
         url: `${TOPIC_API}/${payload}`,
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        //   "Content-Type": "application/json",
-        // },
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
     };
 
     try {
@@ -207,15 +207,15 @@ const updateCrudTopicsFailure = (payload) => {
 
 const updateCrudTopics = (payload, id) => async (dispatch) => {
     dispatch(updateCrudTopicsRequest())
-
+    let token = localStorage.getItem("token");
     const config = {
         method: "put",
         url: `${TOPIC_API}/${id}`,
-        data: payload
-        // headers: {
-        //   Authorization: `Bearer ${token}`,
-        //   "Content-Type": "application/json",
-        // },
+        data: payload,
+        headers: {
+          Authorization: `Bearer ${token}`,
+          "Content-Type": "application/json",
+        },
     };
 
     try {
