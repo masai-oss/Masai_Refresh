@@ -5,21 +5,23 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
-import { AdminRoute } from "./AdminRoute";
-import { Login } from "../Structure/Authentication"
-import { Dashboard } from "../Structure/Dashboard"
+import { Login } from "../Structure/Authentication";
+import { Dashboard } from "../Structure/Dashboard";
+import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 
 const Route = () => {
   return (
     <>
       <Router>
         <Switch>
-          <PrivateRoute exact path="/" >
+          <PrivateRoute exact path="/">
             <Dashboard />
           </PrivateRoute>
-          <PublicRoute path="/login" >
+          <PublicRoute path="/login">
             <Login />
           </PublicRoute>
+          <PublicRoute path="/topics" exact component={CrudTopics} />
+          <PublicRoute path="/topics/:id" component={SearchByTopic} />
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>
@@ -29,5 +31,4 @@ const Route = () => {
   );
 };
 
-
-export { Route }
+export { Route };
