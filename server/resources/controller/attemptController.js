@@ -116,10 +116,6 @@ const recordAttempt = async(req, res) => {
         })
     }
     try{
-        let attempt_question = await get_attempt_question(submission_id, attempt_id, true)
-        if(!attempt_question){
-            throw new Error("The Practice quiz has ended.")
-        }
         let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? selected : decision
         await update_submission(submission_id, attempt_id, answer_type, answer)
 
@@ -138,11 +134,14 @@ const recordAttempt = async(req, res) => {
 
 
 const update_submission = async(submission_id, attempt_id, answer_type, answer) => {
-    console.log(answer)
     let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "selected" : "decision"
 
     let sub = await Submission.findOne({_id: submission_id, "attempts._id": attempt_id})
-    let current_question = sub.attempts[0].current_question
+    let current_question = sub.attempts[0].current_question - 1
+    let isStatsUpdated = sub.attempts[0].isStatsUpdated
+    if(isStatsUpdated){
+        throw new Error("The Practice Quiz has ended")
+    }
 
     await Submission.updateOne(
         {
@@ -171,11 +170,11 @@ const update_topic = async(topic_id, question_id, answer_type) => {
     )
 }
 
-const get_attempt_question = async (submission_id, attempt_id, record = false) => {
+const get_attempt_question = async (submission_id, attempt_id) => {
     let submission = await Submission.findById(submission_id)
     let attempt = submission.attempts.find(el => el._id == attempt_id)
     let current_question_index = attempt.current_question
-    return attempt.questions[record ? current_question_index - 1 : current_question_index]
+    return attempt.questions[current_question_index]
 }
 
 
