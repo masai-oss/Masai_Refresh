@@ -1,0 +1,57 @@
+import { useEffect, useState } from 'react'
+import { getQuestionsRequest } from '../State/actions'
+import { useSelector, useDispatch } from "react-redux";
+import { Row } from '../index'
+import Table from '@material-ui/core/Table';
+import TableHead from '@material-ui/core/TableHead';
+import TableRow from '@material-ui/core/TableRow';
+import TableCell from '@material-ui/core/TableCell';
+import TableBody from '@material-ui/core/TableBody';
+import TablePagination from '@material-ui/core/TablePagination';
+
+export const AllQuestions = ({handleDelete}) => {
+    const dispatch = useDispatch();
+    const questions = useSelector( state => state.admin.data )
+    const [page, setPage] = useState(0);
+    const [rowsPerPage, setRowsPerPage] = useState(10);
+  
+    const handleChangePage = (event, newPage) => {
+      setPage(newPage);
+    };
+
+    const handleChangeRowsPerPage = (event) => {
+      setRowsPerPage(event.target.value);
+      setPage(0);
+    };
+
+    useEffect(() => {
+        dispatch(getQuestionsRequest(page, rowsPerPage))
+    }, [page, rowsPerPage])
+    
+    return (
+           questions.questions !== undefined ? <>
+                <Table>
+                    <TableHead>
+                        <TableRow>
+                            <TableCell>Id</TableCell>
+                            <TableCell>topic</TableCell>
+                            <TableCell>type</TableCell>
+                            <TableCell>edit</TableCell>
+                            <TableCell>delete</TableCell>
+                        </TableRow>
+                    </TableHead>
+                    <TableBody>
+                        { questions.questions.current?.map( item => <Row handleDelete={handleDelete} key={item._id} item={item} />  ) } 
+                    </TableBody>
+                </Table>
+                <TablePagination
+                    component="div"
+                    count={questions.questions.totalCount}
+                    rowsPerPage={rowsPerPage}
+                    page={page}
+                    onChangePage={handleChangePage}
+                    onChangeRowsPerPage={handleChangeRowsPerPage}
+                />
+            </> : <div>Loading...</div>
+    )
+}

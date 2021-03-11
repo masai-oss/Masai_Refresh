@@ -8,6 +8,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication"
 import { Dashboard } from "../Structure/Dashboard"
+import { Questions } from '../Structure/Admin'
 
 const Route = () => {
   return (
@@ -19,6 +20,9 @@ const Route = () => {
           </PrivateRoute>
           <PublicRoute path="/login" >
             <Login />
+          </PublicRoute>
+          <PublicRoute exact path="/api/question" >
+            <Questions />
           </PublicRoute>
           <PublicRoute>
             <div>Error 404</div>

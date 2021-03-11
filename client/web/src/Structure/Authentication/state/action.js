@@ -43,6 +43,7 @@ const userLoginProcess = () => async (dispatch) => {
 
   try {
     const res = await axios(config);
+    console.log(res.data)
     const { user, token } = res.data
     const { name, email, profilePic } = user
     localStorage.setItem("token", token)
