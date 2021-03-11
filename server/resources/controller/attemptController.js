@@ -1,5 +1,8 @@
 const Submission = require('../models/Submission')
 const Topic = require('../models/Topic')
+const OutcomeEnum = require('../utils/enums/OutcomeEnum')
+const QuestionTypeEnum = require('../utils/enums/QuestionTypeEnum')
+const TopicsEnum = require('../utils/enums/TopicsEnum')
 const { attemptValidation, recordAnswerValidation } = require('../utils/validation/attemptValidation')
 
 const createAttempt = async ( req, res ) => {
@@ -10,8 +13,8 @@ const createAttempt = async ( req, res ) => {
     }
     if (!topic_id) {
         return res.status(400).json({
-        error: true,
-        message: "Pass Topic ID",
+            error: true,
+            message: "Pass Topic ID",
         });
     }
     try{
@@ -95,10 +98,8 @@ const nextAttempt = async(req, res) => {
         let topic = await Topic.findOne({ "questions._id" : attempt_question }, {questions: {$elemMatch: {_id: attempt_question}}})
         let topic_question = topic.questions[0]
         let question_to_send = get_question_to_send(topic_question)
+        await update_current_question_in_submission(submission_id, attempt_id)
 
-        await update_alloted_in_topic(topic._id, attempt_question)
-        await update_alloted_in_submission(submission_id, attempt_id)
-        
         res.status(200).json({error: false, data: question_to_send})
     }
     catch(err){
@@ -107,7 +108,7 @@ const nextAttempt = async(req, res) => {
 }
 
 const recordAttempt = async(req, res) => {
-    let { attempt_id, submission_id, answer_type, time } = req.body
+    let { attempt_id, submission_id, answer_type, response, selected, decision } = req.body
     const { error } = recordAnswerValidation(req.body)
     if (error) {
         return res.status(400).json({
@@ -116,13 +117,8 @@ const recordAttempt = async(req, res) => {
         })
     }
     try{
-        let attempt_question = await get_attempt_question(submission_id, attempt_id, true)
-        if(!attempt_question){
-            throw new Error("The Practice quiz has ended.")
-        }
-        let topic = await Topic.findOne({ "questions._id" : attempt_question })
-        await update_topic(topic._id, attempt_question, answer_type)
-        await update_submission(submission_id, attempt_id, answer_type, time)
+        let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? decision : selected
+        await update_submission(submission_id, attempt_id, answer_type, answer)
 
         res.status(200).json({error: false, message: "Record updated"})
     }
@@ -138,24 +134,52 @@ const recordAttempt = async(req, res) => {
 // -----------------------------------------------------------------------------------------------------------------
 
 
-const update_submission = async(submission_id, attempt_id, answer_type, time) => {
-    let key = answer_type === 1 ? "correct" : answer_type === 0 ? "wrong" : "skipped"
+const update_submission = async(submission_id, attempt_id, answer_type, answer) => {
+    let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "decision" : "selected"
 
-    let sub = await Submission.findOne({_id: submission_id, "attempts._id": attempt_id})
-    let current_question = sub.attempts[0].current_question
+    let sub = await Submission.find({
+        $and: [{ _id: submission_id, "attempts": { $elemMatch: { _id: attempt_id } } }]
+    }, {
+        "attempts.$": 1,
+        _id: 0,
+    })
+    
+    let [{ attempts }] = sub
+    let current_question = attempts[0].current_question - 1
+    let isStatsUpdated = attempts[0].isStatsUpdated
+    let question_id = attempts[0].questions[current_question]
+    if (isStatsUpdated) {
+      throw new Error(`The Practice Quiz has ended`);
+    }
 
-    let a = await Submission.updateOne(
+    let question = await Topic.aggregate([
+        {$unwind: "$questions"},
+        {$match: {"questions._id": require('mongodb').ObjectID(question_id)}},
+        {$project: 
+            {
+                question: '$questions',
+                _id: 0
+            }
+        }
+    ])
+    question = question[0]
+    let ans_type = answer_type === QuestionTypeEnum.SHORT ? "answer" : answer_type === QuestionTypeEnum.TF ? "correct" : "options"
+    
+    let val_to_compare = question.question[ans_type]
+    
+    if(ans_type === 'options'){
+        val_to_compare = val_to_compare.findIndex(el => el.correct) + 1
+    }
+    console.log(val_to_compare, answer)
+    let outcome = answer === val_to_compare ? OutcomeEnum.CORRECT : answer === -1 ? OutcomeEnum.SKIPPED : OutcomeEnum.WRONG
+    await Submission.updateOne(
         {
             _id: submission_id,
             "attempts._id": attempt_id,
         },
         {
-            $inc: {
-                [`attempts.$.stats.${key}`]: 1,
-                [`stats.${key}`] : 1,
-                'stats.time' : time,
-                [`attempts.$.answers.${current_question}.time`] : time
-            }
+            [`attempts.$.answers.${current_question}.${type}`] : answer,
+            [`attempts.$.answers.${current_question}.outcome`] : outcome,
         }
     )
 }
@@ -176,11 +200,11 @@ const update_topic = async(topic_id, question_id, answer_type) => {
     )
 }
 
-const get_attempt_question = async (submission_id, attempt_id, record = false) => {
+const get_attempt_question = async (submission_id, attempt_id) => {
     let submission = await Submission.findById(submission_id)
     let attempt = submission.attempts.find(el => el._id == attempt_id)
     let current_question_index = attempt.current_question
-    return attempt.questions[record ? current_question_index - 1 : current_question_index]
+    return attempt.questions[current_question_index]
 }
 
 
@@ -198,7 +222,7 @@ const update_alloted_in_topic = async (topic_id, question_id) => {
     )
 }
 
-const update_alloted_in_submission = async (submission_id, attempt_id) => {
+const update_current_question_in_submission = async (submission_id, attempt_id) => {
     await Submission.updateOne(
         {
             _id: submission_id,
@@ -206,9 +230,7 @@ const update_alloted_in_submission = async (submission_id, attempt_id) => {
         },
         {
             $inc: {
-                "attempts.$.stats.alloted": 1,
-                "attempts.$.current_question" : 1,
-                "stats.alloted" : 1
+                "attempts.$.current_question" : 1
             }
         }
     )
