@@ -10,7 +10,7 @@ const getAllTopics = async ( req, res ) => {
         res.status(200).json({error: false, data: result})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     } 
 }
 
@@ -22,7 +22,7 @@ const getTopicsSummary = async ( req, res ) => {
         res.status(200).json({error: false, data: result})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     } 
 }
 
@@ -40,7 +40,7 @@ const getTopicById = async ( req, res ) => {
         res.status(200).json({error: false, data: result})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     } 
 }
 
@@ -62,7 +62,7 @@ const getTopicByName = async ( req, res ) => {
         res.status(200).json({error: false, data: result})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     } 
 }
 
@@ -86,7 +86,7 @@ const addTopic = async ( req, res ) => {
         }
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     }
 }
 
@@ -105,7 +105,7 @@ const deleteTopic = async ( req, res ) => {
         res.status(200).json({error: false, message: "The topic has been deleted"})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     }
 }
 
@@ -124,7 +124,7 @@ const editTopic = async ( req, res ) => {
         res.status(200).json({error: false, message: "The topic has been updated"})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     }
 }
 
@@ -143,7 +143,7 @@ const replaceTopic = async ( req, res ) => {
         res.status(200).json({error: false, message: "The topic has been replaced"})
     }
     catch(err){
-        res.status(400).json({error: true, message: err})
+        res.status(400).json({error: true, message: `${err}`})
     }
 }
 

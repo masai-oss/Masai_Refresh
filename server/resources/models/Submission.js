@@ -41,9 +41,9 @@ const submissionSchema = new Schema(
                             required: true
                         },
                         type: {
-                          type: String,
-                          required: true,
-                          enum: [...Object.values(QuestionTypeEnum)],
+                            type: String,
+                            required: true,
+                            enum: [...Object.values(QuestionTypeEnum)],
                         },
                         outcome: {
                             type: String,
@@ -52,32 +52,28 @@ const submissionSchema = new Schema(
                         time: {
                             type: Number,
                             min: 0,
-                            default: null
+                            default: 0
                         },
                         response: {
-                          type: Schema.Types.Mixed,
-                          required: function () {
-                            return this.type === QuestionTypeEnum.SHORT;
-                          }
+                            type: Schema.Types.Mixed,
+                            required: function () {
+                                return this.type === QuestionTypeEnum.SHORT;
+                            }
                         },
                         selected: {
-                          type: Schema.Types.Mixed,
-                          required: function () {
-                            return this.type === QuestionTypeEnum.MCQ;
-                          }
+                            type: Schema.Types.Mixed,
+                            required: function () {
+                                return this.type === QuestionTypeEnum.MCQ;
+                            }
                         },
                         decision: {
-                          type: Schema.Types.Mixed,
-                          required: function () {
-                            return this.type === QuestionTypeEnum.TF;
-                          }
+                            type: Schema.Types.Mixed,
+                            required: function () {
+                                return this.type === QuestionTypeEnum.TF;
+                            }
                         }
                     }
                 ],
-                isStatsUpdated: {
-                    type: Boolean,
-                    default: false
-                },
                 current_question: {
                     type: Number,
                     default: 0,
