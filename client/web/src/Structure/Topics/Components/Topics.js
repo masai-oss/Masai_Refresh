@@ -5,6 +5,8 @@ import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
 import Backdrop from "@material-ui/core/Backdrop";
 import Fade from "@material-ui/core/Fade";
+import { useHistory } from "react-router";
+import { nextQuestion } from "../../Questions/State/action";
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -23,6 +25,7 @@ const useStyles = makeStyles((theme) => ({
 function Topics() {
   const classes = useStyles();
   const dispatch = useDispatch();
+  const history = useHistory()
   useEffect(() => {
     dispatch(getTopics());
   }, []);
@@ -42,9 +45,14 @@ function Topics() {
     setOpenModal(false);
   };
 
-  const startQuiz = () => {
+  const {attemptId, submissionId} = useSelector(state => state.topics)
+
+  const startQuiz =  () => {
+    
     setOpenModal(false);
-    // console.log(selectedTopic._id);
+    dispatch(nextQuestion({ attemptId, submissionId }))
+    history.push('/questions')
+    
   };
 
   return (

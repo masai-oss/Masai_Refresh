@@ -54,5 +54,5 @@ export const attemptQuiz = payload => dispatch => {
         data: {
             topic_id: `${payload}`
         }
-    }).then(res=>dispatch(attemptQuizSuccess(res))).catch(err => dispatch(attemptQuizFailure(err)))
+    }).then(res=>dispatch(attemptQuizSuccess(res.data.data))).catch(err => dispatch(attemptQuizFailure(err)))
 }

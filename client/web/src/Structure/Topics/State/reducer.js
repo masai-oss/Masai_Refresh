@@ -42,7 +42,9 @@ const topics = (state = initState, { type, payload }) => {
           console.log(payload)
           return {
               ...state,
-                //   questions:payload
+            questions: payload.questions,
+            attemptId: payload.attempt_id,
+                  submissionId:payload.submission_id
           }
       case questionsConstants.ATTEMPT_QUIZ_FAILURE:
           return {
