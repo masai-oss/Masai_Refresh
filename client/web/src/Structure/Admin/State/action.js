@@ -2,6 +2,7 @@ import {adminConstants} from './actionTypes'
 import axios from 'axios'
 
 const TOPIC_API = process.env.REACT_APP_ADMIN_TOPIC_API_URL
+const QUESTION_URL = process.env.REACT_APP_QUESTION_URL;
 
 const getCrudTopicsRequest = () => {
     return{
@@ -247,7 +248,7 @@ const getQuestionsLoading = () => ({
   const getQuestionsRequest = (page = 1, limit = 10) => (dispatch) => {
     dispatch(getQuestionsLoading());
     const token = (localStorage.getItem('token'))
-    let url = `http://localhost:5050/api/question/all/?page=${page+1}&limit=${limit}`
+    let url = `${QUESTION_URL}/all/?page=${page+1}&limit=${limit}`
 
     axios({
       method: "get",
@@ -282,7 +283,7 @@ const getTopicsRequest = () => (dispatch) => {
 
     axios({
       method: "get",
-      url: `http://localhost:5050/api/topic`,
+      url: `${TOPIC_API}`,
       headers: {
         "Authorization": `Bearer ${token}`,
         "Content-Type": "application/json",
@@ -308,10 +309,9 @@ const getTopicsRequest = () => (dispatch) => {
   });
   
 const getQuestionsByTopicRequest = (topic) => (dispatch) => {
-    console.log(topic)
     dispatch(getQuestionsByTopicLoading());
     const token = (localStorage.getItem('token'))
-    let url = `http://localhost:5050/api/question/byTopic/${topic}`
+    let url = `${QUESTION_URL}/byTopic/${topic}`
 
     axios({
       method: "get",
@@ -321,7 +321,7 @@ const getQuestionsByTopicRequest = (topic) => (dispatch) => {
         "Content-Type": "application/json",
       },
     })
-      .then((res) => { console.log(res.data); return dispatch(getQuestionsByTopicSuccess(res.data)) } )
+      .then((res) => dispatch(getQuestionsByTopicSuccess(res.data)) )
       .catch((err) => dispatch(getQuestionsByTopicFailure(err)));
   };
 
@@ -340,10 +340,10 @@ const getQuestionsByTopicRequest = (topic) => (dispatch) => {
     payload: data
   });
   
-const addQuestionsRequest = (payload) => (dispatch) => {
+const addQuestionsRequest = (payload, topic) => (dispatch) => {
     dispatch(addQuestionsLoading());
     const token = (localStorage.getItem('token'))
-    let url = `http://localhost:5050/api/question/add/:topic/`
+    let url = `${QUESTION_URL}/add/${topic}/`
 
     axios({
       method: "post",
@@ -354,7 +354,7 @@ const addQuestionsRequest = (payload) => (dispatch) => {
       },
       data: payload
     })
-      .then((res) => { console.log(res.data); return dispatch(addQuestionsSuccess(res.data)) } )
+      .then((res) => dispatch(addQuestionsSuccess(res.data))  )
       .catch((err) => dispatch(addQuestionsFailure(err)));
   };
   
@@ -375,7 +375,7 @@ const addQuestionsRequest = (payload) => (dispatch) => {
 const deleteQuestionsRequest = (id, topic) => (dispatch) => {
     dispatch(deleteQuestionsLoading());
     const token = (localStorage.getItem('token'))
-    let url = `http://localhost:5050/api/question/delete/${topic}/${id}`
+    let url = `${QUESTION_URL}/delete/${topic}/${id}`
 
     axios({
       method: "post",
@@ -385,30 +385,15 @@ const deleteQuestionsRequest = (id, topic) => (dispatch) => {
         "Content-Type": "application/json",
       }
     })
-      .then((res) => { console.log(res.data); return dispatch(deleteQuestionsSuccess(res.data)) } )
+      .then((res) => dispatch(deleteQuestionsSuccess(res.data)) )
       .catch((err) => dispatch(deleteQuestionsFailure(err)));
   };
 
 export const adminActions = {
-    getCrudTopicsRequest,
-    getCrudTopicsSuccess,
-    getCrudTopicsFailure,
     getCrudTopics,
-    postCrudTopicsRequest,
-    postCrudTopicsSuccess,
-    postCrudTopicsFailure,
     postCrudTopics: postCrudTopics,
-    getCrudTopicByIdRequest,
-    getCrudTopicByIdSuccess,
-    getCrudTopicByIdFailure,
     getCrudTopicById,
-    deleteCrudTopicRequest,
-    deleteCrudTopicSuccess,
-    deleteCrudTopicFailure,
     deleteCrudTopic,
-    updateCrudTopicsRequest,
-    updateCrudTopicsSuccess,
-    updateCrudTopicsFailure,
     updateCrudTopics,
     getQuestionsRequest,
     getTopicsRequest,

@@ -23,7 +23,7 @@ const Route = () => {
           <PublicRoute path="/login">
             <Login />
           </PublicRoute>
-          <AdminRoute exact path="/api/question" >
+          <AdminRoute exact path="/questions" >
             <Questions />
           </AdminRoute>
           <PublicRoute exact path="/topics_user">

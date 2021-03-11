@@ -11,7 +11,8 @@ import TablePagination from '@material-ui/core/TablePagination';
 
 export const QuestionsByTopic = ({val, handleDelete}) => {
     const dispatch = useDispatch();
-    const {data} = useSelector( state => state.admin )
+    const data = useSelector( state => state.admin.data )
+    const isLoading = useSelector( state => state.admin.isLoading )
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
   
@@ -29,7 +30,7 @@ export const QuestionsByTopic = ({val, handleDelete}) => {
     }, [])
 
     return (
-        data && data.questions.length > 0 ? <>
+        !isLoading ? <>
                 <Table>
                     <TableHead>
                         <TableRow>
