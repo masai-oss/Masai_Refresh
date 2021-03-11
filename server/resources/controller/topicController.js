@@ -21,7 +21,8 @@ const getTopicsSummary = async ( req, res ) => {
         let result = await Topic.aggregate([{ $project: {name:1, total_questions: {$size: "$questions"}}}]).exec()
         res.status(200).json({error: false, data: result})
     }
-    catch(err){
+    catch (err) {
+        console.log(err)
         res.status(400).json({error: true, message: `${err}`})
     } 
 }

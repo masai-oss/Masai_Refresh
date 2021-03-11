@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { getTopics, attemptQuiz } from "../State/action";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -28,7 +28,7 @@ function Topics() {
   const history = useHistory()
   useEffect(() => {
     dispatch(getTopics());
-  }, []);
+  }, [dispatch]);
   const topicsData = useSelector((state) => state.topics.topicsData);
   const [openModal, setOpenModal] = useState(false);
     const [selectedTopic, setSelectedTopic] = useState({});

@@ -23,11 +23,11 @@ const Route = () => {
           <PublicRoute path="/login">
             <Login />
           </PublicRoute>
-          <PublicRoute exact path="/topics_user">
+          <PrivateRoute exact path="/topics_user">
             <Topics />
-          </PublicRoute>
+          </PrivateRoute>
           <PrivateRoute exact path="/questions">
-            <Questions/>
+            <Questions />
           </PrivateRoute>
           <AdminRoute exact path="/topics">
             <CrudTopics />

@@ -1,18 +1,16 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
 import thunkMiddleware from "redux-thunk";
-import { authentication } from "./Structure/Authentication"
-import {topics} from './Structure/Topics/State/reducer'
-import { admin } from './Structure/Admin'
-import {questionState} from './Structure/Questions/State/reducer'
-
+import { authentication } from "./Structure/Authentication";
+import { topics } from "./Structure/Topics";
+import { admin } from "./Structure/Admin";
+import { questions } from "./Structure/Questions";
 
 const reducers = {
   authentication,
-  admin, 
-  authentication,
+  admin,
   topics,
-   questionState
-}
+  questions,
+};
 
 let composeEnhancers = compose;
 
