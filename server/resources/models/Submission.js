@@ -47,7 +47,8 @@ const submissionSchema = new Schema(
                         },
                         outcome: {
                             type: String,
-                            enum: [...Object.values(outcomeEnum)]
+                            enum: [...Object.values(outcomeEnum)],
+                            default: outcomeEnum.SKIPPED
                         },
                         time: {
                             type: Number,
