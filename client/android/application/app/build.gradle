@@ -68,4 +68,11 @@ dependencies {
 
     // Google Auth
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
+
+    // Retrofit dependency which will be used to make network calls
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    // GSON library which is used to convert POJO to JSON and vice versa
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    // okhttp library used to observe the api call logs on LogCat
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.3'
 }
