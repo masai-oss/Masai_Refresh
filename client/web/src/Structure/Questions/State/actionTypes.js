@@ -4,4 +4,4 @@ const questionConstant = {
     GET_QUESTIONS_FAILURE: "GET_QUESTIONS_FAILURE",
   };
   
-  export { questionConstant };
+export { questionConstant };
