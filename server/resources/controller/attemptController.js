@@ -1,5 +1,6 @@
 const Submission = require('../models/Submission')
 const Topic = require('../models/Topic')
+const OutcomeEnum = require('../utils/enums/OutcomeEnum')
 const QuestionTypeEnum = require('../utils/enums/QuestionTypeEnum')
 const TopicsEnum = require('../utils/enums/TopicsEnum')
 const { attemptValidation, recordAnswerValidation } = require('../utils/validation/attemptValidation')
@@ -139,17 +140,38 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
     let sub = await Submission.findOne({_id: submission_id, "attempts._id": attempt_id})
     let current_question = sub.attempts[0].current_question - 1
     let isStatsUpdated = sub.attempts[0].isStatsUpdated
+    let question_id = sub.attempts[0].questions[current_question]
     if(isStatsUpdated){
         throw new Error("The Practice Quiz has ended")
     }
 
+    let question = await Topic.aggregate([
+        {$unwind: "$questions"},
+        {$match: {"questions._id": require('mongodb').ObjectID(question_id)}},
+        {$project: 
+            {
+                question: '$questions',
+                _id: 0
+            }
+        }
+    ])
+    question = question[0]
+    let ans_type = answer_type === QuestionTypeEnum.SHORT ? "answer" : answer_type === QuestionTypeEnum.TF ? "correct" : "options"
+    
+    let val_to_compare = question.question[ans_type]
+    
+    if(ans_type === 'options'){
+        val_to_compare = val_to_compare.findIndex(el => el.correct) + 1
+    }
+    let outcome = answer === val_to_compare ? OutcomeEnum.CORRECT : answer === -1 ? OutcomeEnum.SKIPPED : OutcomeEnum.WRONG
     await Submission.updateOne(
         {
             _id: submission_id,
             "attempts._id": attempt_id,
         },
         {
-            [`attempts.$.answers.${current_question}.${type}`] : answer
+            [`attempts.$.answers.${current_question}.${type}`] : answer,
+            [`attempts.$.answers.${current_question}.outcome`] : outcome,
         }
     )
 }
