@@ -5,10 +5,11 @@ import {
   BrowserRouter as Router,
 } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
+import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication";
 import { Dashboard } from "../Structure/Dashboard";
+import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
-import { AdminRoute } from "./AdminRoute"
 
 const Route = () => {
   return (
@@ -20,6 +21,9 @@ const Route = () => {
           </PrivateRoute>
           <PublicRoute path="/login">
             <Login />
+          </PublicRoute>
+          <PublicRoute exact path="/topics_user">
+            <Topics />
           </PublicRoute>
           <AdminRoute exact path="/topics">
             <CrudTopics />
