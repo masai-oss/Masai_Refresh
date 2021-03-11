@@ -1,9 +1,9 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { nextQuestion } from "../State/action";
-import MCQ from "./MCQ";
+import { MCQ } from "./MCQ";
 
-function Questions() {
+const Questions=()=> {
     const dispatch = useDispatch()
   const { question } = useSelector((state) => state.questionState);
     const { attemptId, submissionId } = useSelector(state => state.topics)
@@ -19,4 +19,4 @@ function Questions() {
   );
 }
 
-export default Questions;
+export { Questions }

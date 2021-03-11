@@ -1,6 +1,6 @@
 import React from 'react'
 
-function MCQ({ data }) {
+const MCQ=({ data })=> {
     const { statement, options, id } = data
     
     return (
@@ -18,4 +18,4 @@ function MCQ({ data }) {
     )
 }
 
-export default MCQ
+export { MCQ }
