@@ -2,6 +2,7 @@ import {adminConstants} from './actionTypes'
 import axios from 'axios'
 
 const TOPIC_API = process.env.REACT_APP_ADMIN_TOPIC_API_URL
+const QUESTION_URL = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
 
 const getCrudTopicsRequest = () => {
     return{
@@ -230,25 +231,174 @@ const updateCrudTopics = (payload, id) => async (dispatch) => {
 
 }
 
+const getQuestionsLoading = () => ({
+    type: adminConstants.GET_ALL_QUESTIONS_LOADING,
+  });
+  
+  const getQuestionsSuccess = (payload) => ({
+    type: adminConstants.GET_ALL_QUESTIONS_SUCCESS,
+    payload,
+  });
+  
+  const getQuestionsFailure = (data) => ({
+    type: adminConstants.GET_ALL_QUESTIONS_FAILURE,
+    payload: data
+  });
+  
+  const getQuestionsRequest = (page = 0, limit = 10) => (dispatch) => {
+    dispatch(getQuestionsLoading());
+    const token = (localStorage.getItem('token'))
+    let url = `${QUESTION_URL}/all/?page=${page+1}&limit=${limit}`
+
+    axios({
+      method: "get",
+      url: url,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) =>dispatch(getQuestionsSuccess(res.data)) )
+      .catch((err) => dispatch(getQuestionsFailure(err)));
+  };
+
+const getTopicsLoading = () => ({
+    type: adminConstants.GET_TOPICS_LOADING,
+  });
+  
+  const getTopicsSuccess = (payload) => ({
+    type: adminConstants.GET_TOPICS_SUCCESS,
+    payload,
+  });
+  
+  const getTopicsFailure = (data) => ({
+    type: adminConstants.GET_TOPICS_FAILURE,
+    payload: data,
+  });
+  
+const getTopicsRequest = () => (dispatch) => {
+    dispatch(getTopicsLoading());
+
+    const token = (localStorage.getItem('token'))
+
+    axios({
+      method: "get",
+      url: `${TOPIC_API}`,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => dispatch(getTopicsSuccess(res.data)) )
+      .catch((err) => dispatch(getTopicsFailure(err)));
+  };
+
+
+  const getQuestionsByTopicLoading = () => ({
+    type: adminConstants.GET_QUESTIONS_BY_TOPIC_LOADING,
+  });
+  
+  const getQuestionsByTopicSuccess = (payload) => ({
+    type: adminConstants.GET_QUESTIONS_BY_TOPIC_SUCCESS,
+    payload,
+  });
+  
+  const getQuestionsByTopicFailure = (data) => ({
+    type: adminConstants.GET_QUESTIONS_BY_TOPIC_FAILURE,
+    payload: data
+  });
+  
+const getQuestionsByTopicRequest = (topic) => (dispatch) => {
+    dispatch(getQuestionsByTopicLoading());
+    const token = (localStorage.getItem('token'))
+    let url = `${QUESTION_URL}/byTopic/${topic}`
+
+    axios({
+      method: "get",
+      url: url,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => dispatch(getQuestionsByTopicSuccess(res.data)) )
+      .catch((err) => dispatch(getQuestionsByTopicFailure(err)));
+  };
+
+  
+  const addQuestionsLoading = () => ({
+    type: adminConstants.ADD_QUESTION_LOADING,
+  });
+  
+  const addQuestionsSuccess = (payload) => ({
+    type: adminConstants.ADD_QUESTION_SUCCESS,
+    payload,
+  });
+  
+  const addQuestionsFailure = (data) => ({
+    type: adminConstants.ADD_QUESTION_FAILURE,
+    payload: data
+  });
+  
+const addQuestionsRequest = (payload, topic) => (dispatch) => {
+    dispatch(addQuestionsLoading());
+    const token = (localStorage.getItem('token'))
+    let url = `${QUESTION_URL}/add/${topic}/`
+
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: payload
+    })
+      .then((res) => dispatch(addQuestionsSuccess(res.data))  )
+      .catch((err) => dispatch(addQuestionsFailure(err)));
+  };
+  
+  const deleteQuestionsLoading = () => ({
+    type: adminConstants.DELETE_QUESTION_LOADING,
+  });
+  
+  const deleteQuestionsSuccess = (payload, id) => ({
+    type: adminConstants.DELETE_QUESTION_SUCCESS,
+    payload,
+    id
+  });
+  
+  const deleteQuestionsFailure = (data) => ({
+    type: adminConstants.DELETE_QUESTION_FAILURE,
+    payload: data
+  });
+  
+const deleteQuestionsRequest = (id, topic) => (dispatch) => {
+    dispatch(deleteQuestionsLoading());
+    const token = (localStorage.getItem('token'))
+    let url = `${QUESTION_URL}/delete/${topic}/${id}`
+
+    axios({
+      method: "post",
+      url: url,
+      headers: {
+        "Authorization": `Bearer ${token}`,
+        "Content-Type": "application/json",
+      }
+    })
+      .then((res) => dispatch(deleteQuestionsSuccess(res.data, id)) )
+      .catch((err) => dispatch(deleteQuestionsFailure(err)));
+  };
+
 export const adminActions = {
-    getCrudTopicsRequest,
-    getCrudTopicsSuccess,
-    getCrudTopicsFailure,
     getCrudTopics,
-    postCrudTopicsRequest,
-    postCrudTopicsSuccess,
-    postCrudTopicsFailure,
     postCrudTopics: postCrudTopics,
-    getCrudTopicByIdRequest,
-    getCrudTopicByIdSuccess,
-    getCrudTopicByIdFailure,
     getCrudTopicById,
-    deleteCrudTopicRequest,
-    deleteCrudTopicSuccess,
-    deleteCrudTopicFailure,
     deleteCrudTopic,
-    updateCrudTopicsRequest,
-    updateCrudTopicsSuccess,
-    updateCrudTopicsFailure,
-    updateCrudTopics
+    updateCrudTopics,
+    getQuestionsRequest,
+    getTopicsRequest,
+    getQuestionsByTopicRequest,
+    deleteQuestionsRequest,
+    addQuestionsRequest
 }
