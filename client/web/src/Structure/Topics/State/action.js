@@ -23,7 +23,7 @@ export const getTopics = (payload) => (dispatch) => {
   
     axios.get('http://localhost:5050/api/topic/summary', {
         headers: {
-         'Authorizaation': `Bearer ${token}`
+         'Authorization': `Bearer ${token}`
      }
  }).then(res=> dispatch(getTopicsSuccess(res.data))).catch(err=>dispatch(getTopicsFailure(err)))
 };
@@ -49,7 +49,7 @@ export const attemptQuiz = payload => dispatch => {
         method: 'POST',
         url: `${process.env.REACT_APP_ATTEMPT_URL}/create`,
         headers: {
-            Authorization: `Bearer ${token}`
+            'Authorization': `Bearer ${token}`
         },
         data: {
             topic_id: `${payload}`

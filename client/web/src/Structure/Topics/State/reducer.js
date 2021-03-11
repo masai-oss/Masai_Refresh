@@ -19,7 +19,7 @@ const topics = (state = initState, { type, payload }) => {
           isError: false,
         errMsg:''
       };
-      case topicConstant.GET_TOPICS_SUCCESS:
+    case topicConstant.GET_TOPICS_SUCCESS:
       return {
         ...state,
        topicsData:payload.data
@@ -31,7 +31,6 @@ const topics = (state = initState, { type, payload }) => {
         isError: true,
         // errMsg: payload.data.message,
       };
-   
       case questionsConstants.ATTEMPT_QUIZ_LOADING:
           return {
               ...state,
@@ -39,21 +38,18 @@ const topics = (state = initState, { type, payload }) => {
               isError: false,
               errMsg:''
           }
-      
       case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
           console.log(payload)
           return {
               ...state,
                 //   questions:payload
           }
-      
       case questionsConstants.ATTEMPT_QUIZ_FAILURE:
           return {
               ...state,
               isError: true,
               //errMsg:payload.data.message
           }
-  
     default:
       return state;
   }

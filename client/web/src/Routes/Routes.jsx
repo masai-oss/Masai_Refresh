@@ -9,6 +9,7 @@ import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication";
 import { Dashboard } from "../Structure/Dashboard";
 import { Topics } from "../Structure/Topics";
+import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 
 const Route = () => {
   return (
@@ -21,9 +22,15 @@ const Route = () => {
           <PublicRoute path="/login">
             <Login />
           </PublicRoute>
-          <PublicRoute path="/topics">
+          <PublicRoute exact path="/topics_user">
             <Topics />
           </PublicRoute>
+          <AdminRoute exact path="/topics">
+            <CrudTopics />
+          </AdminRoute>
+          <AdminRoute path="/topics/:id">
+            <SearchByTopic />
+          </AdminRoute>
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>

@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { getTopics, attemptQuiz } from "../State/action";
 import { makeStyles } from "@material-ui/core/styles";
 import Modal from "@material-ui/core/Modal";
@@ -26,13 +26,16 @@ function Topics() {
   useEffect(() => {
     dispatch(getTopics());
   }, []);
-  const { topicsData } = useSelector((state) => state.topics);
+  const topicsData = useSelector((state) => state.topics.topicsData);
   const [openModal, setOpenModal] = useState(false);
-  const [selectedTopic, setSelectedTopic] = useState({});
+    const [selectedTopic, setSelectedTopic] = useState({});
+    
   const attemptQuiz1 = (topicId) => {
     setOpenModal(true);
     let topic = topicsData.find((topic) => topic._id === topicId);
-    setSelectedTopic(topic);
+      setSelectedTopic(topic);
+      dispatch(attemptQuiz(topic._id));
+
   };
 
   const handleClose = () => {
@@ -41,8 +44,7 @@ function Topics() {
 
   const startQuiz = () => {
     setOpenModal(false);
-    console.log(selectedTopic._id);
-    dispatch(attemptQuiz(selectedTopic._id));
+    // console.log(selectedTopic._id);
   };
 
   return (
