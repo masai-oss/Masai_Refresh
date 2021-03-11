@@ -74,6 +74,11 @@ const submissionSchema = new Schema(
                         }
                     }
                 ],
+                isStatsUpdated: {
+                    type: Boolean,
+					default: false,
+					required: true
+                },
                 current_question: {
                     type: Number,
                     default: 0,

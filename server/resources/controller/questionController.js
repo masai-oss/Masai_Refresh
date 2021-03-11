@@ -39,7 +39,7 @@ const addQuestion = async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err,
+      reason: `${err}`,
     });
   }
 };
@@ -99,7 +99,7 @@ const updateQuestion = async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err,
+      reason: `${err}`,
     });
   }
 };
@@ -139,7 +139,7 @@ const deleteQuestion = async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err,
+      reason: `${err}`,
     });
   }
 };
@@ -224,7 +224,7 @@ const getAllQuestion = async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err.message,
+      reason: `${err}`,
     });
   }
 };
@@ -262,7 +262,7 @@ const getQuestionByTopic = async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err,
+      reason: `${err}`,
     });
   }
 };
@@ -290,7 +290,7 @@ const getQuestionById = async (req, res) => {
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      reason: err,
+      reason: `${err}`,
     });
   }
 };
