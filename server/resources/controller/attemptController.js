@@ -117,7 +117,7 @@ const recordAttempt = async(req, res) => {
         })
     }
     try{
-        let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? selected : decision
+        let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? decision : selected
         await update_submission(submission_id, attempt_id, answer_type, answer)
 
         res.status(200).json({error: false, message: "Record updated"})
@@ -135,7 +135,7 @@ const recordAttempt = async(req, res) => {
 
 
 const update_submission = async(submission_id, attempt_id, answer_type, answer) => {
-    let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "selected" : "decision"
+    let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "decision" : "selected" 
 
     let sub = await Submission.findOne({_id: submission_id, "attempts._id": attempt_id})
     let current_question = sub.attempts[0].current_question - 1
@@ -163,6 +163,7 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
     if(ans_type === 'options'){
         val_to_compare = val_to_compare.findIndex(el => el.correct) + 1
     }
+    console.log(val_to_compare, answer)
     let outcome = answer === val_to_compare ? OutcomeEnum.CORRECT : answer === -1 ? OutcomeEnum.SKIPPED : OutcomeEnum.WRONG
     await Submission.updateOne(
         {
