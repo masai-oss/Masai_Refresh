@@ -343,7 +343,7 @@ const getQuestionsByTopicRequest = (topic) => (dispatch) => {
 const addQuestionsRequest = (payload, topic) => (dispatch) => {
     dispatch(addQuestionsLoading());
     const token = (localStorage.getItem('token'))
-    let url = `${QUESTION_URL}/add/${topic}/`
+    let url = `${QUESTION_URL}/create/${topic}/`
 
     axios({
       method: "post",
@@ -354,8 +354,8 @@ const addQuestionsRequest = (payload, topic) => (dispatch) => {
       },
       data: payload
     })
-      .then((res) => dispatch(addQuestionsSuccess(res.data))  )
-      .catch((err) => dispatch(addQuestionsFailure(err)));
+    .then((res) => { console.log(res.data);  dispatch(addQuestionsSuccess(res.data)) })
+    .catch((err) => { console.log(err); return dispatch(addQuestionsFailure(err)) });
   };
   
   const deleteQuestionsLoading = () => ({
@@ -379,7 +379,7 @@ const deleteQuestionsRequest = (id, topic) => (dispatch) => {
     let url = `${QUESTION_URL}/delete/${topic}/${id}`
 
     axios({
-      method: "post",
+      method: "delete",
       url: url,
       headers: {
         "Authorization": `Bearer ${token}`,

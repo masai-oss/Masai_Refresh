@@ -13,6 +13,8 @@ export const AllQuestions = ({handleDelete}) => {
     const dispatch = useDispatch();
     const questions = useSelector( state => state.admin.data )
     const isLoading = useSelector( state => state.admin.isLoading )
+    const questionDeletionStatus = useSelector( state => state.admin.questionDeletionStatus )
+    const questionAddedStatus = useSelector( state => state.admin.questionAddedStatus )
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
   
@@ -27,7 +29,11 @@ export const AllQuestions = ({handleDelete}) => {
 
     useEffect(() => {
         dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
-    }, [page, rowsPerPage])
+    }, [page, rowsPerPage, questionDeletionStatus, questionAddedStatus])
+
+    // useEffect(() => {
+    //     dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
+    // }, [page, rowsPerPage])
     
     return (
            !isLoading && questions.questions !== undefined ? <>

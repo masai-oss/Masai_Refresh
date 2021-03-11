@@ -13,6 +13,8 @@ export const QuestionsByTopic = ({topic, handleDelete}) => {
     const dispatch = useDispatch();
     const data = useSelector( state => state.admin.data )
     const isLoading = useSelector( state => state.admin.isLoading )
+    const questionDeletionStatus = useSelector( state => state.admin.questionDeletionStatus )
+    const questionAddedStatus = useSelector( state => state.admin.questionAddedStatus )
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
   
@@ -27,7 +29,7 @@ export const QuestionsByTopic = ({topic, handleDelete}) => {
 
     useEffect(() => {
         dispatch( adminActions.getQuestionsByTopicRequest(topic) )
-    }, [])
+    }, [questionDeletionStatus, questionAddedStatus])
 
     return (
         !isLoading ? <>
@@ -43,8 +45,8 @@ export const QuestionsByTopic = ({topic, handleDelete}) => {
                     </TableHead>
                     <TableBody>
                         { data.questions?.map( (item, idx) => {
-                            item.topic = topic
-                            return idx < (page + 1) * rowsPerPage && idx >= (page) * rowsPerPage && <Row handleDelete={handleDelete} key={item._id} item={item} />
+                            // item.topic = topic
+                            return idx < (page + 1) * rowsPerPage && idx >= (page) * rowsPerPage && <Row handleDelete={handleDelete} topic={topic} key={item._id} item={item} />
                         } ) } 
                     </TableBody>
                 </Table>

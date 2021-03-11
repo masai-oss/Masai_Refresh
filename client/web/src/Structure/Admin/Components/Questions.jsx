@@ -6,6 +6,7 @@ import Container from '@material-ui/core/Container';
 import { adminActions } from '../State/action'
 import { AllQuestions, QuestionsByTopic, AddQuestion } from '../'
 import Modal from '@material-ui/core/Modal';
+import Button from '@material-ui/core/Button';
 
 export const Questions = () => {
     const dispatch = useDispatch()
@@ -40,14 +41,14 @@ export const Questions = () => {
                         topics.data?.map( item => <option key={item.name} value={item.name}>{item.name}</option> )
                     }
                 </Select>
-                <button onClick={ () => setOpen(prev => !prev ) }>add</button>
+                <Button variant="outlined" color="primary" onClick={ () => setOpen(prev => !prev ) }>add</Button>
             </Box>
             <Box>
                 { topic === "all" && <AllQuestions handleDelete={handleDelete} /> }
                { topic !== "all" && <QuestionsByTopic handleDelete={handleDelete} topic= {topic} /> }
             </Box>
             <Modal open={open}>
-                <AddQuestion setOpen={setOpen} />
+                <AddQuestion topics={topics} setOpen={setOpen} />
             </Modal>
         </Container>        
     )
