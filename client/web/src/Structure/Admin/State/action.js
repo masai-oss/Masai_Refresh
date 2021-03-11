@@ -2,7 +2,7 @@ import {adminConstants} from './actionTypes'
 import axios from 'axios'
 
 const TOPIC_API = process.env.REACT_APP_ADMIN_TOPIC_API_URL
-const QUESTION_URL = process.env.REACT_APP_QUESTION_URL;
+const QUESTION_URL = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
 
 const getCrudTopicsRequest = () => {
     return{
@@ -245,7 +245,7 @@ const getQuestionsLoading = () => ({
     payload: data
   });
   
-  const getQuestionsRequest = (page = 1, limit = 10) => (dispatch) => {
+  const getQuestionsRequest = (page = 0, limit = 10) => (dispatch) => {
     dispatch(getQuestionsLoading());
     const token = (localStorage.getItem('token'))
     let url = `${QUESTION_URL}/all/?page=${page+1}&limit=${limit}`
@@ -362,9 +362,10 @@ const addQuestionsRequest = (payload, topic) => (dispatch) => {
     type: adminConstants.DELETE_QUESTION_LOADING,
   });
   
-  const deleteQuestionsSuccess = (payload) => ({
+  const deleteQuestionsSuccess = (payload, id) => ({
     type: adminConstants.DELETE_QUESTION_SUCCESS,
     payload,
+    id
   });
   
   const deleteQuestionsFailure = (data) => ({
@@ -385,7 +386,7 @@ const deleteQuestionsRequest = (id, topic) => (dispatch) => {
         "Content-Type": "application/json",
       }
     })
-      .then((res) => dispatch(deleteQuestionsSuccess(res.data)) )
+      .then((res) => dispatch(deleteQuestionsSuccess(res.data, id)) )
       .catch((err) => dispatch(deleteQuestionsFailure(err)));
   };
 

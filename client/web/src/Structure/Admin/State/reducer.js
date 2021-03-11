@@ -90,7 +90,8 @@ const admin = (state = initState, { type, payload }) => {
       return{
         ...state,
         isLoading: false,
-        data: [...state.data, payload]
+        data: state.data?.filter( item => item._id !== payload.id ),
+        errorMessage: payload.payload
       }
     case adminConstants.DELETE_QUESTION_FAILURE:
       return{

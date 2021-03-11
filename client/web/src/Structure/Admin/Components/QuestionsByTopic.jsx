@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 
-export const QuestionsByTopic = ({val, handleDelete}) => {
+export const QuestionsByTopic = ({topic, handleDelete}) => {
     const dispatch = useDispatch();
     const data = useSelector( state => state.admin.data )
     const isLoading = useSelector( state => state.admin.isLoading )
@@ -26,7 +26,7 @@ export const QuestionsByTopic = ({val, handleDelete}) => {
     };
 
     useEffect(() => {
-        dispatch( adminActions.getQuestionsByTopicRequest(val) )
+        dispatch( adminActions.getQuestionsByTopicRequest(topic) )
     }, [])
 
     return (
@@ -43,7 +43,7 @@ export const QuestionsByTopic = ({val, handleDelete}) => {
                     </TableHead>
                     <TableBody>
                         { data.questions?.map( (item, idx) => {
-                            item.topic = val
+                            item.topic = topic
                             return idx < (page + 1) * rowsPerPage && idx >= (page) * rowsPerPage && <Row handleDelete={handleDelete} key={item._id} item={item} />
                         } ) } 
                     </TableBody>

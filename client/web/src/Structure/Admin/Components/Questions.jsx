@@ -10,7 +10,7 @@ import Modal from '@material-ui/core/Modal';
 export const Questions = () => {
     const dispatch = useDispatch()
     const topics = useSelector( state => state.admin.topics)
-    const [val, setVal] = useState('all')
+    const [topic, setTopic] = useState('all')
     const [open, setOpen] = useState(false)
 
     const handleDelete = (id, topic) => {
@@ -18,7 +18,7 @@ export const Questions = () => {
     }
 
     const handleChange = value => {
-        setVal(value)
+        setTopic(value)
 
         if( value === "all" ){
             dispatch( adminActions.getQuestionsRequest() )
@@ -34,7 +34,7 @@ export const Questions = () => {
     return (
         <Container>
             <Box>
-                <Select value={val} onChange={ e => handleChange( e.target.value ) } >
+                <Select value={topic} onChange={ e => handleChange( e.target.value ) } >
                     <option value = "all">ALL</option>
                     {
                         topics.data?.map( item => <option key={item.name} value={item.name}>{item.name}</option> )
@@ -43,8 +43,8 @@ export const Questions = () => {
                 <button onClick={ () => setOpen(prev => !prev ) }>add</button>
             </Box>
             <Box>
-                { val === "all" && <AllQuestions handleDelete={handleDelete} /> }
-               { val !== "all" && <QuestionsByTopic handleDelete={handleDelete} val= {val} /> }
+                { topic === "all" && <AllQuestions handleDelete={handleDelete} /> }
+               { topic !== "all" && <QuestionsByTopic handleDelete={handleDelete} topic= {topic} /> }
             </Box>
             <Modal open={open}>
                 <AddQuestion setOpen={setOpen} />
