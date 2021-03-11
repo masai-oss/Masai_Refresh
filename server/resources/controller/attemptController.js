@@ -2,6 +2,7 @@ const Submission = require('../models/Submission')
 const Topic = require('../models/Topic')
 const QuestionTypeEnum = require('../utils/enums/QuestionTypeEnum')
 const TopicsEnum = require('../utils/enums/TopicsEnum')
+const { attemptValidation, recordAnswerValidation } = require('../utils/validation/attemptValidation')
 
 const createAttempt = async ( req, res ) => {
     let { id : user_id } = req
@@ -9,7 +10,12 @@ const createAttempt = async ( req, res ) => {
     if(!size){
         size = 5
     }
-
+    if (!topic_id) {
+        return res.status(400).json({
+        error: true,
+        message: "Pass Topic ID",
+        });
+    }
     try{
 
         let answers = await Topic.aggregate([
@@ -75,7 +81,13 @@ const createAttempt = async ( req, res ) => {
 
 const nextAttempt = async(req, res) => {
     let { attempt_id, submission_id } = req.body
-
+    const { error } = attemptValidation(req.body)
+    if (error) {
+        return res.status(400).json({
+            error: true,
+            message: error.details[0].message,
+        });
+    }
     try{
         let attempt_question = await get_attempt_question(submission_id, attempt_id)
         if(!attempt_question){
@@ -96,6 +108,13 @@ const nextAttempt = async(req, res) => {
 
 const recordAttempt = async(req, res) => {
     let { attempt_id, submission_id, answer_type, response, selected, decision } = req.body
+    const { error } = recordAnswerValidation(req.body)
+    if (error) {
+        return res.status(400).json({
+            error: true,
+            err: error.details[0].message
+        })
+    }
     try{
         let attempt_question = await get_attempt_question(submission_id, attempt_id, true)
         if(!attempt_question){
@@ -146,7 +165,7 @@ const update_topic = async(topic_id, question_id, answer_type) => {
         },
         {
             $inc: {
-               [key] : 1
+                [key] : 1
             }
         }
     )
@@ -189,15 +208,20 @@ const update_current_question_in_submission = async (submission_id, attempt_id) 
 }
 
 const get_question_to_send = (topic_question) => {
-    return {
+    let question_to_send = {
         id: topic_question._id,
         type: topic_question.type,
         statement: topic_question.statement,
-        explanation: topic_question.explanation,
-        correct: topic_question.correct,
-        answer: topic_question.answer,
-        options: topic_question.options
+    };
+    if (topic_question.type === "MCQ") {
+        let temp = []
+        topic_question.options.forEach(({text}) => {
+            temp.push({text})
+        })
+        question_to_send.options = temp
+        return question_to_send
     }
+    return question_to_send
 }
 
 module.exports = {

@@ -83,6 +83,7 @@ const authenticateToken = (req, res, next) => {
       return res.status(403).json({
         error: true,
         message: "token not able to authenticate",
+        err: `${err}`,
       });
     }
     const { email, id } = user;
@@ -101,7 +102,7 @@ const authenticateToken = (req, res, next) => {
     } catch (err) {
       res.status(400).json({
         error: true,
-        message: err,
+        message: `${err}`,
       });
     }
   });
@@ -169,7 +170,7 @@ const loginUser = async (req, res) => {
     res.status(401).json({
       authenticated: false,
       error: true,
-      message: err,
+      message: `${err}`,
     });
   }
 };

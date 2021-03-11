@@ -1,8 +1,6 @@
 const Submission = require("../models/Submission");
 const Topic = require("../models/Topic");
 
-const createSubmission = async (req, res) => {};
-
 const createResult = async (attempts) => {
   try {
     let { answers, questions } = attempts;
@@ -15,10 +13,9 @@ const createResult = async (attempts) => {
         );
         return findQuestion;
       } catch (err) {
-        console.log(err);
         return {
           error: true,
-          err: err,
+          err: `${err}`,
         };
       }
     });
@@ -51,18 +48,17 @@ const createResult = async (attempts) => {
     }
     return finalResult;
   } catch (err) {
-    console.log(err);
     return {
       error: true,
-      err: err,
+      err: `${err}`,
     };
   }
 };
 
 const getResults = async (req, res) => {
-  let { quizId } = req.params;
+  let { attempt_id } = req.params;
   let { id } = req.id;
-  if (quizId === undefined) {
+  if (attempt_id === undefined) {
     return res.status(400).json({
       error: true,
       message: "Send quiz id",
@@ -71,7 +67,7 @@ const getResults = async (req, res) => {
   try {
     let findedSubmission = await Submission.find(
       {
-        $and: [{ attempts: { $elemMatch: { _id: quizId } } }, { userId: id }],
+        $and: [{ attempts: { $elemMatch: { _id: attempt_id } } }, { userId: id }],
       },
       {
         "attempts.$": 1,
@@ -125,14 +121,14 @@ const getResults = async (req, res) => {
           return res.status(400).json({
             error: true,
             message: "Something Went Wrong",
-            err: err,
+            err: `${err}`,
           });
         }
       });
       let promiseAll = await Promise.all(answerAndId);
       let updateSubmission = await Submission.findOneAndUpdate(
         {
-          $and: [{ attempts: { $elemMatch: { _id: quizId } } }, { userId: id }],
+          $and: [{ attempts: { $elemMatch: { _id: attempt_id } } }, { userId: id }],
         },
         {
           $inc: {
@@ -157,16 +153,14 @@ const getResults = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      err: err,
+      err: `${err}`,
     });
   }
 };
 
 module.exports = {
-  createSubmission,
   getResults,
 };
