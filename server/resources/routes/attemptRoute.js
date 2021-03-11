@@ -1,9 +1,13 @@
 const attemptRoute = require("express").Router();
 const {
-    createAttempt
+    createAttempt,
+    nextAttempt,
+    recordAttempt
 } = require("../controller/attemptController");
 const { authenticateToken } = require("../controller/authController");
 
-attemptRoute.post('/create/:topic_id', authenticateToken, createAttempt);
+attemptRoute.post('/create', authenticateToken, createAttempt);
+attemptRoute.post('/next', authenticateToken, nextAttempt);
+attemptRoute.patch('/record', authenticateToken, recordAttempt);
 
 module.exports = attemptRoute;

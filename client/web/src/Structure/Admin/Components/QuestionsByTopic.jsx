@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getQuestionsByTopicRequest } from '../State/actions'
+import { adminActions } from '../State/action'
 import { useSelector, useDispatch } from "react-redux";
 import { Row } from '../'
 import Table from '@material-ui/core/Table';
@@ -25,7 +25,7 @@ export const QuestionsByTopic = ({val, handleDelete}) => {
     };
 
     useEffect(() => {
-        dispatch(getQuestionsByTopicRequest(val))
+        dispatch( adminActions.getQuestionsByTopicRequest(val) )
     }, [])
 
     return (

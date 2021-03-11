@@ -41,39 +41,44 @@ const submissionSchema = new Schema(
                             required: true
                         },
                         type: {
-                          type: String,
-                          required: true,
-                          enum: [...Object.values(QuestionTypeEnum)],
+                            type: String,
+                            required: true,
+                            enum: [...Object.values(QuestionTypeEnum)],
                         },
                         outcome: {
                             type: String,
-                            default: outcomeEnum.SKIPPED,
                             enum: [...Object.values(outcomeEnum)]
                         },
                         time: {
-                            required: true,
-                            type: String
+                            type: Number,
+                            min: 0,
+                            default: 0
                         },
                         response: {
-                          type: Schema.Types.Mixed,
-                          required: function () {
-                            return this.type === QuestionTypeEnum.SHORT;
-                          }
+                            type: Schema.Types.Mixed,
+                            required: function () {
+                                return this.type === QuestionTypeEnum.SHORT;
+                            }
                         },
                         selected: {
-                          type: Schema.Types.Mixed,
-                          required: function () {
-                            return this.type === QuestionTypeEnum.MCQ;
-                          }
+                            type: Schema.Types.Mixed,
+                            required: function () {
+                                return this.type === QuestionTypeEnum.MCQ;
+                            }
                         },
                         decision: {
-                          type: Schema.Types.Mixed,
-                          required: function () {
-                            return this.type === QuestionTypeEnum.TF;
-                          }
-                        },
+                            type: Schema.Types.Mixed,
+                            required: function () {
+                                return this.type === QuestionTypeEnum.TF;
+                            }
+                        }
                     }
                 ],
+                current_question: {
+                    type: Number,
+                    default: 0,
+                    required: true
+                },
                 stats: {
                     alloted: {
                         type: Number,
@@ -92,8 +97,8 @@ const submissionSchema = new Schema(
                         default: 0
                     },
                     time: {
-                        required: true,
-                        type: Number
+                        type: Number,
+                        min: 0
                     }
                 }
             }
@@ -104,4 +109,4 @@ const submissionSchema = new Schema(
     }
 );
 
-module.exports = mongoose.model("submission", submissionSchema);
+module.exports = mongoose.model("submissions", submissionSchema);

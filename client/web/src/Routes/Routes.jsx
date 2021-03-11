@@ -9,21 +9,32 @@ import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication"
 import { Dashboard } from "../Structure/Dashboard"
 import { Questions } from '../Structure/Admin'
+import { Topics } from "../Structure/Topics";
+import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 
 const Route = () => {
   return (
     <>
       <Router>
         <Switch>
-          <PrivateRoute exact path="/" >
+          <PrivateRoute exact path="/">
             <Dashboard />
           </PrivateRoute>
-          <PublicRoute path="/login" >
+          <PublicRoute path="/login">
             <Login />
           </PublicRoute>
-          <PublicRoute exact path="/api/question" >
+          <AdminRoute exact path="/api/question" >
             <Questions />
+          </AdminRoute>
+          <PublicRoute exact path="/topics_user">
+            <Topics />
           </PublicRoute>
+          <AdminRoute exact path="/topics">
+            <CrudTopics />
+          </AdminRoute>
+          <AdminRoute path="/topics/:id">
+            <SearchByTopic />
+          </AdminRoute>
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>
@@ -33,5 +44,4 @@ const Route = () => {
   );
 };
 
-
-export { Route }
+export { Route };

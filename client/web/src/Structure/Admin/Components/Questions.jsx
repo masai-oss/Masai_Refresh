@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux'
 import Select from '@material-ui/core/Select';
 import Box from '@material-ui/core/Box';
 import Container from '@material-ui/core/Container';
-import { getTopicsRequest, getQuestionsRequest, getQuestionsByTopicRequest, deleteQuestionsRequest } from '../State/actions'
+import { adminActions } from '../State/action'
 import { AllQuestions, QuestionsByTopic, AddQuestion } from '../'
 import Modal from '@material-ui/core/Modal';
 
@@ -14,22 +14,22 @@ export const Questions = () => {
     const [open, setOpen] = useState(false)
 
     const handleDelete = (id, topic) => {
-        dispatch( deleteQuestionsRequest(id, topic) )
+        dispatch( adminActions.deleteQuestionsRequest(id, topic) )
     }
 
     const handleChange = value => {
         setVal(value)
 
         if( value === "all" ){
-            dispatch( getQuestionsRequest() )
+            dispatch( adminActions.getQuestionsRequest() )
         }
         else{
-            dispatch( getQuestionsByTopicRequest(value) )
+            dispatch( adminActions.getQuestionsByTopicRequest(value) )
         }
     }
 
     useEffect(() => {
-        dispatch( getTopicsRequest() )
+        dispatch( adminActions.getTopicsRequest() )
     }, [])
     return (
         <Container>
@@ -47,7 +47,7 @@ export const Questions = () => {
                { val !== "all" && <QuestionsByTopic handleDelete={handleDelete} val= {val} /> }
             </Box>
             <Modal open={open}>
-                <AddQuestion />
+                <AddQuestion setOpen={setOpen} />
             </Modal>
         </Container>        
     )

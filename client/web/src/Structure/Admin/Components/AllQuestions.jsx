@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react'
-import { getQuestionsRequest } from '../State/actions'
+import { adminActions } from '../State/action'
 import { useSelector, useDispatch } from "react-redux";
 import { Row } from '../index'
 import Table from '@material-ui/core/Table';
@@ -25,7 +25,7 @@ export const AllQuestions = ({handleDelete}) => {
     };
 
     useEffect(() => {
-        dispatch(getQuestionsRequest(page, rowsPerPage))
+        dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
     }, [page, rowsPerPage])
     
     return (
