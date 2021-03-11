@@ -1,8 +1,6 @@
 const Submission = require("../models/Submission");
 const Topic = require("../models/Topic");
 
-const createSubmission = async (req, res) => {};
-
 const createResult = async (attempts) => {
   try {
     let { answers, questions } = attempts;
@@ -15,10 +13,9 @@ const createResult = async (attempts) => {
         );
         return findQuestion;
       } catch (err) {
-        console.log(err);
         return {
           error: true,
-          err: err,
+          err: `${err}`,
         };
       }
     });
@@ -51,10 +48,9 @@ const createResult = async (attempts) => {
     }
     return finalResult;
   } catch (err) {
-    console.log(err);
     return {
       error: true,
-      err: err,
+      err: `${err}`,
     };
   }
 };
@@ -125,7 +121,7 @@ const getResults = async (req, res) => {
           return res.status(400).json({
             error: true,
             message: "Something Went Wrong",
-            err: err,
+            err: `${err}`,
           });
         }
       });
@@ -157,16 +153,14 @@ const getResults = async (req, res) => {
       });
     }
   } catch (err) {
-    console.log(err);
     return res.status(400).json({
       error: true,
       message: "Something Went Wrong",
-      err: err,
+      err: `${err}`,
     });
   }
 };
 
 module.exports = {
-  createSubmission,
   getResults,
 };
