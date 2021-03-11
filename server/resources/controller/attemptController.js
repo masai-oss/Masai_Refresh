@@ -149,7 +149,7 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
     let isStatsUpdated = attempts[0].isStatsUpdated
     let question_id = attempts[0].questions[current_question]
     if (isStatsUpdated) {
-      throw new Error(`The Practice Quiz has ended ${isStatsUpdated}`);
+      throw new Error(`The Practice Quiz has ended`);
     }
 
     let question = await Topic.aggregate([
@@ -170,6 +170,7 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
     if(ans_type === 'options'){
         val_to_compare = val_to_compare.findIndex(el => el.correct) + 1
     }
+    console.log(val_to_compare, answer)
     let outcome = answer === val_to_compare ? OutcomeEnum.CORRECT : answer === -1 ? OutcomeEnum.SKIPPED : OutcomeEnum.WRONG
     await Submission.updateOne(
         {
