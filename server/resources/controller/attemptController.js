@@ -13,8 +13,8 @@ const createAttempt = async ( req, res ) => {
     }
     if (!topic_id) {
         return res.status(400).json({
-        error: true,
-        message: "Pass Topic ID",
+            error: true,
+            message: "Pass Topic ID",
         });
     }
     try{
@@ -117,7 +117,7 @@ const recordAttempt = async(req, res) => {
         })
     }
     try{
-        let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? selected : decision
+        let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? decision : selected
         await update_submission(submission_id, attempt_id, answer_type, answer)
 
         res.status(200).json({error: false, message: "Record updated"})
@@ -135,14 +135,21 @@ const recordAttempt = async(req, res) => {
 
 
 const update_submission = async(submission_id, attempt_id, answer_type, answer) => {
-    let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "selected" : "decision"
+    let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "decision" : "selected"
 
-    let sub = await Submission.findOne({_id: submission_id, "attempts._id": attempt_id})
-    let current_question = sub.attempts[0].current_question - 1
-    let isStatsUpdated = sub.attempts[0].isStatsUpdated
-    let question_id = sub.attempts[0].questions[current_question]
-    if(isStatsUpdated){
-        throw new Error("The Practice Quiz has ended")
+    let sub = await Submission.find({
+        $and: [{ _id: submission_id, "attempts": { $elemMatch: { _id: attempt_id } } }]
+    }, {
+        "attempts.$": 1,
+        _id: 0,
+    })
+    
+    let [{ attempts }] = sub
+    let current_question = attempts[0].current_question - 1
+    let isStatsUpdated = attempts[0].isStatsUpdated
+    let question_id = attempts[0].questions[current_question]
+    if (isStatsUpdated) {
+      throw new Error(`The Practice Quiz has ended ${isStatsUpdated}`);
     }
 
     let question = await Topic.aggregate([

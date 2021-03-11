@@ -28,15 +28,15 @@ const createResult = async (attempts) => {
       if (answers[i].type === "SHORT") {
         temp.correct = crnQuestion.answer;
         temp.response =
-          answers[i].outcome === "SKIPPED" ? "Skipped" : answers[i].response;
+          answers[i].outcome === "SKIPPED" ? "skipped" : answers[i].response;
       } else if (answers[i].type === "TF") {
         temp.correct = crnQuestion.correct;
         temp.response =
-          answers[i].outcome === "SKIPPED" ? "Skipped" : answers[i].decision;
+          answers[i].outcome === "SKIPPED" ? "skipped" : answers[i].decision;
       } else if (answers[i].type === "MCQ") {
         temp.response =
           answers[i].outcome === "SKIPPED"
-            ? "Skipped"
+            ? "skipped"
             : crnQuestion.options[answers[i].selected - 1].text;
         crnQuestion.options.forEach(({ text, correct }) => {
           if (correct) {
@@ -67,7 +67,10 @@ const getResults = async (req, res) => {
   try {
     let findedSubmission = await Submission.find(
       {
-        $and: [{ attempts: { $elemMatch: { _id: attempt_id } } }, { userId: id }],
+        $and: [
+          { attempts: { $elemMatch: { _id: attempt_id } } },
+          { userId: id },
+        ],
       },
       {
         "attempts.$": 1,
@@ -100,14 +103,13 @@ const getResults = async (req, res) => {
       let cumulativeStat = {
         alotted: specificAnswer.length,
         time: 0,
+        correct: 0,
+        wrong: 0,
+        skipped: 0,
       };
       let answerAndId = specificAnswer.map(async (answer, index) => {
         let outcome = answer.outcome.toLowerCase();
-        if (cumulativeStat[outcome] === undefined) {
-          cumulativeStat[outcome] = 1;
-        } else {
-          cumulativeStat[outcome] += 1;
-        }
+        cumulativeStat[outcome] += 1;
         cumulativeStat.time += Number(answer.time);
         let id = questions[index];
         let whichToUpdate = `questions.$.stats.${outcome}`;
@@ -128,7 +130,10 @@ const getResults = async (req, res) => {
       let promiseAll = await Promise.all(answerAndId);
       let updateSubmission = await Submission.findOneAndUpdate(
         {
-          $and: [{ attempts: { $elemMatch: { _id: attempt_id } } }, { userId: id }],
+          $and: [
+            { attempts: { $elemMatch: { _id: attempt_id } } },
+            { userId: id },
+          ],
         },
         {
           $inc: {
