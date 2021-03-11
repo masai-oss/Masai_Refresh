@@ -10,6 +10,7 @@ import { Login } from "../Structure/Authentication";
 import { Dashboard } from "../Structure/Dashboard";
 import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
+import {Result} from"../Structure/Result"
 
 const Route = () => {
   return (
@@ -31,9 +32,9 @@ const Route = () => {
           <AdminRoute path="/topics/:id">
             <SearchByTopic />
           </AdminRoute>
-          <PublicRoute path = "/result">
+          <PrivateRoute path = "/result">
             <Result/>
-          </PublicRoute>
+          </PrivateRoute>
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>

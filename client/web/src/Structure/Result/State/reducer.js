@@ -1,7 +1,17 @@
 import { resultConstant } from "./actionTypes";
 
 const initState = {
-    result: "",
+    result:   { 
+        error: false, 
+        result:[
+                  {
+                      "statement" :  "",
+                      "outcome" : "",
+                      "correct" : "",
+                      "response" : "",
+                  }
+              ]
+    },
     isLoading: false,
     isError: false,
     errorMessage: "",

@@ -2,6 +2,9 @@ import { resultConstant } from "./actionTypes";
 
 import axios from "axios";
 
+
+const RESULT_API = process.env.REACT_APP_RESULT_API_URL
+
 export const getResultRequest = () => ({
     type: resultConstant.GET_RESULT_LOADING,
   });
@@ -18,15 +21,15 @@ export const getResultFailure = (payload) => ({
 
 export const getResult = (payload) => (dispatch) => {
   dispatch(getResultRequest());
-  console.log(payload.quizId)
+  const token = localStorage.getItem("token");
+
   axios({
     method: "GET",
-    url: `/api/quiz/result/${payload.quizId}`,
-    headers: "bearer-token"
+    url: `${RESULT_API}/:${payload.attempt_id}`,
+    header : {Authorization: `Bearer ${token}`}
   })
   // .then((res) => console.log(res))
     .then((res) => dispatch(getResultSuccess(res)))
-    // .then((res) => console.log(res))
     .catch((err) => dispatch(getResultFailure(err)));
-    // .catch((err) => console.log(err))
+  // .catch((err) => console.log(err))
 };

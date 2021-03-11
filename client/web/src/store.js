@@ -3,13 +3,15 @@ import thunkMiddleware from "redux-thunk";
 import { authentication } from "./Structure/Authentication"
 import {topics} from './Structure/Topics/State/reducer'
 import { admin } from './Structure/Admin'
+import {resultReducer} from "./Structure/Result/State/reducer"
 
 
 const reducers = {
   authentication,
   admin, 
   authentication,
-  topics
+  topics,
+  resultReducer
 }
 
 let composeEnhancers = compose;
