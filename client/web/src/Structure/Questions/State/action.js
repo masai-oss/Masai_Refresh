@@ -18,6 +18,41 @@ export const nextQuestionSuccess = (payload) => ({
   payload,
 });
 
+export const recordAnswerSuccess = (payload) => ({
+  type: answerConstant.RECORD_ANSWER_SUCCESS,
+  payload,
+});
+
+export const recordAnswerFailure = (payload) => ({
+  type: answerConstant.RECORD_ANSWER_FAILURE,
+  payload,
+});
+
+
+
+// ---------------------------------------------------------------------------------------------------------
+
+export const recordAnswer = (payload) => async(dispatch) => {
+  return axios({
+    method: "PATCH",
+    url: `${GET_QUESTIONS_URL}/record`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    data: payload,
+  })
+  .then((res) => {
+    dispatch(recordAnswerSuccess(res.data.message))
+    return {output: true}
+  })
+  .catch((err) => {
+    dispatch(recordAnswerFailure(err))
+    return {output: false}
+  });
+};
+
+
 export const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
   dispatch(nextQuestionLoading());
   axios({
@@ -34,31 +69,4 @@ export const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
   })
     .then((res) => dispatch(nextQuestionSuccess(res.data.data)))
     .catch((err) => dispatch(nextQuestionFailure(err)));
-};
-
-export const recordAnswerSuccess = (payload) => ({
-  type: answerConstant.RECORD_ANSWER_SUCCESS,
-  payload,
-});
-
-export const recordAnswerFailure = (payload) => ({
-  type: answerConstant.RECORD_ANSWER_FAILURE,
-  payload,
-});
-
-export const recordAnswer = (payload) => async(dispatch) => {
-    let attemptId = payload.attempt_id, submissionId = payload.submission_id
-    
-  axios({
-    method: "PATCH",
-    url: `${GET_QUESTIONS_URL}/record`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    data: payload,
-  })
-    .then((res) => dispatch(recordAnswerSuccess(res.data.message)))
-    .then(dispatch(nextQuestion({attemptId, submissionId})))
-    .catch((err) => dispatch(recordAnswerFailure(err)));
 };
