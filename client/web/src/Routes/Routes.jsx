@@ -12,6 +12,7 @@ import { Questions as AdminQuestions } from '../Structure/Admin'
 import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions/Components/Questions";
+import {Result} from "../Structure/Result/Components/Result"
 
 const Route = () => {
   return (
@@ -32,6 +33,9 @@ const Route = () => {
           </PrivateRoute>
           <PrivateRoute exact path="/questions">
             <Questions />
+          </PrivateRoute>
+          <PrivateRoute exact path="/result">
+            <Result />
           </PrivateRoute>
           <AdminRoute exact path="/topics">
             <CrudTopics />

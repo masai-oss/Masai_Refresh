@@ -4,12 +4,14 @@ import { authentication } from "./Structure/Authentication";
 import { topics } from "./Structure/Topics";
 import { admin } from "./Structure/Admin";
 import { questions } from "./Structure/Questions";
+import {resultReducer} from "./Structure/Result"
 
 const reducers = {
   authentication,
   admin,
   topics,
   questions,
+  resultReducer
 };
 
 let composeEnhancers = compose;
