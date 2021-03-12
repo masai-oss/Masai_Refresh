@@ -31,14 +31,15 @@ function Topics() {
   }, [dispatch]);
   const topicsData = useSelector((state) => state.topics.topicsData);
   const [openModal, setOpenModal] = useState(false);
-    const [selectedTopic, setSelectedTopic] = useState({});
+  const [selectedTopic, setSelectedTopic] = useState({});
     
-  const attemptQuiz1 = (topicId) => {
-    setOpenModal(true);
+  const attemptQuiz1 = async (topicId) => {
     let topic = topicsData.find((topic) => topic._id === topicId);
+    let res = await dispatch(attemptQuiz(topic._id));
+    if(res.output){
       setSelectedTopic(topic);
-      dispatch(attemptQuiz(topic._id));
-
+      setOpenModal(true)
+    }
   };
 
   const handleClose = () => {
@@ -48,11 +49,9 @@ function Topics() {
   const {attemptId, submissionId} = useSelector(state => state.topics)
 
   const startQuiz =  () => {
-    
     setOpenModal(false);
     dispatch(nextQuestion({attemptId,submissionId}))
     history.push('/questions')
-    
   };
 
   return (

@@ -1,7 +1,5 @@
 import { resultConstant } from "./actionTypes";
-
 import axios from "axios";
-import { recordAnswer } from "../../Questions/State/action";
 
 const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 const token = localStorage.getItem("token");
@@ -20,17 +18,13 @@ export const getResultFailure = (payload) => ({
   payload,
 });
 
-export const getResult = ({ attemptId, payload }) => (dispatch) => {
-    
-  dispatch(recordAnswer(payload))
-    .then(dispatch(getResultRequest()))
-    .then(
-      axios({
-        method: "GET",
-        url: `${RESULT_API}/result/${attemptId}`,
-        headers: { Authorization: `Bearer ${token}` },
-      }).then((res) => dispatch(getResultSuccess(res.data)))
-    )
-
-    .catch((err) => dispatch(getResultFailure(err)));
+export const getResult = (payload) => (dispatch) => {
+  dispatch(getResultRequest())
+  axios({
+    method: "GET",
+    url: `${RESULT_API}/result/${payload}`,
+    headers: { Authorization: `Bearer ${token}` },
+  })
+  .then((res) => dispatch(getResultSuccess(res.data)))
+  .catch((err) => dispatch(getResultFailure(err)));
 };

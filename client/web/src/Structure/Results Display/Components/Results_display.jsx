@@ -1,11 +1,15 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom'
 import ReactMarkdown from "react-markdown";
 
 
 const Results_display = () => {
   const { result } = useSelector((state) => state.resultReducer);
-  console.log(result);
+  let history = useHistory()
+  if(result.length === 0){
+    history.push('/topics_user')
+  }
 
   return (
     <div>

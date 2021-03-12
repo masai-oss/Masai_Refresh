@@ -46,17 +46,21 @@ export const attemptQuizFailure = (payload) => ({
 });
 
 export const attemptQuiz = (payload) => (dispatch) => {
+  console.log(payload)
   dispatch(attemptQuizLoading());
-  axios({
+  return axios({
     method: "POST",
     url: `${ATTEMPT_API_URL}/create`,
     headers: {
       Authorization: `Bearer ${token}`,
     },
     data: {
-      topic_id: `${payload}`,
+      topic_id: payload,
     },
   })
-    .then((res) => dispatch(attemptQuizSuccess(res.data.data)))
+    .then((res) => {
+      dispatch(attemptQuizSuccess(res.data.data))
+      return {output: true}
+    })
     .catch((err) => dispatch(attemptQuizFailure(err)));
 };
