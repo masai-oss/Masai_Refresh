@@ -4,21 +4,21 @@ import axios from "axios";
 const token = localStorage.getItem("token");
 const GET_QUESTIONS_URL = process.env.REACT_APP_ATTEMPT_URL;
 
-export const nextQuestionLoading = () => ({
+const nextQuestionLoading = () => ({
   type: questionConstant.GET_NEXT_QUESTION_LOADING,
 });
 
-export const nextQuestionFailure = (payload) => ({
+const nextQuestionFailure = (payload) => ({
   type: questionConstant.GET_NEXT_QUESTION_FAILURE,
   payload,
 });
 
-export const nextQuestionSuccess = (payload) => ({
+const nextQuestionSuccess = (payload) => ({
   type: questionConstant.GET_NEXT_QUESTION_SUCCESS,
   payload,
 });
 
-export const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
+const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
   dispatch(nextQuestionLoading());
   axios({
     method: "POST",
@@ -36,17 +36,17 @@ export const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
     .catch((err) => dispatch(nextQuestionFailure(err)));
 };
 
-export const recordAnswerSuccess = (payload) => ({
+const recordAnswerSuccess = (payload) => ({
   type: answerConstant.RECORD_ANSWER_SUCCESS,
   payload,
 });
 
-export const recordAnswerFailure = (payload) => ({
+const recordAnswerFailure = (payload) => ({
   type: answerConstant.RECORD_ANSWER_FAILURE,
   payload,
 });
 
-export const recordAnswer = (payload) => async(dispatch) => {
+const recordAnswer = (payload) => async(dispatch) => {
     let attemptId = payload.attempt_id, submissionId = payload.submission_id
     
   axios({
@@ -61,4 +61,10 @@ export const recordAnswer = (payload) => async(dispatch) => {
     .then((res) => dispatch(recordAnswerSuccess(res.data.message)))
     .then(dispatch(nextQuestion({attemptId, submissionId})))
     .catch((err) => dispatch(recordAnswerFailure(err)));
+};
+
+
+export const questionActions = {
+  nextQuestion: nextQuestion,
+  recordAnswer: recordAnswer,
 };

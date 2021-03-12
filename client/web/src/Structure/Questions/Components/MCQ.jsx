@@ -2,13 +2,12 @@ import React, { useState } from "react";
 import { Grid, FormControl, RadioGroup } from "@material-ui/core";
 import { OptionRadio } from "./OptionRadio";
 import { useDispatch, useSelector } from "react-redux";
-import { recordAnswer } from "../State/action";
+import { questionActions } from "../State/action";
 import Button from "@material-ui/core/Button";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "./SyntaxHighlighter";
 
 const MCQ = ({ data, lastQuestion }) => {
-  console.log(data);
   const { statement, options } = data;
 
   const [value, setValue] = useState(-1);
@@ -27,7 +26,7 @@ const MCQ = ({ data, lastQuestion }) => {
       answer_type: "MCQ",
       selected: Number(value),
     };
-    dispatch(recordAnswer(payload));
+    dispatch(questionActions.recordAnswer(payload));
   };
 
   return (
@@ -52,7 +51,6 @@ const MCQ = ({ data, lastQuestion }) => {
               {options.map((option, index) => (
                 <OptionRadio
                   id={Number(index + 1)}
-                  // value={option.text}
                   value={<ReactMarkdown>{option.text}</ReactMarkdown>}
                   key={index}
                 />

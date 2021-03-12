@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import { MCQ } from "./MCQ";
+import { MCQ } from "./Components/MCQ";
 
 const Questions = () => {
   const question = useSelector((state) => state.questions.question);

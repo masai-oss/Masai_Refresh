@@ -3,26 +3,27 @@ import axios from "axios";
 
 const token = localStorage.getItem("token");
 const ATTEMPT_API_URL = process.env.REACT_APP_ATTEMPT_URL;
+const TOPIC_API_URL = process.env.REACT_APP_ADMIN_TOPIC_API_URL;
 
-export const getTopicsLoading = () => ({
+const getTopicsLoading = () => ({
   type: topicConstant.GET_TOPICS_LOADING,
 });
 
-export const getTopicsSuccess = (payload) => ({
+const getTopicsSuccess = (payload) => ({
   type: topicConstant.GET_TOPICS_SUCCESS,
   payload,
 });
 
-export const getTopicsFailure = (payload) => ({
+const getTopicsFailure = (payload) => ({
   type: topicConstant.GET_TOPICS_FAILURE,
   payload,
 });
 
-export const getTopics = (payload) => (dispatch) => {
+const getTopics = (payload) => (dispatch) => {
   dispatch(getTopicsLoading());
 
   axios
-    .get("http://localhost:5050/api/topic/summary", {
+    .get(`${TOPIC_API_URL}/summary`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
@@ -31,21 +32,21 @@ export const getTopics = (payload) => (dispatch) => {
     .catch((err) => dispatch(getTopicsFailure(err)));
 };
 
-export const attemptQuizLoading = () => ({
+const attemptQuizLoading = () => ({
   type: questionsConstants.ATTEMPT_QUIZ_LOADING,
 });
 
-export const attemptQuizSuccess = (payload) => ({
+const attemptQuizSuccess = (payload) => ({
   type: questionsConstants.ATTEMPT_QUIZ_SUCCESS,
   payload,
 });
 
-export const attemptQuizFailure = (payload) => ({
+const attemptQuizFailure = (payload) => ({
   type: questionsConstants.ATTEMPT_QUIZ_FAILURE,
   payload,
 });
 
-export const attemptQuiz = (payload) => (dispatch) => {
+const attemptQuiz = (payload) => (dispatch) => {
   dispatch(attemptQuizLoading());
   axios({
     method: "POST",
@@ -60,3 +61,8 @@ export const attemptQuiz = (payload) => (dispatch) => {
     .then((res) => dispatch(attemptQuizSuccess(res.data.data)))
     .catch((err) => dispatch(attemptQuizFailure(err)));
 };
+
+export const topicActions = {
+  getTopics: getTopics,
+  attemptQuiz: attemptQuiz,
+}
