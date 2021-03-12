@@ -1,10 +1,11 @@
-import { questionConstant } from "./actionTypes";
+import { questionConstant, answerConstant } from "./actionTypes";
 
 const initState = {
   isLoading: false,
   isError: false,
   errMsg: "",
   question: {},
+  recordAnswerMsg:''
 };
 
 const questions = (state = initState, { type, payload }) => {
@@ -28,6 +29,16 @@ const questions = (state = initState, { type, payload }) => {
         isError: true,
         //errMsg:payload.data.message
       };
+    case answerConstant.RECORD_ANSWER_SUCCESS:
+      return {
+        ...state,
+        recordAnswerMsg: payload
+      }
+    case answerConstant.RECORD_ANSWER_FAILURE:
+      return {
+        ...state,
+        recordAnswerMsg: payload
+      }
     default:
       return state;
   }

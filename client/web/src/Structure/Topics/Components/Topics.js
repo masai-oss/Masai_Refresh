@@ -50,7 +50,7 @@ function Topics() {
   const startQuiz =  () => {
     
     setOpenModal(false);
-    dispatch(nextQuestion({ attemptId, submissionId }))
+    dispatch(nextQuestion({attemptId,submissionId}))
     history.push('/questions')
     
   };

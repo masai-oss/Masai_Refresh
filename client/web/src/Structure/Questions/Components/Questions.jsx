@@ -1,22 +1,15 @@
 import React from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { nextQuestion } from "../State/action";
 import { MCQ } from "./MCQ";
 
-const Questions=()=> {
-    const dispatch = useDispatch()
+const Questions = () => {
   const { question } = useSelector((state) => state.questions);
-    const { attemptId, submissionId } = useSelector(state => state.topics)
-    
-    const getNextQuestion = () => {
-    dispatch(nextQuestion({attemptId,submissionId}))
-}
+  const { questions } = useSelector((state) => state.topics);
+  const lastQuestion = questions[questions.length-1]
   return (
-    <div>
-      {question.type === "MCQ" ? <MCQ data={question} /> : "Questions"}
-      <button onClick={getNextQuestion}>Next</button>
-    </div>
+    <div>{question.type === "MCQ" ? <MCQ data={question} lastQuestion={lastQuestion} /> : "Questions"}</div>
   );
-}
+};
 
-export { Questions }
+export { Questions };
