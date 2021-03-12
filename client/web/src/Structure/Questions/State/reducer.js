@@ -20,6 +20,7 @@ const questions = (state = initState, { type, payload }) => {
     case questionConstant.GET_NEXT_QUESTION_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         question: payload,
       };
     case questionConstant.GET_NEXT_QUESTION_FAILURE:

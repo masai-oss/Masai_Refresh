@@ -1,12 +1,12 @@
 import { topicConstant, questionsConstants } from "./actionTypes";
 
 const initState = {
-    isLoading: false,
-    isError: false,
-    errMsg:'',
-    topicsData: [],
-    questions: [],
-    attemptId: '',
+  isLoading: false,
+  isError: false,
+  errMsg:'',
+  topicsData: [],
+  questions: [],
+  attemptId: '',
   submissionId:''
 };
 
@@ -22,7 +22,7 @@ const topics = (state = initState, { type, payload }) => {
     case topicConstant.GET_TOPICS_SUCCESS:
       return {
         ...state,
-       topicsData:payload.data
+        topicsData:payload.data
       };
       case topicConstant.GET_TOPICS_FAILURE:
       return {

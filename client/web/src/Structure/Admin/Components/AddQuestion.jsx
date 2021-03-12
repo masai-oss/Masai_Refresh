@@ -7,9 +7,6 @@ export const AddQuestion = ({setOpen}) => {
     const dispatch = useDispatch()
 
     const handleAdd = () => {
-        let payload = {
-
-        }
         dispatch( adminActions.addQuestionsRequest() )
         setOpen( prev => !prev )
     }

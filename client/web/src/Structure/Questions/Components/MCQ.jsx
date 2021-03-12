@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { Grid, FormControl, RadioGroup } from "@material-ui/core";
 import { OptionRadio } from "./OptionRadio";
 import { useDispatch, useSelector } from "react-redux";
@@ -27,8 +27,6 @@ const MCQ = ({ data, lastQuestion }) => {
       answer_type: "MCQ",
       selected: Number(value),
     };
-
-    console.log(payload, "MCQ");
     dispatch(recordAnswer(payload));
   };
 
@@ -63,7 +61,7 @@ const MCQ = ({ data, lastQuestion }) => {
           </RadioGroup>
         </FormControl>
       </form>
-      {lastQuestion == data.id ? (
+      {lastQuestion === data.id ? (
         <Button variant="contained" color="primary">
           Submit
         </Button>
