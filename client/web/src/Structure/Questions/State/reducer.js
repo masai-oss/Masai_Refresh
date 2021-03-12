@@ -1,10 +1,12 @@
+import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
 import { questionConstant, answerConstant } from "./actionTypes";
 
 const initState = {
   isLoading: false,
   isError: false,
   errMsg: "",
-  question: {},
+  question: getFromStorage(storageEnums.QUESTION_PRACTICE, null),
   recordAnswerMsg:''
 };
 
@@ -18,6 +20,7 @@ const questions = (state = initState, { type, payload }) => {
         errMsg: "",
       };
     case questionConstant.GET_NEXT_QUESTION_SUCCESS:
+      saveToStorage(storageEnums.QUESTION_PRACTICE, payload)
       return {
         ...state,
         isLoading: false,
@@ -28,7 +31,7 @@ const questions = (state = initState, { type, payload }) => {
       return {
         ...state,
         isError: true,
-        //errMsg:payload.data.message
+        isLoading: false
       };
     case answerConstant.RECORD_ANSWER_SUCCESS:
       return {
