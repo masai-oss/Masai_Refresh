@@ -27,7 +27,7 @@ export const AllQuestions = ({handleDelete}) => {
 
     useEffect(() => {
         dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
-    }, [page, rowsPerPage])
+    }, [dispatch, page, rowsPerPage])
     
     return (
            !isLoading && questions.questions !== undefined ? <>

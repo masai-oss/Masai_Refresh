@@ -113,7 +113,6 @@ const deleteTopic = async ( req, res ) => {
 const editTopic = async ( req, res ) => {
     const { id } = req.params
     const data = req.body
-    console.log(Object.keys(data));
     if (id === undefined) {
         return res.status(400).json({ error: true, message: "Pass Topic ID" });
     }

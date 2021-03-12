@@ -4,4 +4,9 @@ const questionConstant = {
     GET_NEXT_QUESTION_FAILURE: 'GET_NEXT_QUESTION_FAILURE'
 }
 
-export {questionConstant}
+const answerConstant = {
+    RECORD_ANSWER_SUCCESS: 'RECORD_ANSWER_SUCCESS',
+    RECORD_ANSWER_FAILURE: 'RECORD_ANSWER_FAILURE'
+}
+
+export {questionConstant, answerConstant}
