@@ -1,3 +1,5 @@
+import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
 import { topicConstant, questionsConstants } from "./actionTypes";
 
 const initState = {
@@ -5,9 +7,9 @@ const initState = {
   isError: false,
   errMsg:'',
   topicsData: [],
-  questions: [],
-  attemptId: '',
-  submissionId:''
+  questions: getFromStorage(storageEnums.ALL_QUESTIONS, []),
+  attemptId: getFromStorage(storageEnums.ATTEMPT_ID, ''),
+  submissionId: getFromStorage(storageEnums.SUBMISSION_ID, '')
 };
 
 const topics = (state = initState, { type, payload }) => {
@@ -16,7 +18,7 @@ const topics = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-          isError: false,
+        isError: false,
         errMsg:''
       };
     case topicConstant.GET_TOPICS_SUCCESS:
@@ -29,29 +31,29 @@ const topics = (state = initState, { type, payload }) => {
         ...state,
         isLoading: false,
         isError: true,
-        // errMsg: payload.data.message,
       };
-      case questionsConstants.ATTEMPT_QUIZ_LOADING:
-          return {
-              ...state,
-              isLoading: true,
-              isError: false,
-              errMsg:''
-          }
-      case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
-          console.log(payload)
-          return {
-              ...state,
-            questions: payload.questions,
-            attemptId: payload.attempt_id,
-                  submissionId:payload.submission_id
-          }
-      case questionsConstants.ATTEMPT_QUIZ_FAILURE:
-          return {
-              ...state,
-              isError: true,
-              //errMsg:payload.data.message
-          }
+    case questionsConstants.ATTEMPT_QUIZ_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        errMsg:''
+      }
+    case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
+      saveToStorage(storageEnums.ATTEMPT_ID, payload.attempt_id)
+      saveToStorage(storageEnums.SUBMISSION_ID, payload.submission_id)
+      saveToStorage(storageEnums.ALL_QUESTIONS, payload.questions)
+      return {
+        ...state,
+        questions: payload.questions,
+        attemptId: payload.attempt_id,
+        submissionId: payload.submission_id
+      }
+    case questionsConstants.ATTEMPT_QUIZ_FAILURE:
+      return {
+          ...state,
+          isError: true,
+      }
     default:
       return state;
   }

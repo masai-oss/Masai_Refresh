@@ -1,17 +1,21 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import ReactMarkdown from "react-markdown";
 
 
 const Results_display = () => {
-  const { result } = useSelector((state) => state.resultReducer);
+  const { result, isError } = useSelector((state) => state.resultReducer);
   let history = useHistory()
-  if(result.length === 0){
-    history.push('/topics_user')
-  }
+
+  useEffect(() => {
+    if(isError){
+      history.push('/topics_user')
+    }
+  }, [])
 
   return (
+    result &&
     <div>
       {result.map((question, index) => (
         <div key={index}>
