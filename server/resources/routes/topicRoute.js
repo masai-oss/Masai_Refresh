@@ -6,9 +6,9 @@ const {
     addTopic,
     deleteTopic,
     editTopic,
-    replaceTopic,
-    getTopicsSummary
+    replaceTopic
 } = require("../controller/topicController");
+const { getTopicsSummary } = require("../controller/proficiencyController");
 const { authenticateToken } = require("../controller/authController");
 const { checkAdmin } = require("../utils/validation/adminValidation");
 
