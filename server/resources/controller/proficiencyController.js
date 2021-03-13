@@ -40,7 +40,6 @@ const getTopicsSummary = async (req, res) => {
       data: topicAndProficiency,
     });
   } catch (err) {
-    console.log(err);
     res.status(400).json({
       error: true,
       message: `${err}`,

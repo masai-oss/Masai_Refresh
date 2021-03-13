@@ -1,11 +1,26 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import jwt_decode from "jwt-decode";
+import { IsAdmin } from "../Structure/Common"
 
-const AdminRoute = ({ children, ...props }) => {
-  let token = localStorage.getItem("token");
-  const { admin: isAdmin } = jwt_decode(token);
-  return isAdmin ? <Route {...props}> {children} </Route> : <Redirect to="/" />;
+const AdminRoute = ({ children: Component, ...rest }) => {
+  const isAdmin = IsAdmin()
+  return (
+    <Route
+      {...rest}
+      render={(props) =>
+        isAdmin ? (
+          <Component {...props} />
+        ) : (
+          <Redirect
+            to={{
+              pathname: "/login",
+              state: { from: props.location },
+            }}
+          />
+        )
+      }
+    />
+  );
 };
 
 export { AdminRoute }

@@ -12,6 +12,7 @@ const Results_display = () => {
     if(isError){
       history.push('/topics_user')
     }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   return (

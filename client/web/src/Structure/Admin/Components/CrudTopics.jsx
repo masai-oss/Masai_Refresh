@@ -10,7 +10,6 @@ export const CrudTopics = () => {
     const history = useHistory()
 
     const topicsData = useSelector(state => state.admin.topicsData)
-    const postSuccess = useSelector(state => state.admin.topicPostedSuccessfully)
 
     const getTopics = () => {
         dispatch(adminActions.getCrudTopics())
@@ -35,8 +34,6 @@ export const CrudTopics = () => {
     const searchByTopic = (id) => {
         history.push(`/topics/${id}`)
     }
-
-    console.log(postSuccess)
     return (
         <div>
             <button onClick = {getTopics} > Get Topics </button>

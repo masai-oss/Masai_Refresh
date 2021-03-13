@@ -1,38 +1,58 @@
 import { questionConstant, answerConstant } from "./actionTypes";
 import axios from "axios";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
 
-const token = localStorage.getItem("token");
+
 const GET_QUESTIONS_URL = process.env.REACT_APP_ATTEMPT_URL;
 
-export const nextQuestionLoading = () => ({
+const nextQuestionLoading = () => ({
   type: questionConstant.GET_NEXT_QUESTION_LOADING,
 });
 
-export const nextQuestionFailure = (payload) => ({
+const nextQuestionFailure = (payload) => ({
   type: questionConstant.GET_NEXT_QUESTION_FAILURE,
   payload,
 });
 
-export const nextQuestionSuccess = (payload) => ({
+const nextQuestionSuccess = (payload) => ({
   type: questionConstant.GET_NEXT_QUESTION_SUCCESS,
   payload,
 });
 
-export const recordAnswerSuccess = (payload) => ({
+const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
+  dispatch(nextQuestionLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  axios({
+    method: "POST",
+    url: `${GET_QUESTIONS_URL}/next`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    data: {
+      submission_id: submissionId,
+      attempt_id: attemptId,
+    },
+  })
+    .then((res) => dispatch(nextQuestionSuccess(res.data.data)))
+    .catch((err) => dispatch(nextQuestionFailure(err)));
+};
+
+const recordAnswerSuccess = (payload) => ({
   type: answerConstant.RECORD_ANSWER_SUCCESS,
   payload,
 });
 
-export const recordAnswerFailure = (payload) => ({
+const recordAnswerFailure = (payload) => ({
   type: answerConstant.RECORD_ANSWER_FAILURE,
   payload,
 });
 
-
-
-// ---------------------------------------------------------------------------------------------------------
-
-export const recordAnswer = (payload) => async(dispatch) => {
+const recordAnswer = (payload) => async(dispatch) => {
+  // eslint-disable-next-line no-unused-vars
+  let attemptId = payload.attempt_id, submissionId = payload.submission_id
+  const token = getFromStorage(storageEnums.TOKEN, "");
   return axios({
     method: "PATCH",
     url: `${GET_QUESTIONS_URL}/record`,
@@ -53,20 +73,7 @@ export const recordAnswer = (payload) => async(dispatch) => {
 };
 
 
-export const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
-  dispatch(nextQuestionLoading());
-  axios({
-    method: "POST",
-    url: `${GET_QUESTIONS_URL}/next`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    data: {
-      submission_id: submissionId,
-      attempt_id: attemptId,
-    },
-  })
-    .then((res) => dispatch(nextQuestionSuccess(res.data.data)))
-    .catch((err) => dispatch(nextQuestionFailure(err)));
+export const questionActions = {
+  nextQuestion: nextQuestion,
+  recordAnswer: recordAnswer,
 };

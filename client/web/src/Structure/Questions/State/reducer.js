@@ -27,7 +27,6 @@ const questions = (state = initState, { type, payload }) => {
         question: payload,
       };
     case questionConstant.GET_NEXT_QUESTION_FAILURE:
-      console.log(payload);
       return {
         ...state,
         isError: true,

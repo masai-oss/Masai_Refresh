@@ -5,7 +5,10 @@ import { topicConstant, questionsConstants } from "./actionTypes";
 const initState = {
   isLoading: false,
   isError: false,
-  errMsg:'',
+  errMsg: "",
+  isLoadingQuiz: false,
+  isErrorQuiz: false,
+  isSuccessQuiz: false,
   topicsData: [],
   questions: getFromStorage(storageEnums.ALL_QUESTIONS, []),
   attemptId: getFromStorage(storageEnums.ATTEMPT_ID, ''),
@@ -19,24 +22,26 @@ const topics = (state = initState, { type, payload }) => {
         ...state,
         isLoading: true,
         isError: false,
-        errMsg:''
+        errMsg: "",
       };
     case topicConstant.GET_TOPICS_SUCCESS:
       return {
         ...state,
-        topicsData:payload.data
+        isLoading: false,
+        topicsData: payload.data,
       };
-      case topicConstant.GET_TOPICS_FAILURE:
+    case topicConstant.GET_TOPICS_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
+        errMsg: payload,
       };
     case questionsConstants.ATTEMPT_QUIZ_LOADING:
       return {
         ...state,
-        isLoading: true,
-        isError: false,
+        isLoadingQuiz: true,
+        isErrorQuiz: false,
         errMsg:''
       }
     case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
@@ -45,14 +50,18 @@ const topics = (state = initState, { type, payload }) => {
       saveToStorage(storageEnums.ALL_QUESTIONS, payload.questions)
       return {
         ...state,
+        isLoadingQuiz: false,
+        isSuccessQuiz: true,
         questions: payload.questions,
         attemptId: payload.attempt_id,
         submissionId: payload.submission_id
       }
     case questionsConstants.ATTEMPT_QUIZ_FAILURE:
       return {
-          ...state,
-          isError: true,
+        ...state,
+        isLoadingQuiz: false,
+        isErrorQuiz: true,
+        isError: true,
       }
     default:
       return state;
