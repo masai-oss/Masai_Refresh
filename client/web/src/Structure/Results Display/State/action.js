@@ -1,6 +1,7 @@
 import { resultConstant } from "./actionTypes";
 import axios from "axios";
-
+import { getFromStorage } from "../../../Utils/localStorageHelper"
+import { storageEnums } from "../../../Enums/storageEnums"
 const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 
 export const getResultRequest = () => ({
@@ -19,7 +20,7 @@ export const getResultFailure = (payload) => ({
 
 export const getResult = (payload) => (dispatch) => {
   dispatch(getResultRequest())
-  const token = localStorage.getItem("token");
+  const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
     method: "GET",
     url: `${RESULT_API}/result/${payload}`,

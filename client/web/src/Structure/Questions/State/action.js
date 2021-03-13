@@ -1,5 +1,7 @@
 import { questionConstant, answerConstant } from "./actionTypes";
 import axios from "axios";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
 
 
 const GET_QUESTIONS_URL = process.env.REACT_APP_ATTEMPT_URL;
@@ -20,7 +22,7 @@ const nextQuestionSuccess = (payload) => ({
 
 const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
   dispatch(nextQuestionLoading());
-  const token = localStorage.getItem("token");
+  const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
     method: "POST",
     url: `${GET_QUESTIONS_URL}/next`,
@@ -50,7 +52,7 @@ const recordAnswerFailure = (payload) => ({
 const recordAnswer = (payload) => async(dispatch) => {
   // eslint-disable-next-line no-unused-vars
   let attemptId = payload.attempt_id, submissionId = payload.submission_id
-  const token = localStorage.getItem("token");
+  const token = getFromStorage(storageEnums.TOKEN, "");
   return axios({
     method: "PATCH",
     url: `${GET_QUESTIONS_URL}/record`,

@@ -1,5 +1,11 @@
 import { authConstants } from "./actionTypes"
 import axios from "axios"
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  saveToStorage,
+  removeFromStorage
+} from "../../../Utils/localStorageHelper";
+
 const AUTH_API_URL = process.env.REACT_APP_AUTH_API_URL;
 
 
@@ -45,10 +51,10 @@ const userLoginProcess = () => async (dispatch) => {
     const res = await axios(config);
     const { user, token } = res.data
     const { name, email, profilePic } = user
-    localStorage.setItem("token", token)
-    localStorage.setItem("name", name)
-    localStorage.setItem("email", email)
-    localStorage.setItem("profilePic", profilePic)
+    saveToStorage(storageEnums.TOKEN, token)
+    saveToStorage(storageEnums.NAME, name);
+    saveToStorage(storageEnums.EMAIL, email);
+    saveToStorage(storageEnums.PROFILEPIC, profilePic);
     return dispatch(userLoginSuccess(res.data));
   } catch (err) {
     return dispatch(userLoginFailure(err.response));
@@ -62,11 +68,11 @@ const logoutProcess = () => async (dispatch) => {
   } catch (err) {
     return dispatch(logoutFailure());
   }
-  finally{
-    localStorage.removeItem("token")
-    localStorage.removeItem("name")
-    localStorage.removeItem("email")
-    localStorage.removeItem("profilePic")
+  finally {
+    removeFromStorage(storageEnums.TOKEN)
+    removeFromStorage(storageEnums.NAME)
+    removeFromStorage(storageEnums.EMAIL)
+    removeFromStorage(storageEnums.PROFILEPIC)
   }
 };
 

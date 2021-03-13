@@ -1,7 +1,10 @@
 import jwt_decode from "jwt-decode";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
+
 
 const IsAdmin = () => {
-  let token = localStorage.getItem("token");
+  const token = getFromStorage(storageEnums.TOKEN, "");
   const { admin: isAdmin } = jwt_decode(token);
   return isAdmin;
 };

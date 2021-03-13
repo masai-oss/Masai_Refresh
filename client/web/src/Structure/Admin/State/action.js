@@ -1,5 +1,7 @@
 import {adminConstants} from './actionTypes'
 import axios from 'axios'
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
 
 const TOPIC_API = process.env.REACT_APP_ADMIN_TOPIC_API_URL
 const QUESTION_URL = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
@@ -27,7 +29,7 @@ const getCrudTopicsFailure = (payload) => {
 
 const getCrudTopics = () => async (dispatch) => {
     dispatch(getCrudTopicsRequest())
-    let token = localStorage.getItem("token");
+    const token = getFromStorage(storageEnums.TOKEN, "");
     const config = {
         method: "get",
         url: TOPIC_API,
@@ -72,7 +74,7 @@ const postCrudTopicsFailure = (payload) => {
 
 const postCrudTopics = (payload) => async (dispatch) => {
     dispatch(postCrudTopicsRequest())
-    let token = localStorage.getItem("token");
+    const token = getFromStorage(storageEnums.TOKEN, "");
     const config = {
         method: "post",
         url: `${TOPIC_API}/create`,
@@ -118,7 +120,7 @@ const getCrudTopicByIdFailure = (payload) => {
 
 const getCrudTopicById = (payload) => async (dispatch) => {
     dispatch(getCrudTopicByIdRequest())
-    let token = localStorage.getItem("token");
+    const token = getFromStorage(storageEnums.TOKEN, "");
     const config = {
         method: "get",
         url: `${TOPIC_API}/id/${payload}`,
@@ -162,7 +164,7 @@ const deleteCrudTopicFailure = (payload) => {
 
 const deleteCrudTopic = (payload) => async (dispatch) => {
     dispatch(deleteCrudTopicRequest())
-    let token = localStorage.getItem("token");
+    const token = getFromStorage(storageEnums.TOKEN, "");
     const config = {
         method: "delete",
         url: `${TOPIC_API}/${payload}`,
@@ -208,7 +210,7 @@ const updateCrudTopicsFailure = (payload) => {
 
 const updateCrudTopics = (payload, id) => async (dispatch) => {
     dispatch(updateCrudTopicsRequest())
-    let token = localStorage.getItem("token");
+    const token = getFromStorage(storageEnums.TOKEN, "");
     const config = {
         method: "put",
         url: `${TOPIC_API}/${id}`,
@@ -247,7 +249,7 @@ const getQuestionsLoading = () => ({
   
   const getQuestionsRequest = (page = 0, limit = 10) => (dispatch) => {
     dispatch(getQuestionsLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/all/?page=${page+1}&limit=${limit}`
 
     axios({
@@ -279,7 +281,7 @@ const getTopicsLoading = () => ({
 const getTopicsRequest = () => (dispatch) => {
     dispatch(getTopicsLoading());
 
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
 
     axios({
       method: "get",
@@ -310,7 +312,7 @@ const getTopicsRequest = () => (dispatch) => {
   
 const getQuestionsByTopicRequest = (topic) => (dispatch) => {
     dispatch(getQuestionsByTopicLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/byTopic/${topic}`
 
     axios({
@@ -342,7 +344,7 @@ const getQuestionsByTopicRequest = (topic) => (dispatch) => {
   
 const addQuestionsRequest = (payload, topic) => (dispatch) => {
     dispatch(addQuestionsLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/add/${topic}/`
 
     axios({
@@ -375,7 +377,7 @@ const addQuestionsRequest = (payload, topic) => (dispatch) => {
   
 const deleteQuestionsRequest = (id, topic) => (dispatch) => {
     dispatch(deleteQuestionsLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/delete/${topic}/${id}`
 
     axios({

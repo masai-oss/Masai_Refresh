@@ -1,6 +1,8 @@
 import { topicConstant, questionsConstants } from "./actionTypes";
 import axios from "axios";
 import { questionActions } from "../../Questions"
+import { getFromStorage } from "../../../Utils/localStorageHelper"
+import { storageEnums } from "../../../Enums/storageEnums"
 
 const ATTEMPT_API_URL = process.env.REACT_APP_ATTEMPT_URL;
 const TOPIC_API_URL = process.env.REACT_APP_ADMIN_TOPIC_API_URL;
@@ -21,7 +23,7 @@ const getTopicsFailure = (payload) => ({
 
 const getTopics = () => (dispatch) => {
   dispatch(getTopicsLoading());
-  const token = localStorage.getItem("token");
+  const token = getFromStorage(storageEnums.TOKEN, "")
   axios
     .get(`${TOPIC_API_URL}/summary`, {
       headers: {
@@ -48,7 +50,7 @@ const attemptQuizFailure = (payload) => ({
 
 const attemptQuiz = (payload) => async(dispatch, getState) => {
   dispatch(attemptQuizLoading());
-  const token = localStorage.getItem("token");
+  const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
     method: "POST",
     url: `${ATTEMPT_API_URL}/create`,

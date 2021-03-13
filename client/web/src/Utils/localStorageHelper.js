@@ -1,8 +1,8 @@
-export const saveToStorage = (key, value) => {
+const saveToStorage = (key, value) => {
     localStorage.setItem(key, JSON.stringify(value))
 }
 
-export const getFromStorage = (key, default_val) => {
+const getFromStorage = (key, default_val) => {
     try{
         let value = localStorage.getItem(key)
         return JSON.parse(value)
@@ -11,3 +11,9 @@ export const getFromStorage = (key, default_val) => {
         return default_val
     }
 }
+
+const removeFromStorage = (key) => {
+    localStorage.removeItem(key)
+}
+
+export {saveToStorage, getFromStorage, removeFromStorage };
