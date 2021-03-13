@@ -12,6 +12,7 @@ import { Questions as AdminQuestions } from "../Structure/Admin";
 import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions";
+import { Results_display } from "../Structure/Results Display";
 
 const Route = () => {
   return (
@@ -22,6 +23,7 @@ const Route = () => {
           <PublicRoute path="/login" component={Login} />
           <PrivateRoute exact path="/quiz_topics" component={Topics} />
           <PrivateRoute exact path="/quiz_questions" component={Questions} />
+          <PrivateRoute exact path="/results_display" component={Results_display} />
           <AdminRoute
             exact
             path="/questions_admin"

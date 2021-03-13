@@ -6,6 +6,8 @@ import { questionActions } from "../State/action";
 import Button from "@material-ui/core/Button";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "./SyntaxHighlighter";
+import { getResult } from "../../Results Display/State/action";
+import { useHistory } from "react-router";
 
 const MCQ = ({ data, lastQuestion }) => {
   const { statement, options } = data;
@@ -17,6 +19,8 @@ const MCQ = ({ data, lastQuestion }) => {
 
   const dispatch = useDispatch();
 
+  const history = useHistory();
+
   const { attemptId, submissionId } = useSelector((state) => state.topics);
 
   const getNextQuestion = () => {
@@ -27,6 +31,11 @@ const MCQ = ({ data, lastQuestion }) => {
       selected: Number(value),
     };
     dispatch(questionActions.recordAnswer(payload));
+  };
+
+  const submitAnswers = () => {
+    dispatch(getResult(attemptId));
+    history.push("/results_display");
   };
 
   return (
@@ -60,7 +69,7 @@ const MCQ = ({ data, lastQuestion }) => {
         </FormControl>
       </form>
       {lastQuestion === data.id ? (
-        <Button variant="contained" color="primary">
+        <Button onClick={submitAnswers} variant="contained" color="primary">
           Submit
         </Button>
       ) : (
