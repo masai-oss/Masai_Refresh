@@ -11,6 +11,8 @@ import {
 } from "@material-ui/core";
 import { authActions } from "../../Authentication";
 import { useHistory } from "react-router";
+import { NavbarStyles } from "../Styles/NavbarStyle";
+import PowerSettingsNewIcon from '@material-ui/icons/PowerSettingsNew';
 
 const REACT_APP_AUTH_GOOGLE_LOGOUT_URL =
   process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
@@ -27,6 +29,9 @@ const SideBarList = () => {
   const goTo = (to) => {
     history.push(to);
   };
+
+  const classes = NavbarStyles()
+
   return (
     <List>
       <MenuItem
@@ -35,7 +40,7 @@ const SideBarList = () => {
         selected={selected === 0}
       >
         <ListItem button onClick={() => goTo("/quiz_topics")}>
-          <ListItemIcon>
+          <ListItemIcon className={classes.iconColor}>
             <EditIcon />
           </ListItemIcon>
           <ListItemText primary="Quiz" />
@@ -47,8 +52,8 @@ const SideBarList = () => {
         selected={selected === 1}
       >
         <ListItem button onClick={logout}>
-          <ListItemIcon>
-            <ExitToAppIcon />
+          <ListItemIcon className={classes.exitColor}>
+            <PowerSettingsNewIcon />
           </ListItemIcon>
           <ListItemText primary="Logout" />
         </ListItem>

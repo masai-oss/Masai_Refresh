@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 import { LoadingButton } from "../../Common";
 
 const StartQuizModal = ({ modalData, handleClose }) => {
-  const { open, topic, topicId } = modalData
+  const { open, topic, topicId } = modalData;
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
@@ -39,7 +39,7 @@ const StartQuizModal = ({ modalData, handleClose }) => {
         <DialogTitle id="responsive-dialog-title">Start Quiz</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {`Do You like to start the quiz on ${topic}`}
+            {`Would you like to start the quiz on ${topic}`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

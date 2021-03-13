@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import { IsLoading } from "../Common/IsLoading";
 import { MCQ } from "./Components/MCQ";
 
 const Questions = () => {
@@ -10,7 +11,7 @@ const Questions = () => {
   return (
     <>
       {isLoading ? (
-        <div>...isLoading</div>
+        <IsLoading/>
       ) : (
         <div>
           {question.type === "MCQ" ? (
