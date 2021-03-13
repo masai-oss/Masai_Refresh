@@ -5,6 +5,9 @@ import android.os.Bundle
 import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.example.myapplication.AuthResponse.AuthTask
+import com.example.myapplication.Retrofit.ApiClient
+import com.example.myapplication.Retrofit.Network
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -15,6 +18,9 @@ import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_google_sign_in_activty.*
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class GoogleSignInActivty : AppCompatActivity() {
     lateinit var mGoogleSignInClient: GoogleSignInClient
@@ -47,7 +53,26 @@ class GoogleSignInActivty : AppCompatActivity() {
     }
 
     private fun updateUI(account: GoogleSignInAccount?) {
+        if (account != null) {
+            val authTask = AuthTask(account.idToken)
+            val apiClient = Network.getInstance().create(ApiClient::class.java)
+            val postToken = apiClient.postToken(authTask)
+            postToken.enqueue(object : Callback<AuthSuccess>{
+                override fun onResponse(call: Call<AuthSuccess>, response: Response<AuthSuccess>) {
+                    if (response.body()?.token !=null)
 
+                    Toast.makeText(this@GoogleSignInActivty, response.body()?.message +response.body()?.token,Toast.LENGTH_SHORT).show()
+                    val intent = Intent(this@GoogleSignInActivty,HomeActivity::class.java)
+                    intent.putExtra("token",response.body()?.token)
+                    startActivity(intent)
+                }
+
+                override fun onFailure(call: Call<AuthSuccess>, t: Throwable) {
+
+                }
+
+            })
+        }
 
     }
 

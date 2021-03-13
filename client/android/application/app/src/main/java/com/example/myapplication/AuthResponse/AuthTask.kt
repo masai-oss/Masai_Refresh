@@ -5,5 +5,5 @@ import com.google.gson.annotations.SerializedName
 data class AuthTask(
 
 	@field:SerializedName("googleToken")
-	val googleToken: String? = null
+	var googleToken: String? = null
 )

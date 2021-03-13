@@ -12,6 +12,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".AttemptActivity"></activity>
+        <activity android:name=".HomeActivity"></activity>
         <activity android:name=".GoogleSignInActivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
