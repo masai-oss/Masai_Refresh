@@ -12,7 +12,8 @@ import { topicActions } from "../State/action";
 import { useHistory } from "react-router";
 import { LoadingButton } from "../../Common";
 
-const StartQuizModal = ({ open, handleClose, topic, topicId }) => {
+const StartQuizModal = ({ modalData, handleClose }) => {
+  const { open, topic, topicId } = modalData
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
@@ -21,9 +22,9 @@ const StartQuizModal = ({ open, handleClose, topic, topicId }) => {
   const isSuccessQuiz = useSelector((state) => state.topics.isSuccessQuiz);
   const startQuiz = () => {
     dispatch(topicActions.attemptQuiz(topicId)).then((res) => {
-      if (res === "success") {
+      if (res.final === "success") {
         history.push("/quiz_questions");
-      } else {
+      } else if (res.final === "failure") {
         alert("Unable to start Quiz try later");
       }
     });

@@ -10,7 +10,6 @@ export const CrudTopics = () => {
     const history = useHistory()
 
     const topicsData = useSelector(state => state.admin.topicsData)
-    const postSuccess = useSelector(state => state.admin.topicPostedSuccessfully)
 
     const getTopics = () => {
         dispatch(adminActions.getCrudTopics())

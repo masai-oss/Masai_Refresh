@@ -1,13 +1,22 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
+import { useHistory } from 'react-router-dom'
 import ReactMarkdown from "react-markdown";
 
 
 const Results_display = () => {
-  const { result } = useSelector((state) => state.resultReducer);
-  console.log(result);
+  const { result, isError } = useSelector((state) => state.resultReducer);
+  let history = useHistory()
+
+  useEffect(() => {
+    if(isError){
+      history.push('/topics_user')
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   return (
+    result &&
     <div>
       {result.map((question, index) => (
         <div key={index}>

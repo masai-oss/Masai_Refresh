@@ -1,3 +1,5 @@
+import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
 import { topicConstant, questionsConstants } from "./actionTypes";
 
 const initState = {
@@ -8,9 +10,9 @@ const initState = {
   isErrorQuiz: false,
   isSuccessQuiz: false,
   topicsData: [],
-  questions: [],
-  attemptId: "",
-  submissionId: "",
+  questions: getFromStorage(storageEnums.ALL_QUESTIONS, []),
+  attemptId: getFromStorage(storageEnums.ATTEMPT_ID, ''),
+  submissionId: getFromStorage(storageEnums.SUBMISSION_ID, '')
 };
 
 const topics = (state = initState, { type, payload }) => {
@@ -40,24 +42,27 @@ const topics = (state = initState, { type, payload }) => {
         ...state,
         isLoadingQuiz: true,
         isErrorQuiz: false,
-        errMsg: "",
-      };
+        errMsg:''
+      }
     case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
+      saveToStorage(storageEnums.ATTEMPT_ID, payload.attempt_id)
+      saveToStorage(storageEnums.SUBMISSION_ID, payload.submission_id)
+      saveToStorage(storageEnums.ALL_QUESTIONS, payload.questions)
       return {
         ...state,
         isLoadingQuiz: false,
         isSuccessQuiz: true,
         questions: payload.questions,
         attemptId: payload.attempt_id,
-        submissionId: payload.submission_id,
-      };
+        submissionId: payload.submission_id
+      }
     case questionsConstants.ATTEMPT_QUIZ_FAILURE:
       return {
         ...state,
         isLoadingQuiz: false,
         isErrorQuiz: true,
-        errMsg: payload,
-      };
+        isError: true,
+      }
     default:
       return state;
   }

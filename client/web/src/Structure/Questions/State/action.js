@@ -1,7 +1,7 @@
 import { questionConstant, answerConstant } from "./actionTypes";
 import axios from "axios";
 
-const token = localStorage.getItem("token");
+
 const GET_QUESTIONS_URL = process.env.REACT_APP_ATTEMPT_URL;
 
 const nextQuestionLoading = () => ({
@@ -20,6 +20,7 @@ const nextQuestionSuccess = (payload) => ({
 
 const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
   dispatch(nextQuestionLoading());
+  const token = localStorage.getItem("token");
   axios({
     method: "POST",
     url: `${GET_QUESTIONS_URL}/next`,
@@ -47,9 +48,10 @@ const recordAnswerFailure = (payload) => ({
 });
 
 const recordAnswer = (payload) => async(dispatch) => {
-    let attemptId = payload.attempt_id, submissionId = payload.submission_id
-    
-  axios({
+  // eslint-disable-next-line no-unused-vars
+  let attemptId = payload.attempt_id, submissionId = payload.submission_id
+  const token = localStorage.getItem("token");
+  return axios({
     method: "PATCH",
     url: `${GET_QUESTIONS_URL}/record`,
     headers: {
@@ -58,9 +60,14 @@ const recordAnswer = (payload) => async(dispatch) => {
     },
     data: payload,
   })
-    .then((res) => dispatch(recordAnswerSuccess(res.data.message)))
-    .then(dispatch(nextQuestion({attemptId, submissionId})))
-    .catch((err) => dispatch(recordAnswerFailure(err)));
+  .then((res) => {
+    dispatch(recordAnswerSuccess(res.data.message))
+    return {output: true}
+  })
+  .catch((err) => {
+    dispatch(recordAnswerFailure(err))
+    return {output: false}
+  });
 };
 
 

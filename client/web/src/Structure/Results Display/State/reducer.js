@@ -1,7 +1,9 @@
+import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
 import { resultConstant } from "./actionTypes";
 
 const initState = {
-  result: {},
+  result: getFromStorage(storageEnums.PRACTICE_RESULTS, []),
   isLoading: false,
   isError: false,
   errorMessage: "",
@@ -24,7 +26,7 @@ const resultReducer = (state = initState, { type, payload }) => {
         errorMessage: payload,
       };
     case resultConstant.GET_RESULT_SUCCESS:
-      console.log("result", payload);
+      saveToStorage(storageEnums.PRACTICE_RESULTS, payload.result)
       return {
         ...state,
         isLoading: false,

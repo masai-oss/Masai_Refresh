@@ -16,7 +16,11 @@ import { StartQuizModal } from "./Components/startQuizModal";
 const Topics = () => {
   const classes = TopicStyle();
   const dispatch = useDispatch()
-  const [open, setOpen] = useState(false);
+  const [modalData, setModal] = useState({
+    open: false,
+    topic: "",
+    topicId:""
+  });
   useEffect(() => {
     dispatch(topicActions.getTopics());
   // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -24,19 +28,29 @@ const Topics = () => {
   const isLoading = useSelector((state) => state.topics.isLoading);
   const topicsData = useSelector((state) => state.topics.topicsData);
   const isError = useSelector((state) => state.topics.isError);
-  const handleClickOpen = () => {
-    setOpen(true);
+  const handleClickOpen = ({topic, topicId}) => {
+    setModal({
+      open: true,
+      topic: topic,
+      topicId: topicId,
+    });
   };
   const handleClose = () => {
-    setOpen(false);
+    setModal({
+      open: false,
+      topic: "",
+      topicId: "",
+    });
   };
   return (
     <Grid container spacing={6} justify="space-evenly" alignItems="center">
       {isLoading ? (
         <div>...loading</div>
-      ) : isError ? <div>...something went wrong</div> : (
+      ) : isError ? (
+        <div>...something went wrong</div>
+      ) : (
         topicsData &&
-        topicsData.map(({ _id, name, icon, proficiency }, index) => (
+        topicsData.map(({ _id: topicId, name: topic, icon, proficiency }, index) => (
           <Grid item xs={12} sm={10} md={6} lg={6} xl={6} key={index}>
             <Card className={classes.cardStyle}>
               <CardContent>
@@ -50,24 +64,19 @@ const Topics = () => {
                   <Avatar className={classes.iconStyle}>Q</Avatar>
                   <ButtonBase
                     className={classes.topicButtonStyle}
-                    onClick={handleClickOpen}
+                    onClick={() => handleClickOpen({topic, topicId})}
                   >
                     <Typography variant="h5" className={classes.topicNameStyle}>
-                      {name}
+                      {topic}
                     </Typography>
                   </ButtonBase>
                 </Grid>
-                <StartQuizModal
-                  open={open}
-                  handleClose={handleClose}
-                  topic={name}
-                  topicId={_id}
-                />
               </CardContent>
             </Card>
           </Grid>
         ))
       )}
+      <StartQuizModal modalData={modalData} handleClose={handleClose} />
     </Grid>
   );
 };

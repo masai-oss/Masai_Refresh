@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, FormControl, RadioGroup } from "@material-ui/core";
 import { OptionRadio } from "./OptionRadio";
 import { useDispatch, useSelector } from "react-redux";
@@ -8,41 +8,53 @@ import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "./SyntaxHighlighter";
 import { getResult } from "../../Results Display/State/action";
 import { useHistory } from "react-router";
+import { Redirect } from 'react-router-dom'
+import { QuestionWrapper } from "../Styles/MCQ_styles";
 
 const MCQ = ({ data, lastQuestion }) => {
   const { statement, options } = data;
 
   const [value, setValue] = useState(-1);
-  const handleRadioChange = (event) => {
-    setValue(event.target.value);
-  };
-
   const dispatch = useDispatch();
-
   const history = useHistory();
-
   const { attemptId, submissionId } = useSelector((state) => state.topics);
 
+  useEffect(() => {
+    answerRecordSetup()
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [value])
+
+  const handleRadioChange = async(e) => {
+    await setValue(e.target.value);
+  };
+
   const getNextQuestion = () => {
+    dispatch(questionActions.nextQuestion({ attemptId, submissionId }));
+  };
+
+  const answerRecordSetup = async() => {
     let payload = {
       attempt_id: attemptId,
       submission_id: submissionId,
       answer_type: "MCQ",
       selected: Number(value),
     };
-    dispatch(questionActions.recordAnswer(payload));
+    await dispatch(questionActions.recordAnswer(payload));
   };
 
-  const submitAnswers = () => {
-    dispatch(getResult(attemptId));
+  const submitAnswers = async() => {
+    await dispatch(getResult(attemptId));
     history.push("/results_display");
   };
 
   return (
-    <div>
-      <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
-        {statement}
-      </ReactMarkdown>
+    data ? 
+    <QuestionWrapper>
+      <pre>
+        <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
+          {statement}
+        </ReactMarkdown>
+      </pre>
       <form>
         <FormControl fullWidth component="fieldset">
           <RadioGroup
@@ -77,8 +89,9 @@ const MCQ = ({ data, lastQuestion }) => {
           Next
         </Button>
       )}
-    </div>
+    </QuestionWrapper> : <Redirect to='/topics_user' />
   );
 };
+
 
 export { MCQ };
