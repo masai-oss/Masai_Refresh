@@ -12,6 +12,7 @@ import {
 import { ProficiencyChart } from "./Components/ProficiencyChart";
 import { TopicStyle } from "./Styles/TopicStyles";
 import { StartQuizModal } from "./Components/startQuizModal";
+import { IsLoading } from "../Common/IsLoading";
 
 const Topics = () => {
   const classes = TopicStyle();
@@ -45,7 +46,7 @@ const Topics = () => {
   return (
     <Grid container spacing={6} justify="space-evenly" alignItems="center">
       {isLoading ? (
-        <div>...loading</div>
+        <IsLoading/>
       ) : isError ? (
         <div>...something went wrong</div>
       ) : (
