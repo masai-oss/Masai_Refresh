@@ -1,5 +1,6 @@
 import { topicConstant, questionsConstants } from "./actionTypes";
 import axios from "axios";
+import { questionActions } from "../../Questions"
 
 const token = localStorage.getItem("token");
 const ATTEMPT_API_URL = process.env.REACT_APP_ATTEMPT_URL;
@@ -19,7 +20,7 @@ const getTopicsFailure = (payload) => ({
   payload,
 });
 
-const getTopics = (payload) => (dispatch) => {
+const getTopics = () => (dispatch) => {
   dispatch(getTopicsLoading());
 
   axios
@@ -29,7 +30,7 @@ const getTopics = (payload) => (dispatch) => {
       },
     })
     .then((res) => dispatch(getTopicsSuccess(res.data)))
-    .catch((err) => dispatch(getTopicsFailure(err)));
+    .catch((err) => dispatch(getTopicsFailure(err.response)));
 };
 
 const attemptQuizLoading = () => ({
@@ -46,9 +47,9 @@ const attemptQuizFailure = (payload) => ({
   payload,
 });
 
-const attemptQuiz = (payload) => (dispatch) => {
+const attemptQuiz = (payload) => async(dispatch, getState) => {
   dispatch(attemptQuizLoading());
-  axios({
+  const config = {
     method: "POST",
     url: `${ATTEMPT_API_URL}/create`,
     headers: {
@@ -56,10 +57,20 @@ const attemptQuiz = (payload) => (dispatch) => {
     },
     data: {
       topic_id: `${payload}`,
+      size:5
     },
-  })
-    .then((res) => dispatch(attemptQuizSuccess(res.data.data)))
-    .catch((err) => dispatch(attemptQuizFailure(err)));
+  };
+  try {
+    const res = await axios(config)
+    dispatch(attemptQuizSuccess(res.data.data));
+    const attemptId = getState().topics.attemptId;
+    const submissionId = getState().topics.submissionId;
+    dispatch(questionActions.nextQuestion({ attemptId, submissionId }));
+    return "success"
+  } catch (err) {
+    dispatch(attemptQuizFailure(err.response));
+    return "failure"
+  }
 };
 
 export const topicActions = {

@@ -1,0 +1,65 @@
+import React from "react";
+import Button from "@material-ui/core/Button";
+import Dialog from "@material-ui/core/Dialog";
+import DialogActions from "@material-ui/core/DialogActions";
+import DialogContent from "@material-ui/core/DialogContent";
+import DialogContentText from "@material-ui/core/DialogContentText";
+import DialogTitle from "@material-ui/core/DialogTitle";
+import useMediaQuery from "@material-ui/core/useMediaQuery";
+import { useTheme } from "@material-ui/core/styles";
+import { useDispatch, useSelector } from "react-redux";
+import { topicActions } from "../State/action";
+import { useHistory } from "react-router";
+import { LoadingButton } from "../../Common";
+
+const StartQuizModal = ({ open, handleClose, topic, topicId }) => {
+  const theme = useTheme();
+  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
+  const dispatch = useDispatch();
+  const history = useHistory();
+  const isLoadingQuiz = useSelector((state) => state.topics.isLoadingQuiz);
+  const isSuccessQuiz = useSelector((state) => state.topics.isSuccessQuiz);
+  const startQuiz = () => {
+    dispatch(topicActions.attemptQuiz(topicId)).then((res) => {
+      if (res === "success") {
+        history.push("/quiz_questions");
+      } else {
+        alert("Unable to start Quiz try later");
+      }
+    });
+  };
+  return (
+    <div>
+      <Dialog
+        fullScreen={fullScreen}
+        open={open}
+        aria-labelledby="responsive-dialog-title"
+      >
+        <DialogTitle id="responsive-dialog-title">Start Quiz</DialogTitle>
+        <DialogContent>
+          <DialogContentText>
+            {`Do You like to start the quiz on ${topic}`}
+          </DialogContentText>
+        </DialogContent>
+        <DialogActions>
+          <Button
+            autoFocus
+            onClick={handleClose}
+            disabled={isLoadingQuiz}
+            color="primary"
+          >
+            Cancel
+          </Button>
+          <LoadingButton
+            isLoading={isLoadingQuiz}
+            isSuccess={isSuccessQuiz}
+            innerText="Start"
+            submit={startQuiz}
+          />
+        </DialogActions>
+      </Dialog>
+    </div>
+  );
+};
+
+export { StartQuizModal };

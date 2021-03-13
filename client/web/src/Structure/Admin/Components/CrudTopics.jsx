@@ -35,8 +35,6 @@ export const CrudTopics = () => {
     const searchByTopic = (id) => {
         history.push(`/topics/${id}`)
     }
-
-    console.log(postSuccess)
     return (
         <div>
             <button onClick = {getTopics} > Get Topics </button>

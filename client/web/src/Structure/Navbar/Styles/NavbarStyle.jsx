@@ -1,6 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-const drawerWidth = 220;
+const drawerWidth = 240;
 
 const NavbarStyles = makeStyles((theme) => ({
   root: {

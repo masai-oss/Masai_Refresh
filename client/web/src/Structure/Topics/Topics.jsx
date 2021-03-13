@@ -1,75 +1,75 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
-import Modal from "@material-ui/core/Modal";
-import Backdrop from "@material-ui/core/Backdrop";
-import Fade from "@material-ui/core/Fade";
-import { useHistory } from "react-router";
-import { questionActions } from "../Questions";
-import { TopicStyles } from "./Styles/TopicStyles";
+import {
+  Grid,
+  Card,
+  CardContent,
+  Typography,
+  Avatar,
+  ButtonBase,
+} from "@material-ui/core";
+import { ProficiencyChart } from "./Components/ProficiencyChart";
+import { TopicStyle } from "./Styles/TopicStyles";
+import { StartQuizModal } from "./Components/startQuizModal";
 
-function Topics() {
-  const classes = TopicStyles();
-  const dispatch = useDispatch();
-  const history = useHistory();
+const Topics = () => {
+  const classes = TopicStyle();
+  const dispatch = useDispatch()
+  const [open, setOpen] = useState(false);
   useEffect(() => {
     dispatch(topicActions.getTopics());
-  }, [dispatch]);
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
+  const isLoading = useSelector((state) => state.topics.isLoading);
   const topicsData = useSelector((state) => state.topics.topicsData);
-  const [openModal, setOpenModal] = useState(false);
-  const [selectedTopic, setSelectedTopic] = useState({});
-
-  const attemptQuiz = (topicId) => {
-    setOpenModal(true);
-    let topic = topicsData.find((topic) => topic._id === topicId);
-    setSelectedTopic(topic);
-    dispatch(topicActions.attemptQuiz(topic._id));
+  const isError = useSelector((state) => state.topics.isError);
+  const handleClickOpen = () => {
+    setOpen(true);
   };
-
   const handleClose = () => {
-    setOpenModal(false);
+    setOpen(false);
   };
-
-  const { attemptId, submissionId } = useSelector((state) => state.topics);
-
-  const startQuiz = () => {
-    setOpenModal(false);
-    dispatch(questionActions.nextQuestion({ attemptId, submissionId }));
-    history.push("/quiz_questions");
-  };
-
   return (
-    <div style={{ display: "flex", flex: 2, justifyContent: "space-around" }}>
-      {topicsData.map((topic) => (
-        <div key={topic._id}>
-          <h3>{topic.name}</h3>
-          <h6>Total Questions: {topic.total_questions}</h6>
-          <button onClick={() => attemptQuiz(topic._id)}>Attempt</button>
-        </div>
-      ))}
-      <Modal
-        aria-labelledby="transition-modal-title"
-        aria-describedby="transition-modal-description"
-        className={classes.modal}
-        open={openModal}
-        onClose={handleClose}
-        closeAfterTransition
-        BackdropComponent={Backdrop}
-        BackdropProps={{
-          timeout: 500,
-        }}
-      >
-        <Fade in={openModal}>
-          <div className={classes.paper}>
-            <h2 id="transition-modal-title">{selectedTopic.name}</h2>
-            <div id="transition-modal-description">
-              <button onClick={startQuiz}>Start</button>
-            </div>
-          </div>
-        </Fade>
-      </Modal>
-    </div>
+    <Grid container spacing={6} justify="space-evenly" alignItems="center">
+      {isLoading ? (
+        <div>...loading</div>
+      ) : isError ? <div>...something went wrong</div> : (
+        topicsData &&
+        topicsData.map(({ _id, name, icon, proficiency }, index) => (
+          <Grid item xs={12} sm={10} md={6} lg={6} xl={6} key={index}>
+            <Card className={classes.cardStyle}>
+              <CardContent>
+                <Grid
+                  container
+                  direction="column"
+                  justify="space-evenly"
+                  alignItems="center"
+                >
+                  <ProficiencyChart proficiency={proficiency} />
+                  <Avatar className={classes.iconStyle}>Q</Avatar>
+                  <ButtonBase
+                    className={classes.topicButtonStyle}
+                    onClick={handleClickOpen}
+                  >
+                    <Typography variant="h5" className={classes.topicNameStyle}>
+                      {name}
+                    </Typography>
+                  </ButtonBase>
+                </Grid>
+                <StartQuizModal
+                  open={open}
+                  handleClose={handleClose}
+                  topic={name}
+                  topicId={_id}
+                />
+              </CardContent>
+            </Card>
+          </Grid>
+        ))
+      )}
+    </Grid>
   );
-}
+};
 
 export { Topics };

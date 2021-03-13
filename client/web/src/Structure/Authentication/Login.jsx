@@ -10,7 +10,6 @@ const Login = () => {
   const dispatch = useDispatch();
   const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
   let isAuth = localStorage.getItem("token")
-  console.log(isAuth);
 
   const loginUser = () => {
     window.open(REACT_APP_AUTH_GOOGLE_LOGIN_URL, "_self");
