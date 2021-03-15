@@ -14,18 +14,25 @@ import { NavbarStyles } from "./Styles/NavbarStyle";
 import { UserSideBarList } from "./Components/UserSideBarList";
 import { AdminSideBarList } from "./Components/AdminSideBarList";
 import { ProfilePic } from "../Common";
+import { useHistory } from "react-router";
 
 function Navbar({ window, children, isAdmin }) {
   const classes = NavbarStyles();
   const theme = useTheme();
+  const history = useHistory()
   const [mobileOpen, setMobileOpen] = React.useState(false);
+  
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
   };
 
+  const goHome = () => {
+    history.push('/')
+  }
+
   const drawer = (
     <div>
-      <div className={classes.toolbar}>
+      <div className={classes.toolbar} onClick={goHome}>
         <u>Quizine</u>
       </div>
       {isAdmin ? <AdminSideBarList /> : <UserSideBarList />}

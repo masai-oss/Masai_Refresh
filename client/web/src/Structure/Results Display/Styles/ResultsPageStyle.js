@@ -5,15 +5,15 @@ export const ResultWrapper = styled.div`
 `;
 
 export const QuestionWrapper = styled.div`
-  border: 1px solid #e8e8e8;
-  padding: 10px 40px;
-  border-radius: 2px;
-  margin-bottom: 20px;
-
-  :hover {
-    background-color: #ededed;
-  }
-`;
+    border: 1px solid #e8e8e8;
+    padding: 10px 40px;
+    border-radius: 2px;
+    margin-bottom: 20px;
+    
+    :hover{
+        background-color: #f2f2f2;
+    }
+`
 
 export const OutcomeTag = styled.span`
   background-color: ${(props) =>
