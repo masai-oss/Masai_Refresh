@@ -10,7 +10,7 @@ const Results_display = () => {
 
   useEffect(() => {
     if(isError){
-      history.push('/topics_user')
+      history.push("/quiz_topics");
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])

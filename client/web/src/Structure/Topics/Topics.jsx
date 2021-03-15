@@ -46,36 +46,41 @@ const Topics = () => {
   return (
     <Grid container spacing={6} justify="space-evenly" alignItems="center">
       {isLoading ? (
-        <IsLoading/>
+        <IsLoading />
       ) : isError ? (
         <div>...something went wrong</div>
       ) : (
         topicsData &&
-        topicsData.map(({ _id: topicId, name: topic, icon, proficiency }, index) => (
-          <Grid item xs={12} sm={10} md={6} lg={6} xl={6} key={index}>
-            <Card className={classes.cardStyle}>
-              <CardContent>
-                <Grid
-                  container
-                  direction="column"
-                  justify="space-evenly"
-                  alignItems="center"
-                >
-                  <ProficiencyChart proficiency={proficiency} />
-                  <Avatar className={classes.iconStyle}>Q</Avatar>
-                  <ButtonBase
-                    className={classes.topicButtonStyle}
-                    onClick={() => handleClickOpen({topic, topicId})}
+        topicsData.map(
+          ({ _id: topicId, name: topic, icon, proficiency }, index) => (
+            <Grid item xs={12} sm={10} md={6} lg={6} xl={6} key={index}>
+              <Card className={classes.cardStyle}>
+                <CardContent>
+                  <Grid
+                    container
+                    direction="column"
+                    justify="space-evenly"
+                    alignItems="center"
                   >
-                    <Typography variant="h5" className={classes.topicNameStyle}>
-                      {topic}
-                    </Typography>
-                  </ButtonBase>
-                </Grid>
-              </CardContent>
-            </Card>
-          </Grid>
-        ))
+                    <ProficiencyChart proficiency={proficiency} />
+                    <Avatar className={classes.iconStyle}>Q</Avatar>
+                    <ButtonBase
+                      className={classes.topicButtonStyle}
+                      onClick={() => handleClickOpen({ topic, topicId })}
+                    >
+                      <Typography
+                        variant="h5"
+                        className={classes.topicNameStyle}
+                      >
+                        {topic}
+                      </Typography>
+                    </ButtonBase>
+                  </Grid>
+                </CardContent>
+              </Card>
+            </Grid>
+          )
+        )
       )}
       <StartQuizModal modalData={modalData} handleClose={handleClose} />
     </Grid>

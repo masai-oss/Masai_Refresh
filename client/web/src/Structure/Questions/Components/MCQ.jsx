@@ -12,13 +12,12 @@ import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
 
 const MCQ = ({ data, lastQuestion }) => {
-  const { statement, options } = data;
-
+  const { statement, options, id } = data;
   const [value, setValue] = useState(-1);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { attemptId, submissionId } = useSelector((state) => state.topics);
-
+  const attemptId = useSelector((state) => state.topics.attemptId);
+  const submissionId = useSelector((state) => state.topics.submissionId);
   useEffect(() => {
     answerRecordSetup();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -44,7 +43,7 @@ const MCQ = ({ data, lastQuestion }) => {
 
   const submitAnswers = async () => {
     await dispatch(getResult(attemptId));
-    history.push("/results_display");
+    history.replace("/results_display");
   };
 
   return data ? (
@@ -79,7 +78,7 @@ const MCQ = ({ data, lastQuestion }) => {
           </RadioGroup>
         </FormControl>
       </form>
-      {lastQuestion === data.id ? (
+      {lastQuestion === id ? (
         <Button onClick={submitAnswers} variant="contained" color="primary">
           Submit
         </Button>

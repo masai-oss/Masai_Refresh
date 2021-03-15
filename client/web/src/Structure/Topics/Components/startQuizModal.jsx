@@ -1,11 +1,13 @@
 import React from "react";
-import Button from "@material-ui/core/Button";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import useMediaQuery from "@material-ui/core/useMediaQuery";
+import {
+  Button,
+  Dialog,
+  DialogActions,
+  DialogContent,
+  DialogContentText,
+  DialogTitle,
+  useMediaQuery,
+} from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "../State/action";
@@ -23,7 +25,7 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const startQuiz = () => {
     dispatch(topicActions.attemptQuiz(topicId)).then((res) => {
       if (res.final === "success") {
-        history.push(`/quiz_questions/${topic}`);
+        history.replace(`/quiz_questions/${topic}`);
       } else if (res.final === "failure") {
         alert("Unable to start Quiz try later");
       }
