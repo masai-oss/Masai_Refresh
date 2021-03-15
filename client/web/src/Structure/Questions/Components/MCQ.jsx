@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, FormControl, RadioGroup } from "@material-ui/core";
+import { Grid, FormControl, RadioGroup, Chip } from "@material-ui/core";
 import { OptionRadio } from "./OptionRadio";
 import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
@@ -10,6 +10,7 @@ import { getResult } from "../../Results Display/State/action";
 import { useHistory } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
+import { QuestionStyles } from "../Styles/QuestionStyles";
 
 const MCQ = ({ data, lastQuestion }) => {
   const { statement, options, id } = data;
@@ -18,6 +19,8 @@ const MCQ = ({ data, lastQuestion }) => {
   const history = useHistory();
   const attemptId = useSelector((state) => state.topics.attemptId);
   const submissionId = useSelector((state) => state.topics.submissionId);
+  const classes = QuestionStyles();
+
   useEffect(() => {
     answerRecordSetup();
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -83,7 +86,12 @@ const MCQ = ({ data, lastQuestion }) => {
           Submit
         </Button>
       ) : (
-        <Button onClick={getNextQuestion} variant="contained" color="secondary">
+        <Button
+          onClick={getNextQuestion}
+          variant="contained"
+          color="secondary"
+          className={classes.nextBtn}
+        >
           Next
         </Button>
       )}
