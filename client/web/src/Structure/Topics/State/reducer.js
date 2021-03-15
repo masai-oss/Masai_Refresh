@@ -52,7 +52,7 @@ const topics = (state = initState, { type, payload }) => {
         ...state,
         isLoadingQuiz: false,
         isSuccessQuiz: true,
-        questions: payload.questions,
+        questionIds: payload.questions,
         attemptId: payload.attempt_id,
         submissionId: payload.submission_id
       }

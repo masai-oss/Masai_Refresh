@@ -25,7 +25,7 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const startQuiz = () => {
     dispatch(topicActions.attemptQuiz(topicId)).then((res) => {
       if (res.final === "success") {
-        history.replace("/quiz_questions");
+        history.replace(`/quiz_questions/${topic}`);
       } else if (res.final === "failure") {
         alert("Unable to start Quiz try later");
       }

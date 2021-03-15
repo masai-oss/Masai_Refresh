@@ -33,13 +33,13 @@ const LogoutDialog = ({ open, handleClose }) => {
       >
         <DialogTitle id="responsive-dialog-title">Logout</DialogTitle>
         <DialogContent>
-          <DialogContentText>Would you like to logout</DialogContentText>
+          <DialogContentText>Would you like to logout ?</DialogContentText>
         </DialogContent>
         <DialogActions>
           <Button autoFocus onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button onClick={logout} color="primary">
+          <Button variant="contained" onClick={logout} color="primary">
             Agree
           </Button>
         </DialogActions>
