@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
 import Button from "@material-ui/core/Button";
 import ReactMarkdown from "react-markdown";
-import { SyntaxHighlight } from "./SyntaxHighlighter";
+import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { getResult } from "../../Results Display/State/action";
 import { useHistory } from "react-router";
 import { Redirect } from "react-router-dom";
