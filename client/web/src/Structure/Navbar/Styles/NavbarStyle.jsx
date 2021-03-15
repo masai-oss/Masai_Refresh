@@ -29,6 +29,7 @@ const NavbarStyles = makeStyles((theme) => ({
     [theme.breakpoints.up("sm")]: {
       marginLeft: drawerWidth,
     },
+    flexGrow: 1,
   },
 
   menuButton: {
@@ -56,8 +57,8 @@ const NavbarStyles = makeStyles((theme) => ({
     color: "dodgerblue",
   },
   exitColor: {
-    color:"red"
-  }
+    color: "red",
+  },
 }));
 
 export { NavbarStyles };
