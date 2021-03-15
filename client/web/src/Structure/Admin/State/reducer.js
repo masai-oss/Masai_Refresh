@@ -12,7 +12,9 @@ const initState = {
   specificTopicData: "",
   questionAddedStatus: false,
   questionDeletionStatus: false,
-
+  questionEditStatus: false,
+  singleQuestion: "",
+  gotQuestionData : ""
 };
 
 const admin = (state = initState, { type, payload }) => {
@@ -71,6 +73,26 @@ const admin = (state = initState, { type, payload }) => {
         isError: true,
       }
 
+    case adminConstants.GET_QUESTION_LOADING:
+      return{
+        ...state,
+        isLoading: true
+      }
+    case adminConstants.GET_QUESTION_SUCCESS:
+      return{
+        ...state,
+        isLoading: false,
+        singleQuestion: payload.question[0],
+        gotQuestionData: true
+      }
+      case adminConstants.GET_QUESTION_FAILURE:
+        return{
+          ...state,
+          isLoading: false,
+          isError: true,
+          gotQuestionData: false
+      }
+
     case adminConstants.ADD_QUESTION_LOADING:
       return{
         ...state,
@@ -80,14 +102,16 @@ const admin = (state = initState, { type, payload }) => {
       return{
         ...state,
         isLoading: false,
-        questionAddedStatus: true
+        questionAddedStatus: true,
+        errorMessage: payload,
       }
       case adminConstants.ADD_QUESTION_FAILURE:
         return{
           ...state,
           isError: true,
           isLoading: false,
-          questionAddedStatus: false
+        errorMessage: payload,
+        questionAddedStatus: false
       }
 
     case adminConstants.DELETE_QUESTION_LOADING:
@@ -99,6 +123,7 @@ const admin = (state = initState, { type, payload }) => {
       return{
         ...state,
         isLoading: false,
+        errorMessage: payload,
         questionDeletionStatus: true
 
       }
@@ -108,6 +133,7 @@ const admin = (state = initState, { type, payload }) => {
         ...state,
         isLoading: false,
         questionDeletionStatus: false,
+        errorMessage: payload,
         isError: true,
       }
 
@@ -121,13 +147,16 @@ const admin = (state = initState, { type, payload }) => {
       return{
         ...state,
         isLoading: false,
-        data: [...state.data, payload]
+        errorMessage: payload,
+        questionEditStatus: true
       }
     case adminConstants.EDIT_QUESTION_FAILURE:
       return{
         ...state,
         isLoading: false,
+        errorMessage: payload,
         isError: true,
+        questionEditStatus: false
       }
 
       case adminConstants.GET_CRUD_TOPICS_REQUEST:
@@ -145,7 +174,7 @@ const admin = (state = initState, { type, payload }) => {
           return{
               ...state,
               errorMessage: payload,
-              isLoading: false
+              isLoading: false,
           }
       case adminConstants.POST_CRUD_TOPICS_REQUEST:
           return{

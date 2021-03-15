@@ -8,7 +8,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication"
 import { Dashboard } from "../Structure/Dashboard"
-import { Questions as AdminQuestions } from '../Structure/Admin'
+import { Questions as AdminQuestions, QuestionForm, QuestionUpdate } from '../Structure/Admin'
 import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions/Components/Questions";
@@ -26,6 +26,12 @@ const Route = () => {
           </PublicRoute>
           <AdminRoute exact path="/questions_admin" >
             <AdminQuestions />
+          </AdminRoute>
+          <AdminRoute exact path="/questions/add" >
+            <QuestionForm />
+          </AdminRoute>
+          <AdminRoute exact path="/questions/edit/:topic/:id" >
+            <QuestionUpdate />
           </AdminRoute>
           <PrivateRoute exact path="/topics_user">
             <Topics />

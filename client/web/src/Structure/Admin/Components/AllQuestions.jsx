@@ -9,7 +9,7 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 
-export const AllQuestions = ({handleDelete}) => {
+export const AllQuestions = ({handleDelete, topics}) => {
     const dispatch = useDispatch();
     const questions = useSelector( state => state.admin.data )
     const isLoading = useSelector( state => state.admin.isLoading )
