@@ -1,11 +1,9 @@
 import React from "react";
 import { makeStyles } from "@material-ui/core/styles";
-import Badge from "@material-ui/core/Badge";
 
 const useStyles = makeStyles((theme) => ({
   badges: {
     borderRadius: 5,
-    fontSize: 2,
     background: "crimson",
     color: "lavenderblush",
     fontSize: 15,

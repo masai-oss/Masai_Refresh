@@ -53,7 +53,7 @@ const Topics = () => {
         topicsData &&
         topicsData.map(
           ({ _id: topicId, name: topic, icon, proficiency }, index) => (
-            <Grid item xs={12} sm={10} md={6} lg={6} xl={6} key={index}>
+            <Grid item xs={12} sm={10} md={6} lg={4} xl={3} key={index}>
               <Card className={classes.cardStyle}>
                 <CardContent>
                   <Grid
@@ -61,6 +61,7 @@ const Topics = () => {
                     direction="column"
                     justify="space-evenly"
                     alignItems="center"
+                    className={classes.gridCard}
                   >
                     <ProficiencyChart proficiency={proficiency} />
                     <Avatar className={classes.iconStyle}>Q</Avatar>

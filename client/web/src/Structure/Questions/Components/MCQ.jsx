@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { Grid, FormControl, RadioGroup, Chip } from "@material-ui/core";
+import { Grid, FormControl, RadioGroup } from "@material-ui/core";
 import { OptionRadio } from "./OptionRadio";
 import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
