@@ -1,7 +1,8 @@
-import React, {useState} from 'react'
+import React, {useState, useEffect} from 'react'
 import {useDispatch, useSelector} from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import {adminActions} from '../State/action'
+import { TopicsStyle } from '../Styles/TopicsStyle'
 
 export const CrudTopics = () => {
     const [topicName, setTopicName] = useState("")
@@ -11,9 +12,7 @@ export const CrudTopics = () => {
 
     const topicsData = useSelector(state => state.admin.topicsData)
 
-    const getTopics = () => {
-        dispatch(adminActions.getCrudTopics())
-    }
+    const classes = TopicsStyle()
 
     const postTopic = () => {
         const payload = {
@@ -34,25 +33,29 @@ export const CrudTopics = () => {
     const searchByTopic = (id) => {
         history.push(`/topics/${id}`)
     }
+
+    useEffect(() => {
+        dispatch(adminActions.getCrudTopics())
+    })
+
     return (
         <div>
-            <button onClick = {getTopics} > Get Topics </button>
             <br/>
             {
                 topicsData && topicsData?.map(topic => {
                     return(
-                        <button key = {topic._id} onClick = {() => searchByTopic(topic._id)} >
+                        <button key = {topic._id} className = {classes.root} onClick = {() => searchByTopic(topic._id)} >
                             {topic.name}
                         </button>
                     )
                 })
             }
             <br />
-            <input onChange = {(e) => setTopicName(e.target.value)}  value = {topicName} />
-            <button onClick = {postTopic} >Post Topic</button>
+            <input onChange = {(e) => setTopicName(e.target.value)} className = {classes.input} value = {topicName} />
+            <button onClick = {postTopic} className = {classes.add} >Add a Topic</button>
             <br />
-            <input onChange = {(e) => setTopicName1(e.target.value)}  value = {topicName1} />
-            <button onClick = {deleteTopic} >Delete Topic</button>
+            <input onChange = {(e) => setTopicName1(e.target.value)} className = {classes.input} value = {topicName1} />
+            <button onClick = {deleteTopic} className = {classes.add}  >Delete Topic</button>
         </div>
     )
 }
