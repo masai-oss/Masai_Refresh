@@ -2,7 +2,6 @@ import React from "react";
 import {
   PieChart,
   Pie,
-  ResponsiveContainer,
   Cell,
 } from "recharts";
 
@@ -15,8 +14,7 @@ const ProficiencyChart = ({ proficiency }) => {
     color: key === "correct" ? COLORS[0] : key === "wrong" ? COLORS[1] : COLORS[2]
   }));
   return (
-    <ResponsiveContainer width={200} height={200}>
-      <PieChart>
+      <PieChart width={200} height={220}>
         <Pie
           data={cnvProficiency}
           dataKey="value"
@@ -25,14 +23,13 @@ const ProficiencyChart = ({ proficiency }) => {
           innerRadius={60}
           outerRadius={80}
           fill="#82ca9d"
-          paddingAngle={5}
+          paddingAngle={2}
         >
           {cnvProficiency.map(({ color }, index) => (
             <Cell key={`cell-${index}`} fill={color} />
           ))}
         </Pie>
       </PieChart>
-    </ResponsiveContainer>
   );
 };
 

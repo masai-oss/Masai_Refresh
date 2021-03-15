@@ -7,7 +7,6 @@ import { TopicChip } from "../Common/TopicChip";
 import { MCQ } from "./Components/MCQ";
 import Card from "@material-ui/core/Card";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
-import CircularProgress from "@material-ui/core/CircularProgress";
 
 const Questions = () => {
   const question = useSelector((state) => state.questions.question);
@@ -16,11 +15,9 @@ const Questions = () => {
   const params = useParams();
   const topicDisplay = params.topic;
   const isError = useSelector((state) => state.questions.isError);
-  const lastQuestion =
-    questionIds !== null && questionIds[questionIds.length - 1];
+  const lastQuestion = questionIds !== null && questionIds[questionIds.length - 1];
   const classes = QuestionStyles();
-  let queIndex = questionIds.indexOf(question.id);
-  console.log(queIndex);
+  let queIndex = questionIds.indexOf(question?.id);
 
   return (
     <>
