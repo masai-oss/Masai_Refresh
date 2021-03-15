@@ -22,7 +22,7 @@ const Route = () => {
           <PrivateRoute exact path="/" component={Dashboard} />
           <PublicRoute path="/login" component={Login} />
           <PrivateRoute exact path="/quiz_topics" component={Topics} />
-          <PrivateRoute exact path="/quiz_questions" component={Questions} />
+          <PrivateRoute exact path="/quiz_questions/:topic" component={Questions} />
           <PrivateRoute exact path="/results_display" component={Results_display} />
           <AdminRoute
             exact
