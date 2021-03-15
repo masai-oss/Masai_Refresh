@@ -10,7 +10,7 @@ const initState = {
   isErrorQuiz: false,
   isSuccessQuiz: false,
   topicsData: [],
-  questions: getFromStorage(storageEnums.ALL_QUESTIONS, []),
+  questionIds: getFromStorage(storageEnums.ALL_QUESTIONS_IDS, []),
   attemptId: getFromStorage(storageEnums.ATTEMPT_ID, ''),
   submissionId: getFromStorage(storageEnums.SUBMISSION_ID, '')
 };
@@ -47,7 +47,7 @@ const topics = (state = initState, { type, payload }) => {
     case questionsConstants.ATTEMPT_QUIZ_SUCCESS:
       saveToStorage(storageEnums.ATTEMPT_ID, payload.attempt_id)
       saveToStorage(storageEnums.SUBMISSION_ID, payload.submission_id)
-      saveToStorage(storageEnums.ALL_QUESTIONS, payload.questions)
+      saveToStorage(storageEnums.ALL_QUESTIONS_IDS, payload.questions)
       return {
         ...state,
         isLoadingQuiz: false,
