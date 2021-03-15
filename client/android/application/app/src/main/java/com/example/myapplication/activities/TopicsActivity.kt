@@ -6,6 +6,7 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
@@ -49,7 +50,7 @@ topicsViewModel.liveData.observe(this,{
 
     private fun setRecyclerAdapter() {
         userAdapter = TopicAdapter(dataModelList)
-        val layoutManager = LinearLayoutManager(this)
+        val layoutManager = GridLayoutManager(this,2)
         recyclerView.apply {
             this.layoutManager = layoutManager
             adapter = userAdapter
