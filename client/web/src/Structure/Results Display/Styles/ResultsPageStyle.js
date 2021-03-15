@@ -9,6 +9,10 @@ export const QuestionWrapper = styled.div`
     padding: 10px 40px;
     border-radius: 2px;
     margin-bottom: 20px;
+    
+    :hover{
+        background-color: #ededed;
+    }
 `
 
 export const OutcomeTag = styled.span`
