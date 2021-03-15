@@ -27,7 +27,6 @@ export const SearchByTopic = () => {
         dispatch(adminActions.getCrudTopicById(params.id))
     }, [dispatch, params.id])
 
-    console.log(currentTopicData)
     return (
         <div>
             {

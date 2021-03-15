@@ -25,6 +25,7 @@ const createResult = async (attempts) => {
       let temp = {};
       temp.statement = crnQuestion.statement;
       temp.outcome = answers[i].outcome;
+      temp.explanation = crnQuestion.explanation || " ";
       if (answers[i].type === "SHORT") {
         temp.correct = crnQuestion.answer;
         temp.response =

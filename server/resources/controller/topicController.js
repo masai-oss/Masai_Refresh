@@ -15,19 +15,6 @@ const getAllTopics = async ( req, res ) => {
 }
 
 
-const getTopicsSummary = async ( req, res ) => {
-
-    try{
-        let result = await Topic.aggregate([{ $project: {name:1, total_questions: {$size: "$questions"}}}]).exec()
-        res.status(200).json({error: false, data: result})
-    }
-    catch (err) {
-        console.log(err)
-        res.status(400).json({error: true, message: `${err}`})
-    } 
-}
-
-
 const getTopicById = async ( req, res ) => {
     const { id } = req.params
     if (id === undefined) {
@@ -113,7 +100,6 @@ const deleteTopic = async ( req, res ) => {
 const editTopic = async ( req, res ) => {
     const { id } = req.params
     const data = req.body
-    console.log(Object.keys(data));
     if (id === undefined) {
         return res.status(400).json({ error: true, message: "Pass Topic ID" });
     }
@@ -155,6 +141,5 @@ module.exports = {
     addTopic,
     deleteTopic,
     editTopic,
-    replaceTopic,
-    getTopicsSummary
+    replaceTopic
 }

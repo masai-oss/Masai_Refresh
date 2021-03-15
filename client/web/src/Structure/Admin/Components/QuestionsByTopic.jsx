@@ -1,13 +1,13 @@
-import { useEffect, useState } from 'react'
-import { adminActions } from '../State/action'
+import { useEffect, useState } from "react";
+import { adminActions } from "../State/action";
 import { useSelector, useDispatch } from "react-redux";
-import { Row } from '../'
-import Table from '@material-ui/core/Table';
-import TableHead from '@material-ui/core/TableHead';
-import TableRow from '@material-ui/core/TableRow';
-import TableCell from '@material-ui/core/TableCell';
-import TableBody from '@material-ui/core/TableBody';
-import TablePagination from '@material-ui/core/TablePagination';
+import { Row } from "../";
+import Table from "@material-ui/core/Table";
+import TableHead from "@material-ui/core/TableHead";
+import TableRow from "@material-ui/core/TableRow";
+import TableCell from "@material-ui/core/TableCell";
+import TableBody from "@material-ui/core/TableBody";
+import TablePagination from "@material-ui/core/TablePagination";
 
 export const QuestionsByTopic = ({topic, handleDelete, topics}) => {
     const dispatch = useDispatch();
@@ -23,8 +23,8 @@ export const QuestionsByTopic = ({topic, handleDelete, topics}) => {
     };
 
     const handleChangeRowsPerPage = (event) => {
-      setRowsPerPage(event.target.value);
-      setPage(0);
+        setRowsPerPage(event.target.value);
+        setPage(0);
     };
 
     useEffect(() => {
@@ -37,10 +37,10 @@ export const QuestionsByTopic = ({topic, handleDelete, topics}) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Id</TableCell>
-                            <TableCell>topic</TableCell>
-                            <TableCell>type</TableCell>
-                            <TableCell>edit</TableCell>
-                            <TableCell>delete</TableCell>
+                            <TableCell>Topic</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Edit</TableCell>
+                            <TableCell>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

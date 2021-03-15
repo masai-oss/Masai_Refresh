@@ -14,20 +14,19 @@ export const Questions = () => {
     const topics = useSelector( state => state.admin.topics)
     const [topic, setTopic] = useState('all')
 
-    const handleDelete = (id, topic) => {
-        dispatch( adminActions.deleteQuestionsRequest(id, topic) )
-    }
+  const handleDelete = (id, topic) => {
+    dispatch(adminActions.deleteQuestionsRequest(id, topic));
+  };
 
-    const handleChange = value => {
-        setTopic(value)
+  const handleChange = (value) => {
+    setTopic(value);
 
-        if( value === "all" ){
-            dispatch( adminActions.getQuestionsRequest() )
-        }
-        else{
-            dispatch( adminActions.getQuestionsByTopicRequest(value) )
-        }
+    if (value === "all") {
+      dispatch(adminActions.getQuestionsRequest());
+    } else {
+      dispatch(adminActions.getQuestionsByTopicRequest(value));
     }
+  };
 
     useEffect(() => {
         dispatch( adminActions.getTopicsRequest() )
@@ -36,13 +35,13 @@ export const Questions = () => {
     return (
         <Container>
             <Box>
-                <select value={topic} onChange={ e => handleChange( e.target.value ) } >
+                <Select value={topic} onChange={ e => handleChange( e.target.value ) } >
                     <option value = "all">ALL</option>
                     {
                         topics.data?.map( item => <option key={item.name} value={item.name}>{item.name}</option> )
                     }
-                </select>
-                <Button variant="outlined" color="primary" onClick={ () => history.push("/questions/add") }>ADD</Button>
+                </Select>
+                <Button variant="contained" color="primary" onClick={ () => history.push("/questions/add") }>ADD</Button>
             </Box>
             <Box>
                 { topic === "all" && <AllQuestions topics={topics} handleDelete={handleDelete} /> }

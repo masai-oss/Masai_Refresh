@@ -1,13 +1,15 @@
 import { authConstants } from "./actionTypes";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
 
 const initState = {
   isLoggingIn: false,
   loginError: false,
   loginErrorMessage: "",
-  token: localStorage.getItem("token"),
-  name: localStorage.getItem("name"),
-  email: localStorage.getItem("email"),
-  profilePic: localStorage.getItem("profilePic"),
+  token: getFromStorage(storageEnums.TOKEN, ""),
+  name: getFromStorage(storageEnums.NAME, ""),
+  email: getFromStorage(storageEnums.EMAIL, ""),
+  profilePic: getFromStorage(storageEnums.PROFILEPIC, ""),
   logoutError: "",
 };
 
@@ -30,7 +32,7 @@ const authentication = (state = initState, { type, payload }) => {
         ...state,
         isLoggingIn: false,
         loginError: true,
-        loginErrorMessage: payload.data.message,
+        loginErrorMessage: payload,
       };
     case authConstants.LOGOUT_REQUEST:
       return state;

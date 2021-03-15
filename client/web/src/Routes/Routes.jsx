@@ -11,40 +11,24 @@ import { Dashboard } from "../Structure/Dashboard"
 import { Questions as AdminQuestions, QuestionForm, QuestionUpdate } from '../Structure/Admin'
 import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
-import { Questions } from "../Structure/Questions/Components/Questions";
+import { Questions } from "../Structure/Questions";
+import { Results_display } from "../Structure/Results Display";
 
 const Route = () => {
   return (
     <>
       <Router>
         <Switch>
-          <PrivateRoute exact path="/">
-            <Dashboard />
-          </PrivateRoute>
-          <PublicRoute path="/login">
-            <Login />
-          </PublicRoute>
-          <AdminRoute exact path="/questions_admin" >
-            <AdminQuestions />
-          </AdminRoute>
-          <AdminRoute exact path="/questions/add" >
-            <QuestionForm />
-          </AdminRoute>
-          <AdminRoute exact path="/questions/edit/:topic/:id" >
-            <QuestionUpdate />
-          </AdminRoute>
-          <PrivateRoute exact path="/topics_user">
-            <Topics />
-          </PrivateRoute>
-          <PrivateRoute exact path="/questions">
-            <Questions />
-          </PrivateRoute>
-          <AdminRoute exact path="/topics">
-            <CrudTopics />
-          </AdminRoute>
-          <AdminRoute path="/topics/:id">
-            <SearchByTopic />
-          </AdminRoute>
+          <PrivateRoute exact path="/" component={Dashboard} />
+          <PrivateRoute exact path="/quiz_topics" component={Topics} />
+          <PrivateRoute exact path="/quiz_questions/:topic" component={Questions} />
+          <PrivateRoute exact path="/results_display" component={Results_display} />
+          <AdminRoute exact path="/questions_admin" component={AdminQuestions} />
+          <AdminRoute exact path="/questions/add" component={QuestionForm} />
+          <AdminRoute exact path="/questions/edit/:topic/:id" component={QuestionUpdate} />
+          <AdminRoute exact path="/topics" component={CrudTopics} />
+          <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
+          <PublicRoute path="/login" component={Login} />
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>

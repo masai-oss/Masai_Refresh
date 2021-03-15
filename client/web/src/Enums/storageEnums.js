@@ -1,0 +1,13 @@
+const storageEnums = Object.freeze({
+    QUESTION_PRACTICE: 'QUESTION_PRACTICE',
+    PRACTICE_RESULTS: 'PRACTICE_RESULTS',
+    ATTEMPT_ID: 'ATTEMPT_ID',
+    SUBMISSION_ID: 'SUBMISSION_ID',
+    ALL_QUESTIONS_IDS: 'ALL_QUESTIONS_IDS',
+    TOKEN : 'TOKEN',
+    NAME : 'NAME',
+    EMAIL : 'EMAIL',
+    PROFILEPIC : 'PROFILEPIC',
+})
+
+export { storageEnums }

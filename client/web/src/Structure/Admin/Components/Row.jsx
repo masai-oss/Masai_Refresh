@@ -11,8 +11,8 @@ export const Row = ({item, handleDelete, topic = item.topic }) => {
             <TableCell>{item._id}</TableCell>
             <TableCell>{topic}</TableCell>
             <TableCell>{item.type}</TableCell>
-            <TableCell><Button onClick={ () => history.push(`/questions/edit/${topic}/${item._id}`) }>Edit</Button></TableCell>
-            <TableCell><Button onClick={ () => handleDelete( item._id, topic ) }>Delete</Button></TableCell>
+            <TableCell><Button variant="contained" color="primary" onClick={ () => history.push(`/questions/edit/${topic}/${item._id}`) }>Edit</Button></TableCell>
+            <TableCell><Button variant="contained" color="secondary" onClick={ () => handleDelete( item._id, topic ) }>Delete</Button></TableCell>
         </TableRow>
     )
 }

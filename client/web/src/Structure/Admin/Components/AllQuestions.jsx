@@ -30,10 +30,6 @@ export const AllQuestions = ({handleDelete, topics}) => {
     useEffect(() => {
         dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
     }, [page, rowsPerPage, questionDeletionStatus, questionAddedStatus])
-
-    // useEffect(() => {
-    //     dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
-    // }, [page, rowsPerPage])
     
     return (
            !isLoading && questions.questions !== undefined ? <>
@@ -41,10 +37,10 @@ export const AllQuestions = ({handleDelete, topics}) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Id</TableCell>
-                            <TableCell>topic</TableCell>
-                            <TableCell>type</TableCell>
-                            <TableCell>edit</TableCell>
-                            <TableCell>delete</TableCell>
+                            <TableCell>Topic</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Edit</TableCell>
+                            <TableCell>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>

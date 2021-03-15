@@ -170,7 +170,6 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
     if(ans_type === 'options'){
         val_to_compare = val_to_compare.findIndex(el => el.correct) + 1
     }
-    console.log(val_to_compare, answer)
     let outcome = answer === val_to_compare ? OutcomeEnum.CORRECT : answer === -1 ? OutcomeEnum.SKIPPED : OutcomeEnum.WRONG
     await Submission.updateOne(
         {
