@@ -20,7 +20,6 @@ const Route = () => {
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
-          <PublicRoute path="/login" component={Login} />
           <PrivateRoute exact path="/quiz_topics" component={Topics} />
           <PrivateRoute exact path="/quiz_questions/:topic" component={Questions} />
           <PrivateRoute exact path="/results_display" component={Results_display} />
@@ -30,7 +29,8 @@ const Route = () => {
             component={AdminQuestions}
           />
           <AdminRoute exact path="/topics" component={CrudTopics} />
-          <AdminRoute path="/topics/:id" component={SearchByTopic} />
+          <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
+          <PublicRoute path="/login" component={Login} />
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>

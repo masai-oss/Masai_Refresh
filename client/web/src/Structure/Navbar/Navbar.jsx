@@ -11,10 +11,11 @@ import {
 import MenuIcon from "@material-ui/icons/Menu";
 import { useTheme } from "@material-ui/core/styles";
 import { NavbarStyles } from "./Styles/NavbarStyle";
-import { SideBarList } from "./Components/SideBarList";
-import { ProfilePic } from "../Common"
+import { UserSideBarList } from "./Components/UserSideBarList";
+import { AdminSideBarList } from "./Components/AdminSideBarList";
+import { ProfilePic } from "../Common";
 
-function Navbar({ window, children }) {
+function Navbar({ window, children, isAdmin }) {
   const classes = NavbarStyles();
   const theme = useTheme();
   const [mobileOpen, setMobileOpen] = React.useState(false);
@@ -27,7 +28,7 @@ function Navbar({ window, children }) {
       <div className={classes.toolbar}>
         <u>Quizine</u>
       </div>
-      <SideBarList />
+      {isAdmin ? <AdminSideBarList /> : <UserSideBarList />}
     </div>
   );
 
@@ -37,10 +38,7 @@ function Navbar({ window, children }) {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar
-        position="fixed"
-        className={classes.appBar}
-      >
+      <AppBar position="fixed" className={classes.appBar}>
         <Toolbar>
           <IconButton
             color="inherit"
@@ -52,7 +50,7 @@ function Navbar({ window, children }) {
             <MenuIcon />
           </IconButton>
           <Typography variant="h6" noWrap className={classes.navbarName}>
-            Quiz
+            {isAdmin ? "Admin" : "User"}
           </Typography>
           <ProfilePic />
         </Toolbar>
@@ -94,6 +92,5 @@ function Navbar({ window, children }) {
     </div>
   );
 }
-
 
 export { Navbar };
