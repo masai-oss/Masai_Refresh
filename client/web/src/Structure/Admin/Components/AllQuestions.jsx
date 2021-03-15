@@ -9,10 +9,12 @@ import TableCell from '@material-ui/core/TableCell';
 import TableBody from '@material-ui/core/TableBody';
 import TablePagination from '@material-ui/core/TablePagination';
 
-export const AllQuestions = ({handleDelete}) => {
+export const AllQuestions = ({handleDelete, topics}) => {
     const dispatch = useDispatch();
     const questions = useSelector( state => state.admin.data )
     const isLoading = useSelector( state => state.admin.isLoading )
+    const questionDeletionStatus = useSelector( state => state.admin.questionDeletionStatus )
+    const questionAddedStatus = useSelector( state => state.admin.questionAddedStatus )
     const [page, setPage] = useState(0);
     const [rowsPerPage, setRowsPerPage] = useState(10);
   
@@ -27,7 +29,7 @@ export const AllQuestions = ({handleDelete}) => {
 
     useEffect(() => {
         dispatch( adminActions.getQuestionsRequest(page, rowsPerPage))
-    }, [dispatch, page, rowsPerPage])
+    }, [page, rowsPerPage, questionDeletionStatus, questionAddedStatus])
     
     return (
            !isLoading && questions.questions !== undefined ? <>
@@ -35,10 +37,10 @@ export const AllQuestions = ({handleDelete}) => {
                     <TableHead>
                         <TableRow>
                             <TableCell>Id</TableCell>
-                            <TableCell>topic</TableCell>
-                            <TableCell>type</TableCell>
-                            <TableCell>edit</TableCell>
-                            <TableCell>delete</TableCell>
+                            <TableCell>Topic</TableCell>
+                            <TableCell>Type</TableCell>
+                            <TableCell>Edit</TableCell>
+                            <TableCell>Delete</TableCell>
                         </TableRow>
                     </TableHead>
                     <TableBody>
