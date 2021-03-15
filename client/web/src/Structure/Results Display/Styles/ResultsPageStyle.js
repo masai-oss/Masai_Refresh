@@ -11,7 +11,7 @@ export const QuestionWrapper = styled.div`
     margin-bottom: 20px;
     
     :hover{
-        background-color: #ededed;
+        background-color: #f2f2f2;
     }
 `
 
