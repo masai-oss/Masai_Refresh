@@ -7,3 +7,5 @@ export { QuestionUpdate } from './Components/QuestionUpdate'
 export { CrudTopics } from './Components/CrudTopics'
 export { SearchByTopic } from './Components/SearchByTopic'
 export { admin } from "./State/reducer"
+export { QuestionFormStyles } from './Styles/QuestionFormStyles'
+export { QuestionsStyles } from './Styles/QuestionsStyles'

@@ -7,8 +7,10 @@ import Container from '@material-ui/core/Container';
 import { adminActions } from '../State/action'
 import { AllQuestions, QuestionsByTopic } from '../'
 import Button from '@material-ui/core/Button';
+import { QuestionsStyles } from '../'
 
 export const Questions = () => {
+    const classes = QuestionsStyles()
     const dispatch = useDispatch()
     const history = useHistory()
     const topics = useSelector( state => state.admin.topics)
@@ -34,14 +36,14 @@ export const Questions = () => {
     
     return (
         <Container>
-            <Box>
+            <Box className={classes.top}>
                 <Select value={topic} onChange={ e => handleChange( e.target.value ) } >
                     <option value = "all">ALL</option>
                     {
                         topics.data?.map( item => <option key={item.name} value={item.name}>{item.name}</option> )
                     }
                 </Select>
-                <Button variant="contained" color="primary" onClick={ () => history.push("/questions/add") }>ADD</Button>
+                <Button variant="contained" className={classes.save} onClick={ () => history.push("/questions/add") }>ADD</Button>
             </Box>
             <Box>
                 { topic === "all" && <AllQuestions topics={topics} handleDelete={handleDelete} /> }
