@@ -2,6 +2,8 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from 'react-router-dom'
 import ReactMarkdown from "react-markdown";
+import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
+import { OutcomeTag, QuestionLine, QuestionMain, QuestionWrapper, ResultWrapper } from '../Styles/ResultsPageStyle'
 
 
 const Results_display = () => {
@@ -17,18 +19,21 @@ const Results_display = () => {
 
   return (
     result &&
-    <div>
+    <ResultWrapper>
       {result.map((question, index) => (
-        <div key={index}>
-          <h4>
-            {index + 1})<ReactMarkdown >{question.statement}</ReactMarkdown> 
-          </h4>
-          <h4>Your response: {question.response}</h4>
-          <h4>Correct Answer: {question.correct}</h4>
-          <h4>Outcome: {question.outcome}</h4>
-        </div>
+        <QuestionWrapper key={index}>
+          <QuestionMain>
+            <QuestionLine />
+            <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
+              {index + 1 + '. ' + question.statement}
+            </ReactMarkdown> 
+          </QuestionMain>
+          <p>Your response: <ReactMarkdown>{question.response === 'skipped' ? '-- DID NOT ATTEMPT --' : question.response}</ReactMarkdown></p>
+          <p>Correct Answer: <ReactMarkdown>{question.correct}</ReactMarkdown></p>
+          <p>Outcome: <OutcomeTag outcome={question.outcome}>{question.outcome}</OutcomeTag></p>
+        </QuestionWrapper>
       ))}
-    </div>
+    </ResultWrapper>
   );
 };
 
