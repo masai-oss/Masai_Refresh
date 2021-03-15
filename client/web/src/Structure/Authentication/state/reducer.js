@@ -32,7 +32,7 @@ const authentication = (state = initState, { type, payload }) => {
         ...state,
         isLoggingIn: false,
         loginError: true,
-        loginErrorMessage: payload.data.message,
+        loginErrorMessage: payload,
       };
     case authConstants.LOGOUT_REQUEST:
       return state;

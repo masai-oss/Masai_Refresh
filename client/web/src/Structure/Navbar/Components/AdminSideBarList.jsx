@@ -9,12 +9,13 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router";
 import { NavbarStyles } from "../Styles/NavbarStyle";
-import PowerSettingsNewIcon from "@material-ui/icons/PowerSettingsNew";
 import { LogoutDialog } from "./logoutDialog";
+import { LogoutSideBarMenu } from "./LogoutSideBarMenu";
+import { useSelector } from "react-redux";
 
-const SideBarList = () => {
+const AdminSideBarList = () => {
   const history = useHistory();
-  const [selected, chooseSelected] = useState(0);
+  const selected = useSelector((state) => state.common.selected);
   const [open, setOpen] = useState(false);
   const goTo = (to) => {
     history.push(to);
@@ -27,34 +28,27 @@ const SideBarList = () => {
   return (
     <>
       <List>
-        <MenuItem
-          button
-          onClick={() => chooseSelected(0)}
-          selected={selected === 0}
-        >
-          <ListItem button onClick={() => goTo("/quiz_topics")}>
+        <MenuItem button selected={selected === "topics"}>
+          <ListItem button onClick={() => goTo("/topics")}>
             <ListItemIcon className={classes.iconColor}>
               <EditIcon />
             </ListItemIcon>
-            <ListItemText primary="Quiz" />
+            <ListItemText primary="Topics" />
           </ListItem>
         </MenuItem>
-        <MenuItem
-          button
-          onClick={() => chooseSelected(1)}
-          selected={selected === 1}
-        >
-          <ListItem button onClick={() => setOpen(true)}>
-            <ListItemIcon className={classes.exitColor}>
-              <PowerSettingsNewIcon />
+        <MenuItem button selected={selected === "questions_admin"}>
+          <ListItem button onClick={() => goTo("/questions_admin")}>
+            <ListItemIcon className={classes.iconColor}>
+              <EditIcon />
             </ListItemIcon>
-            <ListItemText primary="Logout" />
+            <ListItemText primary="Questions" />
           </ListItem>
         </MenuItem>
+        <LogoutSideBarMenu selected={selected} />
       </List>
       <LogoutDialog open={open} handleClose={handleClose} />
     </>
   );
 };
 
-export { SideBarList };
+export { AdminSideBarList };

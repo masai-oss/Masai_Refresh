@@ -5,6 +5,9 @@ import { storageEnums } from "../../../Enums/storageEnums";
 
 const IsAdmin = () => {
   const token = getFromStorage(storageEnums.TOKEN, "");
+  if (token === null) {
+    return false
+  }
   const { admin: isAdmin } = jwt_decode(token);
   return isAdmin;
 };

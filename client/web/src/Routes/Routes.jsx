@@ -20,17 +20,21 @@ const Route = () => {
       <Router>
         <Switch>
           <PrivateRoute exact path="/" component={Dashboard} />
-          <PublicRoute path="/login" component={Login} />
           <PrivateRoute exact path="/quiz_topics" component={Topics} />
           <PrivateRoute exact path="/quiz_questions" component={Questions} />
-          <PrivateRoute exact path="/results_display" component={Results_display} />
+          <PrivateRoute
+            exact
+            path="/results_display"
+            component={Results_display}
+          />
           <AdminRoute
             exact
             path="/questions_admin"
             component={AdminQuestions}
           />
           <AdminRoute exact path="/topics" component={CrudTopics} />
-          <AdminRoute path="/topics/:id" component={SearchByTopic} />
+          <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
+          <PublicRoute path="/login" component={Login} />
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>
