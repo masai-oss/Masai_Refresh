@@ -30,9 +30,12 @@ const Results_display = () => {
   }, []);
 
   const [toggleSol, setToggleSol] = useState(false);
+  // eslint-disable-next-line eqeqeq
   const correctSol = result.filter((answer) => answer.outcome == "CORRECT")
     .length;
+  // eslint-disable-next-line eqeqeq
   const wrongSol = result.filter((answer) => answer.outcome == "WRONG").length;
+  // eslint-disable-next-line eqeqeq
   const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED")
     .length;
 

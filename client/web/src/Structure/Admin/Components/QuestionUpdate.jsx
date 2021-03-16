@@ -1,4 +1,4 @@
-import {useEffect} from 'react'
+import { useEffect } from 'react'
 import { useSelector, useDispatch } from 'react-redux'
 import { useParams } from 'react-router'
 import { adminActions } from '../State/action'
@@ -13,6 +13,7 @@ export const QuestionUpdate = () => {
     useEffect(() => {
         dispatch(adminActions.getTopicsRequest())
         dispatch(adminActions.getQuestionRequest(id,topic))
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [])
  
     return (
