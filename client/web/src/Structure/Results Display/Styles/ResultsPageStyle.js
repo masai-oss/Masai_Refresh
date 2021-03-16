@@ -87,3 +87,6 @@ export const Div = styled.div`
   margin-bottom: 30px;
 `;
 
+export const Span = styled.span`
+  font-weight: bold;
+`;

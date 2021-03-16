@@ -16,20 +16,20 @@ import { IsLoading } from "../Common/IsLoading";
 
 const Topics = () => {
   const classes = TopicStyle();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [modalData, setModal] = useState({
     open: false,
     topic: "",
-    topicId:""
+    topicId: "",
   });
   useEffect(() => {
     dispatch(topicActions.getTopics());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const isLoading = useSelector((state) => state.topics.isLoading);
   const topicsData = useSelector((state) => state.topics.topicsData);
   const isError = useSelector((state) => state.topics.isError);
-  const handleClickOpen = ({topic, topicId}) => {
+  const handleClickOpen = ({ topic, topicId }) => {
     setModal({
       open: true,
       topic: topic,
@@ -52,7 +52,16 @@ const Topics = () => {
       ) : (
         topicsData &&
         topicsData.map(
-          ({ _id: topicId, name: topic, icon, proficiency }, index) => (
+          (
+            {
+              _id: topicId,
+              name: topic,
+              icon,
+              proficiency,
+              totalNoOfQuestions,
+            },
+            index
+          ) => (
             <Grid item xs={12} sm={10} md={6} lg={4} xl={3} key={index}>
               <Card className={classes.cardStyle}>
                 <CardContent>
@@ -66,6 +75,7 @@ const Topics = () => {
                     <ProficiencyChart proficiency={proficiency} />
                     <Avatar className={classes.iconStyle}>Q</Avatar>
                     <ButtonBase
+                      disabled={totalNoOfQuestions != 0 ? false : true}
                       className={classes.topicButtonStyle}
                       onClick={() => handleClickOpen({ topic, topicId })}
                     >

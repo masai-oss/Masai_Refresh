@@ -82,7 +82,12 @@ const MCQ = ({ data, lastQuestion }) => {
         </FormControl>
       </form>
       {lastQuestion === id ? (
-        <Button onClick={submitAnswers} variant="contained" color="primary">
+        <Button
+          className={classes.nextBtn}
+          onClick={submitAnswers}
+          variant="contained"
+          color="primary"
+        >
           Submit
         </Button>
       ) : (
