@@ -30,6 +30,8 @@ const Results_display = () => {
   }, []);
 
   const [toggleSol, setToggleSol] = useState(false);
+  const [toggleExplanation, setToggleExplanation] = useState(false);
+  const [explainationIndex, setExplanationIndex] = useState({});
   // eslint-disable-next-line eqeqeq
   const correctSol = result.filter((answer) => answer.outcome == "CORRECT")
     .length;
@@ -38,6 +40,15 @@ const Results_display = () => {
   // eslint-disable-next-line eqeqeq
   const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED")
     .length;
+
+  const explainToggle = (index) => {
+    setExplanationIndex(index);
+    setToggleExplanation((prev) =>
+      Boolean(!prev[index])
+        ? { ...prev, [index]: true }
+        : { ...prev, [index]: false }
+    );
+  };
 
   return (
     result && (
@@ -71,7 +82,7 @@ const Results_display = () => {
                 </QuestionMain>
                 <p>
                   Your response:{" "}
-                  <ReactMarkdown>
+                  <ReactMarkdown style={{ paddingLeft: "20px" }}>
                     {question.response === "skipped"
                       ? "-- DID NOT ATTEMPT --"
                       : question.response}
@@ -87,6 +98,20 @@ const Results_display = () => {
                     {question.outcome}
                   </OutcomeTag>
                 </p>
+                <Div>
+                  <Button
+                    onClick={() => explainToggle(index)}
+                    variant="contained"
+                    color="primary"
+                  >
+                    {toggleExplanation[index]
+                      ? "Hide Explanation"
+                      : "Show Explanation"}
+                  </Button>
+                </Div>
+                {toggleExplanation[index] ? (
+                  <p>{question.explanation}</p>
+                ) : null}
               </QuestionWrapper>
             ))
           : null}
