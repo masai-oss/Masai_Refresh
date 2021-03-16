@@ -14,12 +14,17 @@ const getTopicsSummary = async (req, res) => {
         },
       },
       {
+        $addFields: {
+          totalNoOfQuestions: { $size: { $ifNull: ["$questions", []] } },
+        },
+      },
+      {
         $project: {
           questions: 0,
           "proficiency.attempts": 0,
           "proficiency.topic_id": 0,
           "proficiency._id": 0,
-          "proficiency.stats.alloted":0
+          "proficiency.stats.alloted": 0,
         },
       },
     ]);
@@ -29,10 +34,11 @@ const getTopicsSummary = async (req, res) => {
         proficiency: data.proficiency.filter(({ user_id }) => user_id == id),
       };
     });
-    for (let i = 0; i < topicAndProficiency.length; i++){
-      let { proficiency } = topicAndProficiency[i]
+    for (let i = 0; i < topicAndProficiency.length; i++) {
+      let { proficiency } = topicAndProficiency[i];
       if (proficiency.length) {
-        topicAndProficiency[i].proficiency = topicAndProficiency[i].proficiency[0].stats
+        topicAndProficiency[i].proficiency =
+          topicAndProficiency[i].proficiency[0].stats;
       }
     }
     res.status(200).json({
