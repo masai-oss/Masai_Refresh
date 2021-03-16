@@ -41,7 +41,6 @@ const NavbarStyles = makeStyles((theme) => ({
 
   toolbar: {
     ...theme.mixins.toolbar,
-    padding: theme.spacing(2),
     fontSize: 29,
     fontWeight: 'bold',
     letterSpacing: '4px',
