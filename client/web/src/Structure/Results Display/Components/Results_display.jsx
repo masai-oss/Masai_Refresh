@@ -33,13 +33,11 @@ const Results_display = () => {
   const [toggleExplanation, setToggleExplanation] = useState(false);
   const [explainationIndex, setExplanationIndex] = useState({});
   // eslint-disable-next-line eqeqeq
-  const correctSol = result.filter((answer) => answer.outcome == "CORRECT")
-    .length;
+  const correctSol = result.filter((answer) => answer.outcome == "CORRECT").length;
   // eslint-disable-next-line eqeqeq
   const wrongSol = result.filter((answer) => answer.outcome == "WRONG").length;
   // eslint-disable-next-line eqeqeq
-  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED")
-    .length;
+  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED").length;
 
   const explainToggle = (index) => {
     setExplanationIndex(index);
