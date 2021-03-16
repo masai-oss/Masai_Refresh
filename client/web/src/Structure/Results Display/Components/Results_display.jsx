@@ -16,6 +16,7 @@ import {
   Wrong,
   Skipped,
   Div,
+  Span,
 } from "../Styles/ResultsPageStyle";
 
 const Results_display = () => {
@@ -33,11 +34,13 @@ const Results_display = () => {
   const [toggleExplanation, setToggleExplanation] = useState(false);
   const [explainationIndex, setExplanationIndex] = useState({});
   // eslint-disable-next-line eqeqeq
-  const correctSol = result.filter((answer) => answer.outcome == "CORRECT").length;
+  const correctSol = result.filter((answer) => answer.outcome == "CORRECT")
+    .length;
   // eslint-disable-next-line eqeqeq
   const wrongSol = result.filter((answer) => answer.outcome == "WRONG").length;
   // eslint-disable-next-line eqeqeq
-  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED").length;
+  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED")
+    .length;
 
   const explainToggle = (index) => {
     setExplanationIndex(index);
@@ -79,7 +82,7 @@ const Results_display = () => {
                   </ReactMarkdown>
                 </QuestionMain>
                 <p>
-                  Your response:{" "}
+                  <Span>Your response:</Span>{" "}
                   <ReactMarkdown style={{ paddingLeft: "20px" }}>
                     {question.response === "skipped"
                       ? "-- DID NOT ATTEMPT --"
@@ -87,11 +90,11 @@ const Results_display = () => {
                   </ReactMarkdown>
                 </p>
                 <p>
-                  Correct Answer:{" "}
+                  <Span>Correct Answer:</Span>
                   <ReactMarkdown>{question.correct}</ReactMarkdown>
                 </p>
                 <p>
-                  Outcome:{" "}
+                  <Span>Outcome:</Span>
                   <OutcomeTag outcome={question.outcome}>
                     {question.outcome}
                   </OutcomeTag>
