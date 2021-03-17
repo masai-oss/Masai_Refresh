@@ -3,6 +3,7 @@ package com.example.myapplication.activities
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
 import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
@@ -38,6 +39,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     topicsViewModel.liveData.observe(this,{
     when(it){
         is UserUIModel.Success ->{
+            Log.d("sssssssssssssssssssss",it.toString())
             userAdapter.updateList(it.dateModelList)
             flProgressBar.visibility=View.GONE
         }

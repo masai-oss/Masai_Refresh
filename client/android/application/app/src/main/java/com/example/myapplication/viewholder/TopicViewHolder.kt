@@ -19,20 +19,23 @@ class TopicViewHolder(private val view:View,private val listener:TopicClickListe
     fun setData(dataItem: DataItem){
         view.apply {
             if(dataItem.name.equals("CSS")){
-                Glide.with(ivTopicIcon).load(css).into(ivTopicIcon)
-            }else if(dataItem.name.equals("REACT")){
-                Glide.with(ivTopicIcon).load(react).into(ivTopicIcon)
+                Glide.with(imCircle_performance).load(css).into(imCircle_performance)
             }else if(dataItem.name.equals("HTML")){
-                Glide.with(ivTopicIcon).load(html).into(ivTopicIcon)
-            }else if(dataItem.name.equals("DS_ALGO")){
-                Glide.with(ivTopicIcon).load(ds).into(ivTopicIcon)
-            }else if(dataItem.name.equals("NODE_JS")){
-                Glide.with(ivTopicIcon).load(nodejs).into(ivTopicIcon)
+                Glide.with(imCircle_performance).load(html).into(imCircle_performance)
             }else if(dataItem.name.equals("EXPRESS")){
-                Glide.with(ivTopicIcon).load(express).into(ivTopicIcon)
+                Glide.with(imCircle_performance).load(express).into(imCircle_performance)
+            }else if(dataItem.name.equals("JAVASCRIPT")){
+                Glide.with(imCircle_performance).load(react).into(imCircle_performance)
+
             }
 
-            tvTopicName.text=dataItem.name.toString()
+//            }}else if(dataItem.name.equals("DS_ALGO")){
+//                Glide.with(imCircle_performance).load(ds).into(ivTopicIcon)
+//            }else if(dataItem.name.equals("NODE_JS")){
+//                Glide.with(imCircle_performance).load(nodejs).into(ivTopicIcon)
+//
+
+            tvTopicNameNew.text=dataItem.name.toString()
             llTopic_Click.setOnClickListener {
                 listener.onItemClicked(adapterPosition,dataItem)
             }
