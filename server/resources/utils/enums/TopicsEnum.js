@@ -7,7 +7,9 @@ const topics = {
     REACT : "REACT",
     EXPRESS : "EXPRESS",
     MONGO_DB : "MONGO_DB",
-    NODE_JS : "NODE_JS"
+    NODE_JS : "NODE_JS",
+    FRONTEND : "FRONTEND",
+    BACKEND : "BACKEND"
 }
 
 module.exports = Object.freeze(topics)

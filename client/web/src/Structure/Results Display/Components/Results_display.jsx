@@ -1,8 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import ReactMarkdown from "react-markdown";
-import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import Button from "@material-ui/core/Button";
 import {
   OutcomeTag,
@@ -15,7 +13,8 @@ import {
   Correct,
   Wrong,
   Skipped,
-  Div,
+  ButtonWrapper,
+  QuestionContent,
   Span,
 } from "../Styles/ResultsPageStyle";
 
@@ -32,18 +31,12 @@ const Results_display = () => {
 
   const [toggleSol, setToggleSol] = useState(false);
   const [toggleExplanation, setToggleExplanation] = useState(false);
-  const [explainationIndex, setExplanationIndex] = useState({});
-  // eslint-disable-next-line eqeqeq
-  const correctSol = result.filter((answer) => answer.outcome == "CORRECT")
-    .length;
-  // eslint-disable-next-line eqeqeq
+  
+  const correctSol = result.filter((answer) => answer.outcome == "CORRECT").length;
   const wrongSol = result.filter((answer) => answer.outcome == "WRONG").length;
-  // eslint-disable-next-line eqeqeq
-  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED")
-    .length;
+  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED").length;
 
   const explainToggle = (index) => {
-    setExplanationIndex(index);
     setToggleExplanation((prev) =>
       Boolean(!prev[index])
         ? { ...prev, [index]: true }
@@ -58,11 +51,25 @@ const Results_display = () => {
           {correctSol}/{result.length}
         </Score>
         <Result>
-          <Correct>Correct : {correctSol}</Correct>
-          <Wrong>Wrong : {wrongSol}</Wrong>
-          <Skipped>Skipped : {skippedSol}</Skipped>
+          <h3>SUMMARY</h3>
+          <table>
+            <tbody>
+              <tr className="correct">
+                <td>Correct</td>
+                <td>: {correctSol}</td>
+              </tr>
+              <tr className="wrong">
+                <td>Wrong</td>
+                <td>: {wrongSol}</td>
+              </tr>
+              <tr className="skipped">
+                <td>Skipped</td>
+                <td>: {skippedSol}</td>
+              </tr>
+            </tbody>
+          </table>
         </Result>
-        <Div>
+        <ButtonWrapper>
           <Button
             onClick={() => setToggleSol((prev) => !prev)}
             variant="contained"
@@ -71,27 +78,27 @@ const Results_display = () => {
           >
             {toggleSol ? "Hide Detailed Report" : "Show Detailed Report"}
           </Button>
-        </Div>
+        </ButtonWrapper>
         {toggleSol
           ? result.map((question, index) => (
               <QuestionWrapper key={index}>
                 <QuestionMain>
                   <QuestionLine />
-                  <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
-                    {index + 1 + ". " + question.statement}
-                  </ReactMarkdown>
+                  <QuestionContent>
+                      {index + 1 + '. ' + question.statement}
+                  </QuestionContent>
                 </QuestionMain>
                 <p>
                   <Span>Your response:</Span>{" "}
-                  <ReactMarkdown style={{ paddingLeft: "20px" }}>
+                  <p>
                     {question.response === "skipped"
                       ? "-- DID NOT ATTEMPT --"
                       : question.response}
-                  </ReactMarkdown>
+                  </p>
                 </p>
                 <p>
                   <Span>Correct Answer:</Span>
-                  <ReactMarkdown>{question.correct}</ReactMarkdown>
+                  <p>{question.correct}</p>
                 </p>
                 <p>
                   <Span>Outcome:</Span>
@@ -99,7 +106,7 @@ const Results_display = () => {
                     {question.outcome}
                   </OutcomeTag>
                 </p>
-                <Div>
+                <ButtonWrapper>
                   <Button
                     onClick={() => explainToggle(index)}
                     variant="contained"
@@ -109,7 +116,7 @@ const Results_display = () => {
                       ? "Hide Explanation"
                       : "Show Explanation"}
                   </Button>
-                </Div>
+                </ButtonWrapper>
                 {toggleExplanation[index] ? (
                   <p>{question.explanation}</p>
                 ) : null}

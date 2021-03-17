@@ -25,6 +25,7 @@ export const OutcomeTag = styled.span`
   padding: 5px 10px;
   border-radius: 3px;
   color: white;
+  margin-left: 10px;
 `;
 
 export const QuestionLine = styled.div`
@@ -32,7 +33,7 @@ export const QuestionLine = styled.div`
   background-color: #165f78;
   top: 0;
   bottom: 0;
-  width: 10px;
+  width: 5px;
 `;
 
 export const QuestionMain = styled.div`
@@ -44,44 +45,49 @@ export const Bolder = styled.p`
   font-weight: bolder;
 `;
 export const Score = styled.div`
-  height: 200px;
-  width: 200px;
-  border-radius: 100px;
+  height: 100px;
+  width: 100px;
+  border-radius: 50px;
   background: dodgerblue;
-  margin: auto;
-  text-align: center;
+  margin: 50px auto;
   font-size: 40px;
-  margin-top: 30px;
-  padding-top: 70px;
   color: white;
+  display: grid;
+  place-items: center;
+
 `;
 
 export const Result = styled.div`
-  width: 400px;
+  width: 200px;
   display: flex;
-  justify-content: space-between;
   margin: auto;
-  margin-top: 30px;
-`;
-
-export const Correct = styled.div`
-  color: green;
+  flex-direction: column;
+  background-color: #1f3440;
+  padding: 10px 20px;
   font-size: 20px;
   font-weight: bolder;
+  border-radius: 4px;
+  color: white;
+
+  h3{
+    padding: 0;
+    margin: 10px 0;
+  }
+
+  .correct{
+    color: green;
+  }
+
+  .wrong{
+    color: red;
+  }
+
+  .skipped{
+    color: orange;
+  }
 `;
 
-export const Wrong = styled.div`
-  color: red;
-  font-size: 20px;
-  font-weight: bolder;
-`;
-export const Skipped = styled.div`
-  color: orange;
-  font-size: 20px;
-  font-weight: bolder;
-`;
-
-export const Div = styled.div`
+export const ButtonWrapper = styled.div`
   text-align: center;
   margin-top: 30px;
   margin-bottom: 30px;
@@ -90,3 +96,7 @@ export const Div = styled.div`
 export const Span = styled.span`
   font-weight: bold;
 `;
+
+export const QuestionContent = styled.pre`
+  margin-left: 15px;
+`
