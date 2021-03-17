@@ -38,8 +38,43 @@ export const TopicsStyle = makeStyles((theme) => createStyles({
         outline: "none",
         border: "0.2px solid darkgrey",
         borderRadius: 4,
+        marginTop: "10px"
+    },
+    list_TopicPage: {
+        margin: 20
+    },
+    flex: {
+        display: "flex"
+    },
+    button: {
+        height: "40px",
+        padding: "10px",
+        marginLeft: "20px",
+        paddingTop: "5px",
+        background: "white",
+        borderRadius: "3px",
+        cursor: "pointer",
+        marginTop: "10px",
+        outline: "none"
+    },
+    img: {
+        width: "15px",
+        marginLeft: "5px",
+        marginTop: "5px"
+    },
+    button2: {
+        height: "40px",
+        padding: "10px",
+        marginLeft: "20px",
+        paddingTop: "5px",
+        background: "white",
+        borderRadius: "3px", 
+        marginLeft: "650px",
+        cursor: "pointer",
+        marginTop: "10px",
+        outline: "none"
     }
-    
+
 
 
 }))

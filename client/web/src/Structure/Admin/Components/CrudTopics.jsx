@@ -23,13 +23,6 @@ export const CrudTopics = () => {
         dispatch(adminActions.postCrudTopics(payload))
     }
 
-    const deleteTopic = () => {
-        const id = topicsData.find(el => el.name === topicName1)._id
-        setTopicName1("")
-        dispatch(adminActions.deleteCrudTopic(id))
-        
-    }
-
     const searchByTopic = (id) => {
         history.push(`/topics/${id}`)
     }
@@ -54,8 +47,8 @@ export const CrudTopics = () => {
             <input onChange = {(e) => setTopicName(e.target.value)} className = {classes.input} value = {topicName} />
             <button onClick = {postTopic} className = {classes.add} >Add a Topic</button>
             <br />
-            <input onChange = {(e) => setTopicName1(e.target.value)} className = {classes.input} value = {topicName1} />
-            <button onClick = {deleteTopic} className = {classes.add}  >Delete Topic</button>
+            {/* <input onChange = {(e) => setTopicName1(e.target.value)} className = {classes.input} value = {topicName1} /> */}
+            {/* <button onClick = {deleteTopic} className = {classes.add}  >Delete Topic</button> */}
         </div>
     )
 }
