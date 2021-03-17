@@ -1,5 +1,6 @@
 package com.example.myapplication.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -8,14 +9,16 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
+import com.example.myapplication.interface_clickListener.TopicClickListener
 import com.example.myapplication.model.DataItem
 import com.example.myapplication.model.UserUIModel
 import com.example.myapplication.viewModel.TopicsViewModel
 import kotlinx.android.synthetic.main.activity_topics.*
 
-class TopicsActivity : AppCompatActivity() {
+class TopicsActivity : AppCompatActivity(), TopicClickListener {
     private lateinit var topicsViewModel: TopicsViewModel
     private lateinit var userAdapter: TopicAdapter
     private val dataModelList = emptyList<DataItem>()
@@ -32,7 +35,7 @@ class TopicsActivity : AppCompatActivity() {
     }
 
     private fun observeLiveData() {
-topicsViewModel.liveData.observe(this,{
+    topicsViewModel.liveData.observe(this,{
     when(it){
         is UserUIModel.Success ->{
             userAdapter.updateList(it.dateModelList)
@@ -49,7 +52,7 @@ topicsViewModel.liveData.observe(this,{
     }
 
     private fun setRecyclerAdapter() {
-        userAdapter = TopicAdapter(dataModelList)
+        userAdapter = TopicAdapter(dataModelList,this)
         val layoutManager = GridLayoutManager(this,2)
         recyclerView.apply {
             this.layoutManager = layoutManager
@@ -57,4 +60,13 @@ topicsViewModel.liveData.observe(this,{
         }
     }
 
+    override fun onItemClicked(position: Int, dataItem: DataItem) {
+        val intent=Intent(this,MainActivity::class.java)
+        intent.putExtra("topicId",dataItem.id)
+        startActivity(intent)
+        Toast.makeText(this, dataItem.id, Toast.LENGTH_SHORT).show()
+
+
     }
+
+}
