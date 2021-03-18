@@ -1,7 +1,9 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Button } from "@material-ui/core";
+import { ModalReport } from "./ModalReport";
+import { IsLoading } from "../../Common";
 import {
   OutcomeTag,
   QuestionLine,
@@ -14,11 +16,12 @@ import {
   QuestionContent,
   Span,
 } from "../Styles/ResultsPageStyle";
-import { ModalReport } from "./ModalReport";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
+  const isLoading = useSelector((state) => state.resultReducer.isLoading);
+
   let history = useHistory();
 
   useEffect(() => {
@@ -46,7 +49,11 @@ const Results_display = () => {
     );
   };
 
-  return (
+  return isLoading ? (
+    <IsLoading />
+  ) : isError ? (
+    <div>Something went wrong</div>
+  ) : (
     result && (
       <ResultWrapper>
         <Score>
@@ -93,18 +100,18 @@ const Results_display = () => {
                     </span>
                   </QuestionContent>
                 </QuestionMain>
-                <p>
+                <div>
                   <Span>Your response:</Span>{" "}
                   <p>
                     {question.response === "skipped"
                       ? "-- DID NOT ATTEMPT --"
                       : question.response}
                   </p>
-                </p>
-                <p>
+                </div>
+                <div>
                   <Span>Correct Answer:</Span>
                   <p>{question.correct}</p>
-                </p>
+                </div>
                 <p>
                   <Span>Outcome:</Span>
                   <OutcomeTag outcome={question.outcome}>
