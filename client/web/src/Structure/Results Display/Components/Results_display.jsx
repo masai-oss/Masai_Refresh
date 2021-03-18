@@ -16,7 +16,8 @@ import {
 } from "../Styles/ResultsPageStyle";
 
 const Results_display = () => {
-  const { result, isError } = useSelector((state) => state.resultReducer);
+  const result = useSelector((state) => state.resultReducer.result);
+  const isError = useSelector((state) => state.resultReducer.isError);
   let history = useHistory();
 
   useEffect(() => {
@@ -29,9 +30,9 @@ const Results_display = () => {
   const [toggleSol, setToggleSol] = useState(false);
   const [toggleExplanation, setToggleExplanation] = useState(false);
   
-  const correctSol = result.filter((answer) => answer.outcome == "CORRECT").length;
-  const wrongSol = result.filter((answer) => answer.outcome == "WRONG").length;
-  const skippedSol = result.filter((answer) => answer.outcome == "SKIPPED").length;
+  const correctSol = result && result.filter((answer) => answer.outcome === "CORRECT").length;
+  const wrongSol = result && result.filter((answer) => answer.outcome === "WRONG").length;
+  const skippedSol = result && result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   const explainToggle = (index) => {
     setToggleExplanation((prev) =>

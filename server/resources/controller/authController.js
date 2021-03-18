@@ -54,6 +54,7 @@ const loginFailure = (req, res) => {
 const logoutController = (req, res) => {
   req.logout();
   req.session = null;
+  res.clearCookie("quizine", { path: "/" });
   res.redirect(CLIENT_HOME_PAGE_URL);
 };
 

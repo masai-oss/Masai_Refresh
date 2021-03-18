@@ -40,7 +40,7 @@ const googleStrategy = new GoogleStrategy(
           ],
         }).save();
         if (newUser) {
-          done(null, newUser);
+          return done(null, newUser);
         }
       }
       done(null, currentUser);

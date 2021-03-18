@@ -75,7 +75,7 @@ const Topics = () => {
                     <ProficiencyChart proficiency={proficiency} />
                     <Avatar className={classes.iconStyle}>Q</Avatar>
                     <ButtonBase
-                      disabled={totalNoOfQuestions != 0 ? false : true}
+                      disabled={totalNoOfQuestions !== 0 ? false : true}
                       className={classes.topicButtonStyle}
                       onClick={() => handleClickOpen({ topic, topicId })}
                     >
