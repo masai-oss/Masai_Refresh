@@ -54,7 +54,6 @@ export const Score = styled.div`
   color: white;
   display: grid;
   place-items: center;
-
 `;
 
 export const Result = styled.div`
@@ -69,20 +68,20 @@ export const Result = styled.div`
   border-radius: 4px;
   color: white;
 
-  h3{
+  h3 {
     padding: 0;
     margin: 10px 0;
   }
 
-  .correct{
+  .correct {
     color: green;
   }
 
-  .wrong{
+  .wrong {
     color: red;
   }
 
-  .skipped{
+  .skipped {
     color: orange;
   }
 `;
@@ -99,4 +98,4 @@ export const Span = styled.span`
 
 export const QuestionContent = styled.pre`
   margin-left: 15px;
-`
+`;

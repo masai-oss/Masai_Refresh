@@ -2,6 +2,8 @@ import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
+import { ModalReport } from "./ModalReport";
+import { IsLoading } from "../../Common";
 import {
   OutcomeTag,
   QuestionLine,
@@ -14,7 +16,6 @@ import {
   QuestionContent,
   Span,
 } from "../Styles/ResultsPageStyle";
-import { IsLoading } from "../../Common";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -94,6 +95,9 @@ const Results_display = () => {
                   <QuestionLine />
                   <QuestionContent>
                     {index + 1 + ". " + question.statement}
+                    <span>
+                    <ModalReport/>
+                    </span>
                   </QuestionContent>
                 </QuestionMain>
                 <div>
