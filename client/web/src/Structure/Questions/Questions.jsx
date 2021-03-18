@@ -2,7 +2,7 @@ import React from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Redirect } from "react-router-dom";
-import { IsLoading } from "../Common/IsLoading";
+import { IsLoading } from "../Common";
 import { TopicChip } from "../Common/TopicChip";
 import { MCQ } from "./Components/MCQ";
 import Card from "@material-ui/core/Card";

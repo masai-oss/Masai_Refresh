@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Button from "@material-ui/core/Button";
+import { Button } from "@material-ui/core";
 import {
   OutcomeTag,
   QuestionLine,
@@ -14,10 +14,13 @@ import {
   QuestionContent,
   Span,
 } from "../Styles/ResultsPageStyle";
+import { IsLoading } from "../../Common";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
+  const isLoading = useSelector((state) => state.resultReducer.isLoading);
+
   let history = useHistory();
 
   useEffect(() => {
@@ -29,10 +32,13 @@ const Results_display = () => {
 
   const [toggleSol, setToggleSol] = useState(false);
   const [toggleExplanation, setToggleExplanation] = useState(false);
-  
-  const correctSol = result && result.filter((answer) => answer.outcome === "CORRECT").length;
-  const wrongSol = result && result.filter((answer) => answer.outcome === "WRONG").length;
-  const skippedSol = result && result.filter((answer) => answer.outcome === "SKIPPED").length;
+
+  const correctSol =
+    result && result.filter((answer) => answer.outcome === "CORRECT").length;
+  const wrongSol =
+    result && result.filter((answer) => answer.outcome === "WRONG").length;
+  const skippedSol =
+    result && result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   const explainToggle = (index) => {
     setToggleExplanation((prev) =>
@@ -42,7 +48,11 @@ const Results_display = () => {
     );
   };
 
-  return (
+  return isLoading ? (
+    <IsLoading />
+  ) : isError ? (
+    <div>Something went wrong</div>
+  ) : (
     result && (
       <ResultWrapper>
         <Score>
@@ -83,21 +93,21 @@ const Results_display = () => {
                 <QuestionMain>
                   <QuestionLine />
                   <QuestionContent>
-                  {index + 1 + '. ' + question.statement}
+                    {index + 1 + ". " + question.statement}
                   </QuestionContent>
                 </QuestionMain>
-                <p>
+                <div>
                   <Span>Your response:</Span>{" "}
                   <p>
                     {question.response === "skipped"
                       ? "-- DID NOT ATTEMPT --"
                       : question.response}
                   </p>
-                </p>
-                <p>
+                </div>
+                <div>
                   <Span>Correct Answer:</Span>
                   <p>{question.correct}</p>
-                </p>
+                </div>
                 <p>
                   <Span>Outcome:</Span>
                   <OutcomeTag outcome={question.outcome}>
