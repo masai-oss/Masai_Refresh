@@ -83,7 +83,7 @@ const Results_display = () => {
                 <QuestionMain>
                   <QuestionLine />
                   <QuestionContent>
-                      {index + 1 + '. ' + question.statement}
+                  {index + 1 + '. ' + question.statement}
                   </QuestionContent>
                 </QuestionMain>
                 <p>
