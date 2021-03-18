@@ -12,7 +12,7 @@ import {
 import { ProficiencyChart } from "./Components/ProficiencyChart";
 import { TopicStyle } from "./Styles/TopicStyles";
 import { StartQuizModal } from "./Components/startQuizModal";
-import { IsLoading } from "../Common/IsLoading";
+import { IsLoading } from "../Common";
 
 const Topics = () => {
   const classes = TopicStyle();
