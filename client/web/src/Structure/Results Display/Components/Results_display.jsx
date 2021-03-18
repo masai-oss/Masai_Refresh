@@ -14,6 +14,7 @@ import {
   QuestionContent,
   Span,
 } from "../Styles/ResultsPageStyle";
+import { ModalReport } from "./ModalReport";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -29,10 +30,13 @@ const Results_display = () => {
 
   const [toggleSol, setToggleSol] = useState(false);
   const [toggleExplanation, setToggleExplanation] = useState(false);
-  
-  const correctSol = result && result.filter((answer) => answer.outcome === "CORRECT").length;
-  const wrongSol = result && result.filter((answer) => answer.outcome === "WRONG").length;
-  const skippedSol = result && result.filter((answer) => answer.outcome === "SKIPPED").length;
+
+  const correctSol =
+    result && result.filter((answer) => answer.outcome === "CORRECT").length;
+  const wrongSol =
+    result && result.filter((answer) => answer.outcome === "WRONG").length;
+  const skippedSol =
+    result && result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   const explainToggle = (index) => {
     setToggleExplanation((prev) =>
@@ -83,7 +87,10 @@ const Results_display = () => {
                 <QuestionMain>
                   <QuestionLine />
                   <QuestionContent>
-                  {index + 1 + '. ' + question.statement}
+                    {index + 1 + ". " + question.statement}
+                    <span>
+                    <ModalReport/>
+                    </span>
                   </QuestionContent>
                 </QuestionMain>
                 <p>
