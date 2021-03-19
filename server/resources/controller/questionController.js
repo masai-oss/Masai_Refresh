@@ -9,7 +9,7 @@ const {
 const addQuestion = async (req, res) => {
   const { topic: name } = req.params;
   const question = req.body;
-  const { error } = questionAddValidate({ ...question, name });
+  const { error } = questionAddValidate({ ...question, name, source : "fake" });
   if (error) {
     return res.status(400).json({
       error: true,
@@ -28,7 +28,7 @@ const addQuestion = async (req, res) => {
       { name: name },
       {
         $push: {
-          questions: question,
+          questions: { ...question, source: "fake" },
         },
       }
     );

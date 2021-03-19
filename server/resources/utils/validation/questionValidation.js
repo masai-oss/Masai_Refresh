@@ -17,6 +17,7 @@ const mcqvalidation = (data) => {
       .required(),
     type: Joi.string().valid(question_types.MCQ).required(),
     statement: Joi.string().required(),
+    source: Joi.string().required(),
     explanation: Joi.string().required(),
     options: Joi.array().min(2).max(4).items(options).required(),
   });
@@ -30,6 +31,7 @@ const tfValidation = (data) => {
       .required(),
     type: Joi.string().valid(question_types.TF).required(),
     statement: Joi.string().required(),
+    source: Joi.string().required(),
     explanation: Joi.string().required(),
     correct: Joi.boolean().required(),
   });
@@ -43,6 +45,7 @@ const shortValidataion = (data) => {
       .required(),
     type: Joi.string().valid(question_types.SHORT).required(),
     statement: Joi.string().required(),
+    source: Joi.string().required(),
     explanation: Joi.string().required(),
     answer: Joi.string().required(),
   });
