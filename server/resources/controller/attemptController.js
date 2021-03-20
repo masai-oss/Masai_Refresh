@@ -3,6 +3,7 @@ const Topic = require('../models/Topic')
 const OutcomeEnum = require('../utils/enums/OutcomeEnum')
 const QuestionTypeEnum = require('../utils/enums/QuestionTypeEnum')
 const TopicsEnum = require('../utils/enums/TopicsEnum')
+const mongod = require('mongodb')
 const { attemptValidation, recordAnswerValidation } = require('../utils/validation/attemptValidation')
 
 const createAttempt = async ( req, res ) => {
@@ -22,7 +23,7 @@ const createAttempt = async ( req, res ) => {
         let answers = await Topic.aggregate([
             {
                 $match: {
-                    "_id" : require('mongodb').ObjectID(topic_id)
+                    "_id" : mongod.ObjectID(topic_id)
                 }
             },
             {
@@ -81,7 +82,7 @@ const createAttempt = async ( req, res ) => {
 }
 
 const nextAttempt = async(req, res) => {
-    let { attempt_id, submission_id } = req.body
+    let { attempt_id, submission_id, question_id } = req.body // add quetsion id to Joi verification
     const { error } = attemptValidation(req.body)
     if (error) {
         return res.status(400).json({
@@ -90,17 +91,37 @@ const nextAttempt = async(req, res) => {
         });
     }
     try{
-        let attempt_question = await get_attempt_question(submission_id, attempt_id)
+        let attempt_question = await get_attempt_answer(submission_id, attempt_id, question_id)
         if(!attempt_question){
-            throw new Error("The Practice quiz has ended.")
+            throw new Error("The question or the quiz does not exist.")
         }
         
-        let topic = await Topic.findOne({ "questions._id" : attempt_question }, {questions: {$elemMatch: {_id: attempt_question}}})
+        let topic = await Topic.findOne(
+            { 
+                "questions._id" : question_id 
+            }, 
+            {
+                questions: {
+                    $elemMatch: {
+                        _id: question_id
+                    }
+                }
+            }
+        )
         let topic_question = topic.questions[0]
         let question_to_send = get_question_to_send(topic_question)
-        await update_current_question_in_submission(submission_id, attempt_id)
+        // await update_current_question_in_submission(submission_id, attempt_id)
 
-        res.status(200).json({error: false, data: question_to_send})
+        let data = {
+            ...question_to_send,
+            isStatsUpdated: attempt_question.isStatsUpdated,
+            response: attempt_question.response,
+            selected: attempt_question.selected,
+            decision: attempt_question.decision
+        }
+
+
+        res.status(200).json({error: false, data })
     }
     catch(err){
         res.status(400).json({error: true, message: `${err}`})
@@ -154,7 +175,7 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
 
     let question = await Topic.aggregate([
         {$unwind: "$questions"},
-        {$match: {"questions._id": require('mongodb').ObjectID(question_id)}},
+        {$match: {"questions._id": mongod.ObjectID(question_id)}},
         {$project: 
             {
                 question: '$questions',
@@ -182,6 +203,50 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
         }
     )
 }
+
+const get_attempt_answer = async (submission_id, attempt_id, question_id) => {
+    let res = await Submission.findOne(
+        {
+            _id : submission_id,
+            "attempts._id" : attempt_id
+        },
+        {
+            "attempts.$" : 1,
+            _id: 0
+        }
+    )
+
+    if(!res) return null
+    let attempt = res.attempts[0]
+    if(!attempt) return null
+    let answer = attempt.answers.find(answer => answer.question_id == question_id)
+    if(!answer) return null
+    answer.isStatsUpdated = attempt.isStatsUpdated
+    return answer
+}
+
+const get_question_to_send = (topic_question) => {
+    let question_to_send = {
+        id: topic_question._id,
+        type: topic_question.type,
+        statement: topic_question.statement,
+    };
+    if (topic_question.type === "MCQ") {
+        let temp = []
+        topic_question.options.forEach(({text}) => {
+            temp.push({text})
+        })
+        question_to_send.options = temp
+        return question_to_send
+    }
+    return question_to_send
+}
+
+
+
+// functions no more used
+// -------------------------------------------------------------------------------------------
+
 const update_topic = async(topic_id, question_id, answer_type) => {
     let key = answer_type === 1 ? "correct" : answer_type === 0 ? "wrong" : "skipped"
     key = `questions.$.stats.${key}`
@@ -197,13 +262,6 @@ const update_topic = async(topic_id, question_id, answer_type) => {
             }
         }
     )
-}
-
-const get_attempt_question = async (submission_id, attempt_id) => {
-    let submission = await Submission.findById(submission_id)
-    let attempt = submission.attempts.find(el => el._id == attempt_id)
-    let current_question_index = attempt.current_question
-    return attempt.questions[current_question_index]
 }
 
 
@@ -233,23 +291,6 @@ const update_current_question_in_submission = async (submission_id, attempt_id) 
             }
         }
     )
-}
-
-const get_question_to_send = (topic_question) => {
-    let question_to_send = {
-        id: topic_question._id,
-        type: topic_question.type,
-        statement: topic_question.statement,
-    };
-    if (topic_question.type === "MCQ") {
-        let temp = []
-        topic_question.options.forEach(({text}) => {
-            temp.push({text})
-        })
-        question_to_send.options = temp
-        return question_to_send
-    }
-    return question_to_send
 }
 
 module.exports = {
