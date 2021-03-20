@@ -6,7 +6,7 @@ const {
 
 const getAllTopics = async ( req, res ) => {
     try{
-        let result = await Topic.find().exec()
+        let result = await Topic.find({}, { questions: 0 }).exec()
         res.status(200).json({error: false, data: result})
     }
     catch(err){
@@ -21,7 +21,7 @@ const getTopicById = async ( req, res ) => {
         return res.status(400).json({ error: true, message: "Pass Topic ID" });
     }
     try{
-        let result = await Topic.findById(id).exec()
+        let result = await Topic.findById(id, { questions: 0 }).exec()
         if(!result){
             return res.status(404).json({error: true, message: "Topic with the given ID does not exist"})
         }
@@ -43,7 +43,7 @@ const getTopicByName = async ( req, res ) => {
     }
     try{
         name = name.toUpperCase()
-        let result = await Topic.findOne({name}).exec()
+        let result = await Topic.findOne({ name }, { questions: 0 }).exec()
         if(!result){
             return res.status(404).json({error: true, message: "Given topic name does not exist"})
         }
@@ -55,8 +55,11 @@ const getTopicByName = async ( req, res ) => {
 }
 
 const addTopic = async ( req, res ) => {
-    const { name, icon } = req.body  
-    const { error } = addTopicValidation(req.body)
+    const { name } = req.body;
+    if (req.file === undefined) {
+        return res.status(400).json({ error: true, message: `pass image` });
+    }
+    const { error } = addTopicValidation({ ...req.body, icon: req.file.filename });
     if (error) {
         return res.status(400).json({
             error: true,
@@ -66,7 +69,7 @@ const addTopic = async ( req, res ) => {
     try{
         let temp = await Topic.findOne({name}).exec()
         if(!temp){
-            await new Topic({name, icon}, {questions:0}).save()
+            await new Topic({name, icon: req.file.filename}, {questions:0}).save()
             res.status(201).json({error: false, message: "The topic has been created."})
         }
         else{
@@ -99,15 +102,17 @@ const deleteTopic = async ( req, res ) => {
 
 const editTopic = async ( req, res ) => {
     const { id } = req.params
-    const data = req.body
+    if (req.file === undefined) {
+      return res.status(400).json({ error: true, message: `pass image` });
+    }
     if (id === undefined) {
         return res.status(400).json({ error: true, message: "Pass Topic ID" });
     }
-    if (!Object.keys(data).length) {
-        return res.status(400).json({ error: true, message: "Pass Data" });
-    }
     try{
-        let result = await Topic.updateOne({_id: id}, data)
+        let result = await Topic.updateOne(
+          { _id: id },
+          { icon: req.file.filename }
+        );
         res.status(200).json({error: false, message: "The topic has been updated"})
     }
     catch(err){
@@ -141,5 +146,4 @@ module.exports = {
     addTopic,
     deleteTopic,
     editTopic,
-    replaceTopic
 }

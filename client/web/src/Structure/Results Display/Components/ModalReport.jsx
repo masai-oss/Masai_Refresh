@@ -5,7 +5,6 @@ import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogContentText from "@material-ui/core/DialogContentText";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { makeStyles } from "@material-ui/core/styles";
 import ReportIcon from "@material-ui/icons/Report";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useMediaQuery } from "@material-ui/core";
@@ -17,6 +16,7 @@ const ModalReport = () => {
   const classes = modalStyles();
   const theme = useTheme();
 
+  // eslint-disable-next-line no-unused-vars
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
 
   const [open, setOpen] = React.useState(false);
