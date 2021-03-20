@@ -4,6 +4,7 @@ const {
   idTopicValidation,
   topicValidation,
   statsValidate,
+  toggleVerificationValidation
 } = require("../utils/validation/questionValidation");
 
 const addQuestion = async (req, res) => {
@@ -43,6 +44,39 @@ const addQuestion = async (req, res) => {
     });
   }
 };
+
+// Joi verification pending
+const toggleVerification = async(req, res) => {
+  const { id } = req.params
+  const { error } = toggleVerificationValidation({ id });
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: "Validation for id failed",
+      reason: error.details[0].message,
+    });
+  }
+
+  try{
+    let topic = await Topic.findOne({"questions._id": id})
+    let verified = topic.questions.find(q => q._id == id).verified
+    await Topic.updateOne(
+      {
+        "questions._id": id
+      },
+      {
+        $set : {
+          "questions.$.verified" : !verified
+        }
+      }
+    )
+
+    res.status(200).json({error: true, message: "The toggle of verification has been successful", data: {verified: !verified} })
+  }
+  catch(err){
+    res.status(400).json({error: true, message: `${err}`})
+  }
+}
 
 const updateQuestion = async (req, res) => {
   const { topic: name, id: _id } = req.params;
@@ -302,4 +336,5 @@ module.exports = {
   updateQuestion,
   deleteQuestion,
   getAllQuestion,
+  toggleVerification
 };
