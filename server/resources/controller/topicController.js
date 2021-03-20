@@ -6,7 +6,7 @@ const {
 
 const getAllTopics = async ( req, res ) => {
     try{
-        let result = await Topic.find({}, { questions: 0 }).exec()
+        let result = await Topic.find().exec()
         res.status(200).json({error: false, data: result})
     }
     catch(err){
@@ -21,7 +21,7 @@ const getTopicById = async ( req, res ) => {
         return res.status(400).json({ error: true, message: "Pass Topic ID" });
     }
     try{
-        let result = await Topic.findById(id, { questions: 0 }).exec()
+        let result = await Topic.findById(id).exec()
         if(!result){
             return res.status(404).json({error: true, message: "Topic with the given ID does not exist"})
         }
@@ -43,7 +43,7 @@ const getTopicByName = async ( req, res ) => {
     }
     try{
         name = name.toUpperCase()
-        let result = await Topic.findOne({ name }, { questions: 0 }).exec()
+        let result = await Topic.findOne({ name }).exec()
         if(!result){
             return res.status(404).json({error: true, message: "Given topic name does not exist"})
         }
