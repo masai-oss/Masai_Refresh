@@ -21,4 +21,11 @@ const recordAnswerValidation = (data) => {
   return schema.validate(data)
 }
 
-module.exports = { attemptValidation, recordAnswerValidation }
+const markQuizCompleteValidation = data => {
+  const schema = Joi.object({
+    attempt_id: Joi.string().required(),
+  });
+  return schema.validate(data);
+}
+
+module.exports = { attemptValidation, recordAnswerValidation, markQuizCompleteValidation }

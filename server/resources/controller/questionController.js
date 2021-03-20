@@ -45,7 +45,6 @@ const addQuestion = async (req, res) => {
   }
 };
 
-// Joi verification pending
 const toggleVerification = async(req, res) => {
   const { id } = req.params
   const { error } = toggleVerificationValidation({ id });
@@ -77,6 +76,8 @@ const toggleVerification = async(req, res) => {
     res.status(400).json({error: true, message: `${err}`})
   }
 }
+
+
 
 const updateQuestion = async (req, res) => {
   const { topic: name, id: _id } = req.params;

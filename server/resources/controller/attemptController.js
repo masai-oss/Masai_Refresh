@@ -4,7 +4,7 @@ const OutcomeEnum = require('../utils/enums/OutcomeEnum')
 const QuestionTypeEnum = require('../utils/enums/QuestionTypeEnum')
 const TopicsEnum = require('../utils/enums/TopicsEnum')
 const mongod = require('mongodb')
-const { attemptValidation, recordAnswerValidation } = require('../utils/validation/attemptValidation')
+const { attemptValidation, recordAnswerValidation, markQuizCompleteValidation } = require('../utils/validation/attemptValidation')
 
 const createAttempt = async ( req, res ) => {
     let { id : user_id } = req
@@ -146,6 +146,37 @@ const recordAttempt = async(req, res) => {
     catch(err){
         res.status(400).json({error: true, message: `${err}`})
     }
+}
+
+
+const markQuizComplete = async(req, res) => {
+  const { attempt_id } = req.params
+  const { error } = markQuizCompleteValidation({ attempt_id });
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: "Validation for attempt_id failed",
+      reason: error.details[0].message,
+    });
+  }
+
+  try{
+    await Submission.updateOne(
+      {
+        "attempts._id": attempt_id
+      },
+      {
+        $set : {
+          "attempts.$.isStatsUpdated" : true
+        }
+      }
+    )
+
+    res.status(200).json({error: true, message: "The Quiz is marked complete" })
+  }
+  catch(err){
+    res.status(400).json({error: true, message: `${err}`})
+  }
 }
 
 
@@ -296,5 +327,6 @@ const update_current_question_in_submission = async (submission_id, attempt_id) 
 module.exports = {
     createAttempt,
     nextAttempt,
-    recordAttempt
+    recordAttempt,
+    markQuizComplete
 }
