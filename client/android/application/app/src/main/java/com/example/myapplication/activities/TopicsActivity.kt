@@ -33,8 +33,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
         setRecyclerAdapter()
         observeLiveData()
         flProgressBar.visibility = View.VISIBLE
-        val str : String = intent.getStringExtra("token").toString()
-
+        val str : String = intent.getStringExtra("token")!!
         topicsViewModel.callAPI(str)
     }
 

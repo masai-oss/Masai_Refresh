@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.masai.mvvmapplication"
+        applicationId "com.example.myapplication"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
