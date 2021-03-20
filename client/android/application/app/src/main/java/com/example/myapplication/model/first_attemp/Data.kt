@@ -1,6 +1,4 @@
-package com.example.myapplication
-
-import java.io.Serializable
+package com.example.myapplication.model.first_attemp
 
 data class Data(
 	val questions: List<String?>? = null,

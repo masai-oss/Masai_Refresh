@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.AuthResponse.AuthTask
 import com.example.myapplication.Retrofit.ApiClient
 import com.example.myapplication.Retrofit.Network
+import com.example.myapplication.activities.TopicsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -62,7 +63,7 @@ class GoogleSignInActivty : AppCompatActivity() {
                     if (response.body()?.token !=null)
 
                     Toast.makeText(this@GoogleSignInActivty, response.body()?.message +response.body()?.token,Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@GoogleSignInActivty,HomeActivity::class.java)
+                    val intent = Intent(this@GoogleSignInActivty,TopicsActivity::class.java)
                     intent.putExtra("token",response.body()?.token)
                     startActivity(intent)
                 }

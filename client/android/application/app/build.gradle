@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.masai.mvvmapplication"
+        applicationId "com.example.myapplication"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
@@ -57,6 +57,9 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
+
+    // Google Auth
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     //Room
     //implementation "androidx.room:room-runtime:$jetpack_version"
     implementation "androidx.room:room-ktx:$jetpack_version"

@@ -8,8 +8,10 @@ import android.view.View
 import android.widget.Toast
 import androidx.lifecycle.ViewModelProvider
 import androidx.lifecycle.ViewModelProviders
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.AttemptActivity
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
@@ -23,12 +25,12 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     private lateinit var topicsViewModel: TopicsViewModel
     private lateinit var userAdapter: TopicAdapter
     private val dataModelList = emptyList<DataItem>()
-
+    lateinit var tokenID:String
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topics)
         topicsViewModel=ViewModelProviders.of(this).get(TopicsViewModel::class.java)
-
+        tokenID=intent.getStringExtra("token")!!
         setRecyclerAdapter()
         observeLiveData()
         flProgressBar.visibility = View.VISIBLE
@@ -63,8 +65,9 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     }
 
     override fun onItemClicked(position: Int, dataItem: DataItem) {
-        val intent=Intent(this,MainActivity::class.java)
+        val intent=Intent(this,AttemptActivity::class.java)
         intent.putExtra("topicId",dataItem.id)
+        intent.putExtra("token",tokenID)
         startActivity(intent)
         Toast.makeText(this, dataItem.id, Toast.LENGTH_SHORT).show()
 

@@ -1,4 +1,4 @@
-package com.example.myapplication
+package com.example.myapplication.model.next_question
 
 import java.io.Serializable
 
