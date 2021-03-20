@@ -17,6 +17,7 @@ import com.example.myapplication.interface_clickListener.TopicClickListener
 import com.example.myapplication.model.DataItem
 import com.example.myapplication.model.UserUIModel
 import com.example.myapplication.viewModel.TopicsViewModel
+import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_topics.*
 
 class TopicsActivity : AppCompatActivity(), TopicClickListener {
@@ -32,7 +33,9 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
         setRecyclerAdapter()
         observeLiveData()
         flProgressBar.visibility = View.VISIBLE
-        topicsViewModel.callAPI()
+        val str : String = intent.getStringExtra("token").toString()
+
+        topicsViewModel.callAPI(str)
     }
 
     private fun observeLiveData() {
@@ -63,7 +66,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     }
 
     override fun onItemClicked(position: Int, dataItem: DataItem) {
-        val intent=Intent(this,MainActivity::class.java)
+        val intent=Intent(this,Results::class.java)
         intent.putExtra("topicId",dataItem.id)
         startActivity(intent)
         Toast.makeText(this, dataItem.id, Toast.LENGTH_SHORT).show()
