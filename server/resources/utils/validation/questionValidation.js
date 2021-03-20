@@ -99,9 +99,17 @@ const topicValidation = (data) => {
   return schema.validate(data);
 };
 
+const toggleVerificationValidation = (data) => {
+  const schema = Joi.object({
+    id: Joi.string().required(),
+  });
+  return schema.validate(data);
+};
+
 module.exports = {
   questionAddValidate,
   idTopicValidation,
   topicValidation,
   statsValidate,
+  toggleVerificationValidation
 };

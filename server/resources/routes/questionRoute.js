@@ -7,6 +7,7 @@ const {
   updateQuestion,
   getAllQuestion,
   deleteQuestion,
+  toggleVerification
 } = require("../controller/questionController");
 const { checkAdmin } = require("../utils/validation/adminValidation");
 
@@ -17,5 +18,6 @@ questionRoute.get("/byTopic/:topic",authenticateToken, checkAdmin, getQuestionBy
 questionRoute.get("/all",authenticateToken, checkAdmin, getAllQuestion)
 questionRoute.put("/update/:topic/:id",authenticateToken, checkAdmin, updateQuestion);
 questionRoute.delete("/delete/:topic/:id",authenticateToken, checkAdmin, deleteQuestion)
+questionRoute.patch("/verify_toggle/:id",authenticateToken, checkAdmin, toggleVerification)
 
 module.exports = questionRoute;
