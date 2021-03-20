@@ -30,7 +30,7 @@ class GoogleSignInActivty : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_sign_in_activty)
         val gso: GoogleSignInOptions =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1076096355894-tlqr133lhbep9c9n8jkv24msqri7pvb2.apps.googleusercontent.com").requestScopes(Scope(Scopes.DRIVE_APPFOLDER))
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1076096355894-tlqr133lhbep9c9n8jkv24msqri7pvb2.apps.googleusercontent.com").requestScopes(Scope(Scopes.PROFILE))
             .requestEmail().build()
         mGoogleSignInClient = GoogleSignIn.getClient(this@GoogleSignInActivty, gso)
         Log.d("token","start")

@@ -10,8 +10,18 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".activities.TopicsActivity"></activity>
+        <activity android:name=".activities.Results">
 
+        </activity>
+        <activity android:name=".activities.Result_Chart">
+
+        </activity>
+        <activity android:name=".activities.TopicsActivity">
+
+        </activity>
+        <activity android:name=".MainActivity" />
+        <activity android:name=".HomeActivity" />
+        <activity android:name=".GoogleSignInActivty">
         <activity android:name=".AttemptActivity"></activity>
         <activity android:name=".HomeActivity"></activity>
         <activity android:name=".GoogleSignInActivty">
@@ -20,8 +30,6 @@
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-        </activity>
-        <activity android:name=".MainActivity">
         </activity>
     </application>
 
