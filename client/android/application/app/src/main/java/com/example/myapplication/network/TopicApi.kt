@@ -1,5 +1,7 @@
 package com.example.myapplication.network
 
+import com.example.myapplication.AuthResponse.AuthTask
+import com.example.myapplication.AuthSuccess
 import com.example.myapplication.model.TopicsModel
 import retrofit2.Call
 import retrofit2.http.Body
@@ -15,7 +17,8 @@ interface TopicApi {
      fun getTopics(@Header("Authorization") bearer:String?):Call<TopicsModel>
 
 
-
+    @POST("/api/auth/login_user")
+    fun postToken(@Body task: AuthTask): Call<AuthSuccess>
 
 //
 //    @POST("user/classes")
