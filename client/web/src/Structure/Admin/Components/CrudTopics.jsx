@@ -5,8 +5,8 @@ import {adminActions} from '../State/action'
 import { TopicsStyle } from '../Styles/TopicsStyle'
 
 export const CrudTopics = () => {
-    const [topicName, setTopicName] = useState("")
-    const [topicName1, setTopicName1] = useState("")
+    // const [topicName, setTopicName] = useState("")
+    // const [topicName1, setTopicName1] = useState("")
     const dispatch = useDispatch()
     const history = useHistory()
 
@@ -14,14 +14,14 @@ export const CrudTopics = () => {
 
     const classes = TopicsStyle()
 
-    const postTopic = () => {
-        const payload = {
-            name: topicName,
-            icon: "./path7"
-        }
-        setTopicName("")
-        dispatch(adminActions.postCrudTopics(payload))
-    }
+    // const postTopic = () => {
+    //     const payload = {
+    //         name: topicName,
+    //         icon: "./path7"
+    //     }
+    //     setTopicName("")
+    //     dispatch(adminActions.postCrudTopics(payload))
+    // }
 
     const searchByTopic = (id) => {
         history.push(`/topics/${id}`)
@@ -29,7 +29,7 @@ export const CrudTopics = () => {
 
     useEffect(() => {
         dispatch(adminActions.getCrudTopics())
-    })
+    }, [])
 
     return (
         <div>
@@ -43,10 +43,10 @@ export const CrudTopics = () => {
                     )
                 })
             }
-            <br />
-            <input onChange = {(e) => setTopicName(e.target.value)} className = {classes.input} value = {topicName} />
-            <button onClick = {postTopic} className = {classes.add} >Add a Topic</button>
-            <br />
+
+            {/* <input onChange = {(e) => setTopicName(e.target.value)} className = {classes.input} value = {topicName} /> */}
+            {/* <button onClick = {postTopic} className = {classes.add} >Add a Topic</button> */}
+
             {/* <input onChange = {(e) => setTopicName1(e.target.value)} className = {classes.input} value = {topicName1} /> */}
             {/* <button onClick = {deleteTopic} className = {classes.add}  >Delete Topic</button> */}
         </div>

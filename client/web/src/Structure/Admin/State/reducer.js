@@ -176,25 +176,25 @@ const admin = (state = initState, { type, payload }) => {
               errorMessage: payload,
               isLoading: false,
           }
-      case adminConstants.POST_CRUD_TOPICS_REQUEST:
-          return{
-              ...state,
-              isLoading: true,
-              topicPostedSuccessfully: false
-          }
-      case adminConstants.POST_CRUD_TOPICS_SUCCESS:
-          return{
-              ...state,
-              topicsData: [...state.topicsData, ...payload],
-              isLoading: false,
-              topicPostedSuccessfully: true
-          }
-      case adminConstants.POST_CRUD_TOPICS_FAILURE:
-          return{
-              ...state,
-              errorMessage: payload,
-              isLoading: false
-          }
+      // case adminConstants.POST_CRUD_TOPICS_REQUEST:
+      //     return{
+      //         ...state,
+      //         isLoading: true,
+      //         topicPostedSuccessfully: false
+      //     }
+      // case adminConstants.POST_CRUD_TOPICS_SUCCESS:
+      //     return{
+      //         ...state,
+      //         topicsData: [...state.topicsData, ...payload],
+      //         isLoading: false,
+      //         topicPostedSuccessfully: true
+      //     }
+      // case adminConstants.POST_CRUD_TOPICS_FAILURE:
+      //     return{
+      //         ...state,
+      //         errorMessage: payload,
+      //         isLoading: false
+      //     }
       case adminConstants.GET_BY_CRUD_TOPIC_ID_REQUEST:
           return{
               ...state,
@@ -212,39 +212,22 @@ const admin = (state = initState, { type, payload }) => {
               isLoading: false,
               specificTopicData: ""
           }
-      case adminConstants.DELETE_CRUD_TOPIC_REQUEST:
-          return{
-              ...state,
-              isLoading: true,
-          }
-      case adminConstants.DELETE_CRUD_TOPIC_SUCCESS:
-          return{
-              ...state,
-              isLoading: false,
-          }
-      case adminConstants.DELETE_CRUD_TOPIC_FAILURE:
-          return{
-              ...state,
-              errorMessage: payload,
-              isLoading: false,
-          }
-      case adminConstants.PUT_CRUD_TOPIC_REQUEST:
-          return{
-              ...state,
-              isLoading: true,
-              topicPostedSuccessfully: false
-          }
-      case adminConstants.PUT_CRUD_TOPIC_SUCCESS:
-          return{
-              ...state,
-              isLoading: false,
-          }
-      case adminConstants.PUT_CRUD_TOPIC_FAILURE:
-          return{
-              ...state,
-              errorMessage: payload,
-              isLoading: false
-          }
+      // case adminConstants.DELETE_CRUD_TOPIC_REQUEST:
+      //     return{
+      //         ...state,
+      //         isLoading: true,
+      //     }
+      // case adminConstants.DELETE_CRUD_TOPIC_SUCCESS:
+      //     return{
+      //         ...state,
+      //         isLoading: false,
+      //     }
+      // case adminConstants.DELETE_CRUD_TOPIC_FAILURE:
+      //     return{
+      //         ...state,
+      //         errorMessage: payload,
+      //         isLoading: false,
+      //     }
     default:
       return state;
   }

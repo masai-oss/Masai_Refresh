@@ -50,52 +50,52 @@ const getCrudTopics = () => async (dispatch) => {
 
 }
 
-const postCrudTopicsRequest = () => {
-    return{
-        type: adminConstants.POST_CRUD_TOPIC_REQUEST
-    }
-}
+// const postCrudTopicsRequest = () => {
+//     return{
+//         type: adminConstants.POST_CRUD_TOPIC_REQUEST
+//     }
+// }
 
-const postCrudTopicsSuccess = (payload) => {
-    return{
-        type: adminConstants.POST_CRUD_TOPIC_SUCCESS,
-        payload
-    }
-}
-
-
-const postCrudTopicsFailure = (payload) => {
-    return{
-        type: adminConstants.POST_CRUD_TOPIC_FAILURE,
-        payload
-    }
-}
+// const postCrudTopicsSuccess = (payload) => {
+//     return{
+//         type: adminConstants.POST_CRUD_TOPIC_SUCCESS,
+//         payload
+//     }
+// }
 
 
-const postCrudTopics = (payload) => async (dispatch) => {
-    dispatch(postCrudTopicsRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "post",
-        url: `${TOPIC_API}/create`,
-        data: payload,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
+// const postCrudTopicsFailure = (payload) => {
+//     return{
+//         type: adminConstants.POST_CRUD_TOPIC_FAILURE,
+//         payload
+//     }
+// }
 
-    try {
-        const res = await axios(config);
-        dispatch(postCrudTopicsSuccess(res));
-        dispatch(getCrudTopics())
-        return "success";
-      } catch (err) {
-        dispatch(postCrudTopicsFailure(err));
-        return "failure";
-      }
 
-}
+// const postCrudTopics = (payload) => async (dispatch) => {
+//     dispatch(postCrudTopicsRequest())
+//     const token = getFromStorage(storageEnums.TOKEN, "");
+//     const config = {
+//         method: "post",
+//         url: `${TOPIC_API}/create`,
+//         data: payload,
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//     };
+
+//     try {
+//         const res = await axios(config);
+//         dispatch(postCrudTopicsSuccess(res));
+//         dispatch(getCrudTopics())
+//         return "success";
+//       } catch (err) {
+//         dispatch(postCrudTopicsFailure(err));
+//         return "failure";
+//       }
+
+// }
 
 const getCrudTopicByIdRequest = () => {
     return{
@@ -141,97 +141,97 @@ const getCrudTopicById = (payload) => async (dispatch) => {
 
 }
 
-const deleteCrudTopicRequest = () => {
-    return{
-        type: adminConstants.DELETE_CRUD_TOPIC_REQUEST
-    }
-}
+// const deleteCrudTopicRequest = () => {
+//     return{
+//         type: adminConstants.DELETE_CRUD_TOPIC_REQUEST
+//     }
+// }
 
-const deleteCrudTopicSuccess = (payload) => {
-    return{
-        type: adminConstants.DELETE_CRUD_TOPIC_SUCCESS
-    }
-}
-
-
-const deleteCrudTopicFailure = (payload) => {
-    return{
-        type: adminConstants.DELETE_CRUD_TOPIC_FAILURE,
-        payload
-    }
-}
+// const deleteCrudTopicSuccess = (payload) => {
+//     return{
+//         type: adminConstants.DELETE_CRUD_TOPIC_SUCCESS
+//     }
+// }
 
 
-const deleteCrudTopic = (payload) => async (dispatch) => {
-    dispatch(deleteCrudTopicRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "delete",
-        url: `${TOPIC_API}/${payload}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
-
-    try {
-        const res = await axios(config);
-        dispatch(deleteCrudTopicSuccess(res));
-        dispatch(getCrudTopics())
-        return "success";
-      } catch (err) {
-        dispatch(deleteCrudTopicFailure(err));
-        return "failure";
-      }
-
-}
-
-const updateCrudTopicsRequest = () => {
-    return{
-        type: adminConstants.PUT_CRUD_TOPIC_REQUEST
-    }
-}
-
-const updateCrudTopicsSuccess = (payload) => {
-    return{
-        type: adminConstants.PUT_CRUD_TOPIC_SUCCESS,
-        payload
-    }
-}
+// const deleteCrudTopicFailure = (payload) => {
+//     return{
+//         type: adminConstants.DELETE_CRUD_TOPIC_FAILURE,
+//         payload
+//     }
+// }
 
 
-const updateCrudTopicsFailure = (payload) => {
-    return{
-        type: adminConstants.PUT_CRUD_TOPIC_FAILURE,
-        payload
-    }
-}
+// const deleteCrudTopic = (payload) => async (dispatch) => {
+//     dispatch(deleteCrudTopicRequest())
+//     const token = getFromStorage(storageEnums.TOKEN, "");
+//     const config = {
+//         method: "delete",
+//         url: `${TOPIC_API}/${payload}`,
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//     };
+
+//     try {
+//         const res = await axios(config);
+//         dispatch(deleteCrudTopicSuccess(res));
+//         dispatch(getCrudTopics())
+//         return "success";
+//       } catch (err) {
+//         dispatch(deleteCrudTopicFailure(err));
+//         return "failure";
+//       }
+
+// }
+
+// const updateCrudTopicsRequest = () => {
+//     return{
+//         type: adminConstants.PUT_CRUD_TOPIC_REQUEST
+//     }
+// }
+
+// const updateCrudTopicsSuccess = (payload) => {
+//     return{
+//         type: adminConstants.PUT_CRUD_TOPIC_SUCCESS,
+//         payload
+//     }
+// }
 
 
-const updateCrudTopics = (payload, id) => async (dispatch) => {
-    dispatch(updateCrudTopicsRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "put",
-        url: `${TOPIC_API}/${id}`,
-        data: payload,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
+// const updateCrudTopicsFailure = (payload) => {
+//     return{
+//         type: adminConstants.PUT_CRUD_TOPIC_FAILURE,
+//         payload
+//     }
+// }
 
-    try {
-        const res = await axios(config);
-        dispatch(updateCrudTopicsSuccess(res));
-        dispatch(getCrudTopics())
-        return "success";
-      } catch (err) {
-        dispatch(updateCrudTopicsFailure(err));
-        return "failure";
-      }
 
-}
+// const updateCrudTopics = (payload, id) => async (dispatch) => {
+//     dispatch(updateCrudTopicsRequest())
+//     const token = getFromStorage(storageEnums.TOKEN, "");
+//     const config = {
+//         method: "put",
+//         url: `${TOPIC_API}/${id}`,
+//         data: payload,
+//         headers: {
+//           Authorization: `Bearer ${token}`,
+//           "Content-Type": "application/json",
+//         },
+//     };
+
+//     try {
+//         const res = await axios(config);
+//         dispatch(updateCrudTopicsSuccess(res));
+//         dispatch(getCrudTopics())
+//         return "success";
+//       } catch (err) {
+//         dispatch(updateCrudTopicsFailure(err));
+//         return "failure";
+//       }
+
+// }
 
 const getQuestionsLoading = () => ({
     type: adminConstants.GET_ALL_QUESTIONS_LOADING,
@@ -466,10 +466,7 @@ const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
 
 export const adminActions = {
     getCrudTopics,
-    postCrudTopics: postCrudTopics,
     getCrudTopicById,
-    deleteCrudTopic,
-    updateCrudTopics,
     getQuestionsRequest,
     getTopicsRequest,
     getQuestionsByTopicRequest,
