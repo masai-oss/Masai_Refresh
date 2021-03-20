@@ -6,9 +6,9 @@ import android.util.Log
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.AuthResponse.AuthTask
-import com.example.myapplication.Retrofit.ApiClient
-import com.example.myapplication.Retrofit.Network
 import com.example.myapplication.activities.TopicsActivity
+import com.example.myapplication.network.Network
+import com.example.myapplication.network.TopicApi
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -56,7 +56,7 @@ class GoogleSignInActivty : AppCompatActivity() {
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
             val authTask = AuthTask(account.idToken)
-            val apiClient = Network.getInstance().create(ApiClient::class.java)
+            val apiClient = Network.getInstance().create(TopicApi::class.java)
             val postToken = apiClient.postToken(authTask)
             postToken.enqueue(object : Callback<AuthSuccess>{
                 override fun onResponse(call: Call<AuthSuccess>, response: Response<AuthSuccess>) {
