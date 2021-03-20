@@ -4,6 +4,7 @@ const attemptValidation = (data) => {
   const schema = Joi.object({
     attempt_id: Joi.string().required(),
     submission_id: Joi.string().required(),
+    question_id: Joi.string().required()
   });
   return schema.validate(data);
 };
