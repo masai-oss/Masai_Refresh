@@ -9,9 +9,9 @@ class HomeActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_home)
-        val str : String = intent.getStringExtra("token").toString()
-        if (str!=null){
-            tokenText.text = str
-        }
+//        val str : String = intent.getStringExtra("token").toString()
+//        if (str!=null){
+//            tokenText.text = str
+//        }
     }
 }

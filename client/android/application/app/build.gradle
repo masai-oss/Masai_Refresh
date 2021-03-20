@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "com.masai.mvvmapplication"
+        applicationId "com.example.myapplication"
         minSdkVersion 22
         targetSdkVersion 30
         versionCode 1
@@ -76,7 +76,14 @@ dependencies {
     implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
+//pie chart dependencies
+    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
+
+
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
+    implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
+    implementation 'com.nineoldandroids:library:2.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
 }
