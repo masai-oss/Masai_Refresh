@@ -1,28 +1,17 @@
-import React, {useEffect, useState} from 'react'
+import React, {useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useParams } from 'react-router-dom'
 import { adminActions } from '../State/action'
-
+import { TopicsStyle } from '../Styles/TopicsStyle'
 
 export const SearchByTopic = () => {
-    const [topicName, setTopicName] = useState("")
-    
     const params = useParams()
     const dispatch = useDispatch()
     const currentTopicData = useSelector(state => state.admin.specificTopicData)
 
+    const classes = TopicsStyle()
 
-    const updateTopic = () => {
-        const payload = {
-            name: topicName,
-            icon: "/fakePath"
-        }
-        dispatch(adminActions.updateCrudTopics(payload, params.id))
-        setTimeout(() => {
-            window.location.reload()
-        }, 1500);
-    }
-
+    
     useEffect(() => {
         dispatch(adminActions.getCrudTopicById(params.id))
     }, [dispatch, params.id])
@@ -32,14 +21,16 @@ export const SearchByTopic = () => {
             {
                 currentTopicData &&
                 <div>
-                    <p> {currentTopicData.name} </p>
+                    <div className = {classes.flex} >
+                        <h3> {currentTopicData.name} </h3>
+
+                    </div>
                     {currentTopicData.questions.map(el => {
                         return(
-                            <li key = {el._id} > {el.explanation} </li>
+                            <li key = {el._id} className = {classes.list_TopicPage} > {el.explanation} </li>
                         )
                     })}
-                    <input value = {topicName} onChange = {(e) => setTopicName(e.target.value)} />
-                    <button onClick = {updateTopic} > Update Name </button>
+                    
                 </div>
             }
         </div>

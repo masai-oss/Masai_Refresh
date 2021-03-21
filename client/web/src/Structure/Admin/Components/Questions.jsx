@@ -1,12 +1,16 @@
 import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
-import Select from "@material-ui/core/Select";
-import Box from "@material-ui/core/Box";
-import Container from "@material-ui/core/Container";
 import { adminActions } from "../State/action";
 import { AllQuestions, QuestionsByTopic } from "../";
-import Button from "@material-ui/core/Button";
+import {
+  Button,
+  Card,
+  CardContent,
+  Select,
+  Box,
+  Container,
+} from "@material-ui/core";
 import { QuestionsStyles } from "../";
 
 export const Questions = () => {
@@ -36,35 +40,42 @@ export const Questions = () => {
 
   return (
     <Container>
-      <Box className={classes.top}>
-        <Select value={topic} onChange={(e) => handleChange(e.target.value)}>
-          <option value="all">ALL</option>
-          {topics.data?.map((item) => (
-            <option key={item.name} value={item.name}>
-              {item.name}
-            </option>
-          ))}
-        </Select>
-        <Button
-          variant="contained"
-          className={classes.save}
-          onClick={() => history.push("/questions/add")}
-        >
-          ADD
-        </Button>
-      </Box>
-      <Box>
-        {topic === "all" && (
-          <AllQuestions topics={topics} handleDelete={handleDelete} />
-        )}
-        {topic !== "all" && (
-          <QuestionsByTopic
-            topics={topics}
-            handleDelete={handleDelete}
-            topic={topic}
-          />
-        )}
-      </Box>
+      <Card>
+        <CardContent>
+          <Box className={classes.top}>
+            <Select
+              value={topic}
+              onChange={(e) => handleChange(e.target.value)}
+            >
+              <option value="all">ALL</option>
+              {topics.data?.map((item) => (
+                <option key={item.name} value={item.name}>
+                  {item.name}
+                </option>
+              ))}
+            </Select>
+            <Button
+              variant="contained"
+              className={classes.save}
+              onClick={() => history.push("/questions/add")}
+            >
+              ADD
+            </Button>
+          </Box>
+          <Box>
+            {topic === "all" && (
+              <AllQuestions topics={topics} handleDelete={handleDelete} />
+            )}
+            {topic !== "all" && (
+              <QuestionsByTopic
+                topics={topics}
+                handleDelete={handleDelete}
+                topic={topic}
+              />
+            )}
+          </Box>
+        </CardContent>
+      </Card>
     </Container>
   );
 };

@@ -1,480 +1,375 @@
-import {adminConstants} from './actionTypes'
-import axios from 'axios'
+import { adminConstants } from "./actionTypes";
+import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 
-const TOPIC_API = process.env.REACT_APP_ADMIN_TOPIC_API_URL
+const TOPIC_API = process.env.REACT_APP_ADMIN_TOPIC_API_URL;
 const QUESTION_URL = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
-
 const getCrudTopicsRequest = () => {
-    return{
-        type: adminConstants.GET_CRUD_TOPICS_REQUEST
-    }
-}
+  return {
+    type: adminConstants.GET_CRUD_TOPICS_REQUEST,
+  };
+};
 
 const getCrudTopicsSuccess = (payload) => {
-    return{
-        type: adminConstants.GET_CRUD_TOPICS_SUCCESS,
-        payload
-    }
-}
-
+  return {
+    type: adminConstants.GET_CRUD_TOPICS_SUCCESS,
+    payload,
+  };
+};
 
 const getCrudTopicsFailure = (payload) => {
-    return{
-        type: adminConstants.GET_CRUD_TOPICS_FAILURE,
-        payload
-    }
-}
+  return {
+    type: adminConstants.GET_CRUD_TOPICS_FAILURE,
+    payload,
+  };
+};
 
 const getCrudTopics = () => async (dispatch) => {
-    dispatch(getCrudTopicsRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "get",
-        url: TOPIC_API,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
+  dispatch(getCrudTopicsRequest());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  const config = {
+    method: "get",
+    url: TOPIC_API,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
 
-    try {
-        const res = await axios(config);
-        dispatch(getCrudTopicsSuccess(res.data.data));
-        return "success";
-      } catch (err) {
-        dispatch(getCrudTopicsFailure(err));
-        return "failure";
-      }
+  try {
+    const res = await axios(config);
+    dispatch(getCrudTopicsSuccess(res.data.data));
+    return "success";
+  } catch (err) {
+    dispatch(getCrudTopicsFailure(err));
+    return "failure";
+  }
+};
 
-}
-
-const postCrudTopicsRequest = () => {
-    return{
-        type: adminConstants.POST_CRUD_TOPIC_REQUEST
-    }
-}
-
-const postCrudTopicsSuccess = (payload) => {
-    return{
-        type: adminConstants.POST_CRUD_TOPIC_SUCCESS,
-        payload
-    }
-}
-
-
-const postCrudTopicsFailure = (payload) => {
-    return{
-        type: adminConstants.POST_CRUD_TOPIC_FAILURE,
-        payload
-    }
-}
-
-
-const postCrudTopics = (payload) => async (dispatch) => {
-    dispatch(postCrudTopicsRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "post",
-        url: `${TOPIC_API}/create`,
-        data: payload,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
-
-    try {
-        const res = await axios(config);
-        dispatch(postCrudTopicsSuccess(res));
-        dispatch(getCrudTopics())
-        return "success";
-      } catch (err) {
-        dispatch(postCrudTopicsFailure(err));
-        return "failure";
-      }
-
-}
 
 const getCrudTopicByIdRequest = () => {
-    return{
-        type: adminConstants.GET_BY_CRUD_TOPIC_ID_REQUEST
-    }
-}
+  return {
+    type: adminConstants.GET_BY_CRUD_TOPIC_ID_REQUEST,
+  };
+};
 
 const getCrudTopicByIdSuccess = (payload) => {
-    return{
-        type: adminConstants.GET_BY_CRUD_TOPIC_ID_SUCCESS,
-        payload
-    }
-}
-
+  return {
+    type: adminConstants.GET_BY_CRUD_TOPIC_ID_SUCCESS,
+    payload,
+  };
+};
 
 const getCrudTopicByIdFailure = (payload) => {
-    return{
-        type: adminConstants.GET_BY_CRUD_TOPIC_ID_FAILURE,
-        payload
-    }
-}
+  return {
+    type: adminConstants.GET_BY_CRUD_TOPIC_ID_FAILURE,
+    payload,
+  };
+};
 
 const getCrudTopicById = (payload) => async (dispatch) => {
-    dispatch(getCrudTopicByIdRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "get",
-        url: `${TOPIC_API}/id/${payload}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
+  dispatch(getCrudTopicByIdRequest());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  const config = {
+    method: "get",
+    url: `${TOPIC_API}/id/${payload}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  };
 
-    try {
-        const res = await axios(config);
-        dispatch(getCrudTopicByIdSuccess(res.data.data));
-        return "success";
-      } catch (err) {
-        dispatch(getCrudTopicByIdFailure(err));
-        return "failure";
-      }
-
-}
-
-const deleteCrudTopicRequest = () => {
-    return{
-        type: adminConstants.DELETE_CRUD_TOPIC_REQUEST
-    }
-}
-
-const deleteCrudTopicSuccess = (payload) => {
-    return{
-        type: adminConstants.DELETE_CRUD_TOPIC_SUCCESS
-    }
-}
-
-
-const deleteCrudTopicFailure = (payload) => {
-    return{
-        type: adminConstants.DELETE_CRUD_TOPIC_FAILURE,
-        payload
-    }
-}
-
-
-const deleteCrudTopic = (payload) => async (dispatch) => {
-    dispatch(deleteCrudTopicRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "delete",
-        url: `${TOPIC_API}/${payload}`,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
-
-    try {
-        const res = await axios(config);
-        dispatch(deleteCrudTopicSuccess(res));
-        dispatch(getCrudTopics())
-        return "success";
-      } catch (err) {
-        dispatch(deleteCrudTopicFailure(err));
-        return "failure";
-      }
-
-}
-
-const updateCrudTopicsRequest = () => {
-    return{
-        type: adminConstants.PUT_CRUD_TOPIC_REQUEST
-    }
-}
-
-const updateCrudTopicsSuccess = (payload) => {
-    return{
-        type: adminConstants.PUT_CRUD_TOPIC_SUCCESS,
-        payload
-    }
-}
-
-
-const updateCrudTopicsFailure = (payload) => {
-    return{
-        type: adminConstants.PUT_CRUD_TOPIC_FAILURE,
-        payload
-    }
-}
-
-
-const updateCrudTopics = (payload, id) => async (dispatch) => {
-    dispatch(updateCrudTopicsRequest())
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-        method: "put",
-        url: `${TOPIC_API}/${id}`,
-        data: payload,
-        headers: {
-          Authorization: `Bearer ${token}`,
-          "Content-Type": "application/json",
-        },
-    };
-
-    try {
-        const res = await axios(config);
-        dispatch(updateCrudTopicsSuccess(res));
-        dispatch(getCrudTopics())
-        return "success";
-      } catch (err) {
-        dispatch(updateCrudTopicsFailure(err));
-        return "failure";
-      }
-
-}
+  try {
+    const res = await axios(config);
+    dispatch(getCrudTopicByIdSuccess(res.data.data));
+    return "success";
+  } catch (err) {
+    dispatch(getCrudTopicByIdFailure(err));
+    return "failure";
+  }
+};
 
 const getQuestionsLoading = () => ({
-    type: adminConstants.GET_ALL_QUESTIONS_LOADING,
-  });
-  
-  const getQuestionsSuccess = (payload) => ({
-    type: adminConstants.GET_ALL_QUESTIONS_SUCCESS,
-    payload,
-  });
-  
-  const getQuestionsFailure = (data) => ({
-    type: adminConstants.GET_ALL_QUESTIONS_FAILURE,
-    payload: data
-  });
-  
-  const getQuestionsRequest = (page = 0, limit = 10) => (dispatch) => {
-    dispatch(getQuestionsLoading());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    let url = `${QUESTION_URL}/all/?page=${page+1}&limit=${limit}`
+  type: adminConstants.GET_ALL_QUESTIONS_LOADING,
+});
 
-    axios({
-      method: "get",
-      url: url,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) =>dispatch(getQuestionsSuccess(res.data)) )
-      .catch((err) => dispatch(getQuestionsFailure(err)));
-  };
+const getQuestionsSuccess = (payload) => ({
+  type: adminConstants.GET_ALL_QUESTIONS_SUCCESS,
+  payload,
+});
 
+const getQuestionsFailure = (data) => ({
+  type: adminConstants.GET_ALL_QUESTIONS_FAILURE,
+  payload: data,
+});
+
+const getQuestionsRequest = (page = 0, limit = 10) => (dispatch) => {
+  dispatch(getQuestionsLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/all/?page=${page + 1}&limit=${limit}`;
+
+  axios({
+    method: "get",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => dispatch(getQuestionsSuccess(res.data)))
+    .catch((err) => dispatch(getQuestionsFailure(err)));
+};
 
 const getQuestionLoading = () => ({
-    type: adminConstants.GET_QUESTION_LOADING,
-  });
-  
-  const getQuestionSuccess = (payload) => ({
-    type: adminConstants.GET_QUESTION_SUCCESS,
-    payload,
-  });
-  
-  const getQuestionFailure = (data) => ({
-    type: adminConstants.GET_QUESTION_FAILURE,
-    payload: data
-  });
-  
-  const getQuestionRequest = (id) => (dispatch) => {
-    dispatch(getQuestionLoading());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    let url = `${QUESTION_URL}/byId/${id}`
+  type: adminConstants.GET_QUESTION_LOADING,
+});
 
-    axios({
-      method: "get",
-      url: url,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => dispatch(getQuestionSuccess(res.data)) )
-      .catch((err) => dispatch(getQuestionFailure(err)));
-  };
+const getQuestionSuccess = (payload) => ({
+  type: adminConstants.GET_QUESTION_SUCCESS,
+  payload,
+});
+
+const getQuestionFailure = (data) => ({
+  type: adminConstants.GET_QUESTION_FAILURE,
+  payload: data,
+});
+
+const getQuestionRequest = (id) => (dispatch) => {
+  dispatch(getQuestionLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/byId/${id}`;
+
+  axios({
+    method: "get",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => dispatch(getQuestionSuccess(res.data)))
+    .catch((err) => dispatch(getQuestionFailure(err)));
+};
 
 const getTopicsLoading = () => ({
-    type: adminConstants.GET_TOPICS_LOADING,
-  });
-  
-  const getTopicsSuccess = (payload) => ({
-    type: adminConstants.GET_TOPICS_SUCCESS,
-    payload,
-  });
-  
-  const getTopicsFailure = (data) => ({
-    type: adminConstants.GET_TOPICS_FAILURE,
-    payload: data,
-  });
-  
+  type: adminConstants.GET_TOPICS_LOADING,
+});
+
+const getTopicsSuccess = (payload) => ({
+  type: adminConstants.GET_TOPICS_SUCCESS,
+  payload,
+});
+
+const getTopicsFailure = (data) => ({
+  type: adminConstants.GET_TOPICS_FAILURE,
+  payload: data,
+});
+
 const getTopicsRequest = () => (dispatch) => {
-    dispatch(getTopicsLoading());
+  dispatch(getTopicsLoading());
 
-    const token = getFromStorage(storageEnums.TOKEN, "");
+  const token = getFromStorage(storageEnums.TOKEN, "");
 
-    axios({
-      method: "get",
-      url: `${TOPIC_API}`,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => dispatch(getTopicsSuccess(res.data)) )
-      .catch((err) => dispatch(getTopicsFailure(err)));
-  };
+  axios({
+    method: "get",
+    url: `${TOPIC_API}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => dispatch(getTopicsSuccess(res.data)))
+    .catch((err) => dispatch(getTopicsFailure(err)));
+};
 
+const getQuestionsByTopicLoading = () => ({
+  type: adminConstants.GET_QUESTIONS_BY_TOPIC_LOADING,
+});
 
-  const getQuestionsByTopicLoading = () => ({
-    type: adminConstants.GET_QUESTIONS_BY_TOPIC_LOADING,
-  });
-  
-  const getQuestionsByTopicSuccess = (payload) => ({
-    type: adminConstants.GET_QUESTIONS_BY_TOPIC_SUCCESS,
-    payload,
-  });
-  
-  const getQuestionsByTopicFailure = (data) => ({
-    type: adminConstants.GET_QUESTIONS_BY_TOPIC_FAILURE,
-    payload: data
-  });
-  
+const getQuestionsByTopicSuccess = (payload) => ({
+  type: adminConstants.GET_QUESTIONS_BY_TOPIC_SUCCESS,
+  payload,
+});
+
+const getQuestionsByTopicFailure = (data) => ({
+  type: adminConstants.GET_QUESTIONS_BY_TOPIC_FAILURE,
+  payload: data,
+});
+
 const getQuestionsByTopicRequest = (topic) => (dispatch) => {
-    dispatch(getQuestionsByTopicLoading());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    let url = `${QUESTION_URL}/byTopic/${topic}`
+  dispatch(getQuestionsByTopicLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/byTopic/${topic}`;
 
-    axios({
-      method: "get",
-      url: url,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-    })
-      .then((res) => dispatch(getQuestionsByTopicSuccess(res.data)) )
-      .catch((err) => dispatch(getQuestionsByTopicFailure(err)));
-  };
+  axios({
+    method: "get",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => dispatch(getQuestionsByTopicSuccess(res.data)))
+    .catch((err) => dispatch(getQuestionsByTopicFailure(err)));
+};
 
-  
-  const addQuestionsLoading = () => ({
-    type: adminConstants.ADD_QUESTION_LOADING,
-  });
-  
-  const addQuestionsSuccess = (payload) => ({
-    type: adminConstants.ADD_QUESTION_SUCCESS,
-    payload,
-  });
-  
-  const addQuestionsFailure = (data) => ({
-    type: adminConstants.ADD_QUESTION_FAILURE,
-    payload: data
-  });
-  
+const addQuestionsLoading = () => ({
+  type: adminConstants.ADD_QUESTION_LOADING,
+});
+
+const addQuestionsSuccess = (payload) => ({
+  type: adminConstants.ADD_QUESTION_SUCCESS,
+  payload,
+});
+
+const addQuestionsFailure = (data) => ({
+  type: adminConstants.ADD_QUESTION_FAILURE,
+  payload: data,
+});
+
 const addQuestionsRequest = (payload, topic) => (dispatch) => {
-    dispatch(addQuestionsLoading());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    let url = `${QUESTION_URL}/create/${topic}/`
+  dispatch(addQuestionsLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/create/${topic}/`;
 
-    axios({
-      method: "post",
-      url: url,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      },
-      data: payload
-    })
-    .then((res) => dispatch(addQuestionsSuccess(res.data)) )
-    .catch((err) => dispatch(addQuestionsFailure(err)) );
-  };
-  
-  const deleteQuestionsLoading = () => ({
-    type: adminConstants.DELETE_QUESTION_LOADING,
-  });
-  
-  const deleteQuestionsSuccess = (payload, id) => ({
-    type: adminConstants.DELETE_QUESTION_SUCCESS,
-    payload,
-    id
-  });
-  
-  const deleteQuestionsFailure = (data) => ({
-    type: adminConstants.DELETE_QUESTION_FAILURE,
-    payload: data
-  });
-  
+  axios({
+    method: "post",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+    data: payload,
+  })
+    .then((res) => dispatch(addQuestionsSuccess(res.data)))
+    .catch((err) => dispatch(addQuestionsFailure(err)));
+};
+
+const deleteQuestionsLoading = () => ({
+  type: adminConstants.DELETE_QUESTION_LOADING,
+});
+
+const deleteQuestionsSuccess = (payload, id) => ({
+  type: adminConstants.DELETE_QUESTION_SUCCESS,
+  payload,
+  id,
+});
+
+const deleteQuestionsFailure = (data) => ({
+  type: adminConstants.DELETE_QUESTION_FAILURE,
+  payload: data,
+});
+
 const deleteQuestionsRequest = (id, topic) => (dispatch) => {
-    dispatch(deleteQuestionsLoading());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    let url = `${QUESTION_URL}/delete/${topic}/${id}`
+  dispatch(deleteQuestionsLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/delete/${topic}/${id}`;
 
-    axios({
-      method: "delete",
-      url: url,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }
+  axios({
+    method: "delete",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      dispatch(deleteQuestionsSuccess(res.data, id));
+      dispatch(getQuestionsByTopicRequest(topic));
     })
-      .then((res) => {
-        dispatch(deleteQuestionsSuccess(res.data, id))
-        dispatch(getQuestionsByTopicRequest(topic))
-      } )
-      .catch((err) => dispatch(deleteQuestionsFailure(err)));
-  };
+    .catch((err) => dispatch(deleteQuestionsFailure(err)));
+};
 
+const updateQuestionsLoading = () => ({
+  type: adminConstants.EDIT_QUESTION_LOADING,
+});
 
-  const updateQuestionsLoading = () => ({
-    type: adminConstants.EDIT_QUESTION_LOADING,
-  });
-  
-  const updateQuestionsSuccess = (payload, id) => ({
-    type: adminConstants.EDIT_QUESTION_SUCCESS,
-    payload,
-    id
-  });
-  
-  const updateQuestionsFailure = (data) => ({
-    type: adminConstants.EDIT_QUESTION_FAILURE,
-    payload: data
-  });
-  
+const updateQuestionsSuccess = (payload, id) => ({
+  type: adminConstants.EDIT_QUESTION_SUCCESS,
+  payload,
+  id,
+});
+
+const updateQuestionsFailure = (data) => ({
+  type: adminConstants.EDIT_QUESTION_FAILURE,
+  payload: data,
+});
+
 const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
-    dispatch(updateQuestionsLoading());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    let url = `${QUESTION_URL}/update/${topic}/${id}`
+  dispatch(updateQuestionsLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/update/${topic}/${id}`;
 
-    axios({
-      method: "PUT",
-      url: url,
-      data: payload,
-      headers: {
-        "Authorization": `Bearer ${token}`,
-        "Content-Type": "application/json",
-      }
+  axios({
+    method: "PUT",
+    url: url,
+    data: payload,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      dispatch(updateQuestionsSuccess(res.data, id));
+      dispatch(getQuestionsRequest());
     })
-      .then((res) => {
-        dispatch(updateQuestionsSuccess(res.data, id)); 
-        dispatch( getQuestionsRequest() )
-      } )
-      .catch((err) => dispatch(updateQuestionsFailure(err)));
+    .catch((err) => dispatch(updateQuestionsFailure(err)));
+};
+
+const uploadIconRequest = () => ({
+  type: adminConstants.UPLOAD_ICON_REQUEST
+});
+
+const uploadIconSuccess = (payload) => ({
+  type: adminConstants.UPLOAD_ICON_SUCCESS,
+  payload
+});
+
+const uploadIconFailure = (payload) => ({
+  type: adminConstants.UPLOAD_ICON_FAILURE,
+  payload
+});
+
+const uploadIconProcess = ({file: icon, id}) => {
+  return async (dispatch ) => {
+    dispatch(uploadIconRequest());
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    const config = {
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+        Authorization: `Bearer ${token}`,
+      },
+    };
+    let postData = new FormData();
+    if (icon !== undefined) {
+      postData.append("icon", icon);
+    }
+    try {
+      const response = await axios.patch(
+        `${TOPIC_API}/${id}`,
+        postData,
+        config
+      );
+      dispatch(uploadIconSuccess(response));
+      return "success";
+    } catch (error) {
+      dispatch(uploadIconFailure(error.response));
+      return "failure";
+    }
   };
+};
 
 export const adminActions = {
-    getCrudTopics,
-    postCrudTopics: postCrudTopics,
-    getCrudTopicById,
-    deleteCrudTopic,
-    updateCrudTopics,
-    getQuestionsRequest,
-    getTopicsRequest,
-    getQuestionsByTopicRequest,
-    deleteQuestionsRequest,
-    addQuestionsRequest,
-    updateQuestionsRequest,
-    getQuestionRequest
-}
+  getCrudTopics,
+  getCrudTopicById,
+  getQuestionsRequest,
+  getTopicsRequest,
+  getQuestionsByTopicRequest,
+  deleteQuestionsRequest,
+  addQuestionsRequest,
+  updateQuestionsRequest,
+  getQuestionRequest,
+  uploadIconProcess
+};
