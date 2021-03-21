@@ -1,54 +1,90 @@
-import React, {useState, useEffect} from 'react'
-import {useDispatch, useSelector} from 'react-redux'
-import { useHistory } from 'react-router-dom'
-import {adminActions} from '../State/action'
-import { TopicsStyle } from '../Styles/TopicsStyle'
+import React, { useState, useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { Grid, Avatar, Card, CardContent, Typography } from "@material-ui/core";
+import { adminActions } from "../State/action";
+import { TopicsStyle } from "../Styles/TopicsStyle";
+import { IconManipulationDialog } from "./IconManipulationModal";
 
+const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 export const CrudTopics = () => {
-    // const [topicName, setTopicName] = useState("")
-    // const [topicName1, setTopicName1] = useState("")
-    const dispatch = useDispatch()
-    const history = useHistory()
+  const dispatch = useDispatch();
+  const topicsData = useSelector((state) => state.admin.topicsData);
+  const classes = TopicsStyle();
 
-    const topicsData = useSelector(state => state.admin.topicsData)
+  useEffect(() => {
+    dispatch(adminActions.getCrudTopics());
+  }, [dispatch]);
 
-    const classes = TopicsStyle()
+  const modIcon = (icon) => {
+    return `${UPLOADED_ICONS_URL}${icon}`;
+  };
+  let dialogInfoStr = {
+    open: false,
+    icon: "",
+    name: "",
+    id: "",
+  };
+  const [dialogInfo, setDialogInfo] = useState(dialogInfoStr);
 
-    // const postTopic = () => {
-    //     const payload = {
-    //         name: topicName,
-    //         icon: "./path7"
-    //     }
-    //     setTopicName("")
-    //     dispatch(adminActions.postCrudTopics(payload))
-    // }
+  const handleClickOpen = ({icon, name,id}) => {
+    setDialogInfo({
+      open: true,
+      icon: icon,
+      name: name,
+      id: id
+    });
+  };
 
-    const searchByTopic = (id) => {
-        history.push(`/topics/${id}`)
-    }
-
-    useEffect(() => {
-        dispatch(adminActions.getCrudTopics())
-    }, [])
-
-    return (
-        <div>
-            <br/>
-            {
-                topicsData && topicsData?.map(topic => {
-                    return(
-                        <button key = {topic._id} className = {classes.root} onClick = {() => searchByTopic(topic._id)} >
-                            {topic.name}
-                        </button>
-                    )
-                })
-            }
-
-            {/* <input onChange = {(e) => setTopicName(e.target.value)} className = {classes.input} value = {topicName} /> */}
-            {/* <button onClick = {postTopic} className = {classes.add} >Add a Topic</button> */}
-
-            {/* <input onChange = {(e) => setTopicName1(e.target.value)} className = {classes.input} value = {topicName1} /> */}
-            {/* <button onClick = {deleteTopic} className = {classes.add}  >Delete Topic</button> */}
-        </div>
-    )
-}
+  const handleClose = () => {
+    setDialogInfo(dialogInfoStr);
+  };
+  return (
+    <Grid
+      container
+      direction="row"
+      justify="center"
+      alignItems="center"
+      spacing={3}
+    >
+      {topicsData &&
+        topicsData?.map(({ name, questions, icon, _id }, index) => (
+          <Grid item xs={12} sm={10} md={6} lg={4} xl={3} key={index}>
+            <Card>
+              <CardContent>
+                <Grid
+                  container
+                  direction="row"
+                  justify="space-between"
+                  alignItems="center"
+                >
+                  <Avatar
+                    alt={name}
+                    src={
+                      (icon =
+                        icon !== undefined &&
+                        (icon.includes(".png") ||
+                          icon.includes(".jpeg") ||
+                          icon.includes(".svg"))
+                          ? modIcon(icon)
+                          : icon)
+                    }
+                    onClick={() => handleClickOpen({icon: icon, name: name, id: _id})}
+                    className={classes.iconStyle}
+                  />
+                  <div>
+                    <Typography variant="h4" component="h2">
+                      {name}
+                    </Typography>
+                    <Typography variant="h6" component="h2">
+                      Total Questions : {questions.length}
+                    </Typography>
+                  </div>
+                </Grid>
+              </CardContent>
+            </Card>
+          </Grid>
+        ))}
+      <IconManipulationDialog handleClose={handleClose} dialogInfo={dialogInfo} />
+    </Grid>
+  );
+};
