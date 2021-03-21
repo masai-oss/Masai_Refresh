@@ -32,40 +32,47 @@ const topicSchema = new Schema(
           type: String,
           required: true,
         },
-        flag: {
-          type: [
-            {
-              status: {
-                solved: {
-                  type: Boolean,
-                  default: false,
-                },
-                by: {
-                  // admin user id
-                  type: Schema.Types.ObjectId,
-                },
-                description: {
-                  // reason from admin for user report
-                  type: String,
-                },
+        flag: [
+          {
+            status: {
+              solved: {
+                type: Boolean,
+                default: false,
               },
-              user_id: {
+              by: {
+                // admin user id
                 type: Schema.Types.ObjectId,
-              },
-              reason: {
-                type: [{ type: String, enum: [...Object.values(reasonEnum)] }],
-                min: 1,
-                max: 4,
+                default: null,
               },
               description: {
+                // reason from admin for user report
                 type: String,
-                min: 1,
-                max: 255,
+                default: null,
               },
+              time: {
+                type: Date,
+                default: null
+              }
             },
-          ],
-          default: [],
-        },
+            user_id: {
+              type: Schema.Types.ObjectId,
+            },
+            reason: {
+              type: [{ type: String, enum: [...Object.values(reasonEnum)] }],
+              min: 1,
+              max: 4,
+            },
+            description: {
+              type: String,
+              min: 1,
+              max: 255,
+            },
+            time: {
+              type: Date,
+              default: Date.now,
+            },
+          },
+        ],
         statement: {
           type: String,
           required: true,
