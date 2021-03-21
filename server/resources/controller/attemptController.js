@@ -82,7 +82,7 @@ const createAttempt = async ( req, res ) => {
 }
 
 const nextAttempt = async(req, res) => {
-    let { attempt_id, submission_id, question_id } = req.body // add quetsion id to Joi verification
+    let { attempt_id, submission_id, question_id } = req.query
     const { error } = attemptValidation(req.body)
     if (error) {
         return res.status(400).json({
@@ -110,7 +110,6 @@ const nextAttempt = async(req, res) => {
         )
         let topic_question = topic.questions[0]
         let question_to_send = get_question_to_send(topic_question)
-        // await update_current_question_in_submission(submission_id, attempt_id)
 
         let data = {
             ...question_to_send,

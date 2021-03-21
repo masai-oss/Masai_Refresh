@@ -10,7 +10,7 @@ const {
 const { authenticateToken } = require("../controller/authController");
 
 attemptRoute.post('/create', authenticateToken, createAttempt);
-attemptRoute.post('/next', authenticateToken, nextAttempt);
+attemptRoute.get('/next', authenticateToken, nextAttempt);
 attemptRoute.patch('/record', authenticateToken, recordAttempt);
 attemptRoute.get("/result/:attempt_id", authenticateToken, getResults);
 
