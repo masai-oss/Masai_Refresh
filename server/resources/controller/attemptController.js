@@ -82,7 +82,7 @@ const createAttempt = async ( req, res ) => {
 }
 
 const nextAttempt = async(req, res) => {
-    let { attempt_id, submission_id, question_id } = req.body // add quetsion id to Joi verification
+    let { attempt_id, submission_id, question_id } = req.query // add quetsion id to Joi verification
     const { error } = attemptValidation(req.body)
     if (error) {
         return res.status(400).json({
