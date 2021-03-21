@@ -73,6 +73,11 @@ const logoutProcess = () => async (dispatch) => {
     removeFromStorage(storageEnums.NAME)
     removeFromStorage(storageEnums.EMAIL)
     removeFromStorage(storageEnums.PROFILEPIC)
+    removeFromStorage(storageEnums.ATTEMPT_ID)
+    removeFromStorage(storageEnums.PRACTICE_RESULTS)
+    removeFromStorage(storageEnums.QUESTION_PRACTICE)
+    removeFromStorage(storageEnums.ALL_QUESTIONS_IDS)
+    removeFromStorage(storageEnums.SUBMISSION_ID)
   }
 };
 

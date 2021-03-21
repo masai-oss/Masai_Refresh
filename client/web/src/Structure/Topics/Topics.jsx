@@ -1,35 +1,26 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
-import {
-  Grid,
-  Card,
-  CardContent,
-  Typography,
-  Avatar,
-  ButtonBase,
-} from "@material-ui/core";
-import { ProficiencyChart } from "./Components/ProficiencyChart";
-import { TopicStyle } from "./Styles/TopicStyles";
+import { Grid } from "@material-ui/core";
 import { StartQuizModal } from "./Components/startQuizModal";
-import { IsLoading } from "../Common/IsLoading";
+import { IsLoading } from "../Common";
+import { TopicCard } from "./Components/TopicCard";
 
 const Topics = () => {
-  const classes = TopicStyle();
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const [modalData, setModal] = useState({
     open: false,
     topic: "",
-    topicId:""
+    topicId: "",
   });
   useEffect(() => {
     dispatch(topicActions.getTopics());
-  // eslint-disable-next-line react-hooks/exhaustive-deps
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const isLoading = useSelector((state) => state.topics.isLoading);
   const topicsData = useSelector((state) => state.topics.topicsData);
   const isError = useSelector((state) => state.topics.isError);
-  const handleClickOpen = ({topic, topicId}) => {
+  const handleClickOpen = ({ topic, topicId }) => {
     setModal({
       open: true,
       topic: topic,
@@ -51,37 +42,13 @@ const Topics = () => {
         <div>...something went wrong</div>
       ) : (
         topicsData &&
-        topicsData.map(
-          ({ _id: topicId, name: topic, icon, proficiency }, index) => (
-            <Grid item xs={12} sm={10} md={6} lg={4} xl={3} key={index}>
-              <Card className={classes.cardStyle}>
-                <CardContent>
-                  <Grid
-                    container
-                    direction="column"
-                    justify="space-evenly"
-                    alignItems="center"
-                    className={classes.gridCard}
-                  >
-                    <ProficiencyChart proficiency={proficiency} />
-                    <Avatar className={classes.iconStyle}>Q</Avatar>
-                    <ButtonBase
-                      className={classes.topicButtonStyle}
-                      onClick={() => handleClickOpen({ topic, topicId })}
-                    >
-                      <Typography
-                        variant="h5"
-                        className={classes.topicNameStyle}
-                      >
-                        {topic}
-                      </Typography>
-                    </ButtonBase>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          )
-        )
+        topicsData.map((topic, index) => (
+          <TopicCard
+            topicData={topic}
+            handleClickOpen={handleClickOpen}
+            key={index}
+          />
+        ))
       )}
       <StartQuizModal modalData={modalData} handleClose={handleClose} />
     </Grid>

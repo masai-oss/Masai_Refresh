@@ -1,4 +1,3 @@
-
 import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const QuestionFormStyles = makeStyles((theme) => createStyles({
@@ -26,6 +25,7 @@ textAreaWidth: {
 },
 horizontalStyle: {
     display: "flex",
+    flexDirection:'row'
 },
 verticalStyle: {
     display: "flex",
@@ -41,7 +41,7 @@ verticalStyle: {
     cursor:"pointer"
   },
   save: {
-    background: "#00cec9",
+    background: "#2196f3",
   },
   cancel: {
     background: "#ff6b81",

@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity
 import com.example.myapplication.AuthResponse.AuthTask
 import com.example.myapplication.Retrofit.ApiClient
 import com.example.myapplication.Retrofit.Network
+import com.example.myapplication.activities.TopicsActivity
 import com.google.android.gms.auth.api.signin.GoogleSignIn
 import com.google.android.gms.auth.api.signin.GoogleSignInAccount
 import com.google.android.gms.auth.api.signin.GoogleSignInClient
@@ -29,7 +30,7 @@ class GoogleSignInActivty : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_google_sign_in_activty)
         val gso: GoogleSignInOptions =
-            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1076096355894-tlqr133lhbep9c9n8jkv24msqri7pvb2.apps.googleusercontent.com").requestScopes(Scope(Scopes.DRIVE_APPFOLDER))
+            GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN).requestIdToken("1076096355894-tlqr133lhbep9c9n8jkv24msqri7pvb2.apps.googleusercontent.com").requestScopes(Scope(Scopes.PROFILE))
             .requestEmail().build()
         mGoogleSignInClient = GoogleSignIn.getClient(this@GoogleSignInActivty, gso)
         Log.d("token","start")
@@ -62,7 +63,7 @@ class GoogleSignInActivty : AppCompatActivity() {
                     if (response.body()?.token !=null)
 
                     Toast.makeText(this@GoogleSignInActivty, response.body()?.message +response.body()?.token,Toast.LENGTH_SHORT).show()
-                    val intent = Intent(this@GoogleSignInActivty,HomeActivity::class.java)
+                    val intent = Intent(this@GoogleSignInActivty,TopicsActivity::class.java)
                     intent.putExtra("token",response.body()?.token)
                     startActivity(intent)
                 }

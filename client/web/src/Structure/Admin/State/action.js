@@ -281,7 +281,7 @@ const getQuestionLoading = () => ({
   
   const getQuestionRequest = (id) => (dispatch) => {
     dispatch(getQuestionLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/byId/${id}`
 
     axios({
@@ -376,7 +376,7 @@ const getQuestionsByTopicRequest = (topic) => (dispatch) => {
   
 const addQuestionsRequest = (payload, topic) => (dispatch) => {
     dispatch(addQuestionsLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/create/${topic}/`
 
     axios({
@@ -445,7 +445,7 @@ const deleteQuestionsRequest = (id, topic) => (dispatch) => {
   
 const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
     dispatch(updateQuestionsLoading());
-    const token = (localStorage.getItem('token'))
+    const token = getFromStorage(storageEnums.TOKEN, "");
     let url = `${QUESTION_URL}/update/${topic}/${id}`
 
     axios({

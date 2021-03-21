@@ -118,7 +118,7 @@ export const QuestionForm = (props) => {
         else{
             dispatch( adminActions.updateQuestionsRequest(payload, data._id, question.topic) )
         }
-
+        console.log(payload)
         history.push("/questions_admin")
     }
     
@@ -177,7 +177,7 @@ export const QuestionForm = (props) => {
                         <FormControl required >
                             Correct Answer *
                             <RadioGroup
-                                style={{ display: "flex", flexDirection: "row" }}
+                                className={classes.horizontalStyle}
                                 onChange={ e => handleChange(e.target) }
                                 value={question.mcqAnswer}
                                 name="mcqAnswer"
@@ -193,11 +193,11 @@ export const QuestionForm = (props) => {
                 </>
                 }
                 {
-                question.type === 'TF' && <Box className={classes.verticalStyle}>
+                question.type === 'TF' && <Box>
 
                     <FormControl required >
                         <InputLabel htmlFor="tf-answer">Answer</InputLabel>
-                        <Checkbox id="tf-answer" name="tfAnswer" value={ question.tfAnswer } onChange={ e => handleChange(e.target) } />
+                        <Checkbox id="tf-answer" name="tfAnswer" checked={ question.tfAnswer } onChange={ e => handleChange(e.target) } />
                     </FormControl>
                 </Box>
                 }

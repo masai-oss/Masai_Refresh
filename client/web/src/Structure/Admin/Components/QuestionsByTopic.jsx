@@ -29,6 +29,7 @@ export const QuestionsByTopic = ({topic, handleDelete, topics}) => {
 
     useEffect(() => {
         dispatch( adminActions.getQuestionsByTopicRequest(topic) )
+    // eslint-disable-next-line react-hooks/exhaustive-deps
     }, [questionDeletionStatus, questionAddedStatus])
 
     return (

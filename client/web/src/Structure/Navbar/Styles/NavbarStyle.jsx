@@ -41,8 +41,17 @@ const NavbarStyles = makeStyles((theme) => ({
 
   toolbar: {
     ...theme.mixins.toolbar,
-    padding: theme.spacing(2),
-    fontSize: 25,
+    fontSize: 29,
+    fontWeight: 'bold',
+    letterSpacing: '4px',
+    color: '#2196f3',
+    backgroundColor: '#e0f1ff',
+    fontFamily: 'Times Roman',
+    padding: '12px 35px',
+    cursor: 'pointer',
+    '& > u': {
+      textDecoration: 'none',
+    }
   },
 
   drawerPaper: {
