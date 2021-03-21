@@ -1,4 +1,5 @@
-const Topic = require('../models/Topic')
+const Topic = require('../models/Topic');
+const TopicsEnum = require('../utils/enums/TopicsEnum');
 const {
     addTopicValidation,
     topicValidation,
@@ -55,7 +56,7 @@ const getTopicByName = async ( req, res ) => {
 }
 
 const addTopic = async ( req, res ) => {
-    const { name } = req.body;
+    let { name } = req.body;
     if (req.file === undefined) {
         return res.status(400).json({ error: true, message: `pass image` });
     }
@@ -67,13 +68,20 @@ const addTopic = async ( req, res ) => {
         });
     }
     try{
+        name = name.trim()
+        if(name.toUpperCase() in TopicsEnum){
+            name = TopicsEnum[name.toUpperCase()]
+        }
+        else{
+            throw new Error("topic name does not figure in our database. Can only create Topics from these subjects: " + Object.keys(TopicsEnum).join(', '))
+        }
         let temp = await Topic.findOne({name}).exec()
         if(!temp){
             await new Topic({name, icon: req.file.filename}, {questions:0}).save()
             res.status(201).json({error: false, message: "The topic has been created."})
         }
         else{
-            res.status(409).json({error: true, message: "The topic cannot be created as it already exists."})
+            res.status(409).json({error: true, message: "The topic already exists."})
         }
     }
     catch(err){
@@ -81,7 +89,33 @@ const addTopic = async ( req, res ) => {
     }
 }
 
+const updateIcon = async ( req, res ) => {
+    const { id } = req.params
+    if (req.file === undefined) {
+      return res.status(400).json({ error: true, message: `pass image` });
+    }
+    if (id === undefined) {
+        return res.status(400).json({ error: true, message: "Topic ID missing" });
+    }
+    try{
+        await Topic.updateOne(
+          { _id: id },
+          { icon: req.file.filename }
+        );
+        res.status(200).json({error: false, message: "The topic has been updated"})
+    }
+    catch(err){
+        res.status(400).json({error: true, message: `${err}`})
+    }
+}
+
+
+// redundant functions
+// -----------------------------------------------------------------------------------------------
+
+
 const deleteTopic = async ( req, res ) => {
+    return res.status(400).json({error: true, message: "The API is currently not in use"})
     const { id } = req.params
     if (id === undefined) {
         return res
@@ -100,44 +134,25 @@ const deleteTopic = async ( req, res ) => {
     }
 }
 
-const editTopic = async ( req, res ) => {
-    const { id } = req.params
-    if (req.file === undefined) {
-      return res.status(400).json({ error: true, message: `pass image` });
-    }
-    if (id === undefined) {
-        return res.status(400).json({ error: true, message: "Pass Topic ID" });
-    }
-    try{
-        let result = await Topic.updateOne(
-          { _id: id },
-          { icon: req.file.filename }
-        );
-        res.status(200).json({error: false, message: "The topic has been updated"})
-    }
-    catch(err){
-        res.status(400).json({error: true, message: `${err}`})
-    }
-}
 
-const replaceTopic = async ( req, res ) => {
-    const { id } = req.params
-    const data = req.body
-    const { error } = addTopicValidation(req.body);
-    if (error) {
-      return res.status(400).json({
-        error: true,
-        reason: error.details[0].message,
-      });
-    }
-    try{
-        let result = await Topic.replaceOne({_id: id}, data)
-        res.status(200).json({error: false, message: "The topic has been replaced"})
-    }
-    catch(err){
-        res.status(400).json({error: true, message: `${err}`})
-    }
-}
+// const replaceTopic = async ( req, res ) => {
+//     const { id } = req.params
+//     const data = req.body
+//     const { error } = addTopicValidation(req.body);
+//     if (error) {
+//       return res.status(400).json({
+//         error: true,
+//         reason: error.details[0].message,
+//       });
+//     }
+//     try{
+//         let result = await Topic.replaceOne({_id: id}, data)
+//         res.status(200).json({error: false, message: "The topic has been replaced"})
+//     }
+//     catch(err){
+//         res.status(400).json({error: true, message: `${err}`})
+//     }
+// }
 
 module.exports = {
     getAllTopics,
@@ -145,5 +160,5 @@ module.exports = {
     getTopicByName,
     addTopic,
     deleteTopic,
-    editTopic,
+    updateIcon,
 }
