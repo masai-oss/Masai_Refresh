@@ -83,7 +83,7 @@ const createAttempt = async ( req, res ) => {
 
 const nextAttempt = async(req, res) => {
     let { attempt_id, submission_id, question_id } = req.query
-    const { error } = attemptValidation(req.body)
+    const { error } = attemptValidation(req.query)
     if (error) {
         return res.status(400).json({
             error: true,
