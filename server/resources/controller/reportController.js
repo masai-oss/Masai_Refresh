@@ -1,4 +1,3 @@
-const Topic = require("../models/Topic");
 const Topics = require("../models/Topic");
 const {
   reportQuestionValidation,
@@ -31,7 +30,7 @@ const reportQuestion = async (req, res) => {
     }).then(([{ questions }]) => {
       let [{ flag }] = questions;
       if (!flag.length) {
-        return Topic.updateOne(filterQuery, pushQuery);
+        return Topics.updateOne(filterQuery, pushQuery);
       }
       crnQueFlag = flag;
       return "Continue operation";
@@ -52,7 +51,7 @@ const reportQuestion = async (req, res) => {
         message: "You already reported the question",
       });
     }
-    let addReport = await Topic.updateOne(filterQuery, pushQuery);
+    let addReport = await Topics.updateOne(filterQuery, pushQuery);
     const { n, nModified } = addReport;
     if (n > 0 && nModified > 0) {
       return res.status(200).json(message);
@@ -65,5 +64,90 @@ const reportQuestion = async (req, res) => {
   }
 };
 
+const getAllReports = async (req, res) => {
+  try {
+    let allReport = await Topics.aggregate([
+      {
+        $match: {
+          "questions.flag": { $gt: [{ $size: "$questions.flag" }, 0] },
+        },
+      },
+      {
+        $addFields: {
+          "questions.flag.name": "$name",
+        },
+      },
+      {
+        $project: {
+          reports: "$questions.flag",
+          _id: 0,
+        },
+      },
+      {
+        $unwind: {
+          path: "$reports",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $match: {
+          reports: { $gt: [{ $size: "$reports" }, 0] },
+        },
+      },
+      {
+        $unwind: {
+          path: "$reports",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      { $replaceRoot: { newRoot: "$reports" } },
+      { $sort: { time: -1 } },
+    ]);
+    if (!allReport.length) {
+      return res.status(200).json({
+        error: false,
+        message: "There are no reports",
+      });
+    }
+    return res.status(200).json({
+      error: false,
+      data: allReport,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: `${err}`,
+    });
+  }
+};
 
-module.exports = { reportQuestion };
+const getQuestionReportedById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let findedQuestion = await Topics.find(
+      { "questions.flag": { $elemMatch: { _id: id } } },
+      {
+        "questions.$": 1,
+        _id: 0,
+      }
+    );
+    if (!findedQuestion.length) {
+      return res.status(400).json({
+        error: true,
+        message: "Report not present",
+      });
+    }
+    const [{ questions }] = findedQuestion;
+    return res.status(200).json({
+      error: false,
+      question: questions[0],
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      reason: `${err}`,
+    });
+  }
+};
+
+module.exports = { reportQuestion, getAllReports, getQuestionReportedById };
