@@ -13,6 +13,7 @@ const {
   reportQuestion,
   getAllReports,
   getQuestionReportedById,
+  solveReport,
 } = require("../controller/reportController");
 const { checkAdmin } = require("../utils/validation/adminValidation");
 
@@ -74,6 +75,14 @@ questionRoute.get(
   authenticateToken,
   checkAdmin,
   getQuestionReportedById
+);
+
+// Solve the report raised by user
+questionRoute.patch(
+  "/solveReport/:id",
+  authenticateToken,
+  checkAdmin,
+  solveReport
 );
 
 module.exports = questionRoute;

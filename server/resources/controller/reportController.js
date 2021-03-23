@@ -1,6 +1,7 @@
 const Topics = require("../models/Topic");
 const {
   reportQuestionValidation,
+  solveReportValidation,
 } = require("../utils/validation/reportValidation");
 
 const reportQuestion = async (req, res) => {
@@ -150,4 +151,60 @@ const getQuestionReportedById = async (req, res) => {
   }
 };
 
-module.exports = { reportQuestion, getAllReports, getQuestionReportedById };
+const solveReport = async (req, res) => {
+  const { id: user_id } = req;
+  const { error } = solveReportValidation(req.body);
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: error.details[0].message,
+    });
+  }
+  const { id: _id } = req.params;
+  const { description } = req.body;
+  try {
+    let status = {
+      solved: true,
+      by: user_id,
+      description: description,
+      time: new Date().toISOString(),
+    };
+    let filterQuery = { "questions.flag": { $elemMatch: { _id: _id } } };
+    let reportQue = await Topics.find(filterQuery, {
+      "questions.$": 1,
+      _id: 0,
+    }).then(async ([{ questions }]) => {
+      try {
+        let [{ flag }] = questions;
+        let index = flag.findIndex((indiv) => indiv._id == _id);
+        let indivFlag = `questions.$.flag.${index}.status`;
+        let updateQuery = { $set: { [indivFlag]: status } };
+        return await Topics.updateOne(filterQuery, updateQuery);
+      } catch (err) {
+        return res.status(400).json({
+          error: true,
+          reason: `${err}`,
+        });
+      }
+    });
+    const { n: finded, nModified: modified } = reportQue;
+    if (finded > 0 && modified > 0) {
+      return res.status(200).json({
+        error: false,
+        message: "Report solved successfully"
+      });
+    }
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      reason: `${err}`,
+    });
+  }
+};
+
+module.exports = {
+  reportQuestion,
+  getAllReports,
+  getQuestionReportedById,
+  solveReport,
+};
