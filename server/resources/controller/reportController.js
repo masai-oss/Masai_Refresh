@@ -28,13 +28,20 @@ const reportQuestion = async (req, res) => {
     let reportQue = await Topics.find(filterQuery, {
       "questions.$": 1,
       _id: 0,
-    }).then(([{ questions }]) => {
-      let [{ flag }] = questions;
-      if (!flag.length) {
-        return Topics.updateOne(filterQuery, pushQuery);
+    }).then(async ([{ questions }]) => {
+      try {
+        let [{ flag }] = questions;
+        if (!flag.length) {
+          return await Topics.updateOne(filterQuery, pushQuery);
+        }
+        crnQueFlag = flag;
+        return "Continue operation";
+      } catch (err) {
+        return res.status(400).json({
+          error: true,
+          message: `${err}`,
+        });
       }
-      crnQueFlag = flag;
-      return "Continue operation";
     });
     // final message to user non-error
     const message = {
