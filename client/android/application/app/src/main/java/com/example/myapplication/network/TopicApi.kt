@@ -5,13 +5,11 @@ import com.example.myapplication.AuthSuccess
 import com.example.myapplication.RecordAnswerRequest
 import com.example.myapplication.RecordAnswerResponse
 import com.example.myapplication.model.TopicsModel
+import com.example.myapplication.model.first_attemp.FirstAttempApiResponse
+import com.example.myapplication.model.first_attemp.FirstAttemptPostRequest
+import com.example.myapplication.model.next_question.NextQuestionApiResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-
-
+import retrofit2.http.*
 
 
 interface TopicApi {
@@ -28,8 +26,11 @@ interface TopicApi {
     @POST("/api/auth/login_user")
     fun postToken(@Body task: AuthTask): Call<AuthSuccess>
 
-    @POST(" /api/attempt/next")
-    fun getNextQuestion(@Header("Authorization") bearer:String? ,@Body nextQuestionPostRequest: NextQuestionPostRequest):Call<NextQuestionApiResponse>
+    @GET("/api/attempt/next")
+    fun getNextQuestion(@Header("Authorization") bearer:String? ,@Query ("attempt_id") attempt_id:String?,@Query ("submission_id") submission_id:String?,@Query ("question_id") question_id:String?):Call<NextQuestionApiResponse>
+
+    @POST("/api/attempt/record")
+    fun recordAnswer(@Header("Authorization") bearer:String? ,@Body request: RecordAnswerRequest):Call<RecordAnswerResponse>
 
 //
 //    @POST("user/classes")

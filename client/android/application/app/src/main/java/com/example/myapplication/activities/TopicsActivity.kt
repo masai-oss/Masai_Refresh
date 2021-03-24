@@ -30,11 +30,12 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topics)
         topicsViewModel=ViewModelProviders.of(this).get(TopicsViewModel::class.java)
-        tokenID=intent.getStringExtra("token")!!
+
         setRecyclerAdapter()
         observeLiveData()
         flProgressBar.visibility = View.VISIBLE
         val str : String = intent.getStringExtra("token")!!
+        tokenID="Bearer $str"
         topicsViewModel.callAPI(str)
     }
 

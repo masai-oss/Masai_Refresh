@@ -6,6 +6,7 @@ data class Data(
 	val id: String? = null,
 	val type: String? = null,
 	val statement: String? = null,
-	val explanation: String? = null,
-	val options: List<OptionsItem?>? = null
+	val options: List<OptionsItem?>? = null,
+	val isStatsUpdated: Boolean? = null,
+	val selected: Int? = null
 )
