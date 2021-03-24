@@ -8,6 +8,10 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    buildFeatures {
+        viewBinding true
+    }
+
 
     defaultConfig {
         applicationId "com.example.myapplication"
@@ -57,6 +61,9 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
+
+    // Google Auth
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     //Room
     //implementation "androidx.room:room-runtime:$jetpack_version"
     implementation "androidx.room:room-ktx:$jetpack_version"

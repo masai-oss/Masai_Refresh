@@ -2,14 +2,14 @@ package com.example.myapplication.network
 
 import com.example.myapplication.AuthResponse.AuthTask
 import com.example.myapplication.AuthSuccess
+import com.example.myapplication.RecordAnswerRequest
+import com.example.myapplication.RecordAnswerResponse
 import com.example.myapplication.model.TopicsModel
+import com.example.myapplication.model.first_attemp.FirstAttempApiResponse
+import com.example.myapplication.model.first_attemp.FirstAttemptPostRequest
+import com.example.myapplication.model.next_question.NextQuestionApiResponse
 import retrofit2.Call
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Header
-import retrofit2.http.POST
-
-
+import retrofit2.http.*
 
 
 interface TopicApi {
@@ -17,8 +17,20 @@ interface TopicApi {
      fun getTopics(@Header("Authorization") bearer:String?):Call<TopicsModel>
 
 
+
+    @POST("/api/attempt/create")
+    fun FirstAttemptPost(@Header("Authorization") bearer:String? , @Body firstAttemptPostRequest: FirstAttemptPostRequest): Call<FirstAttempApiResponse>
+
+
+    //    @Headers("Content-Type : application/json")
     @POST("/api/auth/login_user")
     fun postToken(@Body task: AuthTask): Call<AuthSuccess>
+
+    @GET("/api/attempt/next")
+    fun getNextQuestion(@Header("Authorization") bearer:String? ,@Query ("attempt_id") attempt_id:String?,@Query ("submission_id") submission_id:String?,@Query ("question_id") question_id:String?):Call<NextQuestionApiResponse>
+
+    @POST("/api/attempt/record")
+    fun recordAnswer(@Header("Authorization") bearer:String? ,@Body request: RecordAnswerRequest):Call<RecordAnswerResponse>
 
 //
 //    @POST("user/classes")
