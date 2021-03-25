@@ -1,7 +1,7 @@
-import { commonActionTypes } from "./actionTypes"
+import { ADD_SELECTED_SIDEBAR } from "./actionTypes"
 
 const addSelectedSideBar = (payload) => ({
-    type: commonActionTypes.ADDSELECTEDSIDEBAR,
+    type: ADD_SELECTED_SIDEBAR,
     payload
 })
 

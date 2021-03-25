@@ -19,19 +19,26 @@ const Route = () => {
     <>
       <Router>
         <Switch>
+
+          {/* all private routes here */}
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/quiz_topics" component={Topics} />
           <PrivateRoute exact path="/quiz_questions/:topic" component={Questions} />
           <PrivateRoute exact path="/results_display" component={Results_display} />
+
+          {/* all admin routes here */}
           <AdminRoute exact path="/questions_admin" component={AdminQuestions} />
           <AdminRoute exact path="/questions/add" component={QuestionForm} />
           <AdminRoute exact path="/questions/edit/:topic/:id" component={QuestionUpdate} />
           <AdminRoute exact path="/topics" component={CrudTopics} />
           <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
+
+          {/* all public routes here */}
           <PublicRoute path="/login" component={Login} />
           <PublicRoute>
             <div>Error 404</div>
           </PublicRoute>
+
         </Switch>
       </Router>
     </>
