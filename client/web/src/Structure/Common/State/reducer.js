@@ -1,4 +1,4 @@
-import { commonActionTypes } from "./actionTypes";
+import { ADD_SELECTED_SIDEBAR } from "./actionTypes";
 
 const initState = {
   selected: "",
@@ -6,7 +6,7 @@ const initState = {
 
 const common = (state = initState, { type, payload }) => {
   switch (type) {
-    case commonActionTypes.ADDSELECTEDSIDEBAR:
+    case ADD_SELECTED_SIDEBAR:
       return {
         ...state,
         selected: payload,
