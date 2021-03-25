@@ -1,23 +1,31 @@
-import { topicConstant, questionsConstants } from "./actionTypes";
+import { 
+  GET_TOPICS_LOADING,
+  GET_TOPICS_SUCCESS,
+  GET_TOPICS_FAILURE,
+  
+  ATTEMPT_QUIZ_LOADING,
+  ATTEMPT_QUIZ_SUCCESS,
+  ATTEMPT_QUIZ_FAILURE
+ } from "./actionTypes";
 import axios from "axios";
 import { questionActions } from "../../Questions"
 import { getFromStorage } from "../../../Utils/localStorageHelper"
 import { storageEnums } from "../../../Enums/storageEnums"
-
 const ATTEMPT_API_URL = process.env.REACT_APP_ATTEMPT_URL;
 const TOPIC_API_URL = process.env.REACT_APP_ADMIN_TOPIC_API_URL;
 
+
 const getTopicsLoading = () => ({
-  type: topicConstant.GET_TOPICS_LOADING,
+  type: GET_TOPICS_LOADING,
 });
 
 const getTopicsSuccess = (payload) => ({
-  type: topicConstant.GET_TOPICS_SUCCESS,
+  type: GET_TOPICS_SUCCESS,
   payload,
 });
 
 const getTopicsFailure = (payload) => ({
-  type: topicConstant.GET_TOPICS_FAILURE,
+  type: GET_TOPICS_FAILURE,
   payload,
 });
 
@@ -34,17 +42,23 @@ const getTopics = () => (dispatch) => {
     .catch((err) => dispatch(getTopicsFailure(err.response)));
 };
 
+
+
+
+// attempt 
+//------------------------------------------------------------------
+
 const attemptQuizLoading = () => ({
-  type: questionsConstants.ATTEMPT_QUIZ_LOADING,
+  type: ATTEMPT_QUIZ_LOADING,
 });
 
 const attemptQuizSuccess = (payload) => ({
-  type: questionsConstants.ATTEMPT_QUIZ_SUCCESS,
+  type: ATTEMPT_QUIZ_SUCCESS,
   payload,
 });
 
 const attemptQuizFailure = (payload) => ({
-  type: questionsConstants.ATTEMPT_QUIZ_FAILURE,
+  type: ATTEMPT_QUIZ_FAILURE,
   payload,
 });
 
@@ -76,6 +90,6 @@ const attemptQuiz = (payload) => async(dispatch, getState) => {
 };
 
 export const topicActions = {
-  getTopics: getTopics,
-  attemptQuiz: attemptQuiz,
+  getTopics,
+  attemptQuiz
 }
