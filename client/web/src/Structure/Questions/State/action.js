@@ -1,22 +1,28 @@
-import { questionConstant, answerConstant } from "./actionTypes";
+import { 
+  GET_QUESTION_LOADING, 
+  GET_QUESTION_FAILURE, 
+  GET_QUESTION_SUCCESS,
+  RECORD_ANSWER_SUCCESS,
+  RECORD_ANSWER_FAILURE
+} from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
-
-
 const GET_QUESTIONS_URL = process.env.REACT_APP_ATTEMPT_URL;
 
+
+
 const nextQuestionLoading = () => ({
-  type: questionConstant.GET_NEXT_QUESTION_LOADING,
+  type: GET_QUESTION_LOADING,
 });
 
 const nextQuestionFailure = (payload) => ({
-  type: questionConstant.GET_NEXT_QUESTION_FAILURE,
+  type: GET_QUESTION_FAILURE,
   payload,
 });
 
 const nextQuestionSuccess = (payload) => ({
-  type: questionConstant.GET_NEXT_QUESTION_SUCCESS,
+  type: GET_QUESTION_SUCCESS,
   payload,
 });
 
@@ -39,13 +45,19 @@ const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
     .catch((err) => dispatch(nextQuestionFailure(err)));
 };
 
+
+
+
+// record
+// -----------------------------------------------------
+
 const recordAnswerSuccess = (payload) => ({
-  type: answerConstant.RECORD_ANSWER_SUCCESS,
+  type: RECORD_ANSWER_SUCCESS,
   payload,
 });
 
 const recordAnswerFailure = (payload) => ({
-  type: answerConstant.RECORD_ANSWER_FAILURE,
+  type: RECORD_ANSWER_FAILURE,
   payload,
 });
 

@@ -1,6 +1,12 @@
 import { storageEnums } from "../../../Enums/storageEnums";
 import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
-import { questionConstant, answerConstant } from "./actionTypes";
+import { 
+  GET_QUESTION_LOADING, 
+  GET_QUESTION_FAILURE, 
+  GET_QUESTION_SUCCESS,
+  RECORD_ANSWER_SUCCESS,
+  RECORD_ANSWER_FAILURE
+} from "./actionTypes";
 
 const initState = {
   isLoading: false,
@@ -12,32 +18,32 @@ const initState = {
 
 const questions = (state = initState, { type, payload }) => {
   switch (type) {
-    case questionConstant.GET_NEXT_QUESTION_LOADING:
+    case GET_QUESTION_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
         errMsg: "",
       };
-    case questionConstant.GET_NEXT_QUESTION_SUCCESS:
+    case GET_QUESTION_SUCCESS:
       saveToStorage(storageEnums.QUESTION_PRACTICE, payload)
       return {
         ...state,
         isLoading: false,
         question: payload,
       };
-    case questionConstant.GET_NEXT_QUESTION_FAILURE:
+    case GET_QUESTION_FAILURE:
       return {
         ...state,
         isError: true,
         isLoading: false
       };
-    case answerConstant.RECORD_ANSWER_SUCCESS:
+    case RECORD_ANSWER_SUCCESS:
       return {
         ...state,
         recordAnswerMsg: payload
       }
-    case answerConstant.RECORD_ANSWER_FAILURE:
+    case RECORD_ANSWER_FAILURE:
       return {
         ...state,
         recordAnswerMsg: payload
