@@ -34,8 +34,6 @@ const resultReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        isError: false,
-        errorMessage: "",
         result: payload.result,
       };
 

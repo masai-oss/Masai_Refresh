@@ -25,12 +25,12 @@ export const getResultFailure = (payload) => ({
 });
 
 
-export const getResult = (payload) => (dispatch) => {
+export const getResult = ({attempt_id}) => (dispatch) => {
   dispatch(getResultRequest())
   const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
     method: "GET",
-    url: `${RESULT_API}/result/${payload}`,
+    url: `${RESULT_API}/result/${attempt_id}`,
     headers: { Authorization: `Bearer ${token}` },
   })
   .then((res) => dispatch(getResultSuccess(res.data)))
