@@ -4,6 +4,8 @@ import {
   GET_QUESTION_LOADING, 
   GET_QUESTION_FAILURE, 
   GET_QUESTION_SUCCESS,
+
+  RECORD_ANSWER_LOADING,
   RECORD_ANSWER_SUCCESS,
   RECORD_ANSWER_FAILURE
 } from "./actionTypes";
@@ -23,7 +25,6 @@ const questions = (state = initState, { type, payload }) => {
         ...state,
         isLoading: true,
         isError: false,
-        errMsg: "",
       };
     case GET_QUESTION_SUCCESS:
       saveToStorage(storageEnums.QUESTION_PRACTICE, payload)
@@ -38,15 +39,25 @@ const questions = (state = initState, { type, payload }) => {
         isError: true,
         isLoading: false
       };
+
+
+    case RECORD_ANSWER_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+      };
     case RECORD_ANSWER_SUCCESS:
       return {
         ...state,
-        recordAnswerMsg: payload
+        recordAnswerMsg: payload,
+        isLoading: false,
       }
     case RECORD_ANSWER_FAILURE:
       return {
         ...state,
-        recordAnswerMsg: payload
+        isError: true,
+        isLoading: false
       }
     default:
       return state;

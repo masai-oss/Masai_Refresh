@@ -2,6 +2,8 @@ import {
   GET_QUESTION_LOADING, 
   GET_QUESTION_FAILURE, 
   GET_QUESTION_SUCCESS,
+  
+  RECORD_ANSWER_LOADING,
   RECORD_ANSWER_SUCCESS,
   RECORD_ANSWER_FAILURE
 } from "./actionTypes";
@@ -26,23 +28,24 @@ const nextQuestionSuccess = (payload) => ({
   payload,
 });
 
-const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
+const nextQuestion = ({ attemptId, submissionId, question_id }) => (dispatch) => {
   dispatch(nextQuestionLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
-    method: "POST",
-    url: `${GET_QUESTIONS_URL}/next`,
+    method: "GET",
+    url: `${GET_QUESTIONS_URL}/next?attempt_id=${attemptId}&submission_id=${submissionId}&question_id=${question_id}`,
     headers: {
       Authorization: `Bearer ${token}`,
-      "Content-Type": "application/json",
-    },
-    data: {
-      submission_id: submissionId,
-      attempt_id: attemptId,
-    },
+    }
   })
-    .then((res) => dispatch(nextQuestionSuccess(res.data.data)))
-    .catch((err) => dispatch(nextQuestionFailure(err)));
+  .then((res) => {
+    dispatch(nextQuestionSuccess(res.data.data))
+    return {output: true}
+  })
+  .catch((err) => {
+    dispatch(nextQuestionFailure(err))
+    return {output: false}
+  });
 };
 
 
@@ -50,6 +53,10 @@ const nextQuestion = ({ attemptId, submissionId }) => (dispatch) => {
 
 // record
 // -----------------------------------------------------
+
+const recordAnswerLoading = () => ({
+  type: RECORD_ANSWER_LOADING,
+});
 
 const recordAnswerSuccess = (payload) => ({
   type: RECORD_ANSWER_SUCCESS,
@@ -61,9 +68,8 @@ const recordAnswerFailure = (payload) => ({
   payload,
 });
 
-const recordAnswer = (payload) => async(dispatch) => {
-  // eslint-disable-next-line no-unused-vars
-  let attemptId = payload.attempt_id, submissionId = payload.submission_id
+const recordAnswer = ({submission_id, attempt_id, answer_type, response, selected, decision}) => (dispatch) => {
+  dispatch(recordAnswerLoading())
   const token = getFromStorage(storageEnums.TOKEN, "");
   return axios({
     method: "PATCH",
@@ -72,7 +78,14 @@ const recordAnswer = (payload) => async(dispatch) => {
       Authorization: `Bearer ${token}`,
       "Content-Type": "application/json",
     },
-    data: payload,
+    data: {
+      submission_id,
+      attempt_id,
+      answer_type,
+      response,
+      selected,
+      decision
+    },
   })
   .then((res) => {
     dispatch(recordAnswerSuccess(res.data.message))
@@ -86,6 +99,6 @@ const recordAnswer = (payload) => async(dispatch) => {
 
 
 export const questionActions = {
-  nextQuestion: nextQuestion,
-  recordAnswer: recordAnswer,
+  nextQuestion,
+  recordAnswer,
 };
