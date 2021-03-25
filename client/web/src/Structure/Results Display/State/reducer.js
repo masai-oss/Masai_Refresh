@@ -1,6 +1,10 @@
 import { storageEnums } from "../../../Enums/storageEnums";
 import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
-import { resultConstant } from "./actionTypes";
+import { 
+  GET_RESULT_LOADING,
+  GET_RESULT_SUCCESS,
+  GET_RESULT_FAILURE
+ } from "./actionTypes";
 
 const initState = {
   result: getFromStorage(storageEnums.PRACTICE_RESULTS, []),
@@ -11,21 +15,21 @@ const initState = {
 
 const resultReducer = (state = initState, { type, payload }) => {
   switch (type) {
-    case resultConstant.GET_RESULT_LOADING:
+    case GET_RESULT_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
         errorMessage: "",
       };
-    case resultConstant.GET_RESULT_FAILURE:
+    case GET_RESULT_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
         errorMessage: payload,
       };
-    case resultConstant.GET_RESULT_SUCCESS:
+    case GET_RESULT_SUCCESS:
       saveToStorage(storageEnums.PRACTICE_RESULTS, payload.result)
       return {
         ...state,

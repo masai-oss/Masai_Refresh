@@ -1,22 +1,29 @@
-import { resultConstant } from "./actionTypes";
+import { 
+  GET_RESULT_LOADING,
+  GET_RESULT_SUCCESS,
+  GET_RESULT_FAILURE
+} from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper"
 import { storageEnums } from "../../../Enums/storageEnums"
 const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 
+
+
 export const getResultRequest = () => ({
-  type: resultConstant.GET_RESULT_LOADING,
+  type: GET_RESULT_LOADING,
 });
 
 export const getResultSuccess = (payload) => ({
-  type: resultConstant.GET_RESULT_SUCCESS,
+  type: GET_RESULT_SUCCESS,
   payload,
 });
 
 export const getResultFailure = (payload) => ({
-  type: resultConstant.GET_RESULT_FAILURE,
+  type: GET_RESULT_FAILURE,
   payload,
 });
+
 
 export const getResult = (payload) => (dispatch) => {
   dispatch(getResultRequest())
