@@ -1,6 +1,7 @@
 const passport = require("passport");
 const User = require("../models/User");
 const googleStratergy = require("./googleStrategy");
+const zohoCrmStrategy = require("./zohoStrategy");
 
 // done is a callback
 passport.serializeUser((user, done) => {
@@ -19,3 +20,4 @@ passport.deserializeUser((user, done) => {
 });
 
 passport.use("google", googleStratergy);
+passport.use("zoho-crm", zohoCrmStrategy);
