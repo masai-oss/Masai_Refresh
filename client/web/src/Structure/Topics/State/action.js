@@ -1,17 +1,11 @@
 import { 
   GET_TOPICS_LOADING,
   GET_TOPICS_SUCCESS,
-  GET_TOPICS_FAILURE,
-  
-  ATTEMPT_QUIZ_LOADING,
-  ATTEMPT_QUIZ_SUCCESS,
-  ATTEMPT_QUIZ_FAILURE
+  GET_TOPICS_FAILURE
  } from "./actionTypes";
 import axios from "axios";
-import { questionActions } from "../../Questions"
 import { getFromStorage } from "../../../Utils/localStorageHelper"
 import { storageEnums } from "../../../Enums/storageEnums"
-const ATTEMPT_API_URL = process.env.REACT_APP_ATTEMPT_URL;
 const TOPIC_API_URL = process.env.REACT_APP_ADMIN_TOPIC_API_URL;
 
 
@@ -32,64 +26,23 @@ const getTopicsFailure = (payload) => ({
 const getTopics = () => (dispatch) => {
   dispatch(getTopicsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "")
-  axios
+  return axios
     .get(`${TOPIC_API_URL}/summary`, {
       headers: {
         Authorization: `Bearer ${token}`,
       },
     })
-    .then((res) => dispatch(getTopicsSuccess(res.data)))
-    .catch((err) => dispatch(getTopicsFailure(err.response)));
+    .then((res) => {
+      dispatch(getTopicsSuccess(res.data.data))
+      return {output: true}
+    })
+    .catch((err) => {
+      dispatch(getTopicsFailure(err.response))
+      return {output: false}
+    });
 };
 
-
-
-
-// attempt 
-//------------------------------------------------------------------
-
-const attemptQuizLoading = () => ({
-  type: ATTEMPT_QUIZ_LOADING,
-});
-
-const attemptQuizSuccess = (payload) => ({
-  type: ATTEMPT_QUIZ_SUCCESS,
-  payload,
-});
-
-const attemptQuizFailure = (payload) => ({
-  type: ATTEMPT_QUIZ_FAILURE,
-  payload,
-});
-
-const attemptQuiz = (payload) => async(dispatch, getState) => {
-  dispatch(attemptQuizLoading());
-  const token = getFromStorage(storageEnums.TOKEN, "");
-  const config = {
-    method: "POST",
-    url: `${ATTEMPT_API_URL}/create`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    data: {
-      topic_id: `${payload}`,
-      size:5
-    },
-  };
-  try {
-    const res = await axios(config)
-    dispatch(attemptQuizSuccess(res.data.data));
-    const attemptId = getState().topics.attemptId;
-    const submissionId = getState().topics.submissionId;
-    dispatch(questionActions.nextQuestion({ attemptId, submissionId }));
-    return {output: true, final: "success"}
-  } catch (err) {
-    dispatch(attemptQuizFailure(err.response));
-    return {final: "failure"}
-  }
-};
 
 export const topicActions = {
-  getTopics,
-  attemptQuiz
+  getTopics
 }
