@@ -6,17 +6,19 @@ import { Redirect } from "react-router-dom";
 import { getFromStorage } from "../../Utils/localStorageHelper";
 import { storageEnums } from "../../Enums/storageEnums";
 
-const REACT_APP_AUTH_GOOGLE_LOGIN_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGIN_URL;
-
+const GOOGLE_LOGIN_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGIN_URL;
+const ZOHO_LOGIN_URL = process.env.REACT_APP_AUTH_ZOHO_LOGIN_URL;
 const Login = () => {
   const dispatch = useDispatch();
   const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
-  let isAuth = getFromStorage(storageEnums.TOKEN)
+  let isAuth = getFromStorage(storageEnums.TOKEN);
 
   const loginUser = () => {
-    window.open(REACT_APP_AUTH_GOOGLE_LOGIN_URL, "_self");
+    window.open(GOOGLE_LOGIN_URL, "_self");
   };
-
+  const zohoLogin = () => {
+    window.open(ZOHO_LOGIN_URL, "_self");
+  };
   useEffect(() => {
     dispatch(authActions.userLoginProcess());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -32,6 +34,7 @@ const Login = () => {
         type="dark" // can be light or dark
         onClick={loginUser}
       />
+      <button onClick={zohoLogin}>Zoho</button>
     </>
   );
 };
