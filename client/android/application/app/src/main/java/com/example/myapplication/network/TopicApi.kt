@@ -26,10 +26,10 @@ interface TopicApi {
     @POST("/api/auth/login_user")
     fun postToken(@Body task: AuthTask): Call<AuthSuccess>
 
-    @GET("/api/attempt/next")
+    @GET("/api/attempt/question")
     fun getNextQuestion(@Header("Authorization") bearer:String? ,@Query ("attempt_id") attempt_id:String?,@Query ("submission_id") submission_id:String?,@Query ("question_id") question_id:String?):Call<NextQuestionApiResponse>
 
-    @POST("/api/attempt/record")
+    @PATCH("/api/attempt/record")
     fun recordAnswer(@Header("Authorization") bearer:String? ,@Body request: RecordAnswerRequest):Call<RecordAnswerResponse>
 
 //

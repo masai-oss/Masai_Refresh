@@ -19,7 +19,7 @@ class QuestionsAdapter (private var nextQuestionApiResponse: NextQuestionApiResp
     }
 
     override fun onBindViewHolder(holder: QuestionsViewHolder, position: Int) {
-        holder.setDataToUi(nextQuestionApiResponse?.data?.options?.get(position),position)
+        holder.setDataToUi(nextQuestionApiResponse,position)
     }
     fun updateAdapter(nextQuestionApiResponse: NextQuestionApiResponse){
         this.nextQuestionApiResponse =nextQuestionApiResponse
