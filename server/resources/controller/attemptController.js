@@ -81,7 +81,7 @@ const createAttempt = async ( req, res ) => {
     } 
 }
 
-const nextAttempt = async(req, res) => {
+const getAttemptQuestion = async(req, res) => {
     let { attempt_id, submission_id, question_id } = req.query
     const { error } = attemptValidation(req.query)
     if (error) {
@@ -128,7 +128,7 @@ const nextAttempt = async(req, res) => {
 }
 
 const recordAttempt = async(req, res) => {
-    let { attempt_id, submission_id, answer_type, response, selected, decision } = req.body
+    let { attempt_id, submission_id, question_id, answer_type, response, selected, decision } = req.body
     const { error } = recordAnswerValidation(req.body)
     if (error) {
         return res.status(400).json({
@@ -138,7 +138,7 @@ const recordAttempt = async(req, res) => {
     }
     try{
         let answer = answer_type === QuestionTypeEnum.SHORT ? response : answer_type === QuestionTypeEnum.TF ? decision : selected
-        await update_submission(submission_id, attempt_id, answer_type, answer)
+        await update_submission(submission_id, attempt_id, question_id, answer_type, answer)
 
         res.status(200).json({error: false, message: "Record updated"})
     }
@@ -154,20 +154,22 @@ const recordAttempt = async(req, res) => {
 // -----------------------------------------------------------------------------------------------------------------
 
 
-const update_submission = async(submission_id, attempt_id, answer_type, answer) => {
+const update_submission = async(submission_id, attempt_id, question_id, answer_type, answer) => {
     let type = answer_type === QuestionTypeEnum.SHORT ? "response" : answer_type === QuestionTypeEnum.TF ? "decision" : "selected"
 
-    let sub = await Submission.find({
-        $and: [{ _id: submission_id, "attempts": { $elemMatch: { _id: attempt_id } } }]
-    }, {
-        "attempts.$": 1,
-        _id: 0,
-    })
-    
-    let [{ attempts }] = sub
-    let current_question = attempts[0].current_question - 1
+    let sub = await Submission.findOne(
+        {
+            _id: submission_id,
+            "attempts._id": attempt_id
+        },
+        {
+            "attempts.$": 1,
+            _id: 0,
+        }
+    )
+
+    let { attempts } = sub
     let isStatsUpdated = attempts[0].isStatsUpdated
-    let question_id = attempts[0].questions[current_question]
     if (isStatsUpdated) {
       throw new Error(`The Practice Quiz has ended`);
     }
@@ -193,12 +195,23 @@ const update_submission = async(submission_id, attempt_id, answer_type, answer) 
     let outcome = answer === val_to_compare ? OutcomeEnum.CORRECT : answer === -1 ? OutcomeEnum.SKIPPED : OutcomeEnum.WRONG
     await Submission.updateOne(
         {
-            _id: submission_id,
-            "attempts._id": attempt_id,
+            _id: submission_id
         },
         {
-            [`attempts.$.answers.${current_question}.${type}`] : answer,
-            [`attempts.$.answers.${current_question}.outcome`] : outcome,
+            $set: {
+                [`attempts.$[i].answers.$[j].${type}`] : answer,
+                [`attempts.$[i].answers.$[j].outcome`] : outcome
+            }
+        },
+        {
+            arrayFilters: [
+                {
+                    "i._id" : attempt_id
+                },
+                {
+                    'j.question_id' : question_id
+                }
+            ]
         }
     )
 }
@@ -294,6 +307,6 @@ const update_current_question_in_submission = async (submission_id, attempt_id) 
 
 module.exports = {
     createAttempt,
-    nextAttempt,
+    getAttemptQuestion,
     recordAttempt
 }
