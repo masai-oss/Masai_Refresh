@@ -48,10 +48,11 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
             if (answer != -1){
                 recordNextAnswer(
                     RecordAnswerRequest
-                        (submissionID,attempId,nextQuestionApiResponse?.data?.type,null,answer,null)
+                        (submissionID,attempId,firstAttempApiResponse.data?.questions?.get(questionIndex),nextQuestionApiResponse?.data?.type,null,answer,null)
                 )
             }
-            if (questionIndex<size) {
+            if (questionIndex<size-1) {
+                setRecyclerAdapter()
                 getNextQuestion(
                     attempId,
                     submissionID,
@@ -66,6 +67,7 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
             }
         }
         btnPreviousQuestion.setOnClickListener {
+            setRecyclerAdapter()
             getNextQuestion(
                 attempId,
                 submissionID,
