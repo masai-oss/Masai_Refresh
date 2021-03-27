@@ -25,7 +25,7 @@ const LogoutDialog = ({ open, handleClose }) => {
   };
   return (
     <div>
-      <Dialog 
+      <Dialog
         fullScreen={fullScreen}
         open={open}
         aria-labelledby="responsive-dialog-title"
@@ -39,7 +39,11 @@ const LogoutDialog = ({ open, handleClose }) => {
           <Button autoFocus onClick={handleClose} color="primary">
             Cancel
           </Button>
-          <Button variant="contained" onClick={logout} color="primary">
+          <Button
+            variant="contained"
+            onClick={logout}
+            style={{ backgroundColor: "#6C8D9E" }}
+          >
             Agree
           </Button>
         </DialogActions>

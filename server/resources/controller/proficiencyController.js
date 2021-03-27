@@ -21,7 +21,6 @@ const getTopicsSummary = async (req, res) => {
       {
         $project: {
           questions: 0,
-          "proficiency.attempts": 0,
           "proficiency.topic_id": 0,
           "proficiency._id": 0,
           "proficiency.stats.alloted": 0,
@@ -37,8 +36,10 @@ const getTopicsSummary = async (req, res) => {
     for (let i = 0; i < topicAndProficiency.length; i++) {
       let { proficiency } = topicAndProficiency[i];
       if (proficiency.length) {
+        let lastAttempt = topicAndProficiency[i].proficiency[0].attempts.pop()
         topicAndProficiency[i].proficiency =
           topicAndProficiency[i].proficiency[0].stats;
+        topicAndProficiency[i].lastAttempt = lastAttempt.stats
       }
     }
     res.status(200).json({

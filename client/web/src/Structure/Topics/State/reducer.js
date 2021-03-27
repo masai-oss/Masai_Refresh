@@ -1,32 +1,33 @@
 import { 
-  GET_TOPICS_LOADING,
-  GET_TOPICS_SUCCESS,
-  GET_TOPICS_FAILURE
+  GET_QUIZ_TOPICS_LOADING,
+  GET_QUIZ_TOPICS_SUCCESS,
+  GET_QUIZ_TOPICS_FAILURE
  } from "./actionTypes";
 
 const initState = {
   isLoading: false,
   isError: false,
   errMessage: "",
-  topicsData: []
+  quizTopicsData: [],
+  practiceTopicsData: []
 };
 
 const topics = (state = initState, { type, payload }) => {
   switch (type) {
-    case GET_TOPICS_LOADING:
+    case GET_QUIZ_TOPICS_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
         errMessage: "",
       };
-    case GET_TOPICS_SUCCESS:
+    case GET_QUIZ_TOPICS_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        topicsData: payload,
+        quizTopicsData: payload,
       };
-    case GET_TOPICS_FAILURE:
+    case GET_QUIZ_TOPICS_FAILURE:
       return {
         ...state,
         isLoading: false,

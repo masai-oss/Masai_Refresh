@@ -3,58 +3,58 @@ import { makeStyles } from "@material-ui/core/styles";
 const TopicStyle = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
+    boxShadow:
+      "0 0.1px 3.2px -4px rgba(0, 0, 0, 0.031), 0 0.3px 6px -4px rgba(0, 0, 0, 0.044), 0 0.6px 8.4px -4px rgba(0, 0, 0, 0.055), 0 1.1px 10.6px -4px rgba(0, 0, 0, 0.066), 0 2.1px 13.3px -4px rgba(0, 0, 0, 0.079), 0 5px 25px -4px rgba(0, 0, 0, 0.11)",
+    "&:hover": {
+      boxShadow:
+        "0 0.2px 10.6px -4px rgba(0, 0, 0, 0.038), 0 0.6px 19.2px -4px rgba(0, 0, 0, 0.055), 0 1.5px 26.7px -4px rgba(0, 0, 0, 0.072), 0 5px 57px -4px rgba(0, 0, 0, 0.11)",
+    },
   },
   cardStyle: {
-    boxShadow:
-      "0 1px 2px 0 rgba(0, 0, 0, 0.2), 0 1.5px 5px 0 rgba(0, 0, 0, 0.19)",
-    borderRadius: 3,
+    // borderBottom: "3px groove #FFFAF0",
+    minHeight: 180,
   },
   iconStyle: {
-    transform: "translate(-50%, -50%)",
-    width: 70,
-    height: 70,
-    marginTop: 20
+    width: 60,
+    height: 60,
+    margin: 10,
   },
-  topicButtonStyle: {
-    border: "1px solid #1b5f96",
-    borderRadius: 2,
-    padding: "0 20px",
-    minWidth: "160px",
-    boxShadow:
-      "0 4px 8px 0 rgba(96, 161, 199, 0.377), 0 6px 20px 0 rgba(0, 0, 0, 0.19)",
-    backgroundColor: "#2196f3",
-    "& h5": {
-      fontSize: "1rem",
-      letterSpacing: "1px",
-    },
-    "&:hover": {
-      backgroundColor: "#1e89e0",
-    },
+  lasStyle: {
+    display: "flex",
+    justifyContent: "space-between",
+    marginTop: 35,
   },
-  
   gridCard: {
     position: "relative",
   },
   upperCard: {
     height: "100px",
     display: "flex",
-    marginLeft: "-40%"
+    marginLeft: "-40%",
+  },
+  cardActions: {
+    display: "flex",
+    justifyContent: "space-between",
   },
   bottomCard: {
     display: "flex",
   },
   correct: {
     color: "#27b43c",
-    margin: "0% 15%"
+    fontWeight: "bold",
   },
   wrong: {
     color: "#db1113",
-    margin: "0% 15%"
+    fontWeight: "bold",
   },
   skipped: {
     color: "#efac00",
-    margin: "0% 15%"
-  }
+    fontWeight: "bold",
+  },
+  lastAttempt: {
+    color: "#6C8D9E",
+    fontWeight: "bold",
+  },
 }));
 
 export { TopicStyle };

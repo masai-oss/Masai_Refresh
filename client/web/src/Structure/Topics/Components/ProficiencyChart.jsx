@@ -1,5 +1,6 @@
 import React, { useCallback, useState } from "react";
 import { PieChart, Pie, Cell, Sector } from "recharts";
+import { Dialog, DialogContent, DialogTitle } from "@material-ui/core";
 
 const COLORS = ["#00B74A", "#F93154", "#FFA900"];
 
@@ -62,7 +63,8 @@ const renderActiveShape = (props) => {
     </g>
   );
 };
-const ProficiencyChart = ({ proficiency }) => {
+const ProficiencyChart = ({ profData, handleClose }) => {
+  const { open, topic, proficiency } = profData;
   const [activeIndex, setActiveIndex] = useState(-1);
   const onPieEnter = useCallback(
     (_, index) => {
@@ -71,8 +73,8 @@ const ProficiencyChart = ({ proficiency }) => {
     [setActiveIndex]
   );
   const onPieLeave = () => {
-    setActiveIndex(-1)
-  }
+    setActiveIndex(-1);
+  };
   let cnvProficiency = Object.keys(proficiency).map((key) => ({
     name: key,
     value: Number(proficiency[key]),
@@ -80,26 +82,39 @@ const ProficiencyChart = ({ proficiency }) => {
       key === "correct" ? COLORS[0] : key === "wrong" ? COLORS[1] : COLORS[2],
   }));
   return (
-    <PieChart width={290} height={200}>
-      <Pie
-        activeIndex={activeIndex}
-        activeShape={renderActiveShape}
-        data={cnvProficiency}
-        dataKey="value"
-        cx="50%"
-        cy="51.5%"
-        innerRadius={41}
-        outerRadius={53}
-        fill="#82ca9d"
-        paddingAngle={2}
-        onMouseEnter={onPieEnter}
-        onMouseLeave={onPieLeave}
+    <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
       >
-        {cnvProficiency.map(({ color }, index) => (
-          <Cell key={`cell-${index}`} fill={color} />
-        ))}
-      </Pie>
-    </PieChart>
+        <DialogTitle id="alert-dialog-title">{`All Attempts data of ${topic}`}</DialogTitle>
+        <DialogContent>
+          {proficiency.length === undefined ? <PieChart width={300} height={300}>
+            <Pie
+              activeIndex={activeIndex}
+              activeShape={renderActiveShape}
+              data={cnvProficiency}
+              dataKey="value"
+              cx="50%"
+              cy="51.5%"
+              innerRadius={40}
+              outerRadius={60}
+              fill="#82ca9d"
+              paddingAngle={2}
+              onMouseEnter={onPieEnter}
+              onMouseLeave={onPieLeave}
+            >
+              {cnvProficiency.map(({ color }, index) => (
+                <Cell key={`cell-${index}`} fill={color} />
+              ))}
+            </Pie>
+          </PieChart> : <p>{`No Data because you haven't attempted ${topic}`}</p>}
+          
+        </DialogContent>
+      </Dialog>
+    </div>
   );
 };
 
