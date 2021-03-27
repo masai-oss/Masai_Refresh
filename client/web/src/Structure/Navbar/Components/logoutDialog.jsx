@@ -25,7 +25,7 @@ const LogoutDialog = ({ open, handleClose }) => {
   };
   return (
     <div>
-      <Dialog
+      <Dialog 
         fullScreen={fullScreen}
         open={open}
         aria-labelledby="responsive-dialog-title"

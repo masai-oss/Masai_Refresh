@@ -5,6 +5,7 @@ import { Grid } from "@material-ui/core";
 import { StartQuizModal } from "./Components/startQuizModal";
 import { IsLoading } from "../Common";
 import { TopicCard } from "./Components/TopicCard";
+import { Navbar } from "../Common/Navbar2";
 
 const Topics = () => {
   const dispatch = useDispatch();
@@ -34,8 +35,10 @@ const Topics = () => {
       topicId: "",
     });
   };
+
   return (
-    <Grid container spacing={6} justify="space-evenly" alignItems="center">
+    <div>
+      <Grid container spacing={6} justify="space-evenly" alignItems="center">
       {isLoading ? (
         <IsLoading />
       ) : isError ? (
@@ -52,6 +55,7 @@ const Topics = () => {
       )}
       <StartQuizModal modalData={modalData} handleClose={handleClose} />
     </Grid>
+    </div>
   );
 };
 

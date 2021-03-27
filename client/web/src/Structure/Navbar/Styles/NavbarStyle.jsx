@@ -39,20 +39,20 @@ const NavbarStyles = makeStyles((theme) => ({
     },
   },
 
-  toolbar: {
-    ...theme.mixins.toolbar,
-    fontSize: 29,
-    fontWeight: 'bold',
-    letterSpacing: '4px',
-    color: '#2196f3',
-    backgroundColor: '#e0f1ff',
-    fontFamily: 'Times Roman',
-    padding: '12px 35px',
-    cursor: 'pointer',
-    '& > u': {
-      textDecoration: 'none',
-    }
-  },
+  // toolbar: {
+  //   ...theme.mixins.toolbar,
+  //   fontSize: 29,
+  //   fontWeight: 'bold',
+  //   letterSpacing: '4px',
+  //   color: '#2196f3',
+  //   // backgroundColor: '#e0f1ff',
+  //   fontFamily: 'Times Roman',
+  //   padding: '12px 35px',
+  //   cursor: 'pointer',
+  //   '& > u': {
+  //     textDecoration: 'none',
+  //   }
+  // },
 
   drawerPaper: {
     width: drawerWidth,
@@ -68,6 +68,25 @@ const NavbarStyles = makeStyles((theme) => ({
   exitColor: {
     color: "red",
   },
+  Navbar: {
+    background: "#6C8D9E",
+    height: "70px",
+    display: "flex",
+    padding: "10px",
+  },
+  p: {
+    marginTop: "-10px",
+    marginLeft: "10%",
+    fontSize: "20px",
+    color: "white",
+    fontFamily: "Bokor",
+    lineHeight: "150%"
+  },
+  signout: {
+    color: "white",
+    marginLeft: "90%", 
+    cursor: "pointer"
+  }
 }));
 
 export { NavbarStyles };
