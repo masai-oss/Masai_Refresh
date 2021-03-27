@@ -348,7 +348,7 @@ const uploadIconProcess = ({file: icon, id}) => {
     }
     try {
       const response = await axios.patch(
-        `${TOPIC_API}/${id}`,
+        `${TOPIC_API}/icon/${id}`,
         postData,
         config
       );

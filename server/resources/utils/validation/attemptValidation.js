@@ -13,6 +13,7 @@ const recordAnswerValidation = (data) => {
   const schema = Joi.object({
     attempt_id: Joi.string().required(),
     submission_id: Joi.string().required(),
+    question_id: Joi.string().required(),
     answer_type: Joi.string().required(),
     response: Joi.any(),
     decision: Joi.any(),

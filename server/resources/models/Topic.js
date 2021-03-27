@@ -51,8 +51,8 @@ const topicSchema = new Schema(
               },
               time: {
                 type: Date,
-                default: null
-              }
+                default: null,
+              },
             },
             user_id: {
               type: Schema.Types.ObjectId,

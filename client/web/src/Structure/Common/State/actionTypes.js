@@ -1,5 +1,1 @@
-const commonActionTypes = {
-    ADDSELECTEDSIDEBAR: "ADDSELECTEDSIDEBAR",
-};
-
-export { commonActionTypes }
+export const ADD_SELECTED_SIDEBAR = "ADD_SELECTED_SIDEBAR"

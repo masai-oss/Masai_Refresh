@@ -11,4 +11,11 @@ const reportQuestionValidation = (data) => {
   return schema.validate(data);
 };
 
-module.exports = { reportQuestionValidation };
+const solveReportValidation = (data) => {
+  const schema = Joi.object({
+    description: Joi.string().min(15).max(255).required(),
+  });
+  return schema.validate(data);
+}
+
+module.exports = { reportQuestionValidation, solveReportValidation };

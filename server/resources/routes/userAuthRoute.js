@@ -22,6 +22,17 @@ userAuthRoute.get(
   successRedirect
 );
 
+userAuthRoute.get(
+  "/zohocrm",
+  passport.authenticate('zoho-crm')
+);
+
+userAuthRoute.get(
+  "/zohocrm/callback",
+  passport.authenticate("zoho-crm", { failureRedirect: "/login/failed" }),
+  successRedirect
+);
+
 userAuthRoute.get("/current_user", isLoggedIn, getUser);
 userAuthRoute.get("/login/failed", loginFailure);
 userAuthRoute.get("/logout", logoutController);
