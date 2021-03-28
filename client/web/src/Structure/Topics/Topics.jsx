@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
 import { Grid } from "@material-ui/core";
 import { IsLoading } from "../Common";
-import { QuizPracticeSwitch } from "./Components/QuizPracticeSwitch"
+import { QuizPracticeSwitch } from "./Components/TopicWrapper"
 
 const Topics = () => {
   const dispatch = useDispatch()
@@ -15,17 +15,15 @@ const Topics = () => {
   const isError = useSelector((state) => state.topics.isError);
 
   return (
-    <div>
-      <Grid container>
-        {isLoading ? (
-          <IsLoading />
-        ) : isError ? (
-          <div>...something went wrong</div>
-        ) : (
-          <QuizPracticeSwitch />
-        )}
-      </Grid>
-    </div>
+    <Grid container justify="center">
+      {isLoading ? (
+        <IsLoading />
+      ) : isError ? (
+        <div>...something went wrong</div>
+      ) : (
+        <QuizPracticeSwitch />
+      )}
+    </Grid>
   );
 };
 

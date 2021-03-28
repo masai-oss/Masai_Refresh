@@ -93,35 +93,43 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
       <Grid
         container
         direction="row"
-        justify="space-between"
+        justify="flex-end"
         alignItems="flex-start"
-        style={{ paddingRight: 20 }}
       >
-        <Card />
-        <Card>
-          <Tabs
-            value={value}
-            onChange={handleChange}
-            textColor="inherit"
-            indicatorColor="primary"
-          >
-            <Tab
-              style={{
-                backgroundColor: value === 1 ? "white" : "#6C8D9E",
-                maxWidth: 115,
-              }}
-              label="Quiz"
-              {...a11yProps(0)}
-              disabled={!quizTopicsData.length}
-            />
-            <Tab
-              style={{ backgroundColor: value === 0 ? "white" : "#6C8D9E" }}
-              label="Practice"
-              {...a11yProps(1)}
-              disabled={!practiceTopicsData.length}
-            />
-          </Tabs>
-        </Card>
+        <Box marginX={7} marginY={1}>
+          <Card>
+            <Tabs
+              value={value}
+              onChange={handleChange}
+              textColor="inherit"
+              indicatorColor="none"
+            >
+              <Tab
+                style={{
+                  backgroundColor: value === 1 ? "white" : "#6C8D9E",
+                  color: value === 1 ? "gray" : "white",
+                  maxWidth: 115,
+                  fontWeight: "bold",
+                  letterSpacing: "2px"
+                }}
+                label="Quiz"
+                {...a11yProps(0)}
+                disabled={!quizTopicsData.length}
+              />
+              <Tab
+                style={{ 
+                  backgroundColor: value === 0 ? "white" : "#6C8D9E",
+                  color: value === 0 ? "gray" : "white",
+                  fontWeight: "bold",
+                  letterSpacing: "2px"
+                }}
+                label="Practice"
+                {...a11yProps(1)}
+                disabled={!practiceTopicsData.length}
+              />
+            </Tabs>
+          </Card>
+        </Box>
       </Grid>
       <SwipeableViews
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
@@ -130,7 +138,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
         className={classes.swipable}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justify="space-around">
             {quizTopicsData &&
               quizTopicsData.map((topic, index) => (
                 <TopicCard
@@ -143,7 +151,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
           </Grid>
         </TabPanel>
         <TabPanel value={value} index={1} dir={theme.direction}>
-          <Grid container spacing={3}>
+          <Grid container spacing={3} justify="center">
             {practiceTopicsData &&
               practiceTopicsData.map((topic, index) => (
                 <TopicCard

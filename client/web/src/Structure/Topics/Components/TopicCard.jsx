@@ -7,6 +7,7 @@ import {
   Avatar,
   CardActionArea,
   CardActions,
+  Box
 } from "@material-ui/core";
 import { TopicStyle } from "../Styles/TopicStyles";
 
@@ -33,7 +34,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
       : icon;
   const classes = TopicStyle();
   return (
-    <Grid item xs={12} sm={6} md={6} lg={4} xl={3}>
+    <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
       <Card className={classes.root}>
         <CardActionArea>
           <CardContent
@@ -90,25 +91,32 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
             </div>
           </CardContent>
         </CardActionArea>
-        <div style={{ borderTop: "5px groove #FFFAF0" }}></div>
-        <CardActionArea>
+        <CardActionArea className={classes.cardBottom}>
           <CardActions
             className={classes.cardActions}
             onClick={() => handleClickOpen({ topic, topicId })}
           >
-            <Avatar alt={topic} src={icon} className={classes.iconStyle} />
-            <div>
-              <Typography
-                variant="h6"
-                gutterBottom
-                style={{ fontWeight: "bold" }}
-              >
-                {topic}
-              </Typography>
-              <Typography variant="button" display="block" gutterBottom>
-                HTML, CSS, HTML, CSS
-              </Typography>
-            </div>
+            <Grid container alignItems="center" spacing={3}>
+              <Grid item>
+                <Box mx={2}>
+                  <Avatar alt={topic} src={icon}/>
+                </Box>
+              </Grid>
+              <Grid item>
+                <div>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontWeight: "bold" }}
+                  >
+                    {topic}
+                  </Typography>
+                  <Typography variant="button" display="block" gutterBottom>
+                    HTML, CSS, HTML, CSS
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
           </CardActions>
         </CardActionArea>
       </Card>
