@@ -8,9 +8,9 @@ import {
   Button,
 } from "@material-ui/core";
 import { NavbarStyles } from "./Styles/NavbarStyle";
-import MasaiLogo from "./Components/MasaiLogo.svg";
+import MasaiLogo from '../../Resources/MasaiLogo.svg';
 import { useHistory } from "react-router";
-import { LogoutDialog } from "./Components/LogoutDialog";
+import { LogoutDialog } from "../Common/Dialog";
 import PropTypes from "prop-types";
 import { getFromStorage } from "../../Utils/localStorageHelper";
 import { storageEnums } from "../../Enums/storageEnums";
@@ -65,7 +65,13 @@ function Navbar(props) {
         <div className={classes.content} />
         {children}
       </main>
-      <LogoutDialog open={open} handleClose={handleClose} />
+      <LogoutDialog 
+        open={open} 
+        handleClose={handleClose} 
+        message="Are you sure you want to logout?"
+        okBtnTitle="Agree"
+        cancelBtnTitle="Cancel"
+      />
     </>
   );
 }
