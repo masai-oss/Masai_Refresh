@@ -2,22 +2,20 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const QuestionStyles = makeStyles((theme) => ({
   main: {
-    display: "flex",
-    justifyContent: "space-between",
-    marginTop: "20px",
-    padding: '0 2rem',
-    flexDirection: 'row-reverse',
-    '& > div' : {
-      padding: '5px 20px',
-      fontWeight: 'bolder'
-    }
+    boxSizing:'border-box',
+    height:'100%',
+    width:'100%',
+    backgroundColor:'white',
+    padding: '31px'
+    
   },
   nextBtn: {
     margin: "15px",
     marginTop: "20px",
   },
   cardShadow: {
-    boxShadow: "rgba(0, 0, 0, 0.24) 0px 3px 8px",
+    boxShadow: '0px 0px 1px 1px rgb(0,0,0,0.25)',
+    // border:'1px solid black'
   }
 }));
 

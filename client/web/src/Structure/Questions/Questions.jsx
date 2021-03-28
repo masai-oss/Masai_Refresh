@@ -3,13 +3,14 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Redirect } from "react-router-dom";
 import { IsLoading } from "../Common";
-import { TopicChip } from "../Common/TopicChip";
+import { QuestionNavbar } from "../Common/QuestionNavbar";
 import { MCQ } from "./Components/MCQ";
 import Card from "@material-ui/core/Card";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
 
 const Questions = () => {
-  const question = useSelector((state) => state.questions.question);
+  // const question = useSelector((state) => state.questions.question);
+  const question = { type: "MCQ", id: 0, statement: "My statement", options:[{text: "first"},{text: "second"}, {text: "third"}, {text: "fourth"}] }
   const questionIds = useSelector((state) => state.topics.questionIds);
   const isLoading = useSelector((state) => state.questions.isLoading);
   const params = useParams();
@@ -23,23 +24,19 @@ const Questions = () => {
     <>
       {isLoading ? (
         <IsLoading />
-      ) : isError ? (
+      ) : !isError ? (
         <div>...something went wrong</div>
       ) : question !== null ? (
-        <Card className={classes.cardShadow}>
-          <div className={classes.main}>
-            <TopicChip
-              topicDisplay={`${queIndex + 1} / ${questionIds.length}`}
-            />
-            <TopicChip topicDisplay={topicDisplay} />
-            <TopicChip topicDisplay={question.type} />
-          </div>
-          {question.type === "MCQ" ? (
-            <MCQ data={question} lastQuestion={lastQuestion} />
-          ) : (
-            "Questions"
-          )}
-        </Card>
+        <div className={classes.main}>
+            <div className={classes.cardShadow}>
+              <QuestionNavbar type={question.type} questionIds={questionIds} topicDisplay={topicDisplay} queIndex={queIndex} />
+              {question.type === "MCQ" ? (
+                <MCQ data={question} lastQuestion={lastQuestion} />
+              ) : (
+                "Questions"
+              )}
+            </div>
+        </div>
       ) : (
         <Redirect to="/quiz_topics" />
       )}
