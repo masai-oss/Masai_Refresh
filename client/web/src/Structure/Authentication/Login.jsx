@@ -8,8 +8,6 @@ import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
 import { LoginStyles } from "./Styles/LoginStyles";
-import { Navbar } from "../Navbar";
-import { makeStyles, createStyles } from "@material-ui/core/styles";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -27,7 +25,6 @@ const Login = () => {
     <p>...loading</p>
   ) : (
     <>
-      <Navbar />
       <Card style={{position: "absolute", top: "0", bottom: "0", left: "0", right: "0", display: "grid", placeItems: "center"}}>
         <CardContent style={{ backgroundColor: "#84a8b3", width: "400px", borderRadius: "2px", padding: "30px 0" }}>
           <Grid

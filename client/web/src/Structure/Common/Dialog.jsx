@@ -1,7 +1,7 @@
 import React from "react";
 import {
   Button,
-  Dialog,
+  Dialog as DialogBox,
   DialogActions,
   DialogContent,
   DialogContentText,
@@ -25,7 +25,7 @@ const Dialog = ({ open, handleClose, heading, message, okBtnTitle, cancelBtnTitl
     dispatch(authActions.logoutProcess());
   };
   return (
-    <Dialog
+    <DialogBox
       fullScreen={fullScreen}
       open={open}
       aria-labelledby="responsive-dialog-title"
@@ -49,7 +49,7 @@ const Dialog = ({ open, handleClose, heading, message, okBtnTitle, cancelBtnTitl
           </Button>
         </DialogActions>
       </Box>
-    </Dialog>
+    </DialogBox>
   );
 };
 

@@ -1,6 +1,5 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { Navbar } from "../Structure/Navbar";
 import { getFromStorage } from "../Utils/localStorageHelper";
 import { storageEnums } from "../Enums/storageEnums";
 import { IsAdmin } from "../Structure/Common";
@@ -19,9 +18,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
           isAdmin ? (
             <Redirect to="/topics" />
           ) : (
-            <Navbar isAdmin={isAdmin}>
-              <Component {...props} />
-            </Navbar>
+            <Component {...props} />
           )
         ) : (
           <Redirect

@@ -65,7 +65,7 @@ function Navbar(props) {
         <div className={classes.content} />
         {children}
       </main>
-      <LogoutDialog 
+      <Dialog 
         open={open} 
         handleClose={handleClose} 
         message="Are you sure you want to logout?"
