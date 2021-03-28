@@ -3,14 +3,11 @@ import { useSelector } from "react-redux";
 import { useParams } from "react-router";
 import { Redirect } from "react-router-dom";
 import { IsLoading } from "../Common";
-import { QuestionNavbar } from "../Common/QuestionNavbar";
 import { MCQ } from "./Components/MCQ";
-import Card from "@material-ui/core/Card";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
 
 const Questions = () => {
-  // const question = useSelector((state) => state.questions.question);
-  const question = { type: "MCQ", id: 0, statement: "My statement", options:[{text: "first"},{text: "second"}, {text: "third"}, {text: "fourth"}] }
+  const question = useSelector((state) => state.questions.question);
   const questionIds = useSelector((state) => state.topics.questionIds);
   const isLoading = useSelector((state) => state.questions.isLoading);
   const params = useParams();
@@ -24,14 +21,13 @@ const Questions = () => {
     <>
       {isLoading ? (
         <IsLoading />
-      ) : !isError ? (
+      ) : isError ? (
         <div>...something went wrong</div>
       ) : question !== null ? (
         <div className={classes.main}>
-            <div className={classes.cardShadow}>
-              <QuestionNavbar type={question.type} questionIds={questionIds} topicDisplay={topicDisplay} queIndex={queIndex} />
+            <div>
               {question.type === "MCQ" ? (
-                <MCQ data={question} lastQuestion={lastQuestion} />
+                <MCQ data={question} queIndex={queIndex} questionIds={questionIds} topicDisplay={topicDisplay} lastQuestion={lastQuestion} />
               ) : (
                 "Questions"
               )}
