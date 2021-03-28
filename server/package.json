@@ -29,6 +29,7 @@
     "passport-google-oauth20": "^2.0.0",
     "passport-jwt": "^4.0.0",
     "passport-local": "^1.0.0",
+    "passport-zoho-crm": "^0.1.3",
     "redis": "^3.0.2",
     "response-time": "^2.3.2",
     "util": "^0.12.3",

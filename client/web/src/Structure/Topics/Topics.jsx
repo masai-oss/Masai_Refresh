@@ -1,58 +1,31 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
 import { Grid } from "@material-ui/core";
-import { StartQuizModal } from "./Components/startQuizModal";
 import { IsLoading } from "../Common";
-import { TopicCard } from "./Components/TopicCard";
+import { QuizPracticeSwitch } from "./Components/TopicWrapper"
 
 const Topics = () => {
-  const dispatch = useDispatch();
-  const [modalData, setModal] = useState({
-    open: false,
-    topic: "",
-    topicId: "",
-  });
+  const dispatch = useDispatch()
   useEffect(() => {
-    dispatch(topicActions.getTopics());
+    dispatch(topicActions.getQuizTopics());
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   const isLoading = useSelector((state) => state.topics.isLoading);
-  const topicsData = useSelector((state) => state.topics.topicsData);
   const isError = useSelector((state) => state.topics.isError);
-  const handleClickOpen = ({ topic, topicId }) => {
-    setModal({
-      open: true,
-      topic: topic,
-      topicId: topicId,
-    });
-  };
-  const handleClose = () => {
-    setModal({
-      open: false,
-      topic: "",
-      topicId: "",
-    });
-  };
+
   return (
-    <Grid container spacing={6} justify="space-evenly" alignItems="center">
+    <Grid container justify="center">
       {isLoading ? (
         <IsLoading />
       ) : isError ? (
         <div>...something went wrong</div>
       ) : (
-        topicsData &&
-        topicsData.map((topic, index) => (
-          <TopicCard
-            topicData={topic}
-            handleClickOpen={handleClickOpen}
-            key={index}
-          />
-        ))
+        <QuizPracticeSwitch />
       )}
-      <StartQuizModal modalData={modalData} handleClose={handleClose} />
     </Grid>
   );
 };
 
 export { Topics };
+

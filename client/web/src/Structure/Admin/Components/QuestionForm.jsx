@@ -118,7 +118,6 @@ export const QuestionForm = (props) => {
         else{
             dispatch( adminActions.updateQuestionsRequest(payload, data._id, question.topic) )
         }
-        console.log(payload)
         history.push("/questions_admin")
     }
     

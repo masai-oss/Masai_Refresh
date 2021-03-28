@@ -37,11 +37,13 @@ const StartQuizModal = ({ modalData, handleClose }) => {
         fullScreen={fullScreen}
         open={open}
         aria-labelledby="responsive-dialog-title"
+        fullWidth={true}
+        maxWidth="md"
       >
         <DialogTitle id="responsive-dialog-title">Start Quiz</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {`Would you like to start the quiz on ${topic}`}
+            {`You are about to start a quiz on ${topic}. Are you sure you wanna go ahead`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>
