@@ -14,7 +14,7 @@ import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
 
-const Route = () => {
+const Routes = () => {
   return (
     <>
       <Router>
@@ -45,4 +45,4 @@ const Route = () => {
   );
 };
 
-export { Route };
+export { Routes };

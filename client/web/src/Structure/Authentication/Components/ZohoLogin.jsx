@@ -1,7 +1,7 @@
 import React from "react";
-import { Button } from "@material-ui/core";
-import zohoIcon from "./zohoIcon.svg";
+import zohoIcon from "../../../Resources/zohoIcon.svg";
 import { LoginStyles } from "../Styles/LoginStyles"
+import { Button } from "../Styles/ZohoLoginStyle";
 
 const ZOHO_LOGIN_URL = process.env.REACT_APP_AUTH_ZOHO_LOGIN_URL;
 const ZohoLogin = () => {
@@ -10,16 +10,15 @@ const ZohoLogin = () => {
   };
   const classes = LoginStyles()
   return (
-    <Button
-      variant="contained"
-      color="primary"
+    <Button type="dark" tabindex="1" role="button"
       onClick={zohoLogin}
-      style={{ marginLeft: 10 }}
     >
-      <img src={zohoIcon} alt={zohoIcon} className={classes.zohoButtonStyle} />{" "}
+      <img src={zohoIcon} alt={zohoIcon} />
       Sign in with ZOHO
     </Button>
   );
 };
 
 export { ZohoLogin };
+
+

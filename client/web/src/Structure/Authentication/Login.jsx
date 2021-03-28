@@ -6,9 +6,8 @@ import { getFromStorage } from "../../Utils/localStorageHelper";
 import { storageEnums } from "../../Enums/storageEnums";
 import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
-import { Grid, Card, CardContent } from "@material-ui/core";
+import { Grid, Card, CardContent, Box } from "@material-ui/core";
 import { LoginStyles } from "./Styles/LoginStyles";
-import { Navbar } from "../Navbar";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -25,32 +24,25 @@ const Login = () => {
   ) : isLoggingIn ? (
     <p>...loading</p>
   ) : (
-    <Navbar>
-      <Grid
-        container
-        spacing={0}
-        direction="column"
-        alignItems="center"
-        justify="center"
-        style={{ minHeight: "85vh" }}
-      >
-        <Card>
-          <CardContent style={{ backgroundColor: "#6C8D9E" }}>
-            <Grid
-              container
-              direction="row"
-              justify="space-between"
-              alignItems="center"
-            >
+    <>
+      <Card style={{position: "absolute", top: "0", bottom: "0", left: "0", right: "0", display: "grid", placeItems: "center"}}>
+        <CardContent style={{ backgroundColor: "#84a8b3", width: "400px", borderRadius: "2px", padding: "30px 0" }}>
+          <Grid
+            container
+            direction="column"
+            justify="space-between"
+            alignItems="center"
+          >
+            <Box m={2}>
               <GoogleLogin />
-              <div className={classes.content} />
+            </Box>
+            <Box m={2}>
               <ZohoLogin />
-              <div className={classes.lastCont} />
-            </Grid>
-          </CardContent>
-        </Card>
-      </Grid>
-    </Navbar>
+            </Box>
+          </Grid>
+        </CardContent>
+      </Card>
+    </>
   );
 };
 
