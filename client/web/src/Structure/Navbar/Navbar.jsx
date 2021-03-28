@@ -10,7 +10,7 @@ import {
 import { NavbarStyles } from "./Styles/NavbarStyle";
 import MasaiLogo from '../../Resources/MasaiLogo.svg';
 import { useHistory } from "react-router";
-import { LogoutDialog } from "../Common/Dialog";
+import { Dialog } from "../Common/Dialog";
 import PropTypes from "prop-types";
 import { getFromStorage } from "../../Utils/localStorageHelper";
 import { storageEnums } from "../../Enums/storageEnums";

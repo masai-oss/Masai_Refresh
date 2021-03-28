@@ -16,7 +16,7 @@ import { authActions } from "../Authentication";
 const REACT_APP_AUTH_GOOGLE_LOGOUT_URL =
   process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 
-const LogoutDialog = ({ open, handleClose, heading, message, okBtnTitle, cancelBtnTitle }) => {
+const Dialog = ({ open, handleClose, heading, message, okBtnTitle, cancelBtnTitle }) => {
   const theme = useTheme();
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
@@ -53,4 +53,4 @@ const LogoutDialog = ({ open, handleClose, heading, message, okBtnTitle, cancelB
   );
 };
 
-export { LogoutDialog };
+export { Dialog };
