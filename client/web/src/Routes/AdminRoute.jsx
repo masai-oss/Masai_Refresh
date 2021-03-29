@@ -8,7 +8,6 @@ import { IsAdmin } from '../Structure/Common'
 const AdminRoute = ({ component: Component, ...rest }) => {
   let token = getFromStorage(storageEnums.TOKEN, "");
   const isAdmin = IsAdmin();
-  let path = rest.path
   return (
     <Route
       {...rest}

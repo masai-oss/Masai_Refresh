@@ -43,7 +43,7 @@ const StartQuizModal = ({ modalData, handleClose }) => {
         <DialogTitle id="responsive-dialog-title">Start Quiz</DialogTitle>
         <DialogContent>
           <DialogContentText>
-            {`You are about to start a quiz on ${topic}. Are you sure you wanna go ahead`}
+            {`You are about to start a quiz on ${topic.split("_").join(" ")}. Are you sure you wanna go ahead`}
           </DialogContentText>
         </DialogContent>
         <DialogActions>

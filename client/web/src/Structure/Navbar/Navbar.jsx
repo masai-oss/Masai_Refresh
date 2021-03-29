@@ -8,12 +8,11 @@ import {
   Button,
 } from "@material-ui/core";
 import { NavbarStyles } from "./Styles/NavbarStyle";
-import MasaiLogo from '../../Resources/MasaiLogo.svg';
+import MasaiLogo from "../../Resources/MasaiLogo.svg";
 import { useHistory } from "react-router";
 import { Dialog } from "../Common/Dialog";
 import PropTypes from "prop-types";
-import { getFromStorage } from "../../Utils/localStorageHelper";
-import { storageEnums } from "../../Enums/storageEnums";
+import { useSelector } from "react-redux";
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -43,7 +42,7 @@ function Navbar(props) {
   const goHome = () => {
     history.push("/");
   };
-  let isAuth = getFromStorage(storageEnums.TOKEN);
+  let isAuth = useSelector((state) => state.authentication.token);
   return (
     <>
       <CssBaseline />
@@ -54,9 +53,11 @@ function Navbar(props) {
               <img src={MasaiLogo} alt="masaiLogo" onClick={goHome} />
               <p className={classes.refresh}>refresh</p>
             </div>
-            {isAuth && <Button color="inherit" onClick={() => setOpen(true)}>
-              Sign Out
-            </Button>}
+            {isAuth && (
+              <Button color="inherit" onClick={() => setOpen(true)}>
+                Sign Out
+              </Button>
+            )}
           </Toolbar>
         </AppBar>
       </HideOnScroll>
@@ -65,9 +66,9 @@ function Navbar(props) {
         <div className={classes.content} />
         {children}
       </main>
-      <Dialog 
-        open={open} 
-        handleClose={handleClose} 
+      <Dialog
+        open={open}
+        handleClose={handleClose}
         message="Are you sure you want to logout?"
         okBtnTitle="Agree"
         cancelBtnTitle="Cancel"
