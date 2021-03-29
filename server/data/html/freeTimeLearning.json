@@ -1,0 +1,1584 @@
+{
+  "questions": [
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "Who invented World Wide Web (WWW)?",
+      "options": [
+        { "text": "Blaise Pascal", "correct": false },
+        { "text": "Charles Babbage", "correct": false },
+        { "text": "Tim Berners-Lee", "correct": true },
+        { "text": "Herman Hollerith", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "What does HTML standHome Tool Markup Language for?",
+      "options": [
+        { "text": "Home Tool Markup Language", "correct": false },
+        {
+          "text": "Hyperlinks and Text Markup LanguageHyper",
+          "correct": false
+        },
+        { "text": "Hyper Text Markup Language", "correct": true },
+        { "text": "Hyper Text Markup Link", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "Who is making the Web standards?",
+      "options": [
+        { "text": "Microsoft", "correct": false },
+        { "text": "The World Wide Web Consortium", "correct": false },
+        { "text": "Google", "correct": true },
+        { "text": "Mozilla", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "Choose the correct HTML element for the largest heading:",
+      "options": [
+        { "text": "    <h1>", "correct": false },
+        { "text": "    <heading>", "correct": false },
+        { "text": "    <head>", "correct": true },
+        { "text": "    <h6>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "What is the correct HTML element for inserting a line break?",
+      "options": [
+        { "text": "    <hr>", "correct": false },
+        { "text": "    <br>", "correct": false },
+        { "text": "    <lb>", "correct": true },
+        { "text": "    <break>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "What is the correct HTML for adding a background color?",
+      "options": [
+        {
+          "text": "    <body style=\"background-color:yellow;\">",
+          "correct": false
+        },
+        { "text": "    <background>yellow</background>", "correct": false },
+        { "text": "    <body bg=\"yellow\">", "correct": true },
+        { "text": "    <body color=\"yellow\">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "Choose the correct HTML element to define important text",
+      "options": [
+        { "text": "    <strong>", "correct": false },
+        { "text": "    <b>", "correct": false },
+        { "text": "    <i>", "correct": true },
+        { "text": "    <important>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "Choose the correct HTML element to define emphasized text",
+      "options": [
+        { "text": "    <i>", "correct": false },
+        { "text": "    <italic>", "correct": false },
+        { "text": "    <em>", "correct": true },
+        { "text": "Above All", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "How can you open a link in a new tab/browser window?",
+      "options": [
+        { "text": "    <a href=\"url\" target=\"new\">", "correct": false },
+        { "text": "    <a href=\"url\" new>", "correct": false },
+        { "text": "    <a href=\"url\" target=\"_blank\">", "correct": true },
+        { "text": "    <a href=\"url\" target=\"blank\">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=1",
+      "statement": "Which of these elements are all <table> elements?",
+      "options": [
+        { "text": "    <table><tr><tt>", "correct": false },
+        { "text": "    <table><head><tfoot>", "correct": false },
+        { "text": "    <thead><body><tr>", "correct": true },
+        { "text": "    <table><tr><td>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "All elements are identified by their \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ and are marked up using either start tags and end tags or self-closing tags.",
+      "options": [
+        { "text": "attribute name", "correct": false },
+        { "text": "tag name", "correct": true },
+        { "text": "class name", "correct": false },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "The \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ element represents a span of text that is isolated from its surroundings for the purposes of bidirectional text formatting.",
+      "options": [
+        { "text": "b", "correct": false },
+        { "text": "bdi", "correct": true },
+        { "text": "bdo", "correct": false },
+        { "text": "base", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "\\_\\_\\_\\_\\_\\_\\_ element must have a start tag but must not have an end tag.",
+      "options": [
+        { "text": "command", "correct": false },
+        { "text": "code", "correct": true },
+        { "text": "details", "correct": false },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "IDE stands for \\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "Internet Development Environment", "correct": false },
+        { "text": "Integrated Development Environment", "correct": true },
+        { "text": "Intelligent Development Environment", "correct": false },
+        { "text": "Integrated Developed Environment", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "We can define \\_\\_\\_\\_\\_\\_\\_\\_ number of sites with one copy of dreamweaver installed on our computer.",
+      "options": [
+        { "text": "only 1", "correct": false },
+        { "text": "only 10", "correct": true },
+        { "text": "only 100", "correct": false },
+        { "text": "unlimited", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "What should we add to a template in Dreamweaver in order to control where page content goes?",
+      "options": [
+        { "text": "Editable Regions", "correct": false },
+        { "text": "HTML controllers", "correct": true },
+        { "text": "Frames", "correct": false },
+        { "text": "Content Controllers", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "www is based on which model?",
+      "options": [
+        { "text": "Local-server", "correct": false },
+        { "text": "Client-server", "correct": true },
+        { "text": "3-tier", "correct": false },
+        { "text": "None of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "What are Empty elements and is it valid?",
+      "options": [
+        {
+          "text": "No, there is no such terms as Empty Element",
+          "correct": false
+        },
+        { "text": "Empty elements are element with no data", "correct": true },
+        {
+          "text": "No, it is not valid to use Empty Element",
+          "correct": false
+        },
+        { "text": "None of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "`<DT>` tag is designed to fit a single line of our web page but `<DD>` tag will accept a",
+      "options": [
+        { "text": "line of text", "correct": false },
+        { "text": "full paragraph", "correct": true },
+        { "text": "word", "correct": false },
+        { "text": "request", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=2",
+      "statement": "Character encoding is",
+      "options": [
+        {
+          "text": "method used to represent numbers in a character",
+          "correct": false
+        },
+        {
+          "text": "method used to represent character in a number",
+          "correct": true
+        },
+        {
+          "text": "a system that consists of a code which pairs each character with a pattern,sequence of natural numbers or electrical pulse in order to transmit the data",
+          "correct": false
+        },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Application cache is used for\\_\\_\\_\\_\\_\\_\\_\\_\n\n1) Offline browsing\n\n2) Speed\n\n3) Reduced server load",
+      "options": [
+        { "text": "1 and 2", "correct": false },
+        { "text": "2 and 3", "correct": false },
+        { "text": "all of the above", "correct": true },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Web run on ------------type",
+      "options": [
+        { "text": "content type", "correct": false },
+        { "text": "MIME", "correct": false },
+        { "text": "Data type", "correct": true },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Height attribute specifies the height of which frame?",
+      "options": [
+        { "text": "iframe", "correct": false },
+        { "text": "jframe", "correct": false },
+        { "text": "inline frame", "correct": true },
+        { "text": "outline frame", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "SVG graphics do not lose quality when they are resized?",
+      "options": [
+        { "text": "True", "correct": false },
+        { "text": "False", "correct": false },
+        { "text": "can’t determine", "correct": true },
+        { "text": "None of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Where does web worker(s) script run?",
+      "options": [
+        { "text": "in foreground", "correct": false },
+        { "text": "in background", "correct": false },
+        { "text": "both a and b", "correct": true },
+        { "text": "None of These", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Which attribute allows the inline frame to appear as though it is being rendered as part of the containing document?",
+      "options": [
+        { "text": "sandbox", "correct": false },
+        { "text": "seamless", "correct": false },
+        { "text": "src", "correct": true },
+        { "text": "srcdoc", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "If the browser doesn't support the srcdoc attribute, it will use the -------- provided by the src attribute.",
+      "options": [
+        { "text": "URL", "correct": false },
+        { "text": "source", "correct": false },
+        { "text": "document", "correct": true },
+        { "text": "path", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Which file is used by the browser to fetch the appropriate data?",
+      "options": [
+        { "text": "Text file", "correct": false },
+        { "text": "HTML file", "correct": false },
+        { "text": "XML file", "correct": true },
+        { "text": "manifest file", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "Target attribute is used for\\_\\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "opening new document", "correct": false },
+        { "text": "selecting previous document", "correct": false },
+        { "text": "deleting frame", "correct": true },
+        { "text": "None of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz.php?page=3",
+      "statement": "How many browser safe colors are there?",
+      "options": [
+        { "text": "16 Million", "correct": false },
+        { "text": "216", "correct": false },
+        { "text": "256", "correct": true },
+        { "text": "None of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "How can you make a numbered list?",
+      "options": [
+        { "text": "    <ol>", "correct": true },
+        { "text": "    <list>", "correct": false },
+        { "text": "    <dl>", "correct": false },
+        { "text": "    <ul>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "How can you make a bulleted list?",
+      "options": [
+        { "text": "    <ol>", "correct": true },
+        { "text": "    <ul>", "correct": false },
+        { "text": "    <dl>", "correct": false },
+        { "text": "    <list>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "What is the correct HTML for creating a hyperlink?",
+      "options": [
+        {
+          "text": "    <a url=\"http://www.freetimelearning.com\">freetimelearning.com</a>",
+          "correct": true
+        },
+        {
+          "text": "    <a>http://www.freetimelearning.com</a>",
+          "correct": false
+        },
+        {
+          "text": "    <a href=\"http://www.freetimelearning.com\">freetimelearning</a>",
+          "correct": false
+        },
+        {
+          "text": "    <a name=\"http://www.freetimelearning.com\">freetimelearning.com</a>",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "Which character is used to indicate an end tag?",
+      "options": [
+        { "text": "    *", "correct": true },
+        { "text": "    /", "correct": false },
+        { "text": "    ^", "correct": false },
+        { "text": "    <", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "What is the correct HTML for making a checkbox?",
+      "options": [
+        { "text": "    <checkbox>", "correct": true },
+        { "text": "    <check>", "correct": false },
+        { "text": "    <input type=\"check\">", "correct": false },
+        { "text": "    <input type=\"checkbox\">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "What is the correct HTML for making a text input field?",
+      "options": [
+        { "text": "    <textfield>", "correct": true },
+        { "text": "    <input type=\"text\">", "correct": false },
+        { "text": "    <textinput type=\"text\">", "correct": false },
+        { "text": "    <input type=\"textfield\">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "    Where we can use <style> tag ?",
+      "options": [
+        { "text": "    just in <head> element", "correct": true },
+        { "text": "    just in <body> element", "correct": false },
+        { "text": "    in <head> and in <body> elements", "correct": false },
+        { "text": "    just in <footer> element", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "Which tag would you use to create a hyperlink?",
+      "options": [
+        { "text": "    <li>", "correct": true },
+        { "text": "    <img>", "correct": false },
+        { "text": "    <a>", "correct": false },
+        { "text": "    <dl>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "How to write HTML Comment ?",
+      "options": [
+        { "text": "    // This is HTML comment", "correct": true },
+        { "text": "    <!-- This is HTML comment --> ​", "correct": false },
+        { "text": "    // This is HTML comment //", "correct": false },
+        { "text": "    /* This is HTML comment */", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=1",
+      "statement": "Which is not an HTML attribute?",
+      "options": [
+        { "text": "alt", "correct": true },
+        { "text": "target", "correct": false },
+        { "text": "fontSize", "correct": false },
+        { "text": "id", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "Which type attribute of input element sets the element’s value to a string representing a number?",
+      "options": [
+        { "text": "range", "correct": true },
+        { "text": "email", "correct": false },
+        { "text": "file", "correct": false },
+        { "text": "date", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "Which of the following type attributes of input element defines control for entering a telephone number?",
+      "options": [
+        { "text": "mob", "correct": true },
+        { "text": "mobile", "correct": false },
+        { "text": "tel", "correct": false },
+        { "text": "telephone", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "Which element represents a control for generating a public-private key pair?",
+      "options": [
+        { "text": "ins", "correct": true },
+        { "text": "keygen", "correct": false },
+        { "text": "key", "correct": false },
+        { "text": "command", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "From which tag the descriptive list starts?",
+      "options": [
+        { "text": "`<LL>`", "correct": true },
+        { "text": "`<DD>`", "correct": false },
+        { "text": "`<DL>`", "correct": false },
+        { "text": "`<DS>`", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "A much better approach to establish the base URL is to use",
+      "options": [
+        { "text": "BASE element", "correct": true },
+        { "text": "HEAD element", "correct": false },
+        { "text": "both (a) and (b)", "correct": false },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "The tag used to create a hypertext relationship between current document and another URL is",
+      "options": [
+        { "text": "`<ISINDEX>`", "correct": true },
+        { "text": "`<A>`", "correct": false },
+        { "text": "`<LINK>`", "correct": false },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "Symbol used at the beginning of the HREF text is",
+      "options": [
+        { "text": "#", "correct": true },
+        { "text": "$", "correct": false },
+        { "text": "^", "correct": false },
+        { "text": "&", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "Which Are The Objects Used For Storing Data On The Client Provided By The HTML Local Storage?",
+      "options": [
+        { "text": "Window.localStorage", "correct": true },
+        { "text": "Window.sessionStorage", "correct": false },
+        { "text": "Window.localSession", "correct": false },
+        { "text": "Both A & B", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "Intensity Of A Color Can Be Described Through",
+      "options": [
+        { "text": "Hue", "correct": true },
+        { "text": "Saturation", "correct": false },
+        { "text": "Lightness", "correct": false },
+        { "text": "Grayscale", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=2",
+      "statement": "HTML Web Pages Can Be Read And Rendered By",
+      "options": [
+        { "text": "Compiler", "correct": true },
+        { "text": "Server", "correct": false },
+        { "text": "Web Browser", "correct": false },
+        { "text": "Interpreter", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=3",
+      "statement": "<output> element represents\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "Authenticate the user", "correct": false },
+        { "text": "result of a calculation", "correct": true },
+        { "text": "pre-defined values", "correct": false },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=3",
+      "statement": "In SVG, each drawn shape or figure is considered or remembered as \\_\\_\\_\\_\\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "Class", "correct": false },
+        { "text": "Object", "correct": true },
+        { "text": "Method", "correct": false },
+        { "text": "None of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=3",
+      "statement": "\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_Function displays the Latitude and Longitude in geoLocation in HTML5.",
+      "options": [
+        { "text": "getLocation()", "correct": false },
+        { "text": "getCurrentPosition()", "correct": true },
+        { "text": "getPosition()", "correct": false },
+        { "text": "getCurrentLocation()", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=3",
+      "statement": "terminate() method in HTML5 is used for\\_\\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "terminate everything", "correct": false },
+        { "text": "terminate all method", "correct": true },
+        { "text": "terminate a web worker", "correct": false },
+        { "text": "terminate program", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=3",
+      "statement": "If your browser supports HTML 5 microdata API, there will be a \\_\\_\\_\\_\\_\\_\\_function on the global document object.",
+      "options": [
+        { "text": "getItems()", "correct": false },
+        { "text": "getData()", "correct": true },
+        { "text": "getText()", "correct": false },
+        { "text": "getContent()", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-2.php?page=3",
+      "statement": "The manifest file is \\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "Text file", "correct": false },
+        { "text": "HTML file", "correct": true },
+        { "text": "XML file", "correct": false },
+        { "text": "java file", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "What HTML form input should we use to present multiple options, but to select only one?",
+      "options": [
+        { "text": "    <input type=\"text\">", "correct": false },
+        { "text": "    <input type=\"checkbox\">", "correct": true },
+        { "text": "    <input type=\"radio\">", "correct": false },
+        { "text": "    <textarea></textarea>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "What is the HTML form input to use to send the information of the form to the server?",
+      "options": [
+        { "text": "    <input type=\"server\">", "correct": false },
+        { "text": "    <input type=\"send\">", "correct": true },
+        { "text": "    <input type=\"submit\">", "correct": false },
+        { "text": "    <input type=\"mail\">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "Gif and jpg are the two main types of what ?",
+      "options": [
+        { "text": "outlines", "correct": false },
+        { "text": "images", "correct": true },
+        { "text": "animated effects", "correct": false },
+        { "text": "Style effects", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "Banners, buttons, dividers, clipart and other simple images usually work best as ?",
+      "options": [
+        { "text": "fonts", "correct": false },
+        { "text": "gif", "correct": true },
+        { "text": "jpg", "correct": false },
+        { "text": "png", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "To change the size of an image in HTML use what ?",
+      "options": [
+        { "text": "height and width", "correct": false },
+        { "text": "pliers", "correct": true },
+        { "text": "bigger and smaller", "correct": false },
+        { "text": "Pixels", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "Adding a border to your image helps the visitor to recognize it as what ?",
+      "options": [
+        { "text": "A Great picture", "correct": false },
+        { "text": "A Link", "correct": true },
+        { "text": "A frame", "correct": false },
+        { "text": "None", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "Using Hspace will add what to your image ?",
+      "options": [
+        { "text": "Space to the top and bottom", "correct": false },
+        { "text": "Height to all sides", "correct": true },
+        { "text": "Space to the left and right", "correct": false },
+        { "text": "Height only top", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "Rather than using Hspace and Vspace you can use which of the following to add spacing to your image ?",
+      "options": [
+        { "text": "align=+2", "correct": false },
+        { "text": "height and width", "correct": true },
+        { "text": "1x1 pixel transparent image", "correct": false },
+        { "text": "Space Left and Right", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "What is the difference between XML and HTML?",
+      "options": [
+        {
+          "text": "XML is used for exchanging data, HTML is not.",
+          "correct": false
+        },
+        {
+          "text": "HTML is used for exchanging data, XML is not.",
+          "correct": true
+        },
+        {
+          "text": "HTML can have user defined tags, XML cannot",
+          "correct": false
+        },
+        { "text": "Both A and C above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=1",
+      "statement": "Hyperlink tag can be applied to :",
+      "options": [
+        { "text": "text", "correct": false },
+        { "text": "image", "correct": true },
+        { "text": "video", "correct": false },
+        { "text": "All", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "Which element represents marked or highlighted text for reference purposes?",
+      "options": [
+        { "text": "highlight", "correct": false },
+        { "text": "mark", "correct": true },
+        { "text": "strong", "correct": false },
+        { "text": "blink", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "Which element(s) represents a section of a document that links to other documents?",
+      "options": [
+        { "text": "navigation", "correct": false },
+        { "text": "anchor tag", "correct": true },
+        { "text": "nav", "correct": false },
+        { "text": "option", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "The attribute of <form> tag",
+      "options": [
+        { "text": "Method", "correct": false },
+        { "text": "Action", "correct": true },
+        { "text": "Both (a)&(b)", "correct": false },
+        { "text": "None of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "How Can You Make A Bulleted List With Numbers?",
+      "options": [
+        { "text": "`<dl>`", "correct": false },
+        { "text": "`<list>`", "correct": true },
+        { "text": "`<ol>`", "correct": false },
+        { "text": "`<ul>`", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "Which Of The Following Encoding An XML Parser Assumes ?",
+      "options": [
+        { "text": "UTF-8", "correct": false },
+        { "text": "UTF-32", "correct": true },
+        { "text": "UTF-16", "correct": false },
+        { "text": "Both UTF-8 And UTF-32", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "The root element of an XHTML document must be html, and must contain an \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ attribute to associate it with the XHTML namespace.",
+      "options": [
+        { "text": "link", "correct": false },
+        { "text": "xmlns", "correct": true },
+        { "text": "source", "correct": false },
+        { "text": "src", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "\\_\\_\\_\\_\\_\\_\\_\\_\\_ is the XML equivalent to strict HTML 4.01.",
+      "options": [
+        { "text": "XHTML 1.0 Transitional", "correct": false },
+        { "text": "XHTML 1.0 Strict", "correct": true },
+        { "text": "XHTML 1.0 Frameset", "correct": false },
+        { "text": "XHTML 1.1 Strict", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "The recommended basic size for a favicon is \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ pixels.",
+      "options": [
+        { "text": "26×26", "correct": false },
+        { "text": "16×16", "correct": true },
+        { "text": "48×48", "correct": false },
+        { "text": "both 16×16 and 48×48", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "Which image file format is not supported in Firefox?",
+      "options": [
+        { "text": "APNG", "correct": false },
+        { "text": "SVG", "correct": true },
+        { "text": "MNG", "correct": false },
+        { "text": "PNG", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-3.php?page=2",
+      "statement": "Which attribute is used for favicon?",
+      "options": [
+        { "text": "rel", "correct": false },
+        { "text": "head", "correct": true },
+        { "text": "title", "correct": false },
+        { "text": "icon", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "Default size for a text field is around \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ characters",
+      "options": [
+        { "text": "12", "correct": false },
+        { "text": "13", "correct": true },
+        { "text": "14", "correct": false },
+        { "text": "15", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "What is an iframe?",
+      "options": [
+        { "text": "Divides the page into 2 sections", "correct": false },
+        { "text": "Is used to create ajax frame", "correct": true },
+        { "text": "Helps include one webpage into another", "correct": false },
+        { "text": "iframe is a new style set", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "Whats is the use of meta tags?",
+      "options": [
+        {
+          "text": "To store information usually relevant to browsers and search engines.",
+          "correct": false
+        },
+        {
+          "text": "To store information about external links.",
+          "correct": true
+        },
+        {
+          "text": "To only store information about search engines.",
+          "correct": false
+        },
+        {
+          "text": "To only store information usually relevant to browsers.",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "Each list item in an ordered or unordered list has Which tag ?",
+      "options": [
+        { "text": "    <list>", "correct": false },
+        { "text": "    <ol>", "correct": true },
+        { "text": "    <ls>", "correct": false },
+        { "text": "    <li>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "Which attributes is used to change the number index in tag?",
+      "options": [
+        { "text": "type", "correct": false },
+        { "text": "header", "correct": true },
+        { "text": "change", "correct": false },
+        { "text": "value", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "Which of the following attributes are used for a font name?",
+      "options": [
+        { "text": "@fontname", "correct": false },
+        { "text": "@font-face", "correct": true },
+        { "text": "@font", "correct": false },
+        { "text": "@font-style", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "What are <div> tags used for?",
+      "options": [
+        { "text": "To logically divide the document", "correct": false },
+        { "text": "To logically divide the paragraphs", "correct": true },
+        { "text": "To replace paragraphs.", "correct": false },
+        { "text": "To provide space between tables", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "What is cell padding?",
+      "options": [
+        { "text": "Used to set space between cells", "correct": false },
+        { "text": "The Space between cell walls", "correct": true },
+        {
+          "text": "To Separate cell walls from their contents.",
+          "correct": false
+        },
+        { "text": "To provide width to a cell", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "What attribute is used to specify number of rows?",
+      "options": [
+        { "text": "Rownum", "correct": false },
+        { "text": "Rowspan", "correct": true },
+        { "text": "Rownumb", "correct": false },
+        { "text": "Rowcol", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=1",
+      "statement": "What is an ISP?",
+      "options": [
+        { "text": "Internal System Program", "correct": false },
+        { "text": "Internet Service Provider", "correct": true },
+        { "text": "Internet System Protocol", "correct": false },
+        { "text": "Internet System Provider", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "Which of the following element is used as a container for content?",
+      "options": [
+        { "text": "`<address>`", "correct": false },
+        { "text": "`<aside>`", "correct": true },
+        { "text": "`<article>`", "correct": false },
+        { "text": "`<footer>`", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "\\_\\_\\_\\_\\_\\_\\_\\_\\_tag is used to specify an inline frame",
+      "options": [
+        { "text": "`<jframe>`", "correct": false },
+        { "text": "`<frameset>`", "correct": true },
+        { "text": "`<iframe>`", "correct": false },
+        { "text": "`<frame>`", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "What is mean by DTD?",
+      "options": [
+        { "text": "Document type data", "correct": false },
+        { "text": "Data type definition", "correct": true },
+        { "text": "Document type definition", "correct": false },
+        { "text": "Definition type document", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "How many graphic object types are allowed by SVG?",
+      "options": [
+        { "text": "2", "correct": false },
+        { "text": "3", "correct": true },
+        { "text": "4", "correct": false },
+        { "text": "5", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "`<canvas>` element is only a \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_\\_to the graphics.",
+      "options": [
+        { "text": "component", "correct": false },
+        { "text": "attribute", "correct": true },
+        { "text": "method", "correct": false },
+        { "text": "container", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "Ancestor of all other elements on the page is called\\_\\_\\_\\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "parent", "correct": false },
+        { "text": "ancestor", "correct": true },
+        { "text": "root element", "correct": false },
+        { "text": "siblings", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "What do you mean by SVG?",
+      "options": [
+        { "text": "Scalable Vector Graphics", "correct": false },
+        { "text": "Scalable Vertical Graphics", "correct": true },
+        { "text": "Scalable Vector Graph", "correct": false },
+        { "text": "Secondary Vector Graphics", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "The sessionStorage object stores the data for \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_",
+      "options": [
+        { "text": "one session", "correct": false },
+        { "text": "two session", "correct": true },
+        { "text": "three session", "correct": false },
+        { "text": "multiple session", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "which of the following is not true about article element?",
+      "options": [
+        { "text": "Text or embedded content", "correct": false },
+        { "text": "Both start and end tag are required", "correct": true },
+        {
+          "text": "can be used to provide author information",
+          "correct": false
+        },
+        {
+          "text": "ontenteditable attribute can not be used with article element",
+          "correct": false
+        }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-4.php?page=2",
+      "statement": "\\_\\_\\_\\_\\_ property returns the url of current audio/video",
+      "options": [
+        { "text": "currentSrc", "correct": false },
+        { "text": "controls", "correct": true },
+        { "text": "ended", "correct": false },
+        { "text": "mediaGroup", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "What is the use of Forms in HTML ?",
+      "options": [
+        { "text": "To display contents of email.", "correct": false },
+        { "text": "To display animation effect.", "correct": false },
+        { "text": "To collect user's input.", "correct": true },
+        { "text": "None of the Above.", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "FTP is an acronym for",
+      "options": [
+        { "text": "File Transaction Protocol", "correct": false },
+        { "text": "File Transmission Protocol", "correct": false },
+        { "text": "File Transfer Protocol", "correct": true },
+        { "text": "File Translation Protocol", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "What is the correct HTML for inserting a background image?",
+      "options": [
+        {
+          "text": "    <body style=\"background-image:url(image.jpg)\">",
+          "correct": false
+        },
+        { "text": "    <background img=\"image.jpg\">", "correct": false },
+        { "text": "    <body bg=\"image.jpg\">", "correct": true },
+        { "text": "    <body background-src=\"image.jpg\">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "How can you create an e-mail link?",
+      "options": [
+        { "text": "    <a href=\"example@gmail.com\">", "correct": false },
+        {
+          "text": "    <a href=\"mailto:example@gmail.com\">",
+          "correct": false
+        },
+        { "text": "    <a mailto=\"example@gmail.com\">", "correct": true },
+        { "text": "    <mail>example@gmail.com</mail>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "HTML5 browswers will support the following new technology.",
+      "options": [
+        { "text": "CSS 2", "correct": false },
+        { "text": "PDF 11.1", "correct": false },
+        { "text": "Macromedia Flash", "correct": true },
+        { "text": "CSS 3", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "What is the correct HTML5 element for playing audio files?",
+      "options": [
+        { "text": "    <mp3>", "correct": false },
+        { "text": "    <audio>", "correct": false },
+        { "text": "    <sound>", "correct": true },
+        { "text": "    <music>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "What is the correct HTML5 element for playing video files?",
+      "options": [
+        { "text": "    <video>", "correct": false },
+        { "text": "    <media>", "correct": false },
+        { "text": "    <movie>", "correct": true },
+        { "text": "    <play>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "    A <!DOCTYPE> defines the document type of any HTML document. It can be of three types:",
+      "options": [
+        { "text": "Strict,Transitional, or Frameset", "correct": false },
+        { "text": "Strict,Transitional, or Loose", "correct": false },
+        { "text": "Fixed,Intermediate, or Loose", "correct": true },
+        { "text": "Fixed, Intermediate, or Frameset", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "Which of the following correct syntax of link element?",
+      "options": [
+        { "text": "    <link type=\" \" hrel=\" / \">", "correct": false },
+        { "text": "    <link rev=stylesheet type=\" \">", "correct": false },
+        { "text": "    <link rel=\" \" text\" \">", "correct": true },
+        { "text": "    <link rel=\" \" href=\" \">", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=1",
+      "statement": "Which of the following elements is no longer supported in HTML5?",
+      "options": [
+        { "text": "    <base>", "correct": false },
+        { "text": "    <acronym>", "correct": false },
+        { "text": "    <abbr>", "correct": true },
+        { "text": "    <cite>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "Subtitle tracks and caption tracks to be specified for audio and video elements can be added using which of the following element?",
+      "options": [
+        { "text": "sink", "correct": false },
+        { "text": "track", "correct": true },
+        { "text": "stable", "correct": false },
+        { "text": "caption", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "What is DOM stands for?",
+      "options": [
+        { "text": "Document object model", "correct": false },
+        { "text": "Data object model", "correct": true },
+        { "text": "Document Oriented model", "correct": false },
+        { "text": "Data oriented model", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "HTML is based on which language?",
+      "options": [
+        { "text": "XHTML", "correct": false },
+        { "text": "XML", "correct": true },
+        { "text": "SGML", "correct": false },
+        { "text": "DTD", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "DHTML is the combination of\n\n1)HTML\n\n2)javascript\n\n3)HTML  Dom\n\n4)CSS",
+      "options": [
+        { "text": "1 and 2", "correct": false },
+        { "text": "3 and 4", "correct": true },
+        { "text": "all of the above", "correct": false },
+        { "text": "none of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "Frame concept is available in HTML5",
+      "options": [
+        { "text": "Yes", "correct": false },
+        { "text": "No", "correct": true },
+        { "text": "\\--", "correct": false },
+        { "text": "\\--", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "Which of the following are not a markup element in html5?\n\n    1) <aside>\n    2) <summary>\n    3) <progress>\n    4) <embed>",
+      "options": [
+        { "text": "1", "correct": false },
+        { "text": "2", "correct": true },
+        { "text": "3", "correct": false },
+        { "text": "4", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "Canvas is able to draw the 2D graphics using-------",
+      "options": [
+        { "text": "XML", "correct": false },
+        { "text": "HTML", "correct": true },
+        { "text": "XHTML", "correct": false },
+        { "text": "Java script", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "Graphics defined by SVG is in\\_\\_\\_\\_\\_\\_\\_ format.",
+      "options": [
+        { "text": "HTML", "correct": false },
+        { "text": "XHTML", "correct": true },
+        { "text": "XML", "correct": false },
+        { "text": "DTD", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "If background image is smaller than the screen, what will happen?",
+      "options": [
+        { "text": "It’ll be stretched", "correct": false },
+        { "text": "It’ll be repeated", "correct": true },
+        {
+          "text": "It’ll leave blank space at the bottom of page",
+          "correct": false
+        },
+        { "text": "None of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-5.php?page=2",
+      "statement": "Text/Html is called the \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ of the page",
+      "options": [
+        { "text": "content type", "correct": false },
+        { "text": "MIME type", "correct": true },
+        { "text": "content type/MIME type", "correct": false },
+        { "text": "none of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "In HTML5, onblur and onfocus are :",
+      "options": [
+        { "text": "Event attributes", "correct": false },
+        { "text": "HTML elements", "correct": true },
+        { "text": "Style attributes", "correct": false },
+        { "text": "None of the above", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "Which of the following elements is no longer supported in HTML5?",
+      "options": [
+        { "text": "    <font>", "correct": false },
+        { "text": "    <menu>", "correct": true },
+        { "text": "    <q>", "correct": false },
+        { "text": "    <ins>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "Which of the following method cancels an ongoing watchPosition call?",
+      "options": [
+        { "text": "geolocation.getCurrentPosition()", "correct": false },
+        { "text": "geolocation.watchPosition()", "correct": true },
+        { "text": "geolocation.clearPosition()", "correct": false },
+        { "text": "None of the above.", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "Which of the following attribute specifies the context menu for an element?",
+      "options": [
+        { "text": "contextmenu", "correct": false },
+        { "text": "contextcontent", "correct": true },
+        { "text": "key", "correct": false },
+        { "text": "context", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "Which of the following attribute triggers events when a form gets user input?",
+      "options": [
+        { "text": "onchange", "correct": false },
+        { "text": "onedit", "correct": true },
+        { "text": "onformchange", "correct": false },
+        { "text": "onforminput", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "Which doctype is correct for HTML5?",
+      "options": [
+        { "text": "    <!DOCTYPE HTML5>", "correct": false },
+        { "text": "    <!DOCTYPE html>", "correct": true },
+        {
+          "text": "    <!DOCTYPE HTML PUBLIC \"-//W3C//DTD HTML 5.0//EN\" \"http://www.w3.org/TR/html5/strict.dtd\">",
+          "correct": false
+        },
+        { "text": "    <html !DOCTYPE>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "    The HTML <canvas> element is used to:",
+      "options": [
+        { "text": "create draggable elements", "correct": false },
+        { "text": "manipulate data in MySQL", "correct": true },
+        { "text": "draw graphics", "correct": false },
+        { "text": "display database records", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "In HTML, which attribute is used to specify that an input field must be filled out?",
+      "options": [
+        { "text": "formvalidate", "correct": false },
+        { "text": "placeholder", "correct": true },
+        { "text": "required", "correct": false },
+        { "text": "validate", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "Which HTML element is used to display a scalar measurement within a range?",
+      "options": [
+        { "text": "    <measure>", "correct": false },
+        { "text": "    <gauge>", "correct": true },
+        { "text": "    <range>", "correct": false },
+        { "text": "    <meter>", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=1",
+      "statement": "    In HTML, what does the <aside> element define?",
+      "options": [
+        { "text": "Content aside from the page content", "correct": false },
+        {
+          "text": "The ASCII character-set; to send information between computers on the Internet",
+          "correct": true
+        },
+        {
+          "text": "A navigation list to be shown at the left side of the page",
+          "correct": false
+        },
+        { "text": "Height and Width adjustment", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "Which of the following element marks the ruby text component of a ruby annotation?",
+      "options": [
+        { "text": "r", "correct": false },
+        { "text": "rt", "correct": true },
+        { "text": "ruby", "correct": false },
+        { "text": "rubytxt", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "HTML5 supports all form controls from HTML4?",
+      "options": [
+        { "text": "Yes", "correct": false },
+        { "text": "No", "correct": true },
+        { "text": "\\--", "correct": false },
+        { "text": "\\--", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "The \\_\\_\\_\\_\\_\\_\\_\\_\\_\\_ is an instruction to the web browser about what version of HTML the page is written in",
+      "options": [
+        { "text": "`<!DOCTYPE>`", "correct": false },
+        { "text": "`<DOCTYPE>`", "correct": true },
+        { "text": "`<TYPE>`", "correct": false },
+        { "text": "`<!TYPE>`", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "Which of the following are input type attribute in html5?\n\n1) search\n\n2) datetime\n\n3) week\n\n4) color\n\n5) track\n\n6) placeholder",
+      "options": [
+        { "text": "1,2,3,4,6", "correct": false },
+        { "text": "1,2,3,4,5", "correct": true },
+        { "text": "2,3,4,5,6", "correct": false },
+        { "text": "1,3,4,5,6", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "What is W3C?",
+      "options": [
+        { "text": "World Wide Web Consortium", "correct": false },
+        { "text": "world wide web corporation", "correct": true },
+        { "text": "world wide web company", "correct": false },
+        { "text": "world wide web controlling", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "What is the correct HTML tag for adding a background color?",
+      "options": [
+        { "text": "    <body background=”yellow”>", "correct": false },
+        { "text": "    <background>yellow< backgound>", "correct": true },
+        {
+          "text": "    <bold style=”background-color:white”>",
+          "correct": false
+        },
+        { "text": "None of these", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "Which of the following is not a media element used in html5?",
+      "options": [
+        { "text": "`<source>`", "correct": false },
+        { "text": "`<audio>`", "correct": true },
+        { "text": "`<track>`", "correct": false },
+        { "text": "`<time>`", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "Which of the following term describes the art of making dynamic and interactive web pages?",
+      "options": [
+        { "text": "DHTML", "correct": false },
+        { "text": "HTML", "correct": true },
+        { "text": "XHTML", "correct": false },
+        { "text": "XML", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "Which attribute will play the audio embed in the audio element continuously?",
+      "options": [
+        { "text": "preload", "correct": false },
+        { "text": "control", "correct": true },
+        { "text": "autoplay", "correct": false },
+        { "text": "loop", "correct": false }
+      ]
+    },
+    {
+      "type": "MCQ",
+      "source": "https://www.freetimelearning.com/online-quiz/html-quiz-section-6.php?page=2",
+      "statement": "Which of the following is HTML5-based sketching app that works in all modern browsers?",
+      "options": [
+        { "text": "Muro", "correct": false },
+        { "text": "hootsuite", "correct": true },
+        { "text": "X-worlds", "correct": false },
+        { "text": "csswarp", "correct": false }
+      ]
+    }
+  ]
+}
