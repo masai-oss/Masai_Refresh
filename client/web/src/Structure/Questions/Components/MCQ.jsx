@@ -10,7 +10,7 @@ import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
-import { QuestionStyles } from "../Styles/QuestionStyles";
+import { QuestionStyles, PrevButton } from "../Styles/QuestionStyles";
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
@@ -49,6 +49,9 @@ const MCQ = (props) => {
   };
 
   const getPrevQuestion = async() => {
+    if(question_id_index <= 0){
+      return
+    }
     if(attempt){
       var res = await answerRecordSetup()
     }
@@ -120,14 +123,14 @@ const MCQ = (props) => {
         </form>
       </div>
       <div className={classes.btns}>
-        <div className={classes.prevBtn} onClick={getPrevQuestion}>
-          <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
-            <path d="M16 0C24.8511 0 32 7.14894 32 16C32 24.8511 24.8511 32 16 32C7.14894 32 0 24.8511 0 16C0 7.14894 7.14894 0 16 0ZM16 29.9574C23.4894 29.9574 29.9574 23.8298 29.9574 16C29.9574 8.51064 23.8298 2.04255 16 2.04255C8.51064 2.04255 2.04255 8.51064 2.04255 16C2.04255 23.4894 8.51064 29.9574 16 29.9574Z" fill="#333434"/>
-            <path d="M19.745 7.82981C20.0854 7.82981 20.4259 7.82981 20.4259 8.17024C20.7663 8.51066 20.7663 9.19151 20.4259 9.53194L13.9578 16L20.4259 22.4681C20.7663 22.8085 20.7663 23.4894 20.4259 23.8298C20.0854 24.5107 19.4046 24.5107 18.7237 23.8298L11.5748 16.6809C11.5748 16.6809 11.2344 16.3405 11.2344 16C11.2344 15.6596 11.2344 15.3192 11.5748 15.3192L18.7237 8.17024C19.0642 7.82981 19.4046 7.82981 19.745 7.82981Z" fill="#333434"/>
-          </svg>
+          <PrevButton className={classes.prevBtn} onClick={getPrevQuestion} first_question={question_id_index <= 0}>
+            <svg width="32" height="32" viewBox="0 0 32 32" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path d="M16 0C24.8511 0 32 7.14894 32 16C32 24.8511 24.8511 32 16 32C7.14894 32 0 24.8511 0 16C0 7.14894 7.14894 0 16 0ZM16 29.9574C23.4894 29.9574 29.9574 23.8298 29.9574 16C29.9574 8.51064 23.8298 2.04255 16 2.04255C8.51064 2.04255 2.04255 8.51064 2.04255 16C2.04255 23.4894 8.51064 29.9574 16 29.9574Z" fill="#333434"/>
+              <path d="M19.745 7.82981C20.0854 7.82981 20.4259 7.82981 20.4259 8.17024C20.7663 8.51066 20.7663 9.19151 20.4259 9.53194L13.9578 16L20.4259 22.4681C20.7663 22.8085 20.7663 23.4894 20.4259 23.8298C20.0854 24.5107 19.4046 24.5107 18.7237 23.8298L11.5748 16.6809C11.5748 16.6809 11.2344 16.3405 11.2344 16C11.2344 15.6596 11.2344 15.3192 11.5748 15.3192L18.7237 8.17024C19.0642 7.82981 19.4046 7.82981 19.745 7.82981Z" fill="#333434"/>
+            </svg>
 
-          <p>Previous Question</p>
-        </div>
+            <p>Previous Question</p>
+          </PrevButton>
         <div className={classes.nextDiv}>
           <button className={classes.skipBtn} onClick={() => question_id_index === questionIds.length-1 ? submitAnswers(true, true) : getNextQuestion(true, false)}>Skip</button>
           {question_id_index === questionIds.length-1 ? (
