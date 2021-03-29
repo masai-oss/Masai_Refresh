@@ -26,6 +26,7 @@ export const getResultFailure = (payload) => ({
 
 
 export const getResult = ({attempt_id}) => (dispatch) => {
+  console.log(`${RESULT_API}/result/${attempt_id}`)
   dispatch(getResultRequest())
   const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
@@ -33,6 +34,6 @@ export const getResult = ({attempt_id}) => (dispatch) => {
     url: `${RESULT_API}/result/${attempt_id}`,
     headers: { Authorization: `Bearer ${token}` },
   })
-  .then((res) => dispatch(getResultSuccess(res.data)))
+  .then((res) => dispatch(getResultSuccess(res.data.result)))
   .catch((err) => dispatch(getResultFailure(err)));
 };

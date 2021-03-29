@@ -1,6 +1,6 @@
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { topicActions } from "../State/action";
+import { questionActions } from '../../Questions'
 import { useHistory } from "react-router";
 import { CustomDialog } from "../../Common/CustomDialog";
 
@@ -10,14 +10,19 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const history = useHistory();
   const isLoadingQuiz = useSelector((state) => state.topics.isLoadingQuiz);
   const isSuccessQuiz = useSelector((state) => state.topics.isSuccessQuiz);
-  const startQuiz = () => {
-    dispatch(topicActions.attemptQuiz(topicId)).then((res) => {
-      if (res.final === "success") {
-        history.replace(`/quiz_questions/${topic}`);
-      } else if (res.final === "failure") {
-        alert("Unable to start Quiz try later");
-      }
-    });
+  
+  const startQuiz = async() => {
+    let res = await dispatch(questionActions.attemptQuiz({topic_id: topicId, topic}))
+    if (res.output) {
+      let state = res.state
+      let {attempt_id, submission_id} = state
+      let question_id = state.questions[0]
+      let payload = {attempt_id, submission_id, question_id}
+      await dispatch(questionActions.getQuizQuestion(payload))
+      history.replace(`/quiz_questions?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${question_id}&topic=${topic}`);
+    } else{
+      alert("Unable to start Quiz try later");
+    }
   };
   return (
     <div>

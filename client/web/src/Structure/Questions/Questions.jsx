@@ -1,23 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { Redirect } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
+import { Redirect, useParams } from "react-router-dom";
 import { IsLoading } from "../Common";
-import { TopicChip } from "../Common/TopicChip";
+import { getParam, setParam } from '../../Utils/paramHelper'
 import { MCQ } from "./Components/MCQ";
-import Card from "@material-ui/core/Card";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
 
 const Questions = () => {
-  const question = useSelector((state) => state.questions.question);
-  const questionIds = useSelector((state) => state.topics.questionIds);
-  const isLoading = useSelector((state) => state.questions.isLoading);
-  const params = useParams();
-  const topicDisplay = params.topic;
-  const isError = useSelector((state) => state.questions.isError);
-  const lastQuestion = questionIds !== null && questionIds[questionIds.length - 1];
+  const {question, isLoading, isError} = useSelector((state) => state.questions, shallowEqual);
   const classes = QuestionStyles();
-  let queIndex = questionIds.indexOf(question?.id);
+  let search = window.location.search;
+  const attempt_id = getParam('attempt_id', undefined, search)
+  const submission_id = getParam('submission_id', undefined, search)
+  const question_id = getParam('question_id', undefined, search)
+  const topic = getParam('topic', undefined, search)
+
+  let props = {
+    attempt_id,
+    submission_id,
+    question_id,
+    topic
+  }
 
   return (
     <>
@@ -26,20 +29,15 @@ const Questions = () => {
       ) : isError ? (
         <div>...something went wrong</div>
       ) : question !== null ? (
-        <Card className={classes.cardShadow}>
-          <div className={classes.main}>
-            <TopicChip
-              topicDisplay={`${queIndex + 1} / ${questionIds.length}`}
-            />
-            <TopicChip topicDisplay={topicDisplay} />
-            <TopicChip topicDisplay={question.type} />
-          </div>
-          {question.type === "MCQ" ? (
-            <MCQ data={question} lastQuestion={lastQuestion} />
-          ) : (
-            "Questions"
-          )}
-        </Card>
+        <div className={classes.main}>
+            <div>
+              {question.type === "MCQ" ? (
+                <MCQ {...props} />
+              ) : (
+                "Questions"
+              )}
+            </div>
+        </div>
       ) : (
         <Redirect to="/quiz_topics" />
       )}

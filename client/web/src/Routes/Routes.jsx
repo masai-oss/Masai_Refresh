@@ -1,8 +1,7 @@
 import React from "react";
 import {
   Route as PublicRoute,
-  Switch,
-  BrowserRouter as Router,
+  Switch
 } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
@@ -17,13 +16,12 @@ import { Results_display } from "../Structure/Results Display";
 const Routes = () => {
   return (
     <>
-      <Router>
         <Switch>
 
           {/* all private routes here */}
           <PrivateRoute exact path="/" component={Dashboard} />
           <PrivateRoute exact path="/quiz_topics" component={Topics} />
-          <PrivateRoute exact path="/quiz_questions/:topic" component={Questions} />
+          <PrivateRoute exact path="/quiz_questions" component={Questions} />
           <PrivateRoute exact path="/results_display" component={Results_display} />
 
           {/* all admin routes here */}
@@ -40,7 +38,6 @@ const Routes = () => {
           </PublicRoute>
 
         </Switch>
-      </Router>
     </>
   );
 };
