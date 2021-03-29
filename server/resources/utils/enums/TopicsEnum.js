@@ -10,6 +10,7 @@ const topics = {
   FRONTEND: "FRONTEND",
   BACKEND: "BACKEND",
   NODEJS: "NODEJS",
+  JAVA: "JAVA",
 };
 
 module.exports = Object.freeze(topics);
