@@ -10,6 +10,7 @@ import {
   Box
 } from "@material-ui/core";
 import { TopicStyle } from "../Styles/TopicStyles";
+import { ModalReport } from "../../Results Display/Components/ModalReport";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
@@ -122,6 +123,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
           </CardActions>
         </CardActionArea>
       </Card>
+      <ModalReport/>
     </Grid>
   );
 };

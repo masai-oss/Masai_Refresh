@@ -42,28 +42,29 @@ const ModalReport = () => {
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title" className={classes.title}>
-          Tell us how we can help
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <h5 className={classes.reason}>PICK A REASON</h5>
-            <div className={classes.flex}>
-              <div>Question Unclear</div>
-              <div>Wrong Options</div>
-              <div>Insufficient Data</div>
-              <div>Explanation Unclear</div>
-            </div>
-            <h3 className={classes.margin}>Please provide some more info</h3>
-            <TextareaAutosize
-              aria-label="Explanation"
-              rowsMin={9}
-              name="explanation"
-              className={classes.textAreaWidth}
-              required
-            />
-          </DialogContentText>
-        </DialogContent>
+        <div id="alert-dialog-title" className={classes.title}>
+          Report issue with a question
+        </div>
+        <hr />
+
+        <div className={classes.title}>
+          What seems to be the issue with the question ?
+        </div>
+        <div className={classes.flex}>
+          <div>Question Unclear</div>
+          <div>Wrong Options</div>
+          <div>Insufficient Data</div>
+          <div>Explanation Unclear</div>
+        </div>
+        <h3 className={classes.margin}>Please provide some more info</h3>
+        <TextareaAutosize
+          aria-label="Explanation"
+          rowsMin={9}
+          name="explanation"
+          className={classes.textAreaWidth}
+          required
+        />
+
         <DialogActions>
           <Button onClick={handleClose} style={{ float: "left" }}>
             Close
