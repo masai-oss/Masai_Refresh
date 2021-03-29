@@ -33,6 +33,7 @@ const getQuestionSuccess = (payload) => ({
 });
 
 const getQuestion = ({ attemptId, submissionId, question_id }) => (dispatch) => {
+  console.log(attemptId, submissionId, question_id)
   dispatch(getQuestionLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
@@ -120,7 +121,7 @@ const attemptQuizFailure = (payload) => ({
   payload,
 });
 
-const attemptQuiz = ({topic_id, size}) => (dispatch) => {
+const attemptQuiz = ({topic_id, size}) => (dispatch, state) => {
   dispatch(attemptQuizLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
@@ -137,6 +138,7 @@ const attemptQuiz = ({topic_id, size}) => (dispatch) => {
 
   return axios(config)
   .then(res => {
+    console.log(state.getState())
     dispatch(attemptQuizSuccess(res.data.data));
     return {output: true}
   })

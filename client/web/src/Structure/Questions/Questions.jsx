@@ -8,7 +8,7 @@ import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
 
 const Questions = () => {
   const question = useSelector((state) => state.questions.question);
-  const questionIds = useSelector((state) => state.topics.questionIds);
+  const questionIds = useSelector((state) => state.questions.questionIds);
   const isLoading = useSelector((state) => state.questions.isLoading);
   const params = useParams();
   const topicDisplay = params.topic;

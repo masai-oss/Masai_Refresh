@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
-import { topicActions } from "../State/action";
+import { questionActions } from '../../Questions'
 import { useHistory } from "react-router";
 import { LoadingButton } from "../../Common";
 
@@ -22,11 +22,17 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const history = useHistory();
   const isLoadingQuiz = useSelector((state) => state.topics.isLoadingQuiz);
   const isSuccessQuiz = useSelector((state) => state.topics.isSuccessQuiz);
+  let attempt_id = useSelector((state) => state.questions.attemptId);
+  let submission_id = useSelector((state) => state.questions.submissionId);
+  let question_ids = useSelector((state) => state.questions.questionIds);
+  
   const startQuiz = () => {
-    dispatch(topicActions.attemptQuiz(topicId)).then((res) => {
-      if (res.final === "success") {
+    dispatch(questionActions.attemptQuiz({topic_id: topicId})).then((res) => {
+      if (res.output) {
+        let question_id = question_ids[0]
+        dispatch(questionActions.getQuestion({attempt_id, submission_id, question_id}))
         history.replace(`/quiz_questions/${topic}`);
-      } else if (res.final === "failure") {
+      } else{
         alert("Unable to start Quiz try later");
       }
     });
