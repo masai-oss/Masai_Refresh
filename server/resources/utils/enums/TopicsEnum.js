@@ -9,7 +9,6 @@ const topics = {
   NODE_JS: "NODE_JS",
   FRONTEND: "FRONTEND",
   BACKEND: "BACKEND",
-  NODEJS: "NODEJS",
   JAVA: "JAVA",
   SQL: "SQL",
   PYTHON: "PYTHON",
