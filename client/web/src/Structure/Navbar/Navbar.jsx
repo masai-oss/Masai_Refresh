@@ -10,9 +10,14 @@ import {
 import { NavbarStyles } from "./Styles/NavbarStyle";
 import MasaiLogo from "../../Resources/MasaiLogo.svg";
 import { useHistory } from "react-router";
-import { Dialog } from "../Common/Dialog";
+import { CustomDialog } from "../Common/CustomDialog";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { authActions } from "../Authentication";
+
+const REACT_APP_AUTH_GOOGLE_LOGOUT_URL =
+  process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -35,6 +40,12 @@ function Navbar(props) {
   const classes = NavbarStyles();
   const history = useHistory();
   const [open, setOpen] = useState(false);
+  const dispatch = useDispatch();
+
+  const logout = () => {
+    window.open(REACT_APP_AUTH_GOOGLE_LOGOUT_URL, "_self");
+    dispatch(authActions.logoutProcess());
+  };
 
   const handleClose = () => {
     setOpen(false);
@@ -66,12 +77,13 @@ function Navbar(props) {
         <div className={classes.content} />
         {children}
       </main>
-      <Dialog
+      <CustomDialog
         open={open}
         handleClose={handleClose}
         message="Are you sure you want to logout?"
         okBtnTitle="Agree"
         cancelBtnTitle="Cancel"
+        onOkAction={logout}
       />
     </>
   );
