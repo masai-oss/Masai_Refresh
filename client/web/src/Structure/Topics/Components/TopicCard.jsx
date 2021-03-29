@@ -109,7 +109,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                     gutterBottom
                     style={{ fontWeight: "bold" }}
                   >
-                    {topic}
+                    {topic.split("_").join(" ")}
                   </Typography>
                   <Typography variant="button" display="block" gutterBottom>
                     HTML, CSS, HTML, CSS

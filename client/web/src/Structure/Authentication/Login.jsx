@@ -7,13 +7,11 @@ import { storageEnums } from "../../Enums/storageEnums";
 import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
-import { LoginStyles } from "./Styles/LoginStyles";
 
 const Login = () => {
   const dispatch = useDispatch();
   const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
-  let isAuth = getFromStorage(storageEnums.TOKEN);
-  const classes = LoginStyles();
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   useEffect(() => {
     dispatch(authActions.userLoginProcess());
     // eslint-disable-next-line react-hooks/exhaustive-deps

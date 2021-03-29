@@ -102,7 +102,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
               value={value}
               onChange={handleChange}
               textColor="inherit"
-              indicatorColor="none"
+              indicatorColor="primary"
             >
               <Tab
                 style={{
