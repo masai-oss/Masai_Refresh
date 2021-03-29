@@ -9,6 +9,8 @@ const {
   loginFailure,
 } = require("../controller/authController");
 
+const CLIENT_LOGIN_PAGE = process.env.CLIENT_LOGIN_PAGE;
+
 userAuthRoute.get(
   "/google",
   passport.authenticate("google", {
@@ -18,18 +20,15 @@ userAuthRoute.get(
 
 userAuthRoute.get(
   "/google/callback",
-  passport.authenticate("google", { failureRedirect: "/login/failed" }),
+  passport.authenticate("google", { failureRedirect: CLIENT_LOGIN_PAGE }),
   successRedirect
 );
 
-userAuthRoute.get(
-  "/zohocrm",
-  passport.authenticate('zoho-crm')
-);
+userAuthRoute.get("/zohocrm", passport.authenticate("zoho-crm"));
 
 userAuthRoute.get(
   "/zohocrm/callback",
-  passport.authenticate("zoho-crm", { failureRedirect: "/login/failed" }),
+  passport.authenticate("zoho-crm", { failureRedirect: CLIENT_LOGIN_PAGE }),
   successRedirect
 );
 
