@@ -31,4 +31,17 @@ async function dumpData(filter, update) {
   }
 }
 
-module.exports = dumpData;
+function createNewTopicDocument(language, data) {
+  const doc = new Topic({
+    name: language,
+    icon: " ",
+    questions: [...data],
+  });
+  doc.save((err, doc) => {
+    if (err) return console.error(err);
+    console.log(`Success ${language}`);
+    db.close();
+  });
+}
+
+module.exports = { dumpData, createNewTopicDocument };
