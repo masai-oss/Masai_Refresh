@@ -10,6 +10,7 @@ const ZOHO_CALLBACK_URL = process.env.ZOHO_CALLBACK_URL;
 const ZOHO_SCOPE = process.env.ZOHO_SCOPE;
 const ZOHO_RESPONSE_TYPE = process.env.ZOHO_RESPONSE_TYPE;
 const ZOHO_ACCESS_TYPE = process.env.ZOHO_ACCESS_TYPE;
+const ADMIN_CONTROL_EMAIL = process.env.ADMIN_CONTROL_EMAIL;
 
 const zohoCrmStrategy = new ZohoCRMStrategy(
   {
@@ -28,26 +29,41 @@ const zohoCrmStrategy = new ZohoCRMStrategy(
         provider,
         _json: { Email },
       } = profile;
-      const currentUser = await User.findOne({
-        oauth: { $elemMatch: { provider: "zoho-crm", identifier: id } },
+      const oauth = { provider: provider, identifier: id };
+      const userPresentWithGmail = await User.findOne({
+        email: Email,
       });
-      if (!currentUser) {
-        const newUser = await new User({
-          name: displayName,
-          email: Email,
-          role: "user",
-          oauth: [
-            {
-              provider: provider,
-              identifier: id,
-            },
-          ],
-        }).save();
-        if (newUser) {
-          return done(null, newUser);
+      if (!userPresentWithGmail) {
+        const currentUser = await User.findOne({
+          oauth: { $elemMatch: oauth },
+        });
+        const role =
+          Email.split("@")[1] === ADMIN_CONTROL_EMAIL ? "admin" : "user";
+        if (!currentUser) {
+          const newUser = await new User({
+            name: displayName,
+            email: Email,
+            role: role,
+            oauth: [oauth],
+          }).save();
+          if (newUser) {
+            return done(null, newUser);
+          }
         }
+        return done(null, currentUser);
+      } else if (
+        userPresentWithGmail.oauth.length === 2 ||
+        userPresentWithGmail.oauth[0].provider === provider
+      ) {
+        return done(null, userPresentWithGmail);
+      } else {
+        const modifiedUser = await User.findOneAndUpdate(
+          { email: Email },
+          { $push: { oauth: oauth } },
+          { returnOriginal: false }
+        );
+        return done(null, modifiedUser);
       }
-      done(null, currentUser);
     } catch (err) {
       done(new Error(`Failed ${err}`));
     }

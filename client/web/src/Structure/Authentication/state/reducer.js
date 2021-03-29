@@ -24,6 +24,10 @@ const authentication = (state = initState, { type, payload }) => {
     case authConstants.USERS_LOGIN_SUCCESS:
       return {
         ...state,
+        token: getFromStorage(storageEnums.TOKEN, ""),
+        name: getFromStorage(storageEnums.NAME, ""),
+        email: getFromStorage(storageEnums.EMAIL, ""),
+        profilePic: getFromStorage(storageEnums.PROFILEPIC, ""),
         isLoggingIn: false,
         loginError: false,
       };

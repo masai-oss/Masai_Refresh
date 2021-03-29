@@ -1,23 +1,11 @@
 import React from "react";
-import {
-  Button,
-  Dialog,
-  DialogActions,
-  DialogContent,
-  DialogContentText,
-  DialogTitle,
-  useMediaQuery,
-} from "@material-ui/core";
-import { useTheme } from "@material-ui/core/styles";
 import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from '../../Questions'
 import { useHistory } from "react-router";
-import { LoadingButton } from "../../Common";
+import { CustomDialog } from "../../Common/CustomDialog";
 
 const StartQuizModal = ({ modalData, handleClose }) => {
   const { open, topic, topicId } = modalData;
-  const theme = useTheme();
-  const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
   const dispatch = useDispatch();
   const history = useHistory();
   const isLoadingQuiz = useSelector((state) => state.topics.isLoadingQuiz);
@@ -39,36 +27,17 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   };
   return (
     <div>
-      <Dialog
-        fullScreen={fullScreen}
+      <CustomDialog
+        heading="START QUIZ"
         open={open}
-        aria-labelledby="responsive-dialog-title"
-        fullWidth={true}
-        maxWidth="md"
-      >
-        <DialogTitle id="responsive-dialog-title">Start Quiz</DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            {`You are about to start a quiz on ${topic}. Are you sure you wanna go ahead`}
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button
-            autoFocus
-            onClick={handleClose}
-            disabled={isLoadingQuiz}
-            color="primary"
-          >
-            Cancel
-          </Button>
-          <LoadingButton
-            isLoading={isLoadingQuiz}
-            isSuccess={isSuccessQuiz}
-            innerText="Start"
-            submit={startQuiz}
-          />
-        </DialogActions>
-      </Dialog>
+        handleClose={handleClose}
+        message={`You are about to start a quiz on ${topic.split("_").join(" ")}. Are you sure you wanna go ahead`}
+        okBtnTitle="Start"
+        cancelBtnTitle="Cancel"
+        onOkAction={startQuiz}
+        isLoading={isLoadingQuiz}
+        isSuccess={isSuccessQuiz}
+      />
     </div>
   );
 };

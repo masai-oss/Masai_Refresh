@@ -40,6 +40,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
           <CardContent
             className={classes.cardStyle}
             onClick={() => handleOpenProficiency({ topic, proficiency })}
+            title="Open Proficiency Data"
           >
             {(lastValue.length && (
               <Typography
@@ -95,6 +96,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
           <CardActions
             className={classes.cardActions}
             onClick={() => handleClickOpen({ topic, topicId })}
+            title={"Attempt Quiz on " + topic}
           >
             <Grid container alignItems="center" spacing={3}>
               <Grid item>
@@ -109,7 +111,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                     gutterBottom
                     style={{ fontWeight: "bold" }}
                   >
-                    {topic}
+                    {topic.split("_").join(" ")}
                   </Typography>
                   <Typography variant="button" display="block" gutterBottom>
                     HTML, CSS, HTML, CSS
