@@ -1,4 +1,5 @@
 import { makeStyles } from "@material-ui/core/styles";
+import styled from 'styled-components'
 
 const QuestionStyles = makeStyles((theme) => ({
   main: {
@@ -32,9 +33,7 @@ const QuestionStyles = makeStyles((theme) => ({
   },
   prevBtn: {
     display: 'flex',
-    justifyContent:'space-between',
     alignItems:'center',
-    cursor: 'pointer',    
     
     '& p':{
       padding: '16px',
@@ -49,8 +48,18 @@ const QuestionStyles = makeStyles((theme) => ({
   },
   skipBtn: {
     backgroundColor:'inherit',
+    fontFamily: 'Open Sans',
+    fontStyle: 'normal',
+    fontWeight: '400',
+    fontSize: '16px',
+    marginRight: '20px'
   }
 
 }));
 
-export { QuestionStyles };
+const PrevButton = styled.div`
+  opacity: ${props => props.first_question ? 0.2 : 1};
+  cursor: ${props => props.first_question ? 'default' : 'pointer'};  
+`
+
+export { QuestionStyles, PrevButton };  
