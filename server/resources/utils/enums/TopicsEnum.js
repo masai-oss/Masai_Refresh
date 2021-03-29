@@ -12,6 +12,7 @@ const topics = {
   NODEJS: "NODEJS",
   JAVA: "JAVA",
   SQL: "SQL",
+  PYTHON: "PYTHON",
 };
 
 module.exports = Object.freeze(topics);
