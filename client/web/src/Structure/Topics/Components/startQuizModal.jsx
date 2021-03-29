@@ -10,20 +10,19 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const history = useHistory();
   const isLoadingQuiz = useSelector((state) => state.topics.isLoadingQuiz);
   const isSuccessQuiz = useSelector((state) => state.topics.isSuccessQuiz);
-  let attempt_id = useSelector((state) => state.questions.attemptId);
-  let submission_id = useSelector((state) => state.questions.submissionId);
-  let question_ids = useSelector((state) => state.questions.questionIds);
   
-  const startQuiz = () => {
-    dispatch(questionActions.attemptQuiz({topic_id: topicId})).then((res) => {
-      if (res.output) {
-        let question_id = question_ids[0]
-        dispatch(questionActions.getQuestion({attempt_id, submission_id, question_id}))
-        history.replace(`/quiz_questions/${topic}`);
-      } else{
-        alert("Unable to start Quiz try later");
-      }
-    });
+  const startQuiz = async() => {
+    let res = await dispatch(questionActions.attemptQuiz({topic_id: topicId, topic}))
+    if (res.output) {
+      let state = res.state
+      let {attempt_id, submission_id} = state
+      let question_id = state.questions[0]
+      let payload = {attempt_id, submission_id, question_id}
+      await dispatch(questionActions.getQuizQuestion(payload))
+      history.replace(`/quiz_questions?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${question_id}&topic=${topic}`);
+    } else{
+      alert("Unable to start Quiz try later");
+    }
   };
   return (
     <div>

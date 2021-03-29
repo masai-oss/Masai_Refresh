@@ -1,9 +1,9 @@
 import { storageEnums } from "../../../Enums/storageEnums";
 import { getFromStorage, saveToStorage } from "../../../Utils/localStorageHelper";
 import { 
-  GET_QUESTION_LOADING, 
-  GET_QUESTION_FAILURE, 
-  GET_QUESTION_SUCCESS,
+  GET_QUIZ_QUESTION_LOADING, 
+  GET_QUIZ_QUESTION_FAILURE, 
+  GET_QUIZ_QUESTION_SUCCESS,
 
   RECORD_ANSWER_LOADING,
   RECORD_ANSWER_SUCCESS,
@@ -22,25 +22,27 @@ const initState = {
   recordAnswerMsg:'',
   questionIds: getFromStorage(storageEnums.ALL_QUESTIONS_IDS, []),
   attemptId: getFromStorage(storageEnums.ATTEMPT_ID, ''),
-  submissionId: getFromStorage(storageEnums.SUBMISSION_ID, '')
+  submissionId: getFromStorage(storageEnums.SUBMISSION_ID, ''),
+  topic: getFromStorage(storageEnums.TOPIC, '')
 };
 
 const questions = (state = initState, { type, payload }) => {
   switch (type) {
-    case GET_QUESTION_LOADING:
+    case GET_QUIZ_QUESTION_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
       };
-    case GET_QUESTION_SUCCESS:
+    case GET_QUIZ_QUESTION_SUCCESS:
       saveToStorage(storageEnums.QUESTION_PRACTICE, payload)
       return {
         ...state,
         isLoading: false,
         question: payload,
+        isError: false
       };
-    case GET_QUESTION_FAILURE:
+    case GET_QUIZ_QUESTION_FAILURE:
       return {
         ...state,
         isError: true,
@@ -75,18 +77,25 @@ const questions = (state = initState, { type, payload }) => {
         ...state,
         isLoading: true,
         isError: false,
-        errMessage:''
+        errMessage:'',
+        questionIds: [],
+        attemptId: '',
+        submissionId: '',
+        topic: ''
       }
     case ATTEMPT_QUIZ_SUCCESS:
       saveToStorage(storageEnums.ATTEMPT_ID, payload.attempt_id)
       saveToStorage(storageEnums.SUBMISSION_ID, payload.submission_id)
       saveToStorage(storageEnums.ALL_QUESTIONS_IDS, payload.questions)
+      saveToStorage(storageEnums.TOPIC, payload.topic)
+      console.log(payload.topic)
       return {
         ...state,
         isLoading: false,
         questionIds: payload.questions,
         attemptId: payload.attempt_id,
-        submissionId: payload.submission_id
+        submissionId: payload.submission_id,
+        topic: payload.topic
       }
     case ATTEMPT_QUIZ_FAILURE:
       return {

@@ -1,7 +1,7 @@
 import { 
-  GET_QUESTION_LOADING, 
-  GET_QUESTION_FAILURE, 
-  GET_QUESTION_SUCCESS,
+  GET_QUIZ_QUESTION_LOADING, 
+  GET_QUIZ_QUESTION_FAILURE, 
+  GET_QUIZ_QUESTION_SUCCESS,
   
   RECORD_ANSWER_LOADING,
   RECORD_ANSWER_SUCCESS,
@@ -18,37 +18,42 @@ const ATTEMPT_API_URL = process.env.REACT_APP_ATTEMPT_URL;
 
 
 
-const getQuestionLoading = () => ({
-  type: GET_QUESTION_LOADING,
+const getQuizQuestionLoading = () => ({
+  type: GET_QUIZ_QUESTION_LOADING,
 });
 
-const getQuestionFailure = (payload) => ({
-  type: GET_QUESTION_FAILURE,
+const getQuizQuestionFailure = (payload) => ({
+  type: GET_QUIZ_QUESTION_FAILURE,
   payload,
 });
 
-const getQuestionSuccess = (payload) => ({
-  type: GET_QUESTION_SUCCESS,
+const getQuizQuestionSuccess = (payload) => ({
+  type: GET_QUIZ_QUESTION_SUCCESS,
   payload,
 });
 
-const getQuestion = ({ attemptId, submissionId, question_id }) => (dispatch) => {
-  console.log(attemptId, submissionId, question_id)
-  dispatch(getQuestionLoading());
+const getQuizQuestion = (payload) => (dispatch) => {
+  const { attempt_id, submission_id, question_id } = payload
+  dispatch(getQuizQuestionLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  axios({
+  return axios({
     method: "GET",
-    url: `${ATTEMPT_API_URL}/next?attempt_id=${attemptId}&submission_id=${submissionId}&question_id=${question_id}`,
+    url: `${ATTEMPT_API_URL}/question`,
     headers: {
       Authorization: `Bearer ${token}`,
+    },
+    params: {
+      attempt_id,
+      submission_id,
+      question_id
     }
   })
   .then((res) => {
-    dispatch(getQuestionSuccess(res.data.data))
-    return {output: true}
+    dispatch(getQuizQuestionSuccess(res.data.data))
+    return {output: true} 
   })
   .catch((err) => {
-    dispatch(getQuestionFailure(err))
+    dispatch(getQuizQuestionFailure(err + ''))
     return {output: false}
   });
 };
@@ -73,7 +78,7 @@ const recordAnswerFailure = (payload) => ({
   payload,
 });
 
-const recordAnswer = ({submission_id, attempt_id, answer_type, response, selected, decision}) => (dispatch) => {
+const recordAnswer = ({submission_id, attempt_id, answer_type, response, selected, decision, question_id}) => (dispatch) => {
   dispatch(recordAnswerLoading())
   const token = getFromStorage(storageEnums.TOKEN, "");
   return axios({
@@ -86,6 +91,7 @@ const recordAnswer = ({submission_id, attempt_id, answer_type, response, selecte
     data: {
       submission_id,
       attempt_id,
+      question_id,
       answer_type,
       response,
       selected,
@@ -121,7 +127,7 @@ const attemptQuizFailure = (payload) => ({
   payload,
 });
 
-const attemptQuiz = ({topic_id, size}) => (dispatch, state) => {
+const attemptQuiz = ({topic_id, topic, size}) => (dispatch, state) => {
   dispatch(attemptQuizLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
@@ -138,9 +144,8 @@ const attemptQuiz = ({topic_id, size}) => (dispatch, state) => {
 
   return axios(config)
   .then(res => {
-    console.log(state.getState())
     dispatch(attemptQuizSuccess(res.data.data));
-    return {output: true}
+    return {output: true, state: {...res.data.data, topic}}
   })
   .catch(err => {
     dispatch(attemptQuizFailure(err.response));
@@ -151,7 +156,7 @@ const attemptQuiz = ({topic_id, size}) => (dispatch, state) => {
 
 
 export const questionActions = {
-  getQuestion,
+  getQuizQuestion,
   recordAnswer,
   attemptQuiz
 };

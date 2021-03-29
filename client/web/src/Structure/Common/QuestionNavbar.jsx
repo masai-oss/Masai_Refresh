@@ -27,19 +27,14 @@ const useStyles = makeStyles((theme) => ({
     },
 }));
 
-export const QuestionNavbar = ({ topicDisplay, type, queIndex, questionIds }) => {
+export const QuestionNavbar = ({ topicDisplay, type, q_num, len }) => {
   const classes = useStyles();
 
   return (
     <div className={classes.main}>
-        {/* <TopicChip
-        topicDisplay={`${queIndex + 1} / ${questionIds.length}`}
-        />
-        <TopicChip topicDisplay={topicDisplay} />
-        <TopicChip topicDisplay={question.type} /> */}
         <div className={classes.topicChip}>{type}</div>
         <div className={classes.topicChip}>{topicDisplay}</div>
-        <div className={classes.topicChip}>{`${queIndex + 1} / ${questionIds.length}`}</div>
+        <div className={classes.topicChip}>{`${q_num} / ${len}`}</div>
     </div>
   )
 };

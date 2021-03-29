@@ -1,21 +1,26 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import { useParams } from "react-router";
-import { Redirect } from "react-router-dom";
+import { shallowEqual, useSelector } from "react-redux";
+import { Redirect, useParams } from "react-router-dom";
 import { IsLoading } from "../Common";
+import { getParam, setParam } from '../../Utils/paramHelper'
 import { MCQ } from "./Components/MCQ";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
 
 const Questions = () => {
-  const question = useSelector((state) => state.questions.question);
-  const questionIds = useSelector((state) => state.questions.questionIds);
-  const isLoading = useSelector((state) => state.questions.isLoading);
-  const params = useParams();
-  const topicDisplay = params.topic;
-  const isError = useSelector((state) => state.questions.isError);
-  const lastQuestion = questionIds !== null && questionIds[questionIds.length - 1];
+  const {question, isLoading, isError} = useSelector((state) => state.questions, shallowEqual);
   const classes = QuestionStyles();
-  let queIndex = questionIds.indexOf(question?.id);
+  let search = window.location.search;
+  const attempt_id = getParam('attempt_id', undefined, search)
+  const submission_id = getParam('submission_id', undefined, search)
+  const question_id = getParam('question_id', undefined, search)
+  const topic = getParam('topic', undefined, search)
+
+  let props = {
+    attempt_id,
+    submission_id,
+    question_id,
+    topic
+  }
 
   return (
     <>
@@ -27,7 +32,7 @@ const Questions = () => {
         <div className={classes.main}>
             <div>
               {question.type === "MCQ" ? (
-                <MCQ data={question} queIndex={queIndex} questionIds={questionIds} topicDisplay={topicDisplay} lastQuestion={lastQuestion} />
+                <MCQ {...props} />
               ) : (
                 "Questions"
               )}

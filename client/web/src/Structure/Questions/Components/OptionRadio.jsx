@@ -14,7 +14,7 @@ const OptionRadio = ({ id, value }) => {
         borderRadius={2}
         className={classes.main}
       >
-        <FormControlLabel className={classes.label} value={id} control={<Radio color={'rgb(159,159,159,1)'} className={classes.radio} />} label={value} />
+        <FormControlLabel className={classes.label} value={id} control={<Radio className={classes.radio} />} label={value} />
       </Box>
     </Grid>
   );
