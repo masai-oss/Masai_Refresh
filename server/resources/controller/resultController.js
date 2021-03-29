@@ -128,8 +128,8 @@ const getResults = async (req, res) => {
           });
         }
       });
-      let promiseAll = await Promise.all(answerAndId);
-      let updateSubmission = await Submission.findOneAndUpdate(
+      await Promise.all(answerAndId);
+      await Submission.findOneAndUpdate(
         {
           $and: [
             { attempts: { $elemMatch: { _id: attempt_id } } },

@@ -34,7 +34,7 @@ const resultReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        result: payload.result,
+        result: payload,
       };
 
     default:

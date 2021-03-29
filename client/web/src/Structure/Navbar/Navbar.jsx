@@ -60,8 +60,8 @@ function Navbar(props) {
       <HideOnScroll {...props}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <div className={classes.navbarName}>
-              <img src={MasaiLogo} alt="masaiLogo" onClick={goHome} />
+            <div className={classes.navbarName} style={{cursor: "pointer"}} onClick={goHome} >
+              <img src={MasaiLogo} alt="masaiLogo" />
               <p className={classes.refresh}>refresh</p>
             </div>
             {isAuth && (
