@@ -7,9 +7,10 @@ import {
   GET_RESULT_LOADING,
   GET_RESULT_SUCCESS,
   GET_RESULT_FAILURE,
-  GET_REPORT_LOADING,
-  GET_REPORT_SUCCESS,
-  GET_REPORT_FAILURE,
+
+  SEND_REPORT_LOADING,
+  SEND_REPORT_SUCCESS,
+  SEND_REPORT_FAILURE,
 } from "./actionTypes";
 
 const initState = {
@@ -43,21 +44,21 @@ const resultReducer = (state = initState, { type, payload }) => {
         isLoading: false,
         result: payload,
       };
-    case GET_REPORT_LOADING:
+    case SEND_REPORT_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
         errorMessage: "",
       };
-    case GET_REPORT_FAILURE:
+    case SEND_REPORT_FAILURE:
       return {
         ...state,
         isLoading: false,
         isError: true,
         errorMessage: payload,
       };
-    case GET_REPORT_SUCCESS:
+    case SEND_REPORT_SUCCESS:
       return {
         ...state,
         isLoading: false,

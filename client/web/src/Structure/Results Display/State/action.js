@@ -2,9 +2,9 @@ import {
   GET_RESULT_LOADING,
   GET_RESULT_SUCCESS,
   GET_RESULT_FAILURE,
-  GET_REPORT_LOADING,
-  GET_REPORT_SUCCESS,
-  GET_REPORT_FAILURE,
+  SEND_REPORT_LOADING,
+  SEND_REPORT_SUCCESS,
+  SEND_REPORT_FAILURE,
 } from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
@@ -40,23 +40,23 @@ export const getResult = ({ attempt_id }) => (dispatch) => {
 
 //----------Report questions ------//
 
-export const getReportRequest = () => ({
-  type: GET_REPORT_LOADING,
+export const sendReportRequest = () => ({
+  type: SEND_REPORT_LOADING,
 });
 
-export const getReportSuccess = (payload) => ({
-  type: GET_REPORT_SUCCESS,
+export const sendReportSuccess = (payload) => ({
+  type: SEND_REPORT_SUCCESS,
   payload,
 });
 
-export const getReportFailure = (payload) => ({
-  type: GET_REPORT_FAILURE,
+export const sendReportFailure = (payload) => ({
+  type: SEND_REPORT_FAILURE,
   payload,
 });
 
-export const getReport = ({ question_id, reason, des }) => (dispatch) => {
-  dispatch(getReportRequest);
-  axios({
+export const sendReport = ({ question_id, reason, des }) => (dispatch) => {
+  dispatch(sendReportRequest);
+  return axios({
     method: "PATCH",
     url: `${REPORT_API}/report/${question_id}`,
     headers: { Authorization: `Bearer ${token}` },
@@ -65,6 +65,12 @@ export const getReport = ({ question_id, reason, des }) => (dispatch) => {
       description: des,
     },
   })
-    .then((res) => dispatch(getReportSuccess(res)))
-    .catch((err) => dispatch(getReportFailure(err)));
+  .then((res) => {
+    dispatch(sendReportSuccess(res))
+    return {output: true} 
+  })
+  .catch((err) => {
+    dispatch(sendReportFailure(err))
+    return {output: false} 
+  });
 };

@@ -3,6 +3,7 @@ const reason_types = {
   WRONG_OPTIONS: "Wrong Options",
   INSUFFICIENT_DATA: "Insufficient Data",
   EXPLANATION_NOT_CLEAR: "Explanation not clear",
+  OTHERS: "Others"
 };
 
 module.exports = Object.freeze(reason_types);
