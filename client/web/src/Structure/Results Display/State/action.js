@@ -27,7 +27,7 @@ const getResultFailure = (payload) => ({
   payload,
 });
 
-export const getResult = ({ attempt_id }) => (dispatch) => {
+const getResult = ({ attempt_id }) => (dispatch) => {
   dispatch(getResultRequest());
   axios({
     method: "GET",
@@ -54,7 +54,7 @@ const sendReportFailure = (payload) => ({
   payload,
 });
 
-export const sendReport = ({ question_id, reason, des }) => (dispatch) => {
+const sendReport = ({ question_id, reason, des }) => (dispatch) => {
   dispatch(sendReportRequest);
   return axios({
     method: "PATCH",
