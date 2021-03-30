@@ -57,7 +57,8 @@ export const CustomButton = styled.button`
 	border-radius: 8px;
 	color: ${props => props.submitBtn ? 'white' : '#21424A'};
 	margin: 0px 10px;
-	cursor: pointer;
+	cursor: ${props => props.disabled ? 'default' : 'pointer'};
+	opacity: ${props => props.disabled ? '0.2' : '1'};
 
 	:focus{
 		outline: none;
