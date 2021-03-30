@@ -2,7 +2,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { questionActions } from '../../Questions'
 import { useHistory } from "react-router";
-import { CustomDialog } from "../../Common/CustomDialog";
+import { CustomDialog } from "../../Common/DialogBoxes/CustomDialog";
 
 const StartQuizModal = ({ modalData, handleClose }) => {
   const { open, topic, topicId } = modalData;

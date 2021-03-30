@@ -10,7 +10,7 @@ import {
 import { NavbarStyles } from "./Styles/NavbarStyle";
 import MasaiLogo from "../../Resources/MasaiLogo.svg";
 import { useHistory } from "react-router";
-import { CustomDialog } from "../Common/CustomDialog";
+import { CustomDialog } from "../Common/DialogBoxes/CustomDialog";
 import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";

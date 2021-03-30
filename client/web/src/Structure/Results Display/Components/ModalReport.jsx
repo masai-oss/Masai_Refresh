@@ -1,20 +1,19 @@
-import React from "react";
-import Button from "@material-ui/core/Button";
+import React, { useState } from "react";
 import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import DialogContentText from "@material-ui/core/DialogContentText";
-import DialogTitle from "@material-ui/core/DialogTitle";
-import ReportIcon from "@material-ui/icons/Report";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
 import { modalStyles } from "../Styles/ModalStyles";
+import { useDispatch } from "react-redux";
+import { sendReport } from "../../Results Display/State/action";
 
-const ModalReport = () => {
+const ModalReport = (props) => {
+  const { question_id } = props;
   const classes = modalStyles();
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const [reason, setReason] = useState([]);
+  const [des, setDes] = useState("");
 
   // eslint-disable-next-line no-unused-vars
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -25,58 +24,132 @@ const ModalReport = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleReport = () => {
     setOpen(false);
+    const payload = {
+      question_id: question_id,
+      reason: reason,
+      des: des,
+    };
+    dispatch(sendReport(payload));
+  };
+
+  const handleDescription = (e) => {
+    setDes(e.target.value);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+    setDes("");
+    setReason([]);
+  };
+  const handleReason = (e) => {
+    if (reason.includes(e.target.innerHTML)) {
+      setReason(reason.filter((item) => item != e.target.innerHTML));
+    } else {
+      setReason([...reason, e.target.innerHTML]);
+    }
   };
 
   return (
     <div>
-      <Tooltip title="Report" placement="bottom">
-        <ReportIcon className={classes.icon} onClick={handleClickOpen} />
-      </Tooltip>
-
+      <div className={classes.report} onClick={handleClickOpen}>
+        Report an issue with the question
+      </div>
       <Dialog
+        fullScreen={fullScreen}
         className={classes.modal}
         open={open}
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
+        maxWidth="xl"
+        aria-labelledby="responsive-dialog-title"
         aria-describedby="alert-dialog-description"
       >
-        <DialogTitle id="alert-dialog-title" className={classes.title}>
-          Tell us how we can help
-        </DialogTitle>
-        <DialogContent>
-          <DialogContentText>
-            <h5 className={classes.reason}>PICK A REASON</h5>
-            <div className={classes.flex}>
-              <div>Question Unclear</div>
-              <div>Wrong Options</div>
-              <div>Insufficient Data</div>
-              <div>Explanation Unclear</div>
-            </div>
-            <h3 className={classes.margin}>Please provide some more info</h3>
-            <TextareaAutosize
-              aria-label="Explanation"
-              rowsMin={9}
-              name="explanation"
-              className={classes.textAreaWidth}
-              required
-            />
-          </DialogContentText>
-        </DialogContent>
-        <DialogActions>
-          <Button onClick={handleClose} style={{ float: "left" }}>
-            Close
-          </Button>
-          <Button
-            onClick={handleClose}
-            variant="contained"
-            color="primary"
-            autoFocus
+        <div id="alert-dialog-title" className={classes.title}>
+          Report issue with a question
+        </div>
+        <div
+          className={classes.hr}
+          style={{ height: "0.5px", width: "100%", background: " #D6D6D6" }}
+        ></div>
+        <div className={classes.title}>
+          What seems to be the issue with the question ?
+        </div>
+        <div onClick={handleReason} className={classes.flex}>
+          <div
+            style={
+              reason.includes("Question Unclear")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Question Unclear
+          </div>
+          <div
+            style={
+              reason.includes("Wrong Options")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Wrong Options
+          </div>
+          <div
+            style={
+              reason.includes("Insufficient Data")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Insufficient Data
+          </div>
+          <div
+            style={
+              reason.includes("Explanation Unclear")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Explanation Unclear
+          </div>
+          <div
+            style={
+              reason.includes("Others")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Others
+          </div>
+        </div>
+        <div className={classes.details}>Add Details</div>
+        <TextareaAutosize
+          aria-label="Explanation"
+          rowsMin={9}
+          name="explanation"
+          className={classes.textAreaWidth}
+          required
+          onChange={handleDescription}
+          value={des}
+        />
+        <div className={classes.buttonFlex}>
+          <button onClick={handleCancel}>Cancel</button>
+          <button
+            style={
+              reason.length > 0 && reason.length < 5 && des
+                ? { background: "#2D799F" }
+                : {
+                    boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.16)",
+                    color: "black",
+                  }
+            }
+            disabled={
+              reason.length > 0 && reason.length < 5 && des ? false : true
+            }
+            onClick={handleReport}
+            className={classes.submit}
           >
             Submit
-          </Button>
-        </DialogActions>
+          </button>
+        </div>
       </Dialog>
     </div>
   );
