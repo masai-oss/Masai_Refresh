@@ -1,11 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
 const modalStyles = makeStyles((theme) => ({
-  icon: {
-    float: "right",
-    marginTop: "-25px",
-    color: "#607D8B",
-  },
   flex: {
     display: "flex",
     justifyContent: "space-around",
@@ -75,6 +70,16 @@ const modalStyles = makeStyles((theme) => ({
     height: "1px",
     width: "100%",
     background: "D6D6D6",
+  },
+  report: {
+    color: "#6C8D9E",
+    fontFamily: "Open Sans",
+    fontSize: "18px",
+    margin: "5px 0px 15px 18px",
+    lineHeight: "24px",
+    textDecorationLine: "underline",
+    paddingBottom: "20px",
+    cursor: "pointer",
   },
 }));
 

@@ -11,7 +11,6 @@ import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 const REPORT_API = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
-console.log(REPORT_API);
 const token = getFromStorage(storageEnums.TOKEN, "");
 
 export const getResultRequest = () => ({
@@ -29,7 +28,6 @@ export const getResultFailure = (payload) => ({
 });
 
 export const getResult = ({ attempt_id }) => (dispatch) => {
-  console.log(`${RESULT_API}/result/${attempt_id}`);
   dispatch(getResultRequest());
   axios({
     method: "GET",
@@ -57,8 +55,6 @@ export const getReportFailure = (payload) => ({
 });
 
 export const getReport = ({ question_id, reason, des }) => (dispatch) => {
-  // console.log(`${REPORT_API}/report/${id}`);
-  console.log(question_id, reason, des, "redux");
   dispatch(getReportRequest);
   axios({
     method: "PATCH",
@@ -69,6 +65,6 @@ export const getReport = ({ question_id, reason, des }) => (dispatch) => {
       description: des,
     },
   })
-    .then((res) => console.log(res, "res"))
+    .then((res) => dispatch(getReportSuccess(res)))
     .catch((err) => dispatch(getReportFailure(err)));
 };

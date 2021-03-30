@@ -58,7 +58,6 @@ const resultReducer = (state = initState, { type, payload }) => {
         errorMessage: payload,
       };
     case GET_REPORT_SUCCESS:
-      console.log(payload);
       return {
         ...state,
         isLoading: false,

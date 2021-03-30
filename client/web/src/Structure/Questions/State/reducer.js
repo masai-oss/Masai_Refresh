@@ -88,7 +88,6 @@ const questions = (state = initState, { type, payload }) => {
       saveToStorage(storageEnums.SUBMISSION_ID, payload.submission_id)
       saveToStorage(storageEnums.ALL_QUESTIONS_IDS, payload.questions)
       saveToStorage(storageEnums.TOPIC, payload.topic)
-      console.log(payload.topic)
       return {
         ...state,
         isLoading: false,

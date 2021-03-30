@@ -12,7 +12,12 @@ import { useTheme } from "@material-ui/core/styles";
 import { modalStyles } from "../Styles/ModalStyles";
 import { useDispatch } from "react-redux";
 import { getReport } from "../../Results Display/State/action";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
 
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 const ModalReport = (props) => {
   const { question_id } = props;
   const classes = modalStyles();
@@ -31,7 +36,7 @@ const ModalReport = (props) => {
   };
 
   const handleReport = () => {
-    console.log(question_id);
+    setOpenSnack(true);
     setOpen(false);
     const payload = {
       question_id: question_id,
@@ -39,6 +44,19 @@ const ModalReport = (props) => {
       des: des,
     };
     dispatch(getReport(payload));
+  };
+  const [openSnack, setOpenSnack] = React.useState(false);
+
+  const handleSnackClick = () => {
+    setOpenSnack(true);
+  };
+
+  const handleSnackClose = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setOpenSnack(false);
   };
 
   const handleDescription = (e) => {
@@ -56,18 +74,18 @@ const ModalReport = (props) => {
       setReason([...reason, e.target.innerHTML]);
     }
   };
-  console.log(des);
-  console.log(reason);
 
   return (
     <div>
-      <ReportIcon className={classes.icon} onClick={handleClickOpen} />
+      {/* <ReportIcon className={classes.icon} onClick={handleClickOpen} /> */}
+      <div className={classes.report} onClick={handleClickOpen}>
+        Report an issue with the question
+      </div>
       <Dialog
         fullScreen={fullScreen}
         className={classes.modal}
         open={open}
         maxWidth="xl"
-        onClose={handleReport}
         aria-labelledby="responsive-dialog-title"
         aria-describedby="alert-dialog-description"
       >
@@ -159,6 +177,15 @@ const ModalReport = (props) => {
           </button>
         </div>
       </Dialog>
+      <Snackbar
+        open={openSnack}
+        autoHideDuration={1500}
+        onClose={handleSnackClose}
+      >
+        <Alert onClose={handleSnackClose} severity="success">
+          Reported successfully
+        </Alert>
+      </Snackbar>
     </div>
   );
 };

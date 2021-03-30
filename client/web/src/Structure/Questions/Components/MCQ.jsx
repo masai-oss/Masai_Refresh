@@ -19,7 +19,6 @@ const MCQ = (props) => {
   const location = useLocation();
 
   const { attempt_id, submission_id, question_id, topic } = props;
-  console.log(question_id, "queMCQ");
   const { questionIds, question } = useSelector(
     (state) => state.questions,
     shallowEqual
@@ -142,6 +141,7 @@ const MCQ = (props) => {
               </Grid>
             </RadioGroup>
           </FormControl>
+          <ModalReport question_id={question_id} />
         </form>
       </div>
       <div className={classes.btns}>
@@ -169,7 +169,6 @@ const MCQ = (props) => {
 
           <p>Previous Question</p>
         </PrevButton>
-        <ModalReport question_id={question_id} />
         <div className={classes.nextDiv}>
           <button
             className={classes.skipBtn}
