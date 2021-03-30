@@ -10,22 +10,19 @@ import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
-import { QuestionStyles, PrevButton } from "../Styles/QuestionStyles";
 import { ModalReport } from "../../Results Display/Components/ModalReport";
+import { QuestionStyles, PrevButton, NextButton } from "../Styles/QuestionStyles";
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-
-  const { attempt_id, submission_id, question_id, topic } = props;
-  const { questionIds, question } = useSelector(
-    (state) => state.questions,
-    shallowEqual
-  );
-  const { type, statement, options, isStatsUpdated, selected } = question;
-  const [value, setValue] = useState(selected);
-  const [attempt, setAttempt] = useState(false);
+  
+  const {attempt_id, submission_id, question_id, topic} = props
+  const {questionIds, question} = useSelector((state) => state.questions, shallowEqual);
+  const {type, statement, options, isStatsUpdated, selected} = question
+  const [value, setValue] = useState(selected === undefined ? -1 : selected);
+  const [attempt, setAttempt] = useState(false)
 
   const question_id_index = questionIds.findIndex((id) => id === question_id);
   const next = questionIds[question_id_index + 1];
@@ -37,19 +34,16 @@ const MCQ = (props) => {
     setAttempt(true);
   };
 
-  const getNextQuestion = async (skip_record) => {
-    if (!skip_record && attempt) {
-      var res = await answerRecordSetup();
+  const getNextQuestion = async(skip_record) => {
+    if(!attempt && !skip_record){
+      return
     }
-    if (!(!skip_record && attempt) || res.output) {
-      res = await dispatch(
-        questionActions.getQuizQuestion({
-          attempt_id,
-          submission_id,
-          question_id: next,
-        })
-      );
-      if (res.output) {
+    if(!skip_record){
+      var res = await answerRecordSetup()
+    }
+    if(skip_record || res.output){
+      var res = await dispatch(questionActions.getQuizQuestion({ attempt_id, submission_id, question_id: next }));
+      if(res.output){
         history.push({
           pathname: location.pathname,
           search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${next}&topic=${topic}`,
@@ -65,15 +59,9 @@ const MCQ = (props) => {
     if (attempt) {
       var res = await answerRecordSetup();
     }
-    if (!attempt || res.output) {
-      res = await dispatch(
-        questionActions.getQuizQuestion({
-          attempt_id,
-          submission_id,
-          question_id: prev,
-        })
-      );
-      if (res.output) {
+    if(!attempt || res.output){
+      var res = await dispatch(questionActions.getQuizQuestion({ attempt_id, submission_id, question_id: prev }));
+      if(res.output){
         history.push({
           pathname: location.pathname,
           search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${prev}&topic=${topic}`,
@@ -97,8 +85,8 @@ const MCQ = (props) => {
     if (!skip && attempt) {
       var res = await answerRecordSetup();
     }
-    if (!(!skip && attempt) || res.output) {
-      await dispatch(getResult(attempt_id));
+    if(!(!skip && attempt) || res.output){
+      await dispatch(getResult({attempt_id}));
       history.replace("/results_display");
     }
   };
@@ -170,30 +158,28 @@ const MCQ = (props) => {
           <p>Previous Question</p>
         </PrevButton>
         <div className={classes.nextDiv}>
-          <button
-            className={classes.skipBtn}
-            onClick={() =>
-              question_id_index === questionIds.length - 1
-                ? submitAnswers(true, true)
-                : getNextQuestion(true, false)
-            }
-          >
+          <button 
+            className={`${classes.skipBtn} ${classes.cursor_pointer}`} 
+            onClick={() => question_id_index === questionIds.length-1 ? submitAnswers(true, true) : getNextQuestion(true)}
+            style={{cursor: 'pointer'}}
+          > 
             Skip
           </button>
-          {question_id_index === questionIds.length - 1 ? (
+          {question_id_index === questionIds.length-1 ? (
             <button
-              className={classes.nextBtn}
+              className={`${classes.nextBtn} ${classes.cursor_pointer}`} 
               onClick={() => submitAnswers(false, true)}
             >
               Submit
             </button>
           ) : (
-            <button
-              onClick={() => getNextQuestion(false, false)}
+            <NextButton
+              onClick={() => !attempt && value !== -1 ? getNextQuestion(true) : getNextQuestion(false)}
               className={classes.nextBtn}
+              attempted={attempt || value !== -1}
             >
               Next
-            </button>
+            </NextButton>
           )}
         </div>
       </div>
