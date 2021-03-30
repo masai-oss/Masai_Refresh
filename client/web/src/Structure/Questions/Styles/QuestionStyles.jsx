@@ -52,6 +52,10 @@ const QuestionStyles = makeStyles((theme) => ({
     fontWeight: '400',
     fontSize: '16px',
     marginRight: '20px'
+  },
+
+  cursor_pointer: {
+    cursor: 'pointer'
   }
 
 }));

@@ -87,7 +87,7 @@ const MCQ = (props) => {
       var res = await answerRecordSetup()
     }
     if(!(!skip && attempt) || res.output){
-      await dispatch(getResult(attempt_id));
+      await dispatch(getResult({attempt_id}));
       history.replace("/results_display");
     }
   };
@@ -138,7 +138,7 @@ const MCQ = (props) => {
           </PrevButton>
         <div className={classes.nextDiv}>
           <button 
-            className={classes.skipBtn} 
+            className={`${classes.skipBtn} ${classes.cursor_pointer}`} 
             onClick={() => question_id_index === questionIds.length-1 ? submitAnswers(true, true) : getNextQuestion(true)}
             style={{cursor: 'pointer'}}
           > 
@@ -146,7 +146,7 @@ const MCQ = (props) => {
           </button>
           {question_id_index === questionIds.length-1 ? (
             <button
-              className={classes.nextBtn}
+              className={`${classes.nextBtn} ${classes.cursor_pointer}`} 
               onClick={() => submitAnswers(false, true)}
             >
               Submit
