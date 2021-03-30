@@ -1,22 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { Button } from "@material-ui/core";
-import { ModalReport } from "./ModalReport";
 import { IsLoading } from "../../Common";
 import {DetailedReport} from "../"
 import {
-  OutcomeTag,
-  QuestionLine,
-  QuestionMain,
-  QuestionWrapper,
   ResultWrapper,
-  Score,
   Result,
-  ButtonWrapper,
-  QuestionContent,
-  Span,
 } from "../Styles/ResultsPageStyle";
+import { QuestionNavbar } from '../../Common/QuestionNavbar'
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -32,23 +23,12 @@ const Results_display = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const [toggleSol, setToggleSol] = useState(false);
-  const [toggleExplanation, setToggleExplanation] = useState(false);
-
   const correctSol =
     result && result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =
     result && result.filter((answer) => answer.outcome === "WRONG").length;
   const skippedSol =
     result && result.filter((answer) => answer.outcome === "SKIPPED").length;
-
-  const explainToggle = (index) => {
-    setToggleExplanation((prev) =>
-      Boolean(!prev[index])
-        ? { ...prev, [index]: true }
-        : { ...prev, [index]: false }
-    );
-  };
 
   return isLoading ? (
     <IsLoading />
@@ -57,43 +37,34 @@ const Results_display = () => {
   ) : (
     result && (
       <ResultWrapper>
-        <Score>
-          {correctSol}/{result.length}
-        </Score>
+        <QuestionNavbar topicDisplay={"provide topic"} type={"provide type"} />
         <Result>
-          <h3>SUMMARY</h3>
-          <table>
-            <tbody>
-              <tr className="correct">
-                <td>Correct</td>
-                <td>: {correctSol}</td>
-              </tr>
-              <tr className="wrong">
-                <td>Wrong</td>
-                <td>: {wrongSol}</td>
-              </tr>
-              <tr className="skipped">
-                <td>Skipped</td>
-                <td>: {skippedSol}</td>
-              </tr>
-            </tbody>
-          </table>
+          <h3 className="bigText correct">
+            Quiz Completed
+          </h3>
+          <p className="normalText">
+            Total Questions Attempted: {result.length}
+          </p>
+          <div className="attempts">
+            <div className="attemptsItem">
+              <p className="bigText correct">Correct</p>
+              <p>{correctSol}</p>
+            </div>
+            <div className="attemptsItem">
+              <p className="bigText wrong">Wrong</p>
+              <p>{wrongSol}</p>
+            </div>
+            <div className="attemptsItem">
+              <p className="bigText skipped">Skipped</p>
+              <p>{skippedSol}</p>
+            </div>
+          </div>
+          {
+          result && result.map((details,index) => {
+          return <DetailedReport key={index} index={index} details ={details}/>
+            })
+          }
         </Result>
-        <ButtonWrapper>
-          <Button
-            onClick={() => setToggleSol((prev) => !prev)}
-            variant="contained"
-            color="secondary"
-            style={{ justifyContent: "center" }}
-          >
-            {toggleSol ? "Hide Detailed Report" : "Show Detailed Report"}
-          </Button>
-        </ButtonWrapper>
-        {
-        result && result.map((details,index) => {
-        return <DetailedReport key={index} index={index} details ={details}/>
-          })
-        }
       </ResultWrapper>
     )
   );

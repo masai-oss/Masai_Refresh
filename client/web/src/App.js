@@ -6,7 +6,7 @@ import { IsAdmin } from "./Structure/Common/";
 const App = () => {
     const isAdmin = IsAdmin();
     return (
-        <div>
+        <div className="container">
             <Navbar isAdmin={isAdmin} />
             <Routes />
         </div>

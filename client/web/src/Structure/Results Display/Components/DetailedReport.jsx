@@ -4,7 +4,7 @@ import styled from "styled-components"
 const Wrapper = styled.section`
   padding: 2em;
   border : 1px solid grey;
-  margin : 2em;
+  margin : 2em 0;
   text-align : left;
   background : #FFFFFF;
   box-shadow: 0px 0px 1px 1px rgba(0, 0, 0, 0.25);
@@ -12,7 +12,6 @@ const Wrapper = styled.section`
 `;
 
 const Para = styled.p`
-  font-family : Open Sans;
   font-style : normal;
   font-weight : normal;
   font-size : 16px;
@@ -34,7 +33,6 @@ const Response = styled.div`
 `;
 
 const Link = styled.a`
-  font-family: Open Sans;
   font-style: normal;
   font-weight: normal;
   font-size: 16px;
