@@ -35,7 +35,6 @@ const getResult = ({ attempt_id }) => (dispatch) => {
     headers: { Authorization: `Bearer ${token}` },
   })
   .then((res) => {
-    console.log("object")
     dispatch(getResultSuccess(res.data.result))
   })
   .catch((err) => {
