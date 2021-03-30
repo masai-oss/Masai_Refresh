@@ -4,6 +4,7 @@ import { useHistory } from "react-router-dom";
 import { Button } from "@material-ui/core";
 import { ModalReport } from "./ModalReport";
 import { IsLoading } from "../../Common";
+import {DetailedReport} from "../"
 import {
   OutcomeTag,
   QuestionLine,
@@ -18,9 +19,32 @@ import {
 } from "../Styles/ResultsPageStyle";
 
 const Results_display = () => {
-  const result = useSelector((state) => state.resultReducer.result);
+  // const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
+  const result = [
+    {
+      statement : "First of the Questions",
+      outcome : "correct",
+      correct : "The answer is xyz",
+      response : "Your response is xyz",
+      explanation : "xyz are the last 3 characters of the English Alphabet"
+    },
+    {
+      statement : "Second of the Questions",
+      outcome : "wrong",
+      correct : "The answer is abc",
+      response : "Your response is xyz",
+      explanation : "abc are the first 3 characters of the English Alphabet"
+    },
+    {
+      statement : "Third of the Questions",
+      outcome : "skipped",
+      correct : "The answer is def",
+      response : "You Skipped",
+      explanation : "def are the second triplets or 3 characters of the English Alphabet"
+    }
+  ]
 
   let history = useHistory();
 
@@ -88,53 +112,11 @@ const Results_display = () => {
             {toggleSol ? "Hide Detailed Report" : "Show Detailed Report"}
           </Button>
         </ButtonWrapper>
-        {toggleSol
-          ? result.map((question, index) => (
-              <QuestionWrapper key={index}>
-                <QuestionMain>
-                  <QuestionLine />
-                  <QuestionContent>
-                    {index + 1 + ". " + question.statement}
-                    <span>
-                    <ModalReport/>
-                    </span>
-                  </QuestionContent>
-                </QuestionMain>
-                <div>
-                  <Span>Your response:</Span>{" "}
-                  <p>
-                    {question.response === "skipped"
-                      ? "-- DID NOT ATTEMPT --"
-                      : question.response}
-                  </p>
-                </div>
-                <div>
-                  <Span>Correct Answer:</Span>
-                  <p>{question.correct}</p>
-                </div>
-                <p>
-                  <Span>Outcome:</Span>
-                  <OutcomeTag outcome={question.outcome}>
-                    {question.outcome}
-                  </OutcomeTag>
-                </p>
-                <ButtonWrapper>
-                  <Button
-                    onClick={() => explainToggle(index)}
-                    variant="contained"
-                    color="primary"
-                  >
-                    {toggleExplanation[index]
-                      ? "Hide Explanation"
-                      : "Show Explanation"}
-                  </Button>
-                </ButtonWrapper>
-                {toggleExplanation[index] ? (
-                  <p>{question.explanation}</p>
-                ) : null}
-              </QuestionWrapper>
-            ))
-          : null}
+        {
+        result && result.map((details,index) => {
+        return <DetailedReport key={index} index={index} details ={details}/>
+          })
+        }
       </ResultWrapper>
     )
   );
