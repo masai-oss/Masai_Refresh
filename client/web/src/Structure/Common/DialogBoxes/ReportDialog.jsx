@@ -17,7 +17,7 @@ import {
 import ReasonEnums from "../../../Enums/ReasonEnums";
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";
 
-export default function ReportDialog({ question_id }) {
+export default function ReportDialog({ question_id, customMargin }) {
   const [open, setOpen] = useState(false);
   const [select, setSelect] = useState([]);
   const [details, setDetails] = useState("");
@@ -43,6 +43,7 @@ export default function ReportDialog({ question_id }) {
       } else {
         setSuccess(false);
       }
+			console.log(snackbarBtnRef);
       snackbarBtnRef.current.click();
     }
     setOpen(false);
@@ -73,12 +74,13 @@ export default function ReportDialog({ question_id }) {
       reason: reasons,
       des: details,
     };
+		console.log(payload);
     return await dispatch(resultAction.sendReport(payload));
   };
 
   return (
     <div>
-      <IssueReport onClick={handleClickOpen}>
+      <IssueReport onClick={handleClickOpen} margin={customMargin}>
         Report an issue with the question
       </IssueReport>
       <Dialog

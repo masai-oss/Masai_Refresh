@@ -13,7 +13,9 @@ const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
-  const questionIds = useSelector((state) => state.questions.questionIds);
+  const question = useSelector((state) => state.questions.question);
+  const topic = useSelector((state) => state.questions.topic);
+  const type = useSelector((state) => state.questions.type);
   let history = useHistory();
 
   useEffect(() => {
@@ -37,7 +39,7 @@ const Results_display = () => {
   ) : (
     result && (
       <ResultWrapper>
-        <QuestionNavbar topicDisplay={"provide topic"} type={"provide type"} />
+        <QuestionNavbar topicDisplay={topic} type={question.type} />
         <Result>
           <h3 className="bigText correct">
             Quiz Completed
@@ -59,69 +61,9 @@ const Results_display = () => {
               <p>{skippedSol}</p>
             </div>
           </div>
-          {
-          result && result.map((details,index) => {
-          return <DetailedReport key={index} index={index} details ={details}/>
-            })
-          }
+          <h3 style={{marginTop: '30px'}}>Detailed Report</h3>
+          { result && result.map((details,index) =>  <DetailedReport key={index} index={index} details={details} /> )}
         </Result>
-//         <ButtonWrapper>
-//           <Button
-//             onClick={() => setToggleSol((prev) => !prev)}
-//             variant="contained"
-//             color="secondary"
-//             style={{ justifyContent: "center" }}
-//           >
-//             {toggleSol ? "Hide Detailed Report" : "Show Detailed Report"}
-//           </Button>
-//         </ButtonWrapper>
-//         {toggleSol
-//           ? result.map((question, index) => (
-//               <QuestionWrapper key={index}>
-//                 <QuestionMain>
-//                   <QuestionLine />
-//                   <QuestionContent>
-//                     {index + 1 + ". " + question.statement}
-//                     <span>
-//                       <ModalReport question_id={questionIds[index]} />
-//                     </span>
-//                   </QuestionContent>
-//                 </QuestionMain>
-//                 <div>
-//                   <Span>Your response:</Span>{" "}
-//                   <p>
-//                     {question.response === "skipped"
-//                       ? "-- DID NOT ATTEMPT --"
-//                       : question.response}
-//                   </p>
-//                 </div>
-//                 <div>
-//                   <Span>Correct Answer:</Span>
-//                   <p>{question.correct}</p>
-//                 </div>
-//                 <p>
-//                   <Span>Outcome:</Span>
-//                   <OutcomeTag outcome={question.outcome}>
-//                     {question.outcome}
-//                   </OutcomeTag>
-//                 </p>
-//                 <ButtonWrapper>
-//                   <Button
-//                     onClick={() => explainToggle(index)}
-//                     variant="contained"
-//                     color="primary"
-//                   >
-//                     {toggleExplanation[index]
-//                       ? "Hide Explanation"
-//                       : "Show Explanation"}
-//                   </Button>
-//                 </ButtonWrapper>
-//                 {toggleExplanation[index] ? (
-//                   <p>{question.explanation}</p>
-//                 ) : null}
-//               </QuestionWrapper>
-//             ))
-//           : null}
       </ResultWrapper>
     )
   );

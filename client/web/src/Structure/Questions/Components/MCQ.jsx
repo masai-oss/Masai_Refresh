@@ -133,7 +133,7 @@ const MCQ = (props) => {
           </FormControl>
           {/* <ModalReport question_id={question_id} /> */}
         </form>
-        <ReportDialog question_id={question_id} />
+        <ReportDialog question_id={question_id} customMargin='10px 20px' />
       </div>
       <div className={classes.btns}>
         <PrevButton

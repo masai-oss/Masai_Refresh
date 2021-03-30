@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components"
+import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
 
 const Wrapper = styled.section`
   padding: 2em;
@@ -42,7 +43,8 @@ const Link = styled.a`
 `;
 
 function DetailedReport({index,details}){
-  const {statement,outcome,correct,response,explanation} = details;
+  const {statement,outcome,correct,response,explanation, question_id} = details;
+  console.log(details);
   return(
     <Wrapper>
         <Para><b>Question {index+1}</b> : {statement}</Para>
@@ -58,7 +60,7 @@ function DetailedReport({index,details}){
         </Response>
         <Para><b>Explanation</b></Para>
         <Para>Question {index+1} : {explanation}</Para>
-        <Link href="www.google.com">Report an issue with this question</Link>
+        <ReportDialog question_id={question_id} customMargin='0' />
     </Wrapper>
   )
 }
