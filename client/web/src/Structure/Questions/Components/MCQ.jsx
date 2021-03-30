@@ -11,6 +11,7 @@ import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
 import { QuestionStyles, PrevButton } from "../Styles/QuestionStyles";
+import { ModalReport } from "../../Results Display/Components/ModalReport";
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
@@ -130,7 +131,8 @@ const MCQ = (props) => {
             </svg>
 
             <p>Previous Question</p>
-          </PrevButton>
+        </PrevButton>
+        <ModalReport/>
         <div className={classes.nextDiv}>
           <button className={classes.skipBtn} onClick={() => question_id_index === questionIds.length-1 ? submitAnswers(true, true) : getNextQuestion(true, false)}>Skip</button>
           {question_id_index === questionIds.length-1 ? (
@@ -147,6 +149,7 @@ const MCQ = (props) => {
             >
               Next
             </button>
+            
           )}
         </div>
       </div>

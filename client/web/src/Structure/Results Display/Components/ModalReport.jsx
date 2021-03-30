@@ -9,7 +9,6 @@ import ReportIcon from "@material-ui/icons/Report";
 import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
-import Tooltip from "@material-ui/core/Tooltip";
 import { modalStyles } from "../Styles/ModalStyles";
 
 const ModalReport = () => {
@@ -31,13 +30,12 @@ const ModalReport = () => {
 
   return (
     <div>
-      <Tooltip title="Report" placement="bottom">
-        <ReportIcon className={classes.icon} onClick={handleClickOpen} />
-      </Tooltip>
-
+      <ReportIcon className={classes.icon} onClick={handleClickOpen} />
       <Dialog
+        fullScreen={fullScreen}
         className={classes.modal}
         open={open}
+        maxWidth="xl"
         onClose={handleClose}
         aria-labelledby="alert-dialog-title"
         aria-describedby="alert-dialog-description"
@@ -45,8 +43,10 @@ const ModalReport = () => {
         <div id="alert-dialog-title" className={classes.title}>
           Report issue with a question
         </div>
-        <hr />
-
+        <div
+          className={classes.hr}
+          style={{ height: "0.5px", width: "100%", background: " #D6D6D6" }}
+        ></div>
         <div className={classes.title}>
           What seems to be the issue with the question ?
         </div>
@@ -55,8 +55,9 @@ const ModalReport = () => {
           <div>Wrong Options</div>
           <div>Insufficient Data</div>
           <div>Explanation Unclear</div>
+          <div>Others</div>
         </div>
-        <h3 className={classes.margin}>Please provide some more info</h3>
+        <div className={classes.details}>Add Details</div>
         <TextareaAutosize
           aria-label="Explanation"
           rowsMin={9}
@@ -64,20 +65,12 @@ const ModalReport = () => {
           className={classes.textAreaWidth}
           required
         />
-
-        <DialogActions>
-          <Button onClick={handleClose} style={{ float: "left" }}>
-            Close
-          </Button>
-          <Button
-            onClick={handleClose}
-            variant="contained"
-            color="primary"
-            autoFocus
-          >
+        <div className={classes.buttonFlex}>
+          <button onClick={handleClose}>Cancel</button>
+          <button onClick={handleClose} className={classes.submit}>
             Submit
-          </Button>
-        </DialogActions>
+          </button>
+        </div>
       </Dialog>
     </div>
   );
