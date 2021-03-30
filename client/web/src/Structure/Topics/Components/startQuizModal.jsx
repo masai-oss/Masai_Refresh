@@ -8,8 +8,8 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const { open, topic, topicId } = modalData;
   const dispatch = useDispatch();
   const history = useHistory();
-  const isLoadingQuiz = useSelector((state) => state.topics.isLoadingQuiz);
-  const isSuccessQuiz = useSelector((state) => state.topics.isSuccessQuiz);
+  const isLoadingQuiz = useSelector((state) => state.questions.isLoading);
+  const isSuccessQuiz = useSelector((state) => state.questions.isSucccess);
   
   const startQuiz = async() => {
     let res = await dispatch(questionActions.attemptQuiz({topic_id: topicId, topic}))

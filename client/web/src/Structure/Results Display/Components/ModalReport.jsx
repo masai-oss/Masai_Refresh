@@ -5,7 +5,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { modalStyles } from "../Styles/ModalStyles";
 import { useDispatch } from "react-redux";
-import { sendReport } from "../../Results Display/State/action";
+import { resultAction } from "../../Results Display";
 
 const ModalReport = (props) => {
   const { question_id } = props;
@@ -31,7 +31,7 @@ const ModalReport = (props) => {
       reason: reason,
       des: des,
     };
-    dispatch(sendReport(payload));
+    dispatch(resultAction.sendReport(payload));
   };
 
   const handleDescription = (e) => {
@@ -44,6 +44,7 @@ const ModalReport = (props) => {
   };
   const handleReason = (e) => {
     if (reason.includes(e.target.innerHTML)) {
+      // eslint-disable-next-line eqeqeq
       setReason(reason.filter((item) => item != e.target.innerHTML));
     } else {
       setReason([...reason, e.target.innerHTML]);

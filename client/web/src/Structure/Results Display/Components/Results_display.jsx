@@ -13,7 +13,7 @@ const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
-  
+  const questionIds = useSelector((state) => state.questions.questionIds);
   let history = useHistory();
 
   useEffect(() => {
@@ -65,6 +65,63 @@ const Results_display = () => {
             })
           }
         </Result>
+//         <ButtonWrapper>
+//           <Button
+//             onClick={() => setToggleSol((prev) => !prev)}
+//             variant="contained"
+//             color="secondary"
+//             style={{ justifyContent: "center" }}
+//           >
+//             {toggleSol ? "Hide Detailed Report" : "Show Detailed Report"}
+//           </Button>
+//         </ButtonWrapper>
+//         {toggleSol
+//           ? result.map((question, index) => (
+//               <QuestionWrapper key={index}>
+//                 <QuestionMain>
+//                   <QuestionLine />
+//                   <QuestionContent>
+//                     {index + 1 + ". " + question.statement}
+//                     <span>
+//                       <ModalReport question_id={questionIds[index]} />
+//                     </span>
+//                   </QuestionContent>
+//                 </QuestionMain>
+//                 <div>
+//                   <Span>Your response:</Span>{" "}
+//                   <p>
+//                     {question.response === "skipped"
+//                       ? "-- DID NOT ATTEMPT --"
+//                       : question.response}
+//                   </p>
+//                 </div>
+//                 <div>
+//                   <Span>Correct Answer:</Span>
+//                   <p>{question.correct}</p>
+//                 </div>
+//                 <p>
+//                   <Span>Outcome:</Span>
+//                   <OutcomeTag outcome={question.outcome}>
+//                     {question.outcome}
+//                   </OutcomeTag>
+//                 </p>
+//                 <ButtonWrapper>
+//                   <Button
+//                     onClick={() => explainToggle(index)}
+//                     variant="contained"
+//                     color="primary"
+//                   >
+//                     {toggleExplanation[index]
+//                       ? "Hide Explanation"
+//                       : "Show Explanation"}
+//                   </Button>
+//                 </ButtonWrapper>
+//                 {toggleExplanation[index] ? (
+//                   <p>{question.explanation}</p>
+//                 ) : null}
+//               </QuestionWrapper>
+//             ))
+//           : null}
       </ResultWrapper>
     )
   );

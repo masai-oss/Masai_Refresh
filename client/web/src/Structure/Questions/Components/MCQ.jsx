@@ -5,13 +5,12 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
-import { getResult } from "../../Results Display/State/action";
+import { resultAction } from "../../Results Display"
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
-import { ModalReport } from "../../Results Display/Components/ModalReport";
-import { QuestionStyles, PrevButton, NextButton, IssueReport } from "../Styles/QuestionStyles";
+import { QuestionStyles, PrevButton, NextButton } from "../Styles/QuestionStyles";
 import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
 
 const MCQ = (props) => {
@@ -21,10 +20,9 @@ const MCQ = (props) => {
   
   const {attempt_id, submission_id, question_id, topic} = props
   const {questionIds, question} = useSelector((state) => state.questions, shallowEqual);
-  const {type, statement, options, isStatsUpdated, selected} = question
+  const {type, statement, options, selected} = question
   const [value, setValue] = useState(selected === undefined ? -1 : selected);
   const [attempt, setAttempt] = useState(false)
-  const [reportOpen, setReportOpen] = useState(false)
 
   const question_id_index = questionIds.findIndex((id) => id === question_id);
   const next = questionIds[question_id_index + 1];
@@ -44,6 +42,7 @@ const MCQ = (props) => {
       var res = await answerRecordSetup()
     }
     if(skip_record || res.output){
+      // eslint-disable-next-line no-redeclare
       var res = await dispatch(questionActions.getQuizQuestion({ attempt_id, submission_id, question_id: next }));
       if(res.output){
         history.push({
@@ -62,6 +61,7 @@ const MCQ = (props) => {
       var res = await answerRecordSetup();
     }
     if(!attempt || res.output){
+      // eslint-disable-next-line no-redeclare
       var res = await dispatch(questionActions.getQuizQuestion({ attempt_id, submission_id, question_id: prev }));
       if(res.output){
         history.push({
@@ -88,7 +88,7 @@ const MCQ = (props) => {
       var res = await answerRecordSetup();
     }
     if(!(!skip && attempt) || res.output){
-      await dispatch(getResult({attempt_id}));
+      await dispatch(resultAction.getResult({attempt_id}));
       history.replace("/results_display");
     }
   };
