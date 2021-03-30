@@ -8,7 +8,6 @@ const useStyles = makeStyles((theme) => ({
         justifyContent: "space-between",
         borderRadius:'2px',
         alignItems:'center',
-        // padding: '0 2rem',
         background: 'rgb(108,141,158,0.2)',
         flexDirection: 'row',
         '& > div' : {
@@ -17,7 +16,6 @@ const useStyles = makeStyles((theme) => ({
         }
     },
     subNav: {
-        fontFamily: 'Open Sans',
         fontSize: '16px',
         fontStyle: 'normal',
         fontWeight: 700,
@@ -34,7 +32,7 @@ export const QuestionNavbar = ({ topicDisplay, type, q_num, len }) => {
     <div className={classes.main}>
         <div className={classes.topicChip}>{type}</div>
         <div className={classes.topicChip}>{topicDisplay}</div>
-        <div className={classes.topicChip}>{`${q_num} / ${len}`}</div>
+        <div className={classes.topicChip}>{ q_num === undefined ? "Result" : `${q_num} / ${len}` }</div>
     </div>
   )
 };

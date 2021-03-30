@@ -5,6 +5,7 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 import { store } from "./store"
 import { axiosInterceptor } from "./Utils/axiosInterceptor"
+import './index.css';
 
 axiosInterceptor() //used to track request 
 

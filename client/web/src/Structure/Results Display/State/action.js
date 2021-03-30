@@ -34,8 +34,12 @@ const getResult = ({ attempt_id }) => (dispatch) => {
     url: `${RESULT_API}/result/${attempt_id}`,
     headers: { Authorization: `Bearer ${token}` },
   })
-    .then((res) => dispatch(getResultSuccess(res.data.result)))
-    .catch((err) => dispatch(getResultFailure(err)));
+  .then((res) => {
+    dispatch(getResultSuccess(res.data.result))
+  })
+  .catch((err) => {
+    dispatch(getResultFailure(err))
+  });
 };
 
 //----------Report questions ------//

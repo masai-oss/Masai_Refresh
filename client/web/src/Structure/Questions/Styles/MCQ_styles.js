@@ -12,7 +12,6 @@ export const QuestionWrapper = styled.div`
     & div > pre{
         margin:0;
         padding: 10px 19px;
-        font-family: Open Sans;
         font-size: 16px;
         font-style: normal;
         font-weight: 400;
@@ -23,7 +22,6 @@ export const QuestionWrapper = styled.div`
 
     & div.MuiGrid-item{
         padding: 0 19px 19px;
-        /* background: red; */
     }
 
     & label{

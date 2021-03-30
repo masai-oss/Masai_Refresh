@@ -127,7 +127,7 @@ const attemptQuizFailure = (payload) => ({
   payload,
 });
 
-const attemptQuiz = ({topic_id, topic, size}) => (dispatch, state) => {
+const attemptQuiz = ({topic_id, topic, size}) => (dispatch) => {
   dispatch(attemptQuizLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
@@ -144,7 +144,7 @@ const attemptQuiz = ({topic_id, topic, size}) => (dispatch, state) => {
 
   return axios(config)
   .then(res => {
-    dispatch(attemptQuizSuccess(res.data.data));
+    dispatch(attemptQuizSuccess({...res.data.data, topic}));
     return {output: true, state: {...res.data.data, topic}}
   })
   .catch(err => {

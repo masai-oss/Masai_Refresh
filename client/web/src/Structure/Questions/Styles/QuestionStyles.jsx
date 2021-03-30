@@ -36,7 +36,6 @@ const QuestionStyles = makeStyles((theme) => ({
     
     '& p':{
       padding: '16px',
-      fontFamily: 'Open Sans',
       fontStyle: 'normal',
       fontWeight: '400',
       fontSize: '16px',
@@ -47,7 +46,6 @@ const QuestionStyles = makeStyles((theme) => ({
   },
   skipBtn: {
     backgroundColor:'inherit',
-    fontFamily: 'Open Sans',
     fontStyle: 'normal',
     fontWeight: '400',
     fontSize: '16px',

@@ -6,7 +6,7 @@ export const IssueReport = styled.div`
   cursor: pointer;
   font-size: 16px;
   color: #6C8D9E;
-  margin: 10px 20px;
+  margin: ${props => props.margin};
 `
 
 export const Line = styled.div`

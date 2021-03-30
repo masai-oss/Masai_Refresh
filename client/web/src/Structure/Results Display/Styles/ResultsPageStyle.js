@@ -2,100 +2,52 @@ import styled from "styled-components";
 
 export const ResultWrapper = styled.div`
   font-size: 16px;
-`;
-
-export const QuestionWrapper = styled.div`
-  border: 1px solid #e8e8e8;
-  padding: 10px 40px;
-  border-radius: 2px;
-  margin-bottom: 20px;
-
-  :hover {
-    background-color: #f2f2f2;
-  }
-`;
-
-export const OutcomeTag = styled.span`
-  background-color: ${(props) =>
-    props.outcome === "SKIPPED"
-      ? "#e3bf2d"
-      : props.outcome === "CORRECT"
-      ? "green"
-      : "red"};
-  padding: 5px 10px;
-  border-radius: 3px;
-  color: white;
-  margin-left: 10px;
-`;
-
-export const QuestionLine = styled.div`
-  position: absolute;
-  background-color: #165f78;
-  top: 0;
-  bottom: 0;
-  width: 5px;
-`;
-
-export const QuestionMain = styled.div`
-  position: relative;
-  font-weight: bolder;
-`;
-
-export const Bolder = styled.p`
-  font-weight: bolder;
-`;
-export const Score = styled.div`
-  height: 100px;
-  width: 100px;
-  border-radius: 50px;
-  background: dodgerblue;
-  margin: 50px auto;
-  font-size: 40px;
-  color: white;
-  display: grid;
-  place-items: center;
+  background-color: #fff;
+  margin: 16px;
+  box-shadow: 0px 0px 1px 1px rgb(0,0,0,0.25);
+  background-color: #fff;
 `;
 
 export const Result = styled.div`
-  width: 200px;
-  display: flex;
-  margin: auto;
-  flex-direction: column;
-  background-color: #1f3440;
-  padding: 10px 20px;
-  font-size: 20px;
-  font-weight: bolder;
-  border-radius: 4px;
-  color: white;
+  padding: 20px;
 
-  h3 {
-    padding: 0;
-    margin: 10px 0;
+  .bigText {
+    font-style: normal;
+    font-weight: bold;
+    font-size: 16px;
+    line-height: 150%;
+  }
+
+  .normalText {
+    font-style: normal;
+    font-weight: normal;
+    font-size: 16px;
+    line-height: 150%;
+    color: #000000;
+  }
+
+  .attempts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    max-width: 365px;
+    width:100%;
+  }
+
+  .attemptsItem {
+    text-align: right;
   }
 
   .correct {
-    color: green;
+    color: #04A91E;
   }
 
   .wrong {
-    color: red;
+    color: #DA0909;
+;
   }
 
   .skipped {
-    color: orange;
+    color: #EFAC00;
   }
-`;
-
-export const ButtonWrapper = styled.div`
-  text-align: center;
-  margin-top: 30px;
-  margin-bottom: 30px;
-`;
-
-export const Span = styled.span`
-  font-weight: bold;
-`;
-
-export const QuestionContent = styled.pre`
-  margin-left: 15px;
 `;

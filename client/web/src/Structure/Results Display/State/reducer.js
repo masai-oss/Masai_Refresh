@@ -38,7 +38,7 @@ const resultReducer = (state = initState, { type, payload }) => {
         errorMessage: payload,
       };
     case GET_RESULT_SUCCESS:
-      saveToStorage(storageEnums.PRACTICE_RESULTS, payload.result);
+      saveToStorage(storageEnums.PRACTICE_RESULTS, payload);
       return {
         ...state,
         isLoading: false,
