@@ -45,23 +45,23 @@ const Results_display = () => {
             Quiz Completed
           </h3>
           <p className="normalText">
-            Total Questions Attempted: {result.length}
+            Total Questions: <b>{result.length}</b>
           </p>
           <div className="attempts">
             <div className="attemptsItem">
               <p className="bigText correct">Correct</p>
-              <p>{correctSol}</p>
+              <b>{correctSol}</b>
             </div>
             <div className="attemptsItem">
               <p className="bigText wrong">Wrong</p>
-              <p>{wrongSol}</p>
+              <b>{wrongSol}</b>
             </div>
             <div className="attemptsItem">
               <p className="bigText skipped">Skipped</p>
-              <p>{skippedSol}</p>
+              <b>{skippedSol}</b>
             </div>
           </div>
-          <h3 style={{marginTop: '30px'}}>Detailed Report</h3>
+          <h3 style={{marginTop: '50px'}}>Detailed Report</h3>
           { result && result.map((details,index) =>  <DetailedReport key={index} index={index} details={details} /> )}
         </Result>
       </ResultWrapper>
