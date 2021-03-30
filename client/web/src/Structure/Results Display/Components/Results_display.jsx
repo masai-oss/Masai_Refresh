@@ -19,33 +19,10 @@ import {
 } from "../Styles/ResultsPageStyle";
 
 const Results_display = () => {
-  // const result = useSelector((state) => state.resultReducer.result);
+  const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
-  const result = [
-    {
-      statement : "First of the Questions",
-      outcome : "correct",
-      correct : "The answer is xyz",
-      response : "Your response is xyz",
-      explanation : "xyz are the last 3 characters of the English Alphabet"
-    },
-    {
-      statement : "Second of the Questions",
-      outcome : "wrong",
-      correct : "The answer is abc",
-      response : "Your response is xyz",
-      explanation : "abc are the first 3 characters of the English Alphabet"
-    },
-    {
-      statement : "Third of the Questions",
-      outcome : "skipped",
-      correct : "The answer is def",
-      response : "You Skipped",
-      explanation : "def are the second triplets or 3 characters of the English Alphabet"
-    }
-  ]
-
+  
   let history = useHistory();
 
   useEffect(() => {
