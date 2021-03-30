@@ -10,7 +10,6 @@ const QuestionStyles = makeStyles((theme) => ({
     padding: '31px',
     
     '& button':{
-      cursor: 'pointer',    
       border: 'none',
       padding: '16px',
     }
@@ -62,4 +61,9 @@ const PrevButton = styled.div`
   cursor: ${props => props.first_question ? 'default' : 'pointer'};  
 `
 
-export { QuestionStyles, PrevButton };  
+const NextButton = styled.button`
+  opacity: ${props => props.attempted ? 1 : 0.2};
+  cursor: ${props => props.attempted ? 'pointer' : 'default'};  
+`
+
+export { QuestionStyles, PrevButton, NextButton };  
