@@ -6,59 +6,68 @@ import DialogTitle from "@material-ui/core/DialogTitle";
 import styles from '../Styles/commonStyles.module.css'
 import { resultAction } from "../../Results Display"
 import { useDispatch } from "react-redux";
-import { IssueReport, Line, Tag, TagsWrapper, CustomizedTextArea, CustomButton } from '../Styles/ReportDialogBoxStyles'
+import {
+  IssueReport,
+  Line,
+  Tag,
+  TagsWrapper,
+  CustomizedTextArea,
+  CustomButton,
+} from "../Styles/ReportDialogBoxStyles";
 import ReasonEnums from "../../../Enums/ReasonEnums";
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";
 
-export default function ReportDialog({question_id}) {
-	const [open, setOpen] = useState(false)
-	const [select, setSelect] = useState([])
-	const [details, setDetails] = useState('')
-	const [success, setSuccess] = useState(false)
-	const snackbarBtnRef = useRef()
+export default function ReportDialog({ question_id }) {
+  const [open, setOpen] = useState(false);
+  const [select, setSelect] = useState([]);
+  const [details, setDetails] = useState("");
+  const [success, setSuccess] = useState(false);
+  const snackbarBtnRef = useRef();
 
-	let issues = Object.values(ReasonEnums)
+  let issues = Object.values(ReasonEnums);
 
-	const dispatch = useDispatch()
+  const dispatch = useDispatch();
 
   const handleClickOpen = () => {
     setOpen(true);
   };
 
   const handleClose = async (submit) => {
-		if(submit){
-			let res = await handleReport()
-			if(res.output){
-				setSuccess(true)
+    if (submit) {
+			if(details.length === 0 || select.length === 0){
+				return
 			}
-			else{
-				setSuccess(false)
-			}
-			snackbarBtnRef.current.click()
-		}
+      let res = await handleReport();
+      if (res.output) {
+        setSuccess(true);
+      } else {
+        setSuccess(false);
+      }
+      snackbarBtnRef.current.click();
+    }
     setOpen(false);
-		setSelect([])
-		setDetails('')
+    setSelect([]);
+    setDetails("");
   };
 
-	const handleDetailsChange = (e) => {
-		setDetails(e.target.value)
-	}
+  const handleDetailsChange = (e) => {
+    setDetails(e.target.value);
+  };
 
-	const toggleSelect = (index) => {
-		setSelect(prev => {
-			if(prev.includes(index)){
-				return prev.filter(el => el !== index)
-			}
-			if(prev.length === 4){
-				return prev
-			}
-			return [...prev, index]
-		})
-	}
+  const toggleSelect = (index) => {
+    setSelect((prev) => {
+      if (prev.includes(index)) {
+        return prev.filter((el) => el !== index);
+      }
+      if (prev.length === 4) {
+        return prev;
+      }
+      return [...prev, index];
+    });
+  };
 
   const handleReport = async () => {
-		let reasons = select.map(ind => issues[ind])
+    let reasons = select.map((ind) => issues[ind]);
     const payload = {
       question_id,
       reason: reasons,
@@ -75,40 +84,67 @@ export default function ReportDialog({question_id}) {
       <Dialog
         open={open}
         onClose={() => handleClose(false)}
-				maxWidth={'lg'}
+        maxWidth={"lg"}
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-					<h5 className={styles.paddingMarginNone}>
-          	{"Report an issue with the question"}
-					</h5>
+          <h5 className={styles.paddingMarginNone}>
+            {"Report an issue with the question"}
+          </h5>
         </DialogTitle>
-				<Line />
+        <Line />
         <DialogContent>
           <div>
-						<h3>What seems to be the issue with the question? (max select - 4)</h3>
-						<TagsWrapper>
-							{issues.map((el, i) => 
-								<Tag onClick={() => toggleSelect(i)} selected={select.includes(i)}>{el}</Tag>	
-							)}
-						</TagsWrapper>
-					</div>
-					<div>
-						<h3>Add Details</h3>
-						<CustomizedTextArea onChange={handleDetailsChange} value={details} />
-					</div>
-					
+            <h3>
+              What seems to be the issue with the question? * <span style={{color: 'gray'}}>(min select - 1 | max select - 4)</span>
+            </h3>
+            <TagsWrapper>
+              {issues.map((el, i) => (
+                <Tag
+                  onClick={() => toggleSelect(i)}
+                  selected={select.includes(i)}
+                >
+                  {el}
+                </Tag>
+              ))}
+            </TagsWrapper>
+          </div>
+          <div>
+            <h3>Add Details *</h3>
+            <CustomizedTextArea
+              onChange={handleDetailsChange}
+              value={details}
+            />
+          </div>
         </DialogContent>
-        <DialogActions style={{paddingBottom: '30px'}}>
-          <CustomButton autoFocus onClick={() => handleClose(false)} color="primary" >
+        <DialogActions style={{ paddingBottom: "30px" }}>
+          <CustomButton
+            autoFocus
+            onClick={() => handleClose(false)}
+            color="primary"
+          >
             Cancel
           </CustomButton>
-          <CustomButton onClick={() => handleClose(true, "here")} color="primary" autoFocus submitBtn={true}>
+          <CustomButton
+            onClick={() => handleClose(true, "here")}
+            color="primary"
+            autoFocus
+            submitBtn={true}
+						disabled={details.length === 0 || select.length === 0}
+          >
             Submit
           </CustomButton>
         </DialogActions>
       </Dialog>
-			<CustomizedSnackbars success={success} message={success ? "The question has been successfully reported." : "Issue while reporting question."} ref={snackbarBtnRef} />
+      <CustomizedSnackbars
+        success={success}
+        message={
+          success
+            ? "The question has been successfully reported."
+            : "Issue while reporting question."
+        }
+        ref={snackbarBtnRef}
+      />
     </div>
   );
 }
