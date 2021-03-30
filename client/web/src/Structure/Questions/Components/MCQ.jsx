@@ -10,7 +10,8 @@ import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
-import { QuestionStyles, PrevButton, NextButton } from "../Styles/QuestionStyles";
+import { QuestionStyles, PrevButton, NextButton, IssueReport } from "../Styles/QuestionStyles";
+import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
@@ -22,6 +23,7 @@ const MCQ = (props) => {
   const {type, statement, options, isStatsUpdated, selected} = question
   const [value, setValue] = useState(selected === undefined ? -1 : selected);
   const [attempt, setAttempt] = useState(false)
+  const [reportOpen, setReportOpen] = useState(false)
 
   const question_id_index = questionIds.findIndex(id => id === question_id)
   const next = questionIds[question_id_index + 1]
@@ -126,6 +128,7 @@ const MCQ = (props) => {
             </RadioGroup>
           </FormControl>
         </form>
+        <ReportDialog question_id={question_id} />
       </div>
       <div className={classes.btns}>
           <PrevButton className={classes.prevBtn} onClick={getPrevQuestion} first_question={question_id_index <= 0}>

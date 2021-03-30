@@ -7,8 +7,6 @@ const OptionRadio = ({ id, value }) => {
   return (
     <Grid item xs={12} sm={6} md={6} lg={6} xl={6}>
       <Box
-        // boxShadow={2}
-        // bgcolor="red"
         m={1}
         p={1}
         borderRadius={2}

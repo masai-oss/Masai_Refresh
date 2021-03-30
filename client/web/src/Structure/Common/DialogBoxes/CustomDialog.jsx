@@ -7,7 +7,7 @@ import {
   DialogContentText,
   DialogTitle,
 } from "@material-ui/core";
-import { LoadingButton } from ".";
+import { LoadingButton } from "..";
 
 const CustomDialog = ({ open, handleClose, heading, message, okBtnTitle, cancelBtnTitle, onOkAction, isLoading = false, isSuccess = true }) => {
   return (
@@ -17,7 +17,7 @@ const CustomDialog = ({ open, handleClose, heading, message, okBtnTitle, cancelB
       fullWidth={true}
       maxWidth="sm"
     >
-      {heading && <DialogTitle id="responsive-dialog-title">{heading}</DialogTitle>}
+      {heading && <DialogTitle id="alert-dialog-title">{heading}</DialogTitle>}
       <DialogContent>
         <DialogContentText>
           {message}
