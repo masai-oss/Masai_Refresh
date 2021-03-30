@@ -13,16 +13,16 @@ const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 const REPORT_API = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
 const token = getFromStorage(storageEnums.TOKEN, "");
 
-export const getResultRequest = () => ({
+const getResultRequest = () => ({
   type: GET_RESULT_LOADING,
 });
 
-export const getResultSuccess = (payload) => ({
+const getResultSuccess = (payload) => ({
   type: GET_RESULT_SUCCESS,
   payload,
 });
 
-export const getResultFailure = (payload) => ({
+const getResultFailure = (payload) => ({
   type: GET_RESULT_FAILURE,
   payload,
 });
@@ -40,16 +40,16 @@ export const getResult = ({ attempt_id }) => (dispatch) => {
 
 //----------Report questions ------//
 
-export const sendReportRequest = () => ({
+const sendReportRequest = () => ({
   type: SEND_REPORT_LOADING,
 });
 
-export const sendReportSuccess = (payload) => ({
+const sendReportSuccess = (payload) => ({
   type: SEND_REPORT_SUCCESS,
   payload,
 });
 
-export const sendReportFailure = (payload) => ({
+const sendReportFailure = (payload) => ({
   type: SEND_REPORT_FAILURE,
   payload,
 });
@@ -74,3 +74,8 @@ export const sendReport = ({ question_id, reason, des }) => (dispatch) => {
     return {output: false} 
   });
 };
+
+export const resultAction = {
+  getResult,
+  sendReport
+}
