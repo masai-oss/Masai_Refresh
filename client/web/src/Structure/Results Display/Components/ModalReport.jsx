@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
@@ -10,10 +10,16 @@ import TextareaAutosize from "@material-ui/core/TextareaAutosize";
 import { useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { modalStyles } from "../Styles/ModalStyles";
+import { useDispatch } from "react-redux";
+import { getReport } from "../../Results Display/State/action";
 
-const ModalReport = () => {
+const ModalReport = (props) => {
+  const { question_id } = props;
   const classes = modalStyles();
+  const dispatch = useDispatch();
   const theme = useTheme();
+  const [reason, setReason] = useState([]);
+  const [des, setDes] = useState("");
 
   // eslint-disable-next-line no-unused-vars
   const fullScreen = useMediaQuery(theme.breakpoints.down("sm"));
@@ -24,9 +30,34 @@ const ModalReport = () => {
     setOpen(true);
   };
 
-  const handleClose = () => {
+  const handleReport = () => {
+    console.log(question_id);
     setOpen(false);
+    const payload = {
+      question_id: question_id,
+      reason: reason,
+      des: des,
+    };
+    dispatch(getReport(payload));
   };
+
+  const handleDescription = (e) => {
+    setDes(e.target.value);
+  };
+  const handleCancel = () => {
+    setOpen(false);
+    setDes("");
+    setReason([]);
+  };
+  const handleReason = (e) => {
+    if (reason.includes(e.target.innerHTML)) {
+      setReason(reason.filter((item) => item != e.target.innerHTML));
+    } else {
+      setReason([...reason, e.target.innerHTML]);
+    }
+  };
+  console.log(des);
+  console.log(reason);
 
   return (
     <div>
@@ -36,8 +67,8 @@ const ModalReport = () => {
         className={classes.modal}
         open={open}
         maxWidth="xl"
-        onClose={handleClose}
-        aria-labelledby="alert-dialog-title"
+        onClose={handleReport}
+        aria-labelledby="responsive-dialog-title"
         aria-describedby="alert-dialog-description"
       >
         <div id="alert-dialog-title" className={classes.title}>
@@ -50,12 +81,52 @@ const ModalReport = () => {
         <div className={classes.title}>
           What seems to be the issue with the question ?
         </div>
-        <div className={classes.flex}>
-          <div>Question Unclear</div>
-          <div>Wrong Options</div>
-          <div>Insufficient Data</div>
-          <div>Explanation Unclear</div>
-          <div>Others</div>
+        <div onClick={handleReason} className={classes.flex}>
+          <div
+            style={
+              reason.includes("Question Unclear")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Question Unclear
+          </div>
+          <div
+            style={
+              reason.includes("Wrong Options")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Wrong Options
+          </div>
+          <div
+            style={
+              reason.includes("Insufficient Data")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Insufficient Data
+          </div>
+          <div
+            style={
+              reason.includes("Explanation Unclear")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Explanation Unclear
+          </div>
+          <div
+            style={
+              reason.includes("Others")
+                ? { background: "#2D799F", color: "white" }
+                : null
+            }
+          >
+            Others
+          </div>
         </div>
         <div className={classes.details}>Add Details</div>
         <TextareaAutosize
@@ -64,10 +135,26 @@ const ModalReport = () => {
           name="explanation"
           className={classes.textAreaWidth}
           required
+          onChange={handleDescription}
+          value={des}
         />
         <div className={classes.buttonFlex}>
-          <button onClick={handleClose}>Cancel</button>
-          <button onClick={handleClose} className={classes.submit}>
+          <button onClick={handleCancel}>Cancel</button>
+          <button
+            style={
+              reason.length > 0 && reason.length < 5 && des
+                ? { background: "#2D799F" }
+                : {
+                    boxShadow: "0px 6px 12px rgba(0, 0, 0, 0.16)",
+                    color: "black",
+                  }
+            }
+            disabled={
+              reason.length > 0 && reason.length < 5 && des ? false : true
+            }
+            onClick={handleReport}
+            className={classes.submit}
+          >
             Submit
           </button>
         </div>

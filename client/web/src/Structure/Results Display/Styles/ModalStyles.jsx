@@ -9,7 +9,6 @@ const modalStyles = makeStyles((theme) => ({
   flex: {
     display: "flex",
     justifyContent: "space-around",
-    marginTop: -15,
     width: "788px",
     padding: "12px 12px 12px 16px",
     "& div": {
@@ -31,7 +30,7 @@ const modalStyles = makeStyles((theme) => ({
     fontSize: "18px",
     fontWeight: "bold",
     color: "#000000",
-    margin: "10px",
+    margin: "13px",
     marginTop: "14px",
     lineHeight: "150%",
     height: "24px",
@@ -40,7 +39,7 @@ const modalStyles = makeStyles((theme) => ({
   },
   textAreaWidth: {
     width: "97%",
-    marginLeft: 10,
+    marginLeft: 13,
 
     height: "133px",
     background: "rgba(108, 141, 158, 0.1)",
@@ -62,7 +61,6 @@ const modalStyles = makeStyles((theme) => ({
     },
   },
   submit: {
-    background: "#2D799F",
     color: "white",
   },
   details: {
@@ -70,7 +68,7 @@ const modalStyles = makeStyles((theme) => ({
     lineHeight: "150%",
     letterSpacing: "0.2px",
     fontWeight: "bold",
-    margin: "10px",
+    margin: "13px",
     fontSize: "16px",
   },
   hr: {
