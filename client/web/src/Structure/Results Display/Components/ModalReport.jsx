@@ -5,7 +5,7 @@ import { useMediaQuery } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { modalStyles } from "../Styles/ModalStyles";
 import { useDispatch } from "react-redux";
-import { resultAction } from "../../Results Display"
+import { resultAction } from "../../Results Display";
 
 const ModalReport = (props) => {
   const { question_id } = props;

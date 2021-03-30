@@ -10,7 +10,7 @@ const StartQuizModal = ({ modalData, handleClose }) => {
   const history = useHistory();
   const isLoadingQuiz = useSelector((state) => state.questions.isLoading);
   const isSuccessQuiz = useSelector((state) => state.questions.isSucccess);
-  console.log(isLoadingQuiz, isSuccessQuiz)
+  
   const startQuiz = async() => {
     let res = await dispatch(questionActions.attemptQuiz({topic_id: topicId, topic}))
     if (res.output) {

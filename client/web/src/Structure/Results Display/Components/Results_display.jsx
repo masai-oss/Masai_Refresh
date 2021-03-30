@@ -21,7 +21,7 @@ const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
-
+  const questionIds = useSelector((state) => state.questions.questionIds);
   let history = useHistory();
 
   useEffect(() => {
@@ -96,7 +96,7 @@ const Results_display = () => {
                   <QuestionContent>
                     {index + 1 + ". " + question.statement}
                     <span>
-                    <ModalReport/>
+                      <ModalReport question_id={questionIds[index]} />
                     </span>
                   </QuestionContent>
                 </QuestionMain>
