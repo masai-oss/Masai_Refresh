@@ -7,7 +7,6 @@ import {
   GET_RESULT_LOADING,
   GET_RESULT_SUCCESS,
   GET_RESULT_FAILURE,
-
   SEND_REPORT_LOADING,
   SEND_REPORT_SUCCESS,
   SEND_REPORT_FAILURE,
@@ -18,6 +17,7 @@ const initState = {
   report: "",
   isLoading: false,
   isError: false,
+  isErrorReport: false,
   errorMessage: "",
 };
 
@@ -55,8 +55,8 @@ const resultReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        isError: true,
-        errorMessage: payload,
+        isErrorReport: true,
+        errorMessage: payload.data.message,
       };
     case SEND_REPORT_SUCCESS:
       return {

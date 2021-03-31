@@ -36,15 +36,14 @@ export const CustomizedSnackbars = forwardRef(({success, message}, ref) => {
   return (
     <div className={classes.root}>
       <Button variant="outlined" onClick={handleClick} style={{display: 'none'}} ref={ref}>
-        Open success snackbar
+        Open snackbar
       </Button>
       <Snackbar 
         open={open} 
-        autoHideDuration={6000} 
+        autoHideDuration={5000} 
         onClose={handleClose} 
-        // anchorOrigin={{ vertical: "top", horizontal: "center" }} 
       >
-        <Alert onClose={handleClose} severity={success ? "success" : "error"}>
+        <Alert severity={success ? "success" : "error"}>
           {message}
         </Alert>
       </Snackbar>

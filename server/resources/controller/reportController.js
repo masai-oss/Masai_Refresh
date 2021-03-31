@@ -54,7 +54,7 @@ const reportQuestion = async (req, res) => {
     }
     let present = crnQueFlag.some(({ user_id: id }) => id == user_id);
     if (present) {
-      return res.status(208).json({
+      return res.status(400).json({
         error: true,
         message: "You already reported the question",
       });

@@ -3,7 +3,6 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import styles from '../Styles/commonStyles.module.css'
 import { resultAction } from "../../Results Display"
 import { useDispatch } from "react-redux";
 import {
@@ -15,6 +14,7 @@ import {
   CustomButton,
 } from "../Styles/ReportDialogBoxStyles";
 import ReasonEnums from "../../../Enums/ReasonEnums";
+import { useSelector } from "react-redux"
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";
 
 export default function ReportDialog({ question_id, customMargin }) {
@@ -23,7 +23,7 @@ export default function ReportDialog({ question_id, customMargin }) {
   const [details, setDetails] = useState("");
   const [success, setSuccess] = useState(false);
   const snackbarBtnRef = useRef();
-
+  const errorMessage = useSelector((state) => state.resultReducer.errorMessage);
   let issues = Object.values(ReasonEnums);
 
   const dispatch = useDispatch();
@@ -43,7 +43,6 @@ export default function ReportDialog({ question_id, customMargin }) {
       } else {
         setSuccess(false);
       }
-			console.log(snackbarBtnRef);
       snackbarBtnRef.current.click();
     }
     setOpen(false);
@@ -74,8 +73,7 @@ export default function ReportDialog({ question_id, customMargin }) {
       reason: reasons,
       des: details,
     };
-		console.log(payload);
-    return await dispatch(resultAction.sendReport(payload));
+    return dispatch(resultAction.sendReport(payload));
   };
 
   return (
@@ -90,21 +88,23 @@ export default function ReportDialog({ question_id, customMargin }) {
         aria-labelledby="responsive-dialog-title"
       >
         <DialogTitle id="responsive-dialog-title">
-          <h5 className={styles.paddingMarginNone}>
-            {"Report an issue with the question"}
-          </h5>
+          {"Report an issue with the question"}
         </DialogTitle>
         <Line />
         <DialogContent>
           <div>
             <h3>
-              What seems to be the issue with the question? * <span style={{color: 'gray'}}>(min select - 1 | max select - 4)</span>
+              What seems to be the issue with the question? *{" "}
+              <span style={{ color: "gray" }}>
+                (min select - 1 | max select - 4)
+              </span>
             </h3>
             <TagsWrapper>
               {issues.map((el, i) => (
                 <Tag
                   onClick={() => toggleSelect(i)}
                   selected={select.includes(i)}
+                  key={i}
                 >
                   {el}
                 </Tag>
@@ -132,7 +132,7 @@ export default function ReportDialog({ question_id, customMargin }) {
             color="primary"
             autoFocus
             submitBtn={true}
-						disabled={details.length === 0 || select.length === 0}
+            disabled={details.length === 0 || select.length === 0}
           >
             Submit
           </CustomButton>
@@ -143,7 +143,7 @@ export default function ReportDialog({ question_id, customMargin }) {
         message={
           success
             ? "The question has been successfully reported."
-            : "Issue while reporting question."
+            : errorMessage
         }
         ref={snackbarBtnRef}
       />

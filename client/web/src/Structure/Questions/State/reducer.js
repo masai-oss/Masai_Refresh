@@ -84,7 +84,6 @@ const questions = (state = initState, { type, payload }) => {
         topic: "",
       };
     case ATTEMPT_QUIZ_SUCCESS:
-      console.log(payload.topic)
       saveToStorage(storageEnums.ATTEMPT_ID, payload.attempt_id);
       saveToStorage(storageEnums.SUBMISSION_ID, payload.submission_id);
       saveToStorage(storageEnums.ALL_QUESTIONS_IDS, payload.questions);

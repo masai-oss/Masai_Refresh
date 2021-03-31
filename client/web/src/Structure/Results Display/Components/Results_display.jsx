@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { IsLoading } from "../../Common";
@@ -15,7 +15,7 @@ const Results_display = () => {
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const question = useSelector((state) => state.questions.question);
   const topic = useSelector((state) => state.questions.topic);
-  const type = useSelector((state) => state.questions.type);
+  // const type = useSelector((state) => state.questions.type);
   let history = useHistory();
 
   useEffect(() => {

@@ -131,7 +131,6 @@ const MCQ = (props) => {
               </Grid>
             </RadioGroup>
           </FormControl>
-          {/* <ModalReport question_id={question_id} /> */}
         </form>
         <ReportDialog question_id={question_id} customMargin='10px 20px' />
       </div>

@@ -11,7 +11,6 @@ import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 const REPORT_API = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
-const token = getFromStorage(storageEnums.TOKEN, "");
 
 const getResultRequest = () => ({
   type: GET_RESULT_LOADING,
@@ -29,6 +28,7 @@ const getResultFailure = (payload) => ({
 
 const getResult = ({ attempt_id }) => (dispatch) => {
   dispatch(getResultRequest());
+  const token = getFromStorage(storageEnums.TOKEN, "");
   axios({
     method: "GET",
     url: `${RESULT_API}/result/${attempt_id}`,
@@ -58,25 +58,25 @@ const sendReportFailure = (payload) => ({
   payload,
 });
 
-const sendReport = ({ question_id, reason, des }) => (dispatch) => {
+const sendReport = ({ question_id, reason, des }) => async (dispatch) => {
   dispatch(sendReportRequest);
-  return axios({
-    method: "PATCH",
-    url: `${REPORT_API}/report/${question_id}`,
-    headers: { Authorization: `Bearer ${token}` },
-    data: {
-      reason: reason,
-      description: des,
-    },
-  })
-  .then((res) => {
-    dispatch(sendReportSuccess(res))
-    return {output: true} 
-  })
-  .catch((err) => {
-    dispatch(sendReportFailure(err))
-    return {output: false} 
-  });
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  try {
+    const res = await axios({
+      method: "PATCH",
+      url: `${REPORT_API}/report/${question_id}`,
+      headers: { Authorization: `Bearer ${token}` },
+      data: {
+        reason: reason,
+        description: des,
+      },
+    });
+    dispatch(sendReportSuccess(res));
+    return { output: true };
+  } catch (err) {
+    dispatch(sendReportFailure(err.response));
+    return { output: false };
+  }
 };
 
 export const resultAction = {

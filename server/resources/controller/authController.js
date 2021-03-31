@@ -73,7 +73,7 @@ const isLoggedIn = (req, res, next) => {
 const authenticateToken = (req, res, next) => {
   const authHeader = req.headers["authorization"];
   const token = authHeader && authHeader.split(" ")[1];
-  if (!token) {
+  if (!token || token === "null") {
     return res.status(400).json({
       error: true,
       message: "Authentication token not present",
