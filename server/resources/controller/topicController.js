@@ -7,7 +7,14 @@ const {
 
 const getAllTopics = async ( req, res ) => {
     try{
-        let result = await Topic.find().exec()
+        let result = await Topic.aggregate([
+            {
+                $addFields: {
+                    noOfQuestion: { $size: "$questions" },
+                },
+            },
+            { $unset: "questions" },
+        ]).exec();
         res.status(200).json({error: false, data: result})
     }
     catch(err){

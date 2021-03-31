@@ -4,11 +4,14 @@ import { Grid, Avatar, Card, CardContent, Typography } from "@material-ui/core";
 import { adminActions } from "../State/action";
 import { TopicsStyle } from "../Styles/TopicsStyle";
 import { IconManipulationDialog } from "./IconManipulationModal";
+import { IsLoading } from "../../Common";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 export const CrudTopics = () => {
   const dispatch = useDispatch();
   const topicsData = useSelector((state) => state.admin.topicsData);
+  const isLoading = useSelector((state) => state.admin.isLoading);
+  const isError = useSelector((state) => state.admin.isError);
   const classes = TopicsStyle();
 
   useEffect(() => {
@@ -26,12 +29,12 @@ export const CrudTopics = () => {
   };
   const [dialogInfo, setDialogInfo] = useState(dialogInfoStr);
 
-  const handleClickOpen = ({icon, name,id}) => {
+  const handleClickOpen = ({ icon, name, id }) => {
     setDialogInfo({
       open: true,
       icon: icon,
       name: name,
-      id: id
+      id: id,
     });
   };
 
@@ -46,8 +49,13 @@ export const CrudTopics = () => {
       alignItems="center"
       spacing={3}
     >
-      {topicsData &&
-        topicsData?.map(({ name, questions, icon, _id }, index) => (
+      {isLoading ? (
+        <IsLoading />
+      ) : isError ? (
+        <p>...something went wrong</p>
+      ) : (
+        topicsData &&
+        topicsData?.map(({ name, noOfQuestion, icon, _id }, index) => (
           <Grid item xs={12} sm={10} md={6} lg={4} xl={3} key={index}>
             <Card>
               <CardContent>
@@ -68,7 +76,9 @@ export const CrudTopics = () => {
                           ? modIcon(icon)
                           : icon)
                     }
-                    onClick={() => handleClickOpen({icon: icon, name: name, id: _id})}
+                    onClick={() =>
+                      handleClickOpen({ icon: icon, name: name, id: _id })
+                    }
                     className={classes.iconStyle}
                   />
                   <div>
@@ -76,15 +86,19 @@ export const CrudTopics = () => {
                       {name}
                     </Typography>
                     <Typography variant="h6" component="h2">
-                      Total Questions : {questions.length}
+                      Total Questions : {noOfQuestion}
                     </Typography>
                   </div>
                 </Grid>
               </CardContent>
             </Card>
           </Grid>
-        ))}
-      <IconManipulationDialog handleClose={handleClose} dialogInfo={dialogInfo} />
+        ))
+      )}
+      <IconManipulationDialog
+        handleClose={handleClose}
+        dialogInfo={dialogInfo}
+      />
     </Grid>
   );
 };
