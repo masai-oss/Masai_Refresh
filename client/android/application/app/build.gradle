@@ -8,6 +8,10 @@ plugins {
 android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
+    buildFeatures {
+        viewBinding true
+    }
+
 
     defaultConfig {
         applicationId "com.example.myapplication"
@@ -35,6 +39,7 @@ android {
 }
 
 dependencies {
+    implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     def jetpack_version = "2.1.0"
     def arch_version = '2.2.0-alpha01'
     def retrofit_version = "2.6.1"
@@ -57,15 +62,16 @@ dependencies {
     //Coroutines
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$kotlinCoroutineVersion"
+
+    // Google Auth
+    implementation 'com.google.android.gms:play-services-auth:19.0.0'
     //Room
     //implementation "androidx.room:room-runtime:$jetpack_version"
     implementation "androidx.room:room-ktx:$jetpack_version"
     kapt "androidx.room:room-compiler:$jetpack_version"
     kapt "com.android.databinding:compiler:$jetpack_version"
     // Retrofit & OkHttp
-    implementation "com.squareup.retrofit2:retrofit:$retrofit_version"
-    implementation "com.squareup.retrofit2:converter-gson:$retrofit_version"
-    implementation "com.squareup.okhttp3:logging-interceptor:4.0.1"
+
     testImplementation "com.android.support.test.espresso:espresso-core:3.0.2"
     testImplementation "androidx.test.ext:junit-ktx:1.1.2-beta01"
     androidTestImplementation "androidx.test.ext:junit-ktx:1.1.2-beta01"
@@ -80,10 +86,20 @@ dependencies {
 //pie chart dependencies
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
 
-
+    // Retrofit dependency which will be used to make network calls
+    implementation 'com.squareup.retrofit2:retrofit:2.6.0'
+    // GSON library which is used to convert POJO to JSON and vice versa
+    implementation 'com.squareup.retrofit2:converter-gson:2.5.0'
+    // okhttp library used to observe the api call logs on LogCat
+    implementation 'com.squareup.okhttp3:logging-interceptor:3.12.3'
 
     implementation 'com.github.bumptech.glide:glide:4.8.0'
     implementation 'com.github.blackfizz:eazegraph:1.2.5l@aar'
     implementation 'com.nineoldandroids:library:2.4.0'
     annotationProcessor 'com.github.bumptech.glide:compiler:4.8.0'
-}
+    def nav_version = "2.3.4"
+    implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
+    implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
+
+
+    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'}
