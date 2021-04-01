@@ -6,74 +6,89 @@
     android:layout_height="match_parent"
     tools:context=".HomeActivity">
 
-
-    <RelativeLayout
+    <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <!--    <br.tiagohm.markdownview.MarkdownView-->
-        <!--    android:id="@+id/markdown_view"-->
-        <!--    app:escapeHtml="false"-->
-        <!--    android:layout_width="match_parent"-->
-        <!--    android:layout_height="wrap_content"/>-->
-        <TextView
-            android:id="@+id/questionText"
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:padding="20dp"
-            android:text="question"
-            android:textColor="@color/black"
-            android:textSize="25sp" />
+            android:layout_height="wrap_content">
 
-        <RadioGroup
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/questionText"
-            android:layout_margin="10dp">
 
-            <RadioButton
-                android:id="@+id/optionOne"
+            <TextView
+                android:id="@+id/questionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins_medium"
                 android:padding="20dp"
-                android:text="Option One"
-                android:textSize="20dp" />
 
-            <RadioButton
-                android:id="@+id/optionTwo"
+                android:text="Question"
+                android:textColor="@color/black"
+                android:textSize="25sp" />
+
+            <RadioGroup
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Option Two"
-                android:textSize="20dp" />
+                android:layout_below="@+id/questionText"
+                android:layout_margin="10dp">
 
-            <RadioButton
-                android:id="@+id/optionThree"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Option Three"
-                android:textSize="20dp" />
+                <RadioButton
+                    android:id="@+id/optionOne"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:padding="20dp"
+                    android:textColorHighlight="@android:color/holo_red_dark"
+                    android:fontFamily="@font/poppins_medium"
+                    android:text="Option One"
+                    android:textSize="20dp" />
 
-            <RadioButton
-                android:id="@+id/optionFour"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:padding="20dp"
-                android:text="Option Four"
-                android:textSize="20dp" />
+                <RadioButton
+                    android:id="@+id/optionTwo"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:padding="20dp"
+                    android:text="Option Two"
+                    android:textSize="20dp" />
 
-        </RadioGroup>
-    </RelativeLayout>
+                <RadioButton
+                    android:id="@+id/optionThree"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:padding="20dp"
+                    android:text="Option Three"
+                    android:textSize="20dp" />
+
+                <RadioButton
+                    android:id="@+id/optionFour"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_medium"
+                    android:padding="20dp"
+                    android:text="Option Four"
+                    android:textSize="20dp" />
+
+            </RadioGroup>
+        </RelativeLayout>
+    </ScrollView>
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floatAttemptBtn"
+        android:id="@+id/floatnextQstn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="end|bottom"
         android:layout_margin="20dp"
-        android:text="NEXT"
-        app:icon="@drawable/ic_baseline_navigate_next_24" />
+        android:padding="10dp"
+        android:backgroundTint="#2D799F"
+        android:text="Start"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_medium"
+        android:textColor="@color/white"
+        app:icon="@drawable/ic_baseline_navigate_next_24"
+        app:iconTint="@color/white"
+        app:iconSize="40dp"
+       />
 
     <FrameLayout
         android:id="@+id/progressFrameHome"
@@ -86,5 +101,23 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
+    </FrameLayout>
+    <FrameLayout
+        android:id="@+id/startText"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/white"
+        android:visibility="visible">
+
+       <TextView
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:gravity="center"
+           android:textColor="@color/black"
+           android:textSize="30dp"
+           android:layout_margin="10dp"
+           android:fontFamily="@font/poppins_medium"
+           android:layout_gravity="center"
+           android:text="Click on Start to start Quiz"/>
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>

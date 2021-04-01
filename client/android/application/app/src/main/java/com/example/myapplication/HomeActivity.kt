@@ -2,6 +2,7 @@ package com.example.myapplication
 
 import android.os.Bundle
 import android.util.Log
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
@@ -14,6 +15,7 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var token: String
     private lateinit var attemptViewModel: AttemptViewModel
     private lateinit var dataQuestions: DataQuestions
+    private var size = 5
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -22,10 +24,10 @@ class HomeActivity : AppCompatActivity() {
         topicID = intent.getStringExtra("topicId").toString()
         token = intent.getStringExtra("token").toString()
         attemptViewModel = ViewModelProviders.of(this).get(AttemptViewModel::class.java)
-
+        progressFrameHome.visibility = View.VISIBLE
         observeLiveData()
         observeQuestions()
-        val postStart = PostStart(5, topicID)
+        val postStart = PostStart(size, topicID)
         attemptViewModel.callStartAttemptApi(token, postStart)
     }
 
@@ -38,6 +40,7 @@ class HomeActivity : AppCompatActivity() {
                     optionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
                     optionThree.text = it.questionData.data?.options?.get(2)?.text.toString()
                     optionFour.text = it.questionData.data?.options?.get(3)?.text.toString()
+                    progressFrameHome.visibility = View.GONE
                 }
             }
         })
@@ -50,17 +53,35 @@ class HomeActivity : AppCompatActivity() {
                 is AttemptUIModel.Success -> {
                     Log.d("Attempt", it.startQuiz.data?.attemptId.toString())
                     val dataStart: DataStart? = it.startQuiz.data
+                    var count = 0
                     if (dataStart != null) {
-                        dataStart.questions?.get(0)?.let { it1 ->
-                            dataStart.attemptId?.let { it2 ->
-                                dataStart.submissionId?.let { it3 ->
-                                    attemptViewModel.callQuestionsData(
-                                        token, it2, it3,
-                                        it1
-                                    )
+                        floatnextQstn.setOnClickListener {
+                            if (count < size) {
+
+                                startText.visibility = View.GONE
+                                floatnextQstn.text = "Next"
+                                progressFrameHome.visibility = View.VISIBLE
+
+
+                                dataStart.questions?.get(count)?.let { it1 ->
+                                    dataStart.attemptId?.let { it2 ->
+                                        dataStart.submissionId?.let { it3 ->
+                                            attemptViewModel.callQuestionsData(
+                                                token, it2, it3,
+                                                it1
+                                            )
+                                        }
+                                    }
                                 }
+                                count++
+
+                            } else {
+                                floatnextQstn.text = "Submit"
+//                                progressFrameHome.visibility = View.VISIBLE
+
                             }
                         }
+
                     }
 
                     Toast.makeText(
