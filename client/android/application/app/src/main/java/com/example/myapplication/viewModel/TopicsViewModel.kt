@@ -33,7 +33,7 @@ class TopicsViewModel : ViewModel(), Callback<TopicsModel> {
     }
 
 
-    fun callAPI(tokenId:String) {
+    fun callAPI(tokenId: String) {
         repository.getListOfTopics(tokenId)
     }
 
