@@ -3,7 +3,7 @@ import Dialog from "@material-ui/core/Dialog";
 import DialogActions from "@material-ui/core/DialogActions";
 import DialogContent from "@material-ui/core/DialogContent";
 import DialogTitle from "@material-ui/core/DialogTitle";
-import { resultAction } from "../../Results Display"
+import { resultAction } from "../../Results Display";
 import { useDispatch } from "react-redux";
 import {
   IssueReport,
@@ -14,10 +14,12 @@ import {
   CustomButton,
 } from "../Styles/ReportDialogBoxStyles";
 import ReasonEnums from "../../../Enums/ReasonEnums";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";
+import { modalStyles } from "../../Results Display/Styles/ModalStyles";
 
 export default function ReportDialog({ question_id, customMargin }) {
+  const classes = modalStyles();
   const [open, setOpen] = useState(false);
   const [select, setSelect] = useState([]);
   const [details, setDetails] = useState("");
@@ -34,9 +36,9 @@ export default function ReportDialog({ question_id, customMargin }) {
 
   const handleClose = async (submit) => {
     if (submit) {
-			if(details.length === 0 || select.length === 0){
-				return
-			}
+      if (details.length === 0 || select.length === 0) {
+        return;
+      }
       let res = await handleReport();
       if (res.output) {
         setSuccess(true);
@@ -87,18 +89,13 @@ export default function ReportDialog({ question_id, customMargin }) {
         maxWidth={"lg"}
         aria-labelledby="responsive-dialog-title"
       >
-        <DialogTitle id="responsive-dialog-title">
+        <div className={classes.title} id="responsive-dialog-title">
           {"Report an issue with the question"}
-        </DialogTitle>
+        </div>
         <Line />
         <DialogContent>
           <div>
-            <h3>
-              What seems to be the issue with the question? *{" "}
-              <span style={{ color: "gray" }}>
-                (min select - 1 | max select - 4)
-              </span>
-            </h3>
+            <h3>What seems to be the issue with the question? * </h3>
             <TagsWrapper>
               {issues.map((el, i) => (
                 <Tag
@@ -112,7 +109,7 @@ export default function ReportDialog({ question_id, customMargin }) {
             </TagsWrapper>
           </div>
           <div>
-            <h3>Add Details *</h3>
+            <h3 className={classes.details}>Add Details *</h3>
             <CustomizedTextArea
               onChange={handleDetailsChange}
               value={details}
