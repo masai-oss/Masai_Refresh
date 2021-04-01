@@ -12,6 +12,7 @@ import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.AttemptActivity
+import com.example.myapplication.HomeActivity
 import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
@@ -67,7 +68,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     }
 
     override fun onItemClicked(position: Int, dataItem: DataItem) {
-        val intent=Intent(this,AttemptActivity::class.java)
+        val intent=Intent(this,HomeActivity::class.java)
         intent.putExtra("topicId",dataItem.id)
         intent.putExtra("token",tokenID)
         startActivity(intent)

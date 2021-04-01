@@ -145,7 +145,7 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
 
     private fun updateUIForQuestions(it: NextQuestionApiResponse) {
         questionsAdapter.updateAdapter(it)
-        tvQuestion.text = it.data?.statement
+        tvQuestion.loadMarkdown(it.data?.statement)
         if(questionIndex==0){
             btnPreviousQuestion.visibility= View.GONE
         }else{
