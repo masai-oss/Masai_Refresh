@@ -8,12 +8,15 @@ const CLIENT_HOME_PAGE_URL = process.env.CLIENT_HOME_PAGE_URL;
 const SECRET_KEY_TO_ACCESS = process.env.SECRET_KEY_TO_ACCESS;
 const ADMIN_CONTROL_EMAIL = process.env.ADMIN_CONTROL_EMAIL;
 const GOOGLE_ANDROID_CLIENT_ID = process.env.GOOGLE_ANDROID_CLIENT_ID;
+const ZOHO_LOGOUT_LINK = process.env.ZOHO_LOGOUT_LINK;
 
 const createToken = (user) => {
-  let { email, _id } = user;
+  let { email, _id, _doc } = user;
+  crnAuth = _doc !== undefined ? _doc.crnAuth : user.crnAuth
   const isAdmin = email.split("@")[1] === ADMIN_CONTROL_EMAIL;
   const tokenInfo = {
     email: email,
+    crnAuth: crnAuth,
     id: _id,
     admin: isAdmin,
   };
@@ -56,6 +59,13 @@ const logoutController = (req, res) => {
   req.session = null;
   res.clearCookie("quizine", { path: "/" });
   res.redirect(CLIENT_HOME_PAGE_URL);
+};
+
+const zohoCrmLogout = (req, res) => {
+  req.logout();
+  req.session = null;
+  res.clearCookie("quizine", { path: "/" });
+  res.redirect(ZOHO_LOGOUT_LINK)
 };
 
 const isLoggedIn = (req, res, next) => {
@@ -114,7 +124,7 @@ const getUserInfoToken = (user) => {
     _doc: { oauth, ...userInfo },
   } = user;
   const { _id, email } = userInfo;
-  const token = createToken({ _id, email });
+  const token = createToken({ _id, email, crnAuth: "google" });
   return { userInfo, token };
 };
 
@@ -153,7 +163,7 @@ const loginUser = async (req, res) => {
         ],
       }).save();
       const { userInfo, token } = getUserInfoToken(newUser);
-      res.status(200).set("Cache-Control", "no-store").json({
+      return res.status(200).set("Cache-Control", "no-store").json({
         error: false,
         message: "user has been successfully authenticated",
         user: userInfo,
@@ -184,4 +194,5 @@ module.exports = {
   loginFailure,
   loginUser,
   authenticateToken,
+  zohoCrmLogout
 };
