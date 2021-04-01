@@ -8,7 +8,7 @@ import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { resultAction } from "../../Results Display"
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
-import { QuestionWrapper } from "../Styles/MCQ_styles";
+import { QuestionWrapper, BoxShadow } from "../Styles/MCQ_styles";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
 import { QuestionStyles, PrevButton, NextButton } from "../Styles/QuestionStyles";
 import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
@@ -95,7 +95,7 @@ const MCQ = (props) => {
 
   return question ? (
     <QuestionWrapper>
-      <div className="boxShadow">
+      <BoxShadow className="boxShadow">
         <QuestionNavbar
           type={type}
           len={questionIds.length}
@@ -133,7 +133,7 @@ const MCQ = (props) => {
           </FormControl>
         </form>
         <ReportDialog question_id={question_id} customMargin='10px 20px' />
-      </div>
+      </BoxShadow>
       <div className={classes.btns}>
         <PrevButton
           className={classes.prevBtn}

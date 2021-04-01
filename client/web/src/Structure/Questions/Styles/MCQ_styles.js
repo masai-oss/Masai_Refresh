@@ -2,12 +2,7 @@ import styled from 'styled-components'
 
 
 export const QuestionWrapper = styled.div`
-
     
-    & div.boxShadow {
-        box-shadow: 0px 0px 1px 1px rgb(0,0,0,0.25);
-        padding-bottom: 10px;
-    }
     
     & div > pre{
         margin:0;
@@ -28,4 +23,8 @@ export const QuestionWrapper = styled.div`
         width: 100%;
     }
 `
-
+export const BoxShadow = styled.div`
+    box-shadow: 0px 0px 1px 1px rgb(0,0,0,0.25);
+    padding-bottom: 10px;
+    
+`
