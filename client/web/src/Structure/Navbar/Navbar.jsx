@@ -15,9 +15,13 @@ import PropTypes from "prop-types";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authActions } from "../Authentication";
+import { CrnAuth } from "../Common";
 
-const REACT_APP_AUTH_GOOGLE_LOGOUT_URL =
+const GOOGLE_LOGOUT_URL =
   process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
+
+const ZOHO_LOGOUT_URL =
+  process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -41,18 +45,25 @@ function Navbar(props) {
   const history = useHistory();
   const [open, setOpen] = useState(false);
   const dispatch = useDispatch();
-
+  const crnAuth = CrnAuth();
   const logout = () => {
-    window.open(REACT_APP_AUTH_GOOGLE_LOGOUT_URL, "_self");
+    window.open(GOOGLE_LOGOUT_URL, "_self");
+    dispatch(authActions.logoutProcess());
+  };
+
+  const zohoLogout = () => {
+    window.open(ZOHO_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
 
   const handleClose = () => {
     setOpen(false);
   };
+
   const goHome = () => {
     history.push("/");
   };
+
   let isAuth = useSelector((state) => state.authentication.token);
   return (
     <>
@@ -60,7 +71,11 @@ function Navbar(props) {
       <HideOnScroll {...props}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <div className={classes.navbarName} style={{cursor: "pointer"}} onClick={goHome} >
+            <div
+              className={classes.navbarName}
+              style={{ cursor: "pointer" }}
+              onClick={goHome}
+            >
               <img src={MasaiLogo} alt="masaiLogo" />
               <p className={classes.refresh}>refresh</p>
             </div>
@@ -83,7 +98,7 @@ function Navbar(props) {
         message="Are you sure you want to logout?"
         okBtnTitle="Agree"
         cancelBtnTitle="Cancel"
-        onOkAction={logout}
+        onOkAction={crnAuth === "google" ? logout : zohoLogout}
       />
     </>
   );

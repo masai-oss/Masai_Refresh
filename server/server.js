@@ -8,6 +8,7 @@ const bodyParser = require("body-parser");
 const cookieSession = require("cookie-session");
 const cookieParser = require("cookie-parser");
 const session = require("express-session");
+const MemoryStore = require("memorystore")(session);
 const fs = require("fs")
 require("./resources/services/passportSetup");
 
@@ -59,6 +60,9 @@ app.use(
       secure: ENVIRONMENT === "production", // must be true if sameSite='none'
       maxAge: 30 * 24 * 60 * 10 * 1000, //30 days
     },
+    store: new MemoryStore({
+      checkPeriod: 30 * 24 * 60 * 10 * 1000, // prune expired entries every 30 days
+    }),
   })
 );
 
