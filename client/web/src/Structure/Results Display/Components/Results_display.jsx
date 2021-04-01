@@ -2,12 +2,9 @@ import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { IsLoading } from "../../Common";
-import {DetailedReport} from "../"
-import {
-  ResultWrapper,
-  Result,
-} from "../Styles/ResultsPageStyle";
-import { QuestionNavbar } from '../../Common/QuestionNavbar'
+import { DetailedReport } from "../";
+import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
+import { QuestionNavbar } from "../../Common/QuestionNavbar";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -17,6 +14,10 @@ const Results_display = () => {
   const topic = useSelector((state) => state.questions.topic);
   // const type = useSelector((state) => state.questions.type);
   let history = useHistory();
+
+  const goBackToHome = () => {
+    history.push("quiz_topics");
+  };
 
   useEffect(() => {
     if (isError) {
@@ -38,33 +39,37 @@ const Results_display = () => {
     <div>Something went wrong</div>
   ) : (
     result && (
-      <ResultWrapper>
-        <QuestionNavbar topicDisplay={topic} type={question.type} />
-        <Result>
-          <h3 className="bigText correct">
-            Quiz Completed
-          </h3>
-          <p className="normalText">
-            Total Questions: <b>{result.length}</b>
-          </p>
-          <div className="attempts">
-            <div className="attemptsItem">
-              <p className="bigText correct">Correct</p>
-              <b>{correctSol}</b>
+      <>
+        <Button onClick={goBackToHome}>Go To Home Page</Button>
+        <ResultWrapper>
+          <QuestionNavbar topicDisplay={topic} type={question.type} />
+          <Result>
+            <h3 className="bigText correct">Quiz Completed</h3>
+            <p className="normalText">
+              Total Questions: <b>{result.length}</b>
+            </p>
+            <div className="attempts">
+              <div className="attemptsItem">
+                <p className="bigText correct">Correct</p>
+                <b>{correctSol}</b>
+              </div>
+              <div className="attemptsItem">
+                <p className="bigText wrong">Wrong</p>
+                <b>{wrongSol}</b>
+              </div>
+              <div className="attemptsItem">
+                <p className="bigText skipped">Skipped</p>
+                <b>{skippedSol}</b>
+              </div>
             </div>
-            <div className="attemptsItem">
-              <p className="bigText wrong">Wrong</p>
-              <b>{wrongSol}</b>
-            </div>
-            <div className="attemptsItem">
-              <p className="bigText skipped">Skipped</p>
-              <b>{skippedSol}</b>
-            </div>
-          </div>
-          <h3 style={{marginTop: '50px'}}>Detailed Report</h3>
-          { result && result.map((details,index) =>  <DetailedReport key={index} index={index} details={details} /> )}
-        </Result>
-      </ResultWrapper>
+            <h3 style={{ marginTop: "50px" }}>Detailed Report</h3>
+            {result &&
+              result.map((details, index) => (
+                <DetailedReport key={index} index={index} details={details} />
+              ))}
+          </Result>
+        </ResultWrapper>
+      </>
     )
   );
 };

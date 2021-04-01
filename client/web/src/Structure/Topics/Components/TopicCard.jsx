@@ -7,7 +7,7 @@ import {
   Avatar,
   CardActionArea,
   CardActions,
-  Box
+  Box,
 } from "@material-ui/core";
 import { TopicStyle } from "../Styles/TopicStyles";
 
@@ -34,95 +34,98 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
       : icon;
   const classes = TopicStyle();
   return (
-    <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardContent
-            className={classes.cardStyle}
-            onClick={() => handleOpenProficiency({ topic, proficiency })}
-            title="Open Proficiency Data"
-          >
-            {(lastValue.length && (
-              <Typography
-                variant="button"
-                display="block"
-                gutterBottom
-                className={classes.lastAttempt}
-              >
-                {`Last Attempt ( ${
-                  (Number(lastAttempt.correct) / Number(lastAttempt.alloted)) *
-                  100
-                } ) %`}
-              </Typography>
-            )) || <p></p>}
-            <div className={classes.lasStyle}>
-              {lastValue.map((val, index) => {
-                let lastCrn =
-                  index === 0
-                    ? classes.correct
-                    : index === 1
-                    ? classes.wrong
-                    : classes.skipped;
-                return (
-                  <div key={index}>
+    <>
+      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+        <Card className={classes.root}>
+          <CardActionArea>
+            <CardContent
+              className={classes.cardStyle}
+              onClick={() => handleOpenProficiency({ topic, proficiency })}
+              title="Open Proficiency Data"
+            >
+              {(lastValue.length && (
+                <Typography
+                  variant="button"
+                  display="block"
+                  gutterBottom
+                  className={classes.lastAttempt}
+                >
+                  {`Last Attempt ( ${
+                    (Number(lastAttempt.correct) /
+                      Number(lastAttempt.alloted)) *
+                    100
+                  } ) %`}
+                </Typography>
+              )) || <p></p>}
+              <div className={classes.lasStyle}>
+                {lastValue.map((val, index) => {
+                  let lastCrn =
+                    index === 0
+                      ? classes.correct
+                      : index === 1
+                      ? classes.wrong
+                      : classes.skipped;
+                  return (
+                    <div key={index}>
+                      <Typography
+                        variant="button"
+                        display="block"
+                        gutterBottom
+                        className={lastCrn}
+                      >
+                        {index === 0
+                          ? "Correct"
+                          : index === 1
+                          ? "Wrong"
+                          : "Skipped"}
+                      </Typography>
+                      <Typography
+                        variant="button"
+                        display="block"
+                        gutterBottom
+                        className={lastCrn}
+                        style={{ textAlign: "right" }}
+                      >
+                        {val}
+                      </Typography>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+          </CardActionArea>
+          <CardActionArea className={classes.cardBottom}>
+            <CardActions
+              className={classes.cardActions}
+              onClick={() => handleClickOpen({ topic, topicId })}
+              title={"Attempt Quiz on " + topic}
+            >
+              <Grid container alignItems="center" spacing={3}>
+                <Grid item>
+                  <Box mx={2}>
+                    <Avatar alt={topic} src={icon} />
+                  </Box>
+                </Grid>
+                <Grid item>
+                  <div>
                     <Typography
-                      variant="button"
-                      display="block"
+                      variant="h6"
                       gutterBottom
-                      className={lastCrn}
+                      style={{ fontWeight: "bold" }}
                     >
-                      {index === 0
-                        ? "Correct"
-                        : index === 1
-                        ? "Wrong"
-                        : "Skipped"}
+                      {topic.split("_").join(" ")}
                     </Typography>
-                    <Typography
-                      variant="button"
-                      display="block"
-                      gutterBottom
-                      className={lastCrn}
-                      style={{ textAlign: "right" }}
-                    >
-                      {val}
+                    <Typography variant="button" display="block" gutterBottom>
+                      HTML, CSS, HTML, CSS
                     </Typography>
                   </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </CardActionArea>
-        <CardActionArea className={classes.cardBottom}>
-          <CardActions
-            className={classes.cardActions}
-            onClick={() => handleClickOpen({ topic, topicId })}
-            title={"Attempt Quiz on " + topic}
-          >
-            <Grid container alignItems="center" spacing={3}>
-              <Grid item>
-                <Box mx={2}>
-                  <Avatar alt={topic} src={icon}/>
-                </Box>
+                </Grid>
               </Grid>
-              <Grid item>
-                <div>
-                  <Typography
-                    variant="h6"
-                    gutterBottom
-                    style={{ fontWeight: "bold" }}
-                  >
-                    {topic.split("_").join(" ")}
-                  </Typography>
-                  <Typography variant="button" display="block" gutterBottom>
-                    HTML, CSS, HTML, CSS
-                  </Typography>
-                </div>
-              </Grid>
-            </Grid>
-          </CardActions>
-        </CardActionArea>
-      </Card>
-    </Grid>
+            </CardActions>
+          </CardActionArea>
+        </Card>
+      </Grid>
+    </>
   );
 };
 

@@ -4,7 +4,7 @@ export const ResultWrapper = styled.div`
   font-size: 16px;
   background-color: #fff;
   margin: 16px;
-  box-shadow: 0px 0px 1px 1px rgb(0,0,0,0.25);
+  box-shadow: 0px 0px 1px 1px rgb(0, 0, 0, 0.25);
   background-color: #fff;
 `;
 
@@ -31,7 +31,7 @@ export const Result = styled.div`
     flex-wrap: wrap;
     justify-content: space-between;
     max-width: 365px;
-    width:100%;
+    width: 100%;
   }
 
   .attemptsItem {
@@ -39,15 +39,26 @@ export const Result = styled.div`
   }
 
   .correct {
-    color: #04A91E;
+    color: #04a91e;
   }
 
   .wrong {
-    color: #DA0909;
-;
+    color: #da0909;
   }
 
   .skipped {
-    color: #EFAC00;
+    color: #efac00;
   }
+`;
+
+export const Button = styled.button`
+  height: 48px;
+  background: #6c8d9e;
+  box-shadow: 0px 6px 12px 0px rgb(0, 0, 0, 0.16);
+  border-radius: 2px;
+  padding: 16px;
+  font-weight: bold;
+  border: 0;
+  margin-left: 16px;
+  cursor: pointer;
 `;
