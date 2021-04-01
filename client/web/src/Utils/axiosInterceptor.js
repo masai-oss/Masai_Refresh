@@ -12,19 +12,25 @@ const axiosInterceptor = () => {
       return response;
     },
     (error) => {
-      if (error?.response?.status === 401 && token) {
+      if (
+        (error?.response?.status === 401 || error?.response?.status === 403) &&
+        token
+      ) {
+        window.open(process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL, "_self");
         dispatch(authActions.logoutProcess());
-        window.open(process.env.REACT_APP_HOME, "_self");
-      } 
+      }
       return Promise.reject(error);
     }
   );
 
-  axios.interceptors.request.use((request) => {
-    return request
-  }, (error) => {
-    return Promise.reject(error);
-  })
+  axios.interceptors.request.use(
+    (request) => {
+      return request;
+    },
+    (error) => {
+      return Promise.reject(error);
+    }
+  );
 };
 
 export { axiosInterceptor };

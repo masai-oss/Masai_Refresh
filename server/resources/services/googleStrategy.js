@@ -19,6 +19,7 @@ const googleStrategy = new GoogleStrategy(
   async (accessToken, refreshToken, profile, done) => {
     try {
       const { id, displayName, emails, photos } = profile;
+      const crnAuth = "google"
       let oauth = { provider: "google", identifier: id };
       const userPresentWithGmail = await User.findOne({ email: emails[0].value });
       if (!userPresentWithGmail) {
@@ -38,14 +39,17 @@ const googleStrategy = new GoogleStrategy(
             oauth: [oauth],
           }).save();
           if (newUser) {
+            newUser._doc.crnAuth = crnAuth;
             return done(null, newUser);
           }
         }
+        currentUser._doc.crnAuth = crnAuth;
         return done(null, currentUser);
       } else if (
         userPresentWithGmail.oauth.length === 2 ||
         userPresentWithGmail.oauth[0].provider === "google"
       ) {
+        userPresentWithGmail._doc.crnAuth = crnAuth
         return done(null, userPresentWithGmail);
       } else {
         const modifiedUser = await User.findOneAndUpdate(
@@ -53,6 +57,7 @@ const googleStrategy = new GoogleStrategy(
           { $push: { oauth: oauth } },
           { returnOriginal: false }
         );
+        modifiedUser._doc.crnAuth = crnAuth;
         return done(null, modifiedUser);
       }
     } catch (err) {
