@@ -3,10 +3,11 @@ import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
 import { Grid } from "@material-ui/core";
 import { IsLoading } from "../Common";
-import { QuizPracticeSwitch } from "./Components/TopicWrapper"
+import { QuizPracticeSwitch } from "./Components/TopicWrapper";
+import { Spinner } from "../Common/Loader";
 
 const Topics = () => {
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   useEffect(() => {
     dispatch(topicActions.getQuizTopics());
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -17,7 +18,7 @@ const Topics = () => {
   return (
     <Grid container justify="center">
       {isLoading ? (
-        <IsLoading />
+        <Spinner />
       ) : isError ? (
         <div>...something went wrong</div>
       ) : (
@@ -28,4 +29,3 @@ const Topics = () => {
 };
 
 export { Topics };
-
