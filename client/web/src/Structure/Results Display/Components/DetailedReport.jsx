@@ -44,6 +44,21 @@ const MyResponse = styled.div`
   }
 `;
 
+const CorrectResponse = styled.div`
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 150%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+/* 
+  & p{
+    color: ${props => props.correct ? 'green' : 'red'};
+    padding-left: 5px;
+  } */
+`;
+
 const Response = styled.div`
   display: flex;
   padding-right: 2em;
@@ -82,10 +97,10 @@ function DetailedReport({ index, details }) {
           <p>{response}</p>
         </MyResponse>
       </div>
-      <div>
+      <CorrectResponse>
         <Para>Correct Response</Para>
         <Para >{correct}</Para>
-      </div>
+      </CorrectResponse>
     </Response>
     <Para>
       <b>Explanation</b>
