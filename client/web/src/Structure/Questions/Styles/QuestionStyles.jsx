@@ -24,8 +24,6 @@ const QuestionStyles = makeStyles((theme) => ({
     },
   },
   nextBtn: {
-    height: "48px",
-    width: "78px",
     minWidth: "73px",
     minHeight: "48px",
     background: "#6C8D9E",
