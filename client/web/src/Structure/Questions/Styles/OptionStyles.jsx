@@ -23,7 +23,7 @@ export const OptionStyles = makeStyles((theme) => ({
   dots: {
     float: "right",
     bottom: 0,
-    marginTop: "8%",
+    marginTop: "5%",
     marginRight: 6,
   },
 }));
