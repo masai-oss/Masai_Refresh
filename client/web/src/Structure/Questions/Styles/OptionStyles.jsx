@@ -18,6 +18,6 @@ export const OptionStyles = makeStyles((theme) => ({
         height: '100%',
     },
     radio : {
-        color: 'rgb(159,159,159,1)',
+        color: '#6C8D9E',
     },
 }));
