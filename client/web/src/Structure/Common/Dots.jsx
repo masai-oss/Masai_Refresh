@@ -8,6 +8,7 @@ const Dots = styled.div`
   height: 5px;
   margin-right: 12px;
   margin-top: 10px;
+  border-radius: 1px;
 `;
 
 const DotsDis = () => {

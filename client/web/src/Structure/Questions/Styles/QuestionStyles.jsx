@@ -57,7 +57,7 @@ const QuestionStyles = makeStyles((theme) => ({
 }));
 
 const PrevButton = styled.div`
-  opacity: ${(props) => (props.first_question ? 0.2 : 1)};
+  opacity: ${(props) => (props.first_question ? 0 : 1)};
   cursor: ${(props) => (props.first_question ? "default" : "pointer")};
 `;
 

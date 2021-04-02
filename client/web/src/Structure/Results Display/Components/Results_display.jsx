@@ -5,6 +5,7 @@ import { IsLoading } from "../../Common";
 import { DetailedReport } from "../";
 import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
+import { DotsDis } from "../../Common/Dots";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -68,7 +69,8 @@ const Results_display = () => {
                 <DetailedReport key={index} index={index} details={details} />
               ))}
           </Result>
-        </ResultWrapper>
+            </ResultWrapper>
+            <DotsDis/>
       </>
     )
   );

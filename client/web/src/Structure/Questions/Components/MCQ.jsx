@@ -217,10 +217,7 @@ const MCQ = (props) => {
           </div>
         </div>
       </QuestionWrapper>
-      <div
-        // style={{ float: "right", bottom: 0, marginTop: "8%", marginRight: 6 }}
-        className={dotStyles.dots}
-      >
+      <div className={dotStyles.dots}>
         <DotsDis />
       </div>
     </>
