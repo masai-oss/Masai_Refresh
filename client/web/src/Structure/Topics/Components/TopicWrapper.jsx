@@ -8,6 +8,7 @@ import { StartQuizModal } from "./startQuizModal";
 import { TopicStyle } from "../Styles/TopicStyles";
 import { useSelector } from "react-redux";
 import { ProficiencyChart } from "./ProficiencyChart";
+import { DotsDis } from "../../Common/Dots";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -110,18 +111,18 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
                   color: value === 1 ? "gray" : "white",
                   maxWidth: 115,
                   fontWeight: "bold",
-                  letterSpacing: "2px"
+                  letterSpacing: "2px",
                 }}
                 label="Quiz"
                 {...a11yProps(0)}
                 disabled={!quizTopicsData.length}
               />
               <Tab
-                style={{ 
+                style={{
                   backgroundColor: value === 0 ? "white" : "#6C8D9E",
                   color: value === 0 ? "gray" : "white",
                   fontWeight: "bold",
-                  letterSpacing: "2px"
+                  letterSpacing: "2px",
                 }}
                 label="Practice"
                 {...a11yProps(1)}
@@ -169,6 +170,9 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
         profData={proficiencyModalData}
         handleClose={handleProficiencyClose}
       />
+      <div className={classes.dots}>
+        <DotsDis />
+      </div>
     </>
   );
 };
