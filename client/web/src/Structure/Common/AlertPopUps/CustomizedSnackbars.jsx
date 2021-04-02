@@ -1,8 +1,8 @@
-import React, { forwardRef } from 'react';
-import Button from '@material-ui/core/Button';
-import Snackbar from '@material-ui/core/Snackbar';
-import MuiAlert from '@material-ui/lab/Alert';
-import { makeStyles } from '@material-ui/core/styles';
+import React, { forwardRef } from "react";
+import Button from "@material-ui/core/Button";
+import Snackbar from "@material-ui/core/Snackbar";
+import MuiAlert from "@material-ui/lab/Alert";
+import { makeStyles } from "@material-ui/core/styles";
 
 function Alert(props) {
   return <MuiAlert elevation={6} variant="filled" {...props} />;
@@ -10,14 +10,14 @@ function Alert(props) {
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    width: '100%',
-    '& > * + *': {
+    width: "100%",
+    "& > * + *": {
       marginTop: theme.spacing(2),
     },
   },
 }));
 
-export const CustomizedSnackbars = forwardRef(({success, message}, ref) => {
+export const CustomizedSnackbars = forwardRef(({ success, message }, ref) => {
   const classes = useStyles();
   const [open, setOpen] = React.useState(false);
 
@@ -26,7 +26,7 @@ export const CustomizedSnackbars = forwardRef(({success, message}, ref) => {
   };
 
   const handleClose = (event, reason) => {
-    if (reason === 'clickaway') {
+    if (reason === "clickaway") {
       return;
     }
 
@@ -35,18 +35,17 @@ export const CustomizedSnackbars = forwardRef(({success, message}, ref) => {
 
   return (
     <div className={classes.root}>
-      <Button variant="outlined" onClick={handleClick} style={{display: 'none'}} ref={ref}>
+      <Button
+        variant="outlined"
+        onClick={handleClick}
+        style={{ display: "none" }}
+        ref={ref}
+      >
         Open snackbar
       </Button>
-      <Snackbar 
-        open={open} 
-        autoHideDuration={5000} 
-        onClose={handleClose} 
-      >
-        <Alert severity={success ? "success" : "error"}>
-          {message}
-        </Alert>
+      <Snackbar open={open} autoHideDuration={2000} onClose={handleClose}>
+        <Alert severity={success ? "success" : "error"}>{message}</Alert>
       </Snackbar>
     </div>
   );
-})
+});

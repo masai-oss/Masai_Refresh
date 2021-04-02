@@ -13,13 +13,12 @@ export const Line = styled.div`
   height: 1px;
 `;
 
-export const Tag = styled.button`
+export const Tag = styled.div`
   font-size: 18px;
   color: ${(props) => (props.selected ? "white" : "#4E565A")};
   letter-spacing: 0.4px;
   background: ${(props) =>
     props.selected ? "#2D799F" : "rgba(108, 141, 158, 0.1)"};
-  border: none;
   border-radius: 4px;
   padding: 12px 12px 12px 16px;
   margin: 0 10px 10px 0;
@@ -68,4 +67,3 @@ export const CustomButton = styled.button`
     outline: none;
   }
 `;
-

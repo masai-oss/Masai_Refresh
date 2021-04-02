@@ -6,14 +6,13 @@ import {
   Typography,
   Avatar,
   CardActionArea,
-  CardActions,
-  Box
+  Box,
 } from "@material-ui/core";
 import { TopicStyle } from "../Styles/TopicStyles";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
-  let { _id: topicId, name: topic, icon, proficiency, lastAttempt } = topicData;
+  let { _id: topicId, name: topic, icon, lastAttempt } = topicData;
 
   let lastAttReqField = {};
   if (lastAttempt !== undefined) {
@@ -34,74 +33,70 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
       : icon;
   const classes = TopicStyle();
   return (
-    <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
-      <Card className={classes.root}>
-        <CardActionArea>
-          <CardContent
-            className={classes.cardStyle}
-            onClick={() => handleOpenProficiency({ topic, proficiency })}
-            title="Open Proficiency Data"
-          >
-            {(lastValue.length && (
-              <Typography
-                variant="button"
-                display="block"
-                gutterBottom
-                className={classes.lastAttempt}
-              >
-                {`Last Attempt ( ${
-                  (Number(lastAttempt.correct) / Number(lastAttempt.alloted)) *
-                  100
-                } ) %`}
-              </Typography>
-            )) || <p></p>}
-            <div className={classes.lasStyle}>
-              {lastValue.map((val, index) => {
-                let lastCrn =
-                  index === 0
-                    ? classes.correct
-                    : index === 1
-                    ? classes.wrong
-                    : classes.skipped;
-                return (
-                  <div key={index}>
-                    <Typography
-                      variant="button"
-                      display="block"
-                      gutterBottom
-                      className={lastCrn}
-                    >
-                      {index === 0
-                        ? "Correct"
-                        : index === 1
-                        ? "Wrong"
-                        : "Skipped"}
-                    </Typography>
-                    <Typography
-                      variant="button"
-                      display="block"
-                      gutterBottom
-                      className={lastCrn}
-                      style={{ textAlign: "right" }}
-                    >
-                      {val}
-                    </Typography>
-                  </div>
-                );
-              })}
-            </div>
-          </CardContent>
-        </CardActionArea>
-        <CardActionArea className={classes.cardBottom}>
-          <CardActions
-            className={classes.cardActions}
+    <>
+      <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
+        <Card className={classes.root}>
+          <CardActionArea
+            className={classes.cardBottom}
             onClick={() => handleClickOpen({ topic, topicId })}
-            title={"Attempt Quiz on " + topic}
+            title={"Attempt Quiz on " + topic.split("_").join(" ")}
           >
-            <Grid container alignItems="center" spacing={3}>
+            <CardContent className={classes.cardStyle}>
+              {(lastValue.length && (
+                <Typography
+                  variant="button"
+                  display="block"
+                  gutterBottom
+                  className={classes.lastAttempt}
+                >
+                  {`Last Attempt ( ${
+                    (Number(lastAttempt.correct) /
+                      Number(lastAttempt.alloted)) *
+                    100
+                  } ) %`}
+                </Typography>
+              )) || <div className={classes.firstQuiz}>Start Your first Quiz</div>}
+              <div className={classes.lasStyle}>
+                {lastValue.map((val, index) => {
+                  let lastCrn =
+                    index === 0
+                      ? classes.correct
+                      : index === 1
+                      ? classes.wrong
+                      : classes.skipped;
+                  return (
+                    <div key={index}>
+                      <Typography
+                        variant="button"
+                        display="block"
+                        gutterBottom
+                        className={lastCrn}
+                      >
+                        {index === 0
+                          ? "Correct"
+                          : index === 1
+                          ? "Wrong"
+                          : "Skipped"}
+                      </Typography>
+                      <Typography
+                        variant="button"
+                        display="block"
+                        gutterBottom
+                        className={lastCrn}
+                        style={{ textAlign: "right" }}
+                      >
+                        {val}
+                      </Typography>
+                    </div>
+                  );
+                })}
+              </div>
+            </CardContent>
+            <div style={{ border: "1px solid #6C8D9E" }} />
+            <Grid container alignItems="center" spacing={1}>
               <Grid item>
                 <Box mx={2}>
-                  <Avatar alt={topic} src={icon}/>
+                  <Avatar alt={topic} src={icon} />
                 </Box>
               </Grid>
               <Grid item>
@@ -119,10 +114,10 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                 </div>
               </Grid>
             </Grid>
-          </CardActions>
-        </CardActionArea>
-      </Card>
-    </Grid>
+          </CardActionArea>
+        </Card>
+      </Grid>
+    </>
   );
 };
 

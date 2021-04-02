@@ -1,5 +1,9 @@
 import { makeStyles } from "@material-ui/core/styles";
-import styled from 'styled-components'
+
+
+import styled from "styled-components";
+
+
 const QuestionStyles = makeStyles((theme) => ({
   main: {
     boxSizing: "border-box",
@@ -31,6 +35,7 @@ const QuestionStyles = makeStyles((theme) => ({
     borderRadius: "2px",
     padding: "16px",
     fontWeight: "bold",
+    border: 0,
   },
   nextDiv: {
     '@media (max-width: 530px)' : {
@@ -85,11 +90,13 @@ const QuestionStyles = makeStyles((theme) => ({
   },
 }));
 const PrevButton = styled.div`
-  opacity: ${props => props.first_question ? 0.2 : 1};
-  cursor: ${props => props.first_question ? 'default' : 'pointer'};  
-`
+  opacity: ${(props) => (props.first_question ? 0 : 1)};
+  cursor: ${(props) => (props.first_question ? "default" : "pointer")};
+`;
+
 const NextButton = styled.button`
-  opacity: ${props => props.attempted ? 1 : 0.2};
-  cursor: ${props => props.attempted ? 'pointer' : 'default'};  
-`
-export { QuestionStyles, PrevButton, NextButton }; 
+  opacity: ${(props) => (props.attempted ? 1 : 0.2)};
+  cursor: ${(props) => (props.attempted ? "pointer" : "default")};
+`;
+
+export { QuestionStyles, PrevButton, NextButton };
