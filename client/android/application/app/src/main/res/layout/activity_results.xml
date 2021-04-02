@@ -8,6 +8,13 @@
     android:background="@color/color_white"
     tools:context=".activities.Results">
 
+<LinearLayout
+    android:id="@+id/llRecyclerTop"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+
     <TextView
         android:id="@+id/tvDetailsReport"
         android:layout_width="wrap_content"
@@ -27,10 +34,14 @@
         android:id="@+id/recyclerViewDetails"
         android:layout_height="wrap_content"/>
 
+</LinearLayout>
+
+
+
 
     <androidx.cardview.widget.CardView
         android:id="@+id/cardViewGraph"
-        android:layout_below="@+id/recyclerViewDetails"
+        android:layout_below="@+id/llRecyclerTop"
         android:layout_width="match_parent"
         android:layout_height="150dp"
         android:layout_marginLeft="20dp"
@@ -195,7 +206,6 @@
                 android:layout_marginRight="25dp"
                 android:layout_marginBottom="10dp">
 
-                <!--Text view to display R -->
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -216,7 +226,6 @@
                     android:textStyle="bold" />
             </RelativeLayout>
 
-            <!--View to display the line-->
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
