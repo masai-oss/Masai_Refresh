@@ -1,6 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
+import { modalStyles } from "../Styles/ModalStyles";
 
 const Wrapper = styled.section`
   padding: 2em;
@@ -33,17 +34,21 @@ const Response = styled.div`
   }
 `;
 
-// const Link = styled.a`
-//   font-style: normal;
-//   font-weight: normal;
-//   font-size: 16px;
-//   line-height: 150%;
-//   text-decoration-line: underline;
-//   color: #6c8d9e;
-// `;
-
 function DetailedReport({ index, details }) {
-  const { statement, correct, response, explanation, question_id } = details;
+  const classes = modalStyles();
+
+  const {
+    statement,
+    correct,
+    response,
+    explanation,
+    question_id,
+    source,
+  } = details;
+
+  const handleClickSource = () => {
+    window.open(`${source}`, "_blank");
+  };
   return (
     <Wrapper>
       <Para>
@@ -66,6 +71,9 @@ function DetailedReport({ index, details }) {
         Question {index + 1} : {explanation}
       </Para>
       <ReportDialog question_id={question_id} customMargin="0" />
+      <div className={classes.sourceURL} onClick={handleClickSource}>
+        Source of the Question
+      </div>
     </Wrapper>
   );
 }
