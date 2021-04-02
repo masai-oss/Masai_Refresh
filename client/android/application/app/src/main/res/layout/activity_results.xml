@@ -319,4 +319,25 @@
 
     </androidx.cardview.widget.CardView>
 
+    <TextView
+        android:id="@+id/tvDetailsReport"
+        android:layout_below="@+id/details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Detailed Report"
+        android:textSize="18sp"
+        android:textColor="@android:color/black"
+        android:textStyle="bold"
+        android:layout_margin="10dp"/>
+
+
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:layout_width="match_parent"
+        android:layout_below="@+id/tvDetailsReport"
+        android:layout_margin="8dp"
+        android:id="@+id/recyclerViewDetails"
+        android:layout_height="wrap_content"/>
+
+
 </RelativeLayout>

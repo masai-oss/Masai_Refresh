@@ -1,6 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
-    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="14dp"
+    android:elevation="10dp">
 
-</androidx.constraintlayout.widget.ConstraintLayout>
+    <RelativeLayout
+        android:id="@+id/llTopic_Click"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/ic_rect"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tvQuestionNo"
+            android:layout_width="wrap_content"
+            android:text="Question 1"
+            android:textStyle="bold"
+            android:layout_margin="8dp"
+            android:layout_height="wrap_content" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/tvQuestionContent"
+            android:layout_toRightOf="@+id/tvQuestionNo"
+            android:layout_margin="8dp"
+            android:text="Which of the following---"/>
+
+       <LinearLayout
+           android:id="@+id/llHeadingOfresponse"
+           android:layout_width="match_parent"
+           android:weightSum="2"
+           android:layout_below="@+id/tvQuestionNo"
+           android:layout_height="wrap_content">
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_height="wrap_content"
+               android:id="@+id/tvYourResponseHeading"
+               android:layout_margin="8dp"
+               android:layout_weight="1"
+               android:textColor="@android:color/black"
+               android:text="Your Response"
+               android:textStyle="bold"/>
+
+           <TextView
+               android:layout_width="wrap_content"
+               android:layout_weight="1"
+               android:id="@+id/tvCorrectAnswerHeading"
+               android:layout_height="wrap_content"
+               android:textColor="@android:color/black"
+               android:text="Correct Response"
+               android:textStyle="bold"
+               android:layout_margin="8dp"/>
+
+
+       </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/llResponseContent"
+            android:layout_width="match_parent"
+            android:weightSum="2"
+            android:layout_below="@+id/llHeadingOfresponse"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:id="@+id/tvYourResponseAnswer"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Your Answer is     ,,\njsjsjsjjjajajaj\njjjsjsjsjsjsjsj\mlslslsls"
+                android:textStyle="bold"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_weight="1"
+                android:id="@+id/tvCorrectAnswer"
+                android:layout_height="wrap_content"
+                android:textColor="#00FF00"
+                android:text="Correct Response is  \n jjjsjsjs\nsjsjsjsja"
+                android:textStyle="bold"
+                android:layout_margin="8dp"/>
+
+
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/tvExplanationHeading"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/llResponseContent"
+            android:layout_margin="8dp"
+            android:text="Explanation"
+            android:textColor="@android:color/black"
+            android:textStyle="bold"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:layout_below="@+id/tvExplanationHeading"/>
+
+
+    </RelativeLayout>
+
+</androidx.cardview.widget.CardView>
