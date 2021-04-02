@@ -5,7 +5,7 @@ const TopicStyle = makeStyles((theme) => ({
     // width: "300px",
     flexGrow: 1,
     background: "#FFFFFF",
-    boxShadow: "0px 2px 2px 2px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0px 2px 2px 2px rgba(0, 0, 0, 0.25)",
     borderRadius: "2px",
     margin: "auto",
     "&:hover > button:first-child": {
@@ -68,9 +68,7 @@ const TopicStyle = makeStyles((theme) => ({
     alignItems: "flex-end",
     flex: 1,
     flexDirection: "column",
-    marginRight: "1%",
-    marginTop: "2%",
-    marginBottom: "2%",
+    marginRight: "3%",
   },
 }));
 
