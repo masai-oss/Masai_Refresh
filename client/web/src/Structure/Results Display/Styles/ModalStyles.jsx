@@ -85,7 +85,7 @@ const modalStyles = makeStyles((theme) => ({
     color: "#6C8D9E",
     fontFamily: "Open Sans",
     fontSize: "18px",
-    margin: "5px 0px 15px 0px",
+    margin: "5px 0px -8px 0px",
     lineHeight: "24px",
     textDecorationLine: "underline",
     paddingBottom: "20px",
