@@ -97,7 +97,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
         justify="flex-end"
         alignItems="flex-start"
       >
-        <Box marginX={7} marginY={1}>
+        <Box marginX={3} marginY={1}>
           <Card>
             <Tabs
               value={value}
