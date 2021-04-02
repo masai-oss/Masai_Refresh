@@ -1,5 +1,8 @@
 import { makeStyles } from "@material-ui/core/styles";
+
+
 import styled from "styled-components";
+
 
 const QuestionStyles = makeStyles((theme) => ({
   main: {
@@ -9,6 +12,14 @@ const QuestionStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     padding: "31px",
 
+    wordWrap: 'break-word',
+
+    "& pre": {
+      whiteSpace: 'pre-wrap',
+      height: "100%",
+      width: "100%",
+    },
+
     "& button": {
       border: "none",
       padding: "16px",
@@ -17,6 +28,8 @@ const QuestionStyles = makeStyles((theme) => ({
   nextBtn: {
     height: "48px",
     width: "73px",
+    minWidth: "73px",
+    minHeight: "48px",
     background: "#6C8D9E",
     boxShadow: "0px 6px 12px 0px rgb(0,0,0,0.16)",
     borderRadius: "2px",
@@ -24,16 +37,28 @@ const QuestionStyles = makeStyles((theme) => ({
     fontWeight: "bold",
     border: 0,
   },
+  nextDiv: {
+    '@media (max-width: 530px)' : {
+      display: 'flex',
+      flexDirection: 'column',
+    },
+  },
   btns: {
     display: "flex",
     justifyContent: "space-between",
     padding: "0 24px",
     alignItems: "center",
+
+    '@media (max-width: 530px)' : {
+      flexDirection: 'column',
+      padding: "0",
+    },
   },
   prevBtn: {
     display: "flex",
     alignItems: "center",
 
+    
     "& p": {
       padding: "16px",
       fontStyle: "normal",
@@ -41,6 +66,10 @@ const QuestionStyles = makeStyles((theme) => ({
       fontSize: "16px",
       lineHeight: "150%",
       color: "#333434",
+
+    '@media (max-width: 530px)' : {
+        padding: "0 0 0 16px",
+    },
     },
   },
   skipBtn: {
@@ -49,13 +78,17 @@ const QuestionStyles = makeStyles((theme) => ({
     fontWeight: "400",
     fontSize: "16px",
     marginRight: "20px",
+
+    '@media (max-width: 530px)' : {
+      marginRight: "0",
+    },
   },
 
+  
   cursor_pointer: {
     cursor: "pointer",
   },
 }));
-
 const PrevButton = styled.div`
   opacity: ${(props) => (props.first_question ? 0 : 1)};
   cursor: ${(props) => (props.first_question ? "default" : "pointer")};

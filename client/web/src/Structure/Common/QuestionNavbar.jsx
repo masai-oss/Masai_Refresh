@@ -4,12 +4,16 @@ import { makeStyles } from "@material-ui/core/styles";
 const useStyles = makeStyles((theme) => ({
     main: {
         display: "flex",
-        height:'55.87px',
+        minHeight:'55.87px',
         justifyContent: "space-between",
         borderRadius:'2px',
         alignItems:'center',
         background: 'rgb(108,141,158,0.2)',
-        flexDirection: 'row',
+
+        '@media (max-width: 430px)' : {
+            flexDirection: 'column',
+        },
+
         '& > div' : {
             padding: '5px 20px',
             fontWeight: 'bolder'
