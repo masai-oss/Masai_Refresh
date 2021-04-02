@@ -6,6 +6,7 @@ import { DetailedReport } from "../";
 import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
 import { DotsDis } from "../../Common/Dots";
+import { Spinner } from "../../Common/Loader";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -35,7 +36,7 @@ const Results_display = () => {
     result && result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   return isLoading ? (
-    <IsLoading />
+    <Spinner />
   ) : isError ? (
     <div>Something went wrong</div>
   ) : (
@@ -69,8 +70,8 @@ const Results_display = () => {
                 <DetailedReport key={index} index={index} details={details} />
               ))}
           </Result>
-            </ResultWrapper>
-            <DotsDis/>
+        </ResultWrapper>
+        <DotsDis />
       </>
     )
   );
