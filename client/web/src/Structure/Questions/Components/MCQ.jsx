@@ -69,30 +69,30 @@ const MCQ = (props) => {
     }
   };
 
-  // const getPrevQuestion = async () => {
-  //   if (question_id_index <= 0) {
-  //     return;
-  //   }
-  //   if (attempt) {
-  //     var res = await answerRecordSetup();
-  //   }
-  //   if (!attempt || res.output) {
-  //     // eslint-disable-next-line no-redeclare
-  //     var res = await dispatch(
-  //       questionActions.getQuizQuestion({
-  //         attempt_id,
-  //         submission_id,
-  //         question_id: prev,
-  //       })
-  //     );
-  //     if (res.output) {
-  //       history.push({
-  //         pathname: location.pathname,
-  //         search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${prev}&topic=${topic}`,
-  //       });
-  //     }
-  //   }
-  // };
+  const getPrevQuestion = async () => {
+    if (question_id_index <= 0) {
+      return;
+    }
+    if (attempt) {
+      var res = await answerRecordSetup();
+    }
+    if (!attempt || res.output) {
+      // eslint-disable-next-line no-redeclare
+      var res = await dispatch(
+        questionActions.getQuizQuestion({
+          attempt_id,
+          submission_id,
+          question_id: prev,
+        })
+      );
+      if (res.output) {
+        history.push({
+          pathname: location.pathname,
+          search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${prev}&topic=${topic}`,
+        });
+      }
+    }
+  };
 
   const answerRecordSetup = async () => {
     let payload = {
@@ -158,7 +158,7 @@ const MCQ = (props) => {
           <ReportDialog question_id={question_id} customMargin="10px 20px" />
         </div>
         <div className={classes.btns}>
-          {/* <PrevButton
+          <PrevButton
             className={classes.prevBtn}
             onClick={getPrevQuestion}
             first_question={question_id_index <= 0}
@@ -181,7 +181,7 @@ const MCQ = (props) => {
             </svg>
 
             <p>Previous Question</p>
-          </PrevButton> */}
+          </PrevButton>
           <div className={classes.nextDiv}>
             <button
               className={`${classes.skipBtn} ${classes.cursor_pointer}`}

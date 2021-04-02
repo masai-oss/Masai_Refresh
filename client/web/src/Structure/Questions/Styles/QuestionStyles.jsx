@@ -36,9 +36,6 @@ const QuestionStyles = makeStyles((theme) => ({
     border: 0,
   },
   nextDiv: {
-    marginLeft: "80%",
-    marginTop: "10px", 
-    marginRight: "0%",
     "@media (max-width: 530px)": {
       display: "flex",
       flexDirection: "column",
@@ -55,23 +52,23 @@ const QuestionStyles = makeStyles((theme) => ({
       padding: "0",
     },
   },
-  // prevBtn: {
-  //   display: "flex",
-  //   alignItems: "center",
+  prevBtn: {
+    display: "flex",
+    alignItems: "center",
 
-  //   "& p": {
-  //     padding: "16px",
-  //     fontStyle: "normal",
-  //     fontWeight: "400",
-  //     fontSize: "16px",
-  //     lineHeight: "150%",
-  //     color: "#333434",
+    "& p": {
+      padding: "16px",
+      fontStyle: "normal",
+      fontWeight: "400",
+      fontSize: "16px",
+      lineHeight: "150%",
+      color: "#333434",
 
-  //     "@media (max-width: 530px)": {
-  //       padding: "0 0 0 16px",
-  //     },
-  //   },
-  // },
+      "@media (max-width: 530px)": {
+        padding: "0 0 0 16px",
+      },
+    },
+  },
   skipBtn: {
     backgroundColor: "inherit",
     fontStyle: "normal",
