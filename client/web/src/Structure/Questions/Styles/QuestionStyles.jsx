@@ -1,8 +1,6 @@
 import { makeStyles } from "@material-ui/core/styles";
 
-
 import styled from "styled-components";
-
 
 const QuestionStyles = makeStyles((theme) => ({
   main: {
@@ -12,10 +10,10 @@ const QuestionStyles = makeStyles((theme) => ({
     backgroundColor: "white",
     padding: "31px",
 
-    wordWrap: 'break-word',
+    wordWrap: "break-word",
 
     "& pre": {
-      whiteSpace: 'pre-wrap',
+      whiteSpace: "pre-wrap",
       height: "100%",
       width: "100%",
     },
@@ -27,7 +25,7 @@ const QuestionStyles = makeStyles((theme) => ({
   },
   nextBtn: {
     height: "48px",
-    width: "73px",
+    width: "78px",
     minWidth: "73px",
     minHeight: "48px",
     background: "#6C8D9E",
@@ -38,9 +36,9 @@ const QuestionStyles = makeStyles((theme) => ({
     border: 0,
   },
   nextDiv: {
-    '@media (max-width: 530px)' : {
-      display: 'flex',
-      flexDirection: 'column',
+    "@media (max-width: 530px)": {
+      display: "flex",
+      flexDirection: "column",
     },
   },
   btns: {
@@ -49,8 +47,8 @@ const QuestionStyles = makeStyles((theme) => ({
     padding: "0 24px",
     alignItems: "center",
 
-    '@media (max-width: 530px)' : {
-      flexDirection: 'column',
+    "@media (max-width: 530px)": {
+      flexDirection: "column",
       padding: "0",
     },
   },
@@ -58,7 +56,6 @@ const QuestionStyles = makeStyles((theme) => ({
     display: "flex",
     alignItems: "center",
 
-    
     "& p": {
       padding: "16px",
       fontStyle: "normal",
@@ -67,9 +64,9 @@ const QuestionStyles = makeStyles((theme) => ({
       lineHeight: "150%",
       color: "#333434",
 
-    '@media (max-width: 530px)' : {
+      "@media (max-width: 530px)": {
         padding: "0 0 0 16px",
-    },
+      },
     },
   },
   skipBtn: {
@@ -79,12 +76,11 @@ const QuestionStyles = makeStyles((theme) => ({
     fontSize: "16px",
     marginRight: "20px",
 
-    '@media (max-width: 530px)' : {
+    "@media (max-width: 530px)": {
       marginRight: "0",
     },
   },
 
-  
   cursor_pointer: {
     cursor: "pointer",
   },

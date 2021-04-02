@@ -61,4 +61,5 @@ export const Button = styled.button`
   border: 0;
   margin-left: 16px;
   cursor: pointer;
+  color:#F6F6F6
 `;
