@@ -24,6 +24,7 @@ const createResult = async (attempts) => {
       let crnQuestion = allquestions[i][0].questions[0];
       let temp = {};
       temp.statement = crnQuestion.statement;
+      temp.source = crnQuestion.source;
       temp.question_id = crnQuestion._id
       temp.outcome = answers[i].outcome;
       temp.explanation = crnQuestion.explanation || " ";
