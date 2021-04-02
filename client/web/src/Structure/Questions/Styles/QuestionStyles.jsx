@@ -36,6 +36,9 @@ const QuestionStyles = makeStyles((theme) => ({
     border: 0,
   },
   nextDiv: {
+    marginLeft: "80%",
+    marginRight: "0%",
+    marginTop: "10px",
     "@media (max-width: 530px)": {
       display: "flex",
       flexDirection: "column",
