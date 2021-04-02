@@ -1,7 +1,6 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
-import { IsLoading } from "../../Common";
 import { DetailedReport } from "../";
 import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";

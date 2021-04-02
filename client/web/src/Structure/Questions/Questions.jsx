@@ -1,7 +1,6 @@
 import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
-import { IsLoading } from "../Common";
 import { getParam } from "../../Utils/paramHelper";
 import { MCQ } from "./Components/MCQ";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";

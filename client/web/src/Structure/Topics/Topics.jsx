@@ -2,7 +2,6 @@ import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
 import { Grid } from "@material-ui/core";
-import { IsLoading } from "../Common";
 import { QuizPracticeSwitch } from "./Components/TopicWrapper";
 import { Spinner } from "../Common/Loader";
 

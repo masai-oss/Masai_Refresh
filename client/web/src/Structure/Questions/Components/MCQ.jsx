@@ -127,7 +127,7 @@ const MCQ = (props) => {
           />
           <pre>
             <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
-              {statement}
+              {`${question_id_index + 1}) ${statement}`}
             </ReactMarkdown>
           </pre>
           <form>
