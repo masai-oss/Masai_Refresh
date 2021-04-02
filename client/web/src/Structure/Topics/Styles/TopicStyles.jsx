@@ -2,7 +2,7 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const TopicStyle = makeStyles((theme) => ({
   root: {
-    width: "370px",
+    // width: "300px",
     flexGrow: 1,
     background: "#FFFFFF",
     boxShadow: "0px 2px 2px 2px rgba(0, 0, 0, 0.1)",
@@ -20,6 +20,14 @@ const TopicStyle = makeStyles((theme) => ({
     display: "flex",
     justifyContent: "space-between",
     marginTop: 35,
+  },
+  firstQuiz: {
+    fontSize: "20px",
+    marginTop: "15%",
+    display: "grid",
+    placeItems: "center",
+    fontFamily: "Open Sans",
+    color: "#333434",
   },
   gridCard: {
     position: "relative",

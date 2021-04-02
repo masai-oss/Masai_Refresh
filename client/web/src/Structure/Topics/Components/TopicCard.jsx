@@ -6,14 +6,13 @@ import {
   Typography,
   Avatar,
   CardActionArea,
-  CardActions,
   Box,
 } from "@material-ui/core";
 import { TopicStyle } from "../Styles/TopicStyles";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
-  let { _id: topicId, name: topic, icon, proficiency, lastAttempt } = topicData;
+  let { _id: topicId, name: topic, icon, lastAttempt } = topicData;
 
   let lastAttReqField = {};
   if (lastAttempt !== undefined) {
@@ -35,14 +34,14 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
   const classes = TopicStyle();
   return (
     <>
-      <Grid item xs={12} sm={12} md={6} lg={4} xl={3}>
+      <Grid item xs={12} sm={6} md={4} lg={4} xl={3}>
         <Card className={classes.root}>
-          <CardActionArea>
-            <CardContent
-              className={classes.cardStyle}
-              onClick={() => handleOpenProficiency({ topic, proficiency })}
-              title="Open Proficiency Data"
-            >
+          <CardActionArea
+            className={classes.cardBottom}
+            onClick={() => handleClickOpen({ topic, topicId })}
+            title={"Attempt Quiz on " + topic.split("_").join(" ")}
+          >
+            <CardContent className={classes.cardStyle}>
               {(lastValue.length && (
                 <Typography
                   variant="button"
@@ -56,7 +55,7 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                     100
                   } ) %`}
                 </Typography>
-              )) || <p></p>}
+              )) || <div className={classes.firstQuiz}>Start Your first Quiz</div>}
               <div className={classes.lasStyle}>
                 {lastValue.map((val, index) => {
                   let lastCrn =
@@ -93,35 +92,28 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                 })}
               </div>
             </CardContent>
-          </CardActionArea>
-          <CardActionArea className={classes.cardBottom}>
-            <CardActions
-              className={classes.cardActions}
-              onClick={() => handleClickOpen({ topic, topicId })}
-              title={"Attempt Quiz on " + topic}
-            >
-              <Grid container alignItems="center" spacing={3}>
-                <Grid item>
-                  <Box mx={2}>
-                    <Avatar alt={topic} src={icon} />
-                  </Box>
-                </Grid>
-                <Grid item>
-                  <div>
-                    <Typography
-                      variant="h6"
-                      gutterBottom
-                      style={{ fontWeight: "bold" }}
-                    >
-                      {topic.split("_").join(" ")}
-                    </Typography>
-                    <Typography variant="button" display="block" gutterBottom>
-                      HTML, CSS, HTML, CSS
-                    </Typography>
-                  </div>
-                </Grid>
+            <div style={{ border: "1px solid #6C8D9E" }} />
+            <Grid container alignItems="center" spacing={1}>
+              <Grid item>
+                <Box mx={2}>
+                  <Avatar alt={topic} src={icon} />
+                </Box>
               </Grid>
-            </CardActions>
+              <Grid item>
+                <div>
+                  <Typography
+                    variant="h6"
+                    gutterBottom
+                    style={{ fontWeight: "bold" }}
+                  >
+                    {topic.split("_").join(" ")}
+                  </Typography>
+                  <Typography variant="button" display="block" gutterBottom>
+                    HTML, CSS, HTML, CSS
+                  </Typography>
+                </div>
+              </Grid>
+            </Grid>
           </CardActionArea>
         </Card>
       </Grid>
