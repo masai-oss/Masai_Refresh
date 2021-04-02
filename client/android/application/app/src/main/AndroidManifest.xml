@@ -11,11 +11,7 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
         <activity android:name=".activities.Results">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".activities.Result_Chart">
 
@@ -27,7 +23,11 @@
         <activity android:name=".HomeActivity" />
         <activity android:name=".AttemptActivity"></activity>
         <activity android:name=".GoogleSignInActivty">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
 
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
         </activity>
 
         <meta-data
