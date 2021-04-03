@@ -8,7 +8,8 @@ const PageNotFound = ({ errorNum, message, des }) => {
   let history = useHistory();
 
   const goToHome = () => {
-    history.push("quiz_topics");
+    history.location.pathname = "/quiz_topics";
+    history.push(history.location.pathname);
   };
   return (
     <>
