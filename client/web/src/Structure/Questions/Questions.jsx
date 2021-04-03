@@ -5,6 +5,7 @@ import { getParam } from "../../Utils/paramHelper";
 import { MCQ } from "./Components/MCQ";
 import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
 import { Spinner } from "../Common/Loader";
+import { PageNotFound } from "../Common/PageNotFound";
 
 const Questions = () => {
   const { question, isLoading, isError } = useSelector(
@@ -30,7 +31,11 @@ const Questions = () => {
       {isLoading ? (
         <Spinner />
       ) : isError ? (
-        <div>...something went wrong</div>
+        <PageNotFound
+          errorNum="400"
+          message="Something went wrong"
+          des=" Brace Yourself till we get the error fixed"
+        />
       ) : question !== null ? (
         <div className={classes.main}>
           <div>
