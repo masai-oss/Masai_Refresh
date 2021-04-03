@@ -32,6 +32,7 @@ const QuestionStyles = makeStyles((theme) => ({
     padding: "16px",
     fontWeight: "bold",
     border: 0,
+    color: "#F6F6F6",
   },
   nextDiv: {
     "@media (max-width: 530px)": {

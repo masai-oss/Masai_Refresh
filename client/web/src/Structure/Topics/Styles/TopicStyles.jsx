@@ -5,7 +5,7 @@ const TopicStyle = makeStyles((theme) => ({
     // width: "300px",
     flexGrow: 1,
     background: "#FFFFFF",
-    boxShadow: "0px 2px 2px 2px rgba(0, 0, 0, 0.1)",
+    boxShadow: "0px 2px 2px 2px rgba(0, 0, 0, 0.25)",
     borderRadius: "2px",
     margin: "auto",
     "&:hover > button:first-child": {

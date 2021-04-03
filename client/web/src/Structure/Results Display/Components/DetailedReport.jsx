@@ -1,7 +1,6 @@
 import React from "react";
 import styled from "styled-components";
 import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
-// import ReactMarkdown from "react-markdown";
 import ReactMarkdown from 'react-markdown'
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 
@@ -81,7 +80,20 @@ const Response = styled.div`
 `;
 
 function DetailedReport({ index, details }) {
-  const { statement, correct, response, explanation, question_id } = details;
+  const classes = modalStyles();
+
+  const {
+    statement,
+    correct,
+    response,
+    explanation,
+    question_id,
+    source,
+  } = details;
+
+  const handleClickSource = () => {
+    window.open(`${source}`, "_blank");
+  };
   return (
     <Wrapper>
       <pre>
