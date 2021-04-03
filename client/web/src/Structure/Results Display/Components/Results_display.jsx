@@ -6,6 +6,7 @@ import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
 import { QuestionNavbar } from "../../Common/QuestionNavbar";
 import { DotsDis } from "../../Common/Dots";
 import { Spinner } from "../../Common/Loader";
+import { PageNotFound } from "../../Common/PageNotFound";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -37,8 +38,8 @@ const Results_display = () => {
   return isLoading ? (
     <Spinner />
   ) : isError ? (
-    <div>Something went wrong</div>
-  ) : (
+      <PageNotFound errorNum="400" message="Something went wrong" />
+    ) : (
     result && (
       <>
         <Button onClick={goBackToHome}>Go To Home Page</Button>

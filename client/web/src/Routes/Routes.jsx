@@ -1,43 +1,55 @@
 import React from "react";
-import {
-  Route as PublicRoute,
-  Switch
-} from "react-router-dom";
+import { Route as PublicRoute, Switch } from "react-router-dom";
 import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
-import { Login } from "../Structure/Authentication"
-import { Dashboard } from "../Structure/Dashboard"
-import { Questions as AdminQuestions, QuestionForm, QuestionUpdate } from '../Structure/Admin'
+import { Login } from "../Structure/Authentication";
+import { Dashboard } from "../Structure/Dashboard";
+import {
+  Questions as AdminQuestions,
+  QuestionForm,
+  QuestionUpdate,
+} from "../Structure/Admin";
 import { Topics } from "../Structure/Topics";
 import { CrudTopics, SearchByTopic } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
+import { PageNotFound } from "../Structure/Common/PageNotFound";
 
 const Routes = () => {
   return (
     <>
-        <Switch>
+      <Switch>
+        {/* all private routes here */}
+        <PrivateRoute exact path="/" component={Dashboard} />
+        <PrivateRoute exact path="/quiz_topics" component={Topics} />
+        <PrivateRoute exact path="/quiz_questions" component={Questions} />
+        <PrivateRoute
+          exact
+          path="/results_display"
+          component={Results_display}
+        />
 
-          {/* all private routes here */}
-          <PrivateRoute exact path="/" component={Dashboard} />
-          <PrivateRoute exact path="/quiz_topics" component={Topics} />
-          <PrivateRoute exact path="/quiz_questions" component={Questions} />
-          <PrivateRoute exact path="/results_display" component={Results_display} />
+        {/* all admin routes here */}
+        <AdminRoute exact path="/questions_admin" component={AdminQuestions} />
+        <AdminRoute exact path="/questions/add" component={QuestionForm} />
+        <AdminRoute
+          exact
+          path="/questions/edit/:topic/:id"
+          component={QuestionUpdate}
+        />
+        <AdminRoute exact path="/topics" component={CrudTopics} />
+        <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
 
-          {/* all admin routes here */}
-          <AdminRoute exact path="/questions_admin" component={AdminQuestions} />
-          <AdminRoute exact path="/questions/add" component={QuestionForm} />
-          <AdminRoute exact path="/questions/edit/:topic/:id" component={QuestionUpdate} />
-          <AdminRoute exact path="/topics" component={CrudTopics} />
-          <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
-
-          {/* all public routes here */}
-          <PublicRoute path="/login" component={Login} />
-          <PublicRoute>
-            <div>Error 404</div>
-          </PublicRoute>
-
-        </Switch>
+        {/* all public routes here */}
+        <PublicRoute path="/login" component={Login} />
+        <PublicRoute>
+          <PageNotFound
+            errorNum="404"
+            message="Page Not Found"
+            des="Sorry but the page you are looking for does not exist"
+          />
+        </PublicRoute>
+      </Switch>
     </>
   );
 };

@@ -7,6 +7,7 @@ import { storageEnums } from "../../Enums/storageEnums";
 import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
+import Loader from "react-loader-spinner";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -20,11 +21,28 @@ const Login = () => {
   return isAuth ? (
     <Redirect push to="/" />
   ) : isLoggingIn ? (
-    <p>...loading</p>
+    <Loader />
   ) : (
     <>
-      <Card style={{position: "absolute", top: "0", bottom: "0", left: "0", right: "0", display: "grid", placeItems: "center"}}>
-        <CardContent style={{ backgroundColor: "#84a8b3", width: "400px", borderRadius: "2px", padding: "30px 0" }}>
+      <Card
+        style={{
+          position: "absolute",
+          top: "0",
+          bottom: "0",
+          left: "0",
+          right: "0",
+          display: "grid",
+          placeItems: "center",
+        }}
+      >
+        <CardContent
+          style={{
+            backgroundColor: "#84a8b3",
+            width: "400px",
+            borderRadius: "2px",
+            padding: "30px 0",
+          }}
+        >
           <Grid
             container
             direction="column"

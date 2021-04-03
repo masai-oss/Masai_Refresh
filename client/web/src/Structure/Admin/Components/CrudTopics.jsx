@@ -5,6 +5,7 @@ import { adminActions } from "../State/action";
 import { TopicsStyle } from "../Styles/TopicsStyle";
 import { IconManipulationDialog } from "./IconManipulationModal";
 import { Spinner } from "../../Common/Loader";
+import { PageNotFound } from "../../Common/PageNotFound";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 export const CrudTopics = () => {
@@ -52,7 +53,11 @@ export const CrudTopics = () => {
       {isLoading ? (
         <Spinner />
       ) : isError ? (
-        <p>...something went wrong</p>
+        <PageNotFound
+          errorNum="400"
+          message="Something went wrong"
+          des=" Brace Yourself till we get the error fixed"
+        />
       ) : (
         topicsData &&
         topicsData?.map(({ name, noOfQuestion, icon, _id }, index) => (
