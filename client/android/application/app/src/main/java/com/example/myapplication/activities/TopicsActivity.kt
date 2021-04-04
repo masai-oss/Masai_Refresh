@@ -20,6 +20,7 @@ import com.example.myapplication.interface_clickListener.TopicClickListener
 import com.example.myapplication.model.DataItem
 import com.example.myapplication.model.UserUIModel
 import com.example.myapplication.viewModel.TopicsViewModel
+import com.github.ybq.android.spinkit.style.Wave
 import kotlinx.android.synthetic.main.activity_topics.*
 
 class TopicsActivity : AppCompatActivity(), TopicClickListener {
