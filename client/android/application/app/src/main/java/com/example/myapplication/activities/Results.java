@@ -69,9 +69,9 @@ public class Results extends AppCompatActivity {
 
     private void callApiResult() {
         TopicApi apiService = Network.Companion.getInstance().create(TopicApi.class);
-        Call<ResultModel> call = apiService.detailedResult(attemptId, bearerToken);
+//        Call<ResultModel> call = apiService.detailedResult(attemptId, bearerToken);
 
-//        Call<ResultModel> call = apiService.detailedResult("6066c6007bdc750022708e1d", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZhaWJoYXZAbWFzYWlzY2hvb2wuY29tIiwiaWQiOiI2MDU1YjRmOTk3MzZmNjAwMjJiYWU0MjAiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjE3MzQ4MDg3LCJleHAiOjE2MTk5MDQwODd9.u5tIKscVrZOU1xl9c2DwnG9S0FsUisuWl00QEU1D3Rg");
+        Call<ResultModel> call = apiService.detailedResult("6066c6007bdc750022708e1d", "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJlbWFpbCI6InZhaWJoYXZAbWFzYWlzY2hvb2wuY29tIiwiaWQiOiI2MDU1YjRmOTk3MzZmNjAwMjJiYWU0MjAiLCJhZG1pbiI6dHJ1ZSwiaWF0IjoxNjE3MzQ4MDg3LCJleHAiOjE2MTk5MDQwODd9.u5tIKscVrZOU1xl9c2DwnG9S0FsUisuWl00QEU1D3Rg");
         call.enqueue(new Callback<ResultModel>() {
             @Override
             public void onResponse(Call<ResultModel> call, Response<ResultModel> response) {
