@@ -4,20 +4,22 @@ import { OptionRadio } from "./OptionRadio";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
 import ReactMarkdown from "react-markdown";
-import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
+import {
+  SyntaxHighlight,
+  QuestionNavbar,
+  ReportDialog,
+  DotsDis,
+} from "../../Common";
 import { resultAction } from "../../Results Display";
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
-import { QuestionNavbar } from "../../Common/QuestionNavbar";
 import { OptionStyles } from "../Styles/OptionStyles";
 import {
   QuestionStyles,
   PrevButton,
   NextButton,
 } from "../Styles/QuestionStyles";
-import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
-import { DotsDis } from "../../Common/Dots";
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
@@ -61,7 +63,7 @@ const MCQ = (props) => {
         })
       );
       if (res.output) {
-        history.push({
+        history.replace({
           pathname: location.pathname,
           search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${next}&topic=${topic}`,
         });
@@ -86,7 +88,7 @@ const MCQ = (props) => {
         })
       );
       if (res.output) {
-        history.push({
+        history.replace({
           pathname: location.pathname,
           search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${prev}&topic=${topic}`,
         });
@@ -227,5 +229,3 @@ const MCQ = (props) => {
 };
 
 export { MCQ };
-
-

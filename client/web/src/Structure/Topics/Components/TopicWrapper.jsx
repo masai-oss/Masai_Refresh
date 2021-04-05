@@ -8,7 +8,7 @@ import { StartQuizModal } from "./startQuizModal";
 import { TopicStyle } from "../Styles/TopicStyles";
 import { useSelector } from "react-redux";
 import { ProficiencyChart } from "./ProficiencyChart";
-import { DotsDis } from "../../Common/Dots";
+import { DotsDis } from "../../Common";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;

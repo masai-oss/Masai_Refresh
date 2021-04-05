@@ -7,7 +7,7 @@ import { storageEnums } from "../../Enums/storageEnums";
 import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
-import Loader from "react-loader-spinner";
+import { Spinner } from "../Common"
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -21,7 +21,7 @@ const Login = () => {
   return isAuth ? (
     <Redirect push to="/" />
   ) : isLoggingIn ? (
-    <Loader />
+    <Spinner />
   ) : (
     <>
       <Card

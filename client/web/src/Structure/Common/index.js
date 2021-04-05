@@ -2,7 +2,14 @@ export { IsAdmin } from "./hooks/IsAdmin";
 export { LoadingButton } from "./LoadingButton";
 export { ProfilePic } from "./ProfilePic";
 export { common } from "./State/reducer";
-export { TopicChip } from "../Common/TopicChip";
+export { TopicChip } from "./TopicChip";
 export { IsLoading } from "./IsLoading";
 export { Message } from "./AlertPopUps/Message";
-export { CrnAuth } from "./hooks/CrnAuth"
+export { CrnAuth } from "./hooks/CrnAuth";
+export { Spinner } from "./Loader";
+export { PageNotFound } from "./PageNotFound";
+export { DotsDis } from "./Dots";
+export { QuestionNavbar } from "./QuestionNavbar";
+export { SyntaxHighlight } from "./SyntaxHighlighter.jsx";
+export { CustomDialog } from "./DialogBoxes/CustomDialog";
+export { ReportDialog } from "./DialogBoxes/ReportDialog";

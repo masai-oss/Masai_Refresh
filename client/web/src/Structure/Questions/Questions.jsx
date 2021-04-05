@@ -3,9 +3,8 @@ import { shallowEqual, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { getParam } from "../../Utils/paramHelper";
 import { MCQ } from "./Components/MCQ";
-import { QuestionStyles } from "../Questions/Styles/QuestionStyles";
-import { Spinner } from "../Common/Loader";
-import { PageNotFound } from "../Common/PageNotFound";
+import { QuestionStyles } from "./Styles/QuestionStyles";
+import { Spinner, PageNotFound } from "../Common";
 
 const Questions = () => {
   const { question, isLoading, isError } = useSelector(
