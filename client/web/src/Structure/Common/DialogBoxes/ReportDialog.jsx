@@ -1,8 +1,6 @@
 import React, { useRef, useState } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import DialogActions from "@material-ui/core/DialogActions";
-import DialogContent from "@material-ui/core/DialogContent";
-import { resultAction } from "../../Results Display";
+import { Dialog, DialogActions, DialogContent } from "@material-ui/core";
+import { resultAction, modalStyles } from "../../Results Display";
 import { useDispatch } from "react-redux";
 import {
   IssueReport,
@@ -15,9 +13,8 @@ import {
 import ReasonEnums from "../../../Enums/ReasonEnums";
 import { useSelector } from "react-redux";
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";
-import { modalStyles } from "../../Results Display/Styles/ModalStyles";
 
-export default function ReportDialog({ question_id, customMargin }) {
+function ReportDialog({ question_id, customMargin }) {
   const classes = modalStyles();
   const [open, setOpen] = useState(false);
   const [select, setSelect] = useState([]);
@@ -146,3 +143,5 @@ export default function ReportDialog({ question_id, customMargin }) {
     </div>
   );
 }
+
+export { ReportDialog }

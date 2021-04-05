@@ -4,8 +4,7 @@ import { Grid, Avatar, Card, CardContent, Typography } from "@material-ui/core";
 import { adminActions } from "../State/action";
 import { TopicsStyle } from "../Styles/TopicsStyle";
 import { IconManipulationDialog } from "./IconManipulationModal";
-import { Spinner } from "../../Common/Loader";
-import { PageNotFound } from "../../Common/PageNotFound";
+import { Spinner, PageNotFound } from "../../Common";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 export const CrudTopics = () => {
