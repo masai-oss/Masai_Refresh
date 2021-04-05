@@ -15,7 +15,7 @@ const DotsDis = () => {
   return (
     <>
       {new Array(3).fill(0).map((a, i) => (
-        <div style={{ display: "flex", flexDirection: "row-reverse" }}>
+        <div style={{ display: "flex", flexDirection: "row-reverse" }} key={i}>
           {new Array(i + 5).fill(0).map((a, i) => (
             <Dots key={i} />
           ))}
