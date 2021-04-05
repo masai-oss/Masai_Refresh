@@ -1,31 +1,55 @@
+const mongoose = require("mongoose");
 const Submission = require("../models/Submission");
 const Topic = require("../models/Topic");
+const ObjectId = mongoose.Types.ObjectId;
 
-const createResult = async (attempts) => {
+const createResult = async (attempts, topic_id) => {
   try {
     let { answers, questions } = attempts;
-    let finalResult = [];
-    let getQuestions = questions.map(async (id, ind) => {
-      try {
-        let findQuestion = await Topic.find(
-          { questions: { $elemMatch: { _id: id } } },
-          { "questions.$": 1, _id: 0 }
-        );
-        return findQuestion;
-      } catch (err) {
-        return {
-          error: true,
-          err: `${err}`,
-        };
+    let allquestions = await Topic.aggregate([
+      {
+        $match: { _id: ObjectId(topic_id) },
+      },
+      {
+        $unset: [
+          "_id",
+          "name",
+          "icon",
+          "questions.stats",
+          "questions.flag",
+          "questions.verified",
+        ],
+      },
+      {
+        $unwind: "$questions",
+      },
+      {
+        $match: {
+          "questions._id": {
+            $in: questions.map((id) => ObjectId(id)),
+          },
+        },
+      },
+      { $replaceRoot: { newRoot: "$questions" } },
+    ]);
+    let sortQuestions = [];
+    for (let i = 0; i < questions.length; i++) {
+      for (let j = 0; j < allquestions.length; j++) {
+        if (
+          JSON.stringify(allquestions[j]._id) === JSON.stringify(questions[i])
+        ) {
+          sortQuestions.push(allquestions[j]);
+          allquestions.splice(j, 1);
+        }
       }
-    });
-    let allquestions = await Promise.all(getQuestions);
+    }
+    let finalResult = [];
     for (let i = 0; i < answers.length; i++) {
-      let crnQuestion = allquestions[i][0].questions[0];
+      let crnQuestion = sortQuestions[i];
       let temp = {};
       temp.statement = crnQuestion.statement;
       temp.source = crnQuestion.source;
-      temp.question_id = crnQuestion._id
+      temp.question_id = crnQuestion._id;
       temp.outcome = answers[i].outcome;
       temp.explanation = crnQuestion.explanation || " ";
       if (answers[i].type === "SHORT") {
@@ -60,7 +84,7 @@ const createResult = async (attempts) => {
 
 const getResults = async (req, res) => {
   let { attempt_id } = req.params;
-  let { id } = req.id;
+  let id = req.id;
   if (attempt_id === undefined) {
     return res.status(400).json({
       error: true,
@@ -72,11 +96,12 @@ const getResults = async (req, res) => {
       {
         $and: [
           { attempts: { $elemMatch: { _id: attempt_id } } },
-          { userId: id },
+          { user_id: id },
         ],
       },
       {
         "attempts.$": 1,
+        topic_id: 1,
         _id: 0,
       }
     );
@@ -86,9 +111,9 @@ const getResults = async (req, res) => {
         message: "No Quiz Present",
       });
     }
-    let [{ attempts }] = findedSubmission;
+    let [{ attempts, topic_id }] = findedSubmission;
     let { answers, questions, isStatsUpdated } = attempts[0];
-    let finalResult = await createResult(attempts[0]);
+    let finalResult = await createResult(attempts[0], topic_id);
     let { error } = finalResult;
     if (error) {
       return res.status(400).json({
@@ -116,26 +141,18 @@ const getResults = async (req, res) => {
         cumulativeStat.time += Number(answer.time);
         let id = questions[index];
         let whichToUpdate = `questions.$.stats.${outcome}`;
-        try {
-          const questionData = await Topic.findOneAndUpdate(
-            { questions: { $elemMatch: { _id: id } } },
-            { $inc: { "questions.$.stats.alloted": 1, [whichToUpdate]: 1 } }
-          );
-          return questionData;
-        } catch (err) {
-          return res.status(400).json({
-            error: true,
-            message: "Something Went Wrong",
-            err: `${err}`,
-          });
-        }
+        const questionData = await Topic.findOneAndUpdate(
+          { questions: { $elemMatch: { _id: id } } },
+          { $inc: { "questions.$.stats.alloted": 1, [whichToUpdate]: 1 } }
+        );
+        return questionData;
       });
       await Promise.all(answerAndId);
       await Submission.findOneAndUpdate(
         {
           $and: [
             { attempts: { $elemMatch: { _id: attempt_id } } },
-            { userId: id },
+            { user_id: id },
           ],
         },
         {
