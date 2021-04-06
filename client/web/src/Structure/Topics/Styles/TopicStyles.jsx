@@ -68,7 +68,10 @@ const TopicStyle = makeStyles((theme) => ({
     alignItems: "flex-end",
     flex: 1,
     flexDirection: "column",
-    marginRight: "3%",
+    bottom: 0,
+    right: 0,
+    marginBottom: "1%",
+    marginRight: "1%",
   },
 }));
 

@@ -21,9 +21,10 @@ export const OptionStyles = makeStyles((theme) => ({
     color: "#6C8D9E",
   },
   dots: {
-    float: "right",
+    position: "fixed",
     bottom: 0,
-    marginTop: "5%",
-    marginRight: 6,
+    right: 0,
+    marginBottom: "1%",
+    marginRight: "2%",
   },
 }));
