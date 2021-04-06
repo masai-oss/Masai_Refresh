@@ -8,24 +8,22 @@ import {
   SyntaxHighlight,
   QuestionNavbar,
   ReportDialog,
-  DotsDis,
 } from "../../Common";
 import { resultAction } from "../../Results Display";
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
-import { OptionStyles } from "../Styles/OptionStyles";
 import {
   QuestionStyles,
   PrevButton,
   NextButton,
 } from "../Styles/QuestionStyles";
 
+
 const MCQ = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const dotStyles = OptionStyles();
 
   const { attempt_id, submission_id, question_id, topic } = props;
   const { questionIds, question } = useSelector(
@@ -219,9 +217,6 @@ const MCQ = (props) => {
           </div>
         </div>
       </QuestionWrapper>
-      <div className={dotStyles.dots}>
-        <DotsDis />
-      </div>
     </>
   ) : (
     <Redirect to="/topics_user" />

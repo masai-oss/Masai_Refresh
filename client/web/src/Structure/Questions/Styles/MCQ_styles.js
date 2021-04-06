@@ -3,7 +3,7 @@ import styled from 'styled-components'
 
 export const QuestionWrapper = styled.div`
 
-    
+    border:1px solid black;
     & div.boxShadow {
         box-shadow: 0px 0px 1px 1px rgb(0,0,0,0.25);
         padding-bottom: 10px;

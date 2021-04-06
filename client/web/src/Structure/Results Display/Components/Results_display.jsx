@@ -7,7 +7,6 @@ import {
   Spinner,
   PageNotFound,
   QuestionNavbar,
-  DotsDis,
 } from "../../Common";
 
 const Results_display = () => {
@@ -73,7 +72,6 @@ const Results_display = () => {
               ))}
           </Result>
         </ResultWrapper>
-        <DotsDis />
       </>
     )
   );
