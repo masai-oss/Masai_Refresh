@@ -8,7 +8,6 @@ export { Message } from "./AlertPopUps/Message";
 export { CrnAuth } from "./hooks/CrnAuth";
 export { Spinner } from "./Loader";
 export { PageNotFound } from "./PageNotFound";
-export { DotsDis } from "./Dots";
 export { QuestionNavbar } from "./QuestionNavbar";
 export { SyntaxHighlight } from "./SyntaxHighlighter.jsx";
 export { CustomDialog } from "./DialogBoxes/CustomDialog";
