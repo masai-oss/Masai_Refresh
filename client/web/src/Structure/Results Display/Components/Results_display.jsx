@@ -3,9 +3,11 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DetailedReport } from "../";
 import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
-import { QuestionNavbar } from "../../Common/QuestionNavbar";
-import { Spinner } from "../../Common/Loader";
-import { PageNotFound } from "../../Common/PageNotFound";
+import {
+  Spinner,
+  PageNotFound,
+  QuestionNavbar,
+} from "../../Common";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -17,7 +19,7 @@ const Results_display = () => {
   let history = useHistory();
 
   const goBackToHome = () => {
-    history.push("quiz_topics");
+    history.replace("quiz_topics");
   };
 
   useEffect(() => {

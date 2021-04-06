@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { topicActions } from "./State/action";
 import { Grid } from "@material-ui/core";
 import { QuizPracticeSwitch } from "./Components/TopicWrapper";
-import { Spinner } from "../Common/Loader";
-import { PageNotFound } from "../Common/PageNotFound";
+import { Spinner, PageNotFound } from "../Common";
 
 const Topics = () => {
   const dispatch = useDispatch();

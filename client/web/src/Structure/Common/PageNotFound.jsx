@@ -1,8 +1,7 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
-
 import styles from "./Styles/pageNotFound.module.css";
-import { Button } from "../../Structure/Results Display/Styles/ResultsPageStyle";
+import { Button } from "../Results Display";
 
 const PageNotFound = ({ errorNum, message, des }) => {
   let history = useHistory();

@@ -11,7 +11,7 @@ import {
   Box,
   Container,
 } from "@material-ui/core";
-import { QuestionsStyles } from "../";
+import { QuestionsStyles } from "../Styles/QuestionsStyles";
 
 export const Questions = () => {
   const classes = QuestionsStyles();

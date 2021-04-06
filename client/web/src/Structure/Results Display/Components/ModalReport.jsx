@@ -1,7 +1,5 @@
 import React, { useState } from "react";
-import Dialog from "@material-ui/core/Dialog";
-import TextareaAutosize from "@material-ui/core/TextareaAutosize";
-import { useMediaQuery } from "@material-ui/core";
+import { useMediaQuery, TextareaAutosize, Dialog } from "@material-ui/core";
 import { useTheme } from "@material-ui/core/styles";
 import { modalStyles } from "../Styles/ModalStyles";
 import { useDispatch } from "react-redux";

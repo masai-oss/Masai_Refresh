@@ -1,7 +1,6 @@
 import React from "react";
 import clsx from "clsx";
-import CircularProgress from "@material-ui/core/CircularProgress";
-import Button from "@material-ui/core/Button";
+import { CircularProgress, Button } from "@material-ui/core";
 import { LoadingButtonStyle } from "./Styles/LoadingButtonStyles";
 
 const LoadingButton = ({

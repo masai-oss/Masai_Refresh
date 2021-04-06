@@ -1,7 +1,6 @@
 import React from "react";
-import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
+import { ReportDialog, SyntaxHighlight } from "../../Common";
 import ReactMarkdown from "react-markdown";
-import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { modalStyles } from "../Styles/ModalStyles";
 import {
   Wrapper,
@@ -110,6 +109,6 @@ const DetailedReport = ({ index, details }) => {
       </div>
     </Wrapper>
   );
-}
+};
 
 export { DetailedReport };
