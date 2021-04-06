@@ -2,7 +2,6 @@ import { makeStyles } from "@material-ui/core/styles";
 
 const TopicStyle = makeStyles((theme) => ({
   root: {
-    // width: "300px",
     flexGrow: 1,
     background: "#FFFFFF",
     boxShadow: "0px 2px 2px 2px rgba(0, 0, 0, 0.25)",
@@ -13,7 +12,6 @@ const TopicStyle = makeStyles((theme) => ({
     },
   },
   cardStyle: {
-    // borderBottom: "3px groove #FFFAF0",
     minHeight: 180,
   },
   lasStyle: {
@@ -62,17 +60,7 @@ const TopicStyle = makeStyles((theme) => ({
   },
   cardBottom: {
     boxShadow: "0px 0px 1px 1px rgba(0, 0, 0, 0.25)",
-  },
-  dots: {
-    display: "flex",
-    alignItems: "flex-end",
-    flex: 1,
-    flexDirection: "column",
-    bottom: 0,
-    right: 0,
-    marginBottom: "1%",
-    marginRight: "1%",
-  },
+  }
 }));
 
 export { TopicStyle };

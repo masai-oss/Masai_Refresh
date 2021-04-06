@@ -19,12 +19,5 @@ export const OptionStyles = makeStyles((theme) => ({
   },
   radio: {
     color: "#6C8D9E",
-  },
-  dots: {
-    position: "fixed",
-    bottom: 0,
-    right: 0,
-    marginBottom: "1%",
-    marginRight: "2%",
-  },
+  }
 }));

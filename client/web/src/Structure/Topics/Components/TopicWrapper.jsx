@@ -8,7 +8,6 @@ import { StartQuizModal } from "./startQuizModal";
 import { TopicStyle } from "../Styles/TopicStyles";
 import { useSelector } from "react-redux";
 import { ProficiencyChart } from "./ProficiencyChart";
-import { DotsDis } from "../../Common/Dots";
 
 function TabPanel(props) {
   const { children, value, index, ...other } = props;
@@ -90,7 +89,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
     setProficiencyModalData(proficienyModal);
   };
   return (
-    <>
+    <div className={classes.topicWrapper}>
       <Grid
         container
         direction="row"
@@ -136,7 +135,6 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
         axis={theme.direction === "rtl" ? "x-reverse" : "x"}
         index={value}
         onChangeIndex={handleChangeIndex}
-        className={classes.swipable}
       >
         <TabPanel value={value} index={0} dir={theme.direction}>
           <Grid container spacing={3} justify="space-around">
@@ -170,10 +168,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
         profData={proficiencyModalData}
         handleClose={handleProficiencyClose}
       />
-      <div className={classes.dots}>
-        <DotsDis />
-      </div>
-    </>
+    </div>
   );
 };
 

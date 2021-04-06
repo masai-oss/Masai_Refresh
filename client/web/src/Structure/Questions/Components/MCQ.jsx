@@ -17,13 +17,11 @@ import {
   NextButton,
 } from "../Styles/QuestionStyles";
 import ReportDialog from "../../Common/DialogBoxes/ReportDialog";
-import { DotsDis } from "../../Common/Dots";
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
-  const dotStyles = OptionStyles();
 
   const { attempt_id, submission_id, question_id, topic } = props;
   const { questionIds, question } = useSelector(
@@ -217,9 +215,6 @@ const MCQ = (props) => {
           </div>
         </div>
       </QuestionWrapper>
-      <div className={dotStyles.dots}>
-        <DotsDis />
-      </div>
     </>
   ) : (
     <Redirect to="/topics_user" />
