@@ -32,9 +32,9 @@ export const DotsWrapper = styled.div`
     left: 76%;
   }
   @media only screen and (min-width: 992px) {
-    left: 82.5%;
+    left: 83.5%;
   }
   @media only screen and (min-width: 1200px) {
-    left: 86.6%;
+    left: 87%;
   }
 `;
