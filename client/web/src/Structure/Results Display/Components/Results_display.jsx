@@ -3,11 +3,7 @@ import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { DetailedReport } from "../";
 import { ResultWrapper, Result, Button } from "../Styles/ResultsPageStyle";
-import {
-  Spinner,
-  PageNotFound,
-  QuestionNavbar,
-} from "../../Common";
+import { Spinner, PageNotFound, QuestionNavbar } from "../../Common";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
@@ -39,10 +35,10 @@ const Results_display = () => {
   return isLoading ? (
     <Spinner />
   ) : isError ? (
-      <PageNotFound errorNum="400" message="Something went wrong" />
-    ) : (
+    <PageNotFound errorNum="400" message="Something went wrong" />
+  ) : (
     result && (
-      <>
+      <div style={{ marginBottom: 35 }}>
         <Button onClick={goBackToHome}>Go To Home Page</Button>
         <ResultWrapper>
           <QuestionNavbar topicDisplay={topic} type={question.type} />
@@ -72,7 +68,7 @@ const Results_display = () => {
               ))}
           </Result>
         </ResultWrapper>
-      </>
+      </div>
     )
   );
 };

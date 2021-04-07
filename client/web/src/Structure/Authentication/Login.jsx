@@ -7,7 +7,7 @@ import { storageEnums } from "../../Enums/storageEnums";
 import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
-import { Spinner } from "../Common"
+import { Spinner } from "../Common";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -38,7 +38,7 @@ const Login = () => {
         <CardContent
           style={{
             backgroundColor: "#84a8b3",
-            width: "400px",
+            minWidth: "320px",
             borderRadius: "2px",
             padding: "30px 0",
           }}

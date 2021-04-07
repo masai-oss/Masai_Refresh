@@ -1,21 +1,30 @@
-import React from 'react'
-import { Routes } from './Routes/Routes'
-import { Navbar } from './Structure/Navbar'
+import React from "react";
+import { Routes } from "./Routes/Routes";
+import { Navbar } from "./Structure/Navbar";
 import { IsAdmin } from "./Structure/Common/";
-import styles from './App.module.css'
-import { DotsLogo } from './Structure/Common/DotsLogo';
+import { DotsLogo } from "./Structure/Common/DotsLogo";
+import { PageWrapper, DotsPos } from "./App.Styles";
 
 const App = () => {
-    const isAdmin = IsAdmin();
-    return (
-        <div className={styles.container}>
-            <Navbar isAdmin={isAdmin} />
-            <div className={styles.pageWrapper}>
-                <Routes />
-            </div>
-            <DotsLogo />
-        </div>
-    )
-}
+  const isAdmin = IsAdmin();
+  let crnLocation = window.location.href.split("/");
+  let crnParam = crnLocation[crnLocation.length - 1];
+  console.log(crnParam)
+  return (
+    <div>
+      <Navbar isAdmin={isAdmin} />
+      <PageWrapper>
+        <Routes />
+      </PageWrapper>
+      {crnParam === "login" || crnParam === "" ? (
+        <DotsPos>
+          <DotsLogo />
+        </DotsPos>
+      ) : (
+        <DotsLogo />
+      )}
+    </div>
+  );
+};
 
-export default App
+export { App };
