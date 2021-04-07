@@ -1,15 +1,11 @@
 import { makeStyles } from "@material-ui/core/styles";
-
 import styled from "styled-components";
 
 const QuestionStyles = makeStyles((theme) => ({
   main: {
     boxSizing: "border-box",
-    height: "100%",
     width: "100%",
-    backgroundColor: "white",
     padding: "31px",
-
     wordWrap: "break-word",
 
     "& pre": {
@@ -21,6 +17,21 @@ const QuestionStyles = makeStyles((theme) => ({
     "& button": {
       border: "none",
       padding: "16px",
+    },
+    [theme.breakpoints.up("xs")]: {
+      height: "160vh",
+    },
+    [theme.breakpoints.up("sm")]: {
+      height: "95vh",
+    },
+    [theme.breakpoints.up("md")]: {
+      height: "81.5vh",
+    },
+    [theme.breakpoints.up("lg")]: {
+      height: "86vh",
+    },
+    [theme.breakpoints.up("xl")]: {
+      height: "89vh",
     },
   },
   nextBtn: {
