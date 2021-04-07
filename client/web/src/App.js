@@ -9,7 +9,6 @@ const App = () => {
   const isAdmin = IsAdmin();
   let crnLocation = window.location.href.split("/");
   let crnParam = crnLocation[crnLocation.length - 1];
-  console.log(crnParam)
   return (
     <div>
       <Navbar isAdmin={isAdmin} />
