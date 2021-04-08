@@ -1,6 +1,7 @@
 const Submission = require("../models/Submission");
 const Topic = require("../models/Topic");
-
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
 const getTopicsSummary = async (req, res) => {
   const id = req.id;
   try {
@@ -19,32 +20,58 @@ const getTopicsSummary = async (req, res) => {
         },
       },
       {
+        $unwind: {
+          path: "$proficiency",
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $addFields: { lastAttempt: { $last: "$proficiency.attempts" } },
+      },
+      {
         $project: {
-          questions: 0,
-          "proficiency.topic_id": 0,
-          "proficiency._id": 0,
-          "proficiency.stats.alloted": 0,
+          proficiency: "$proficiency.stats",
+          lastAttempt: "$lastAttempt.stats",
+          isStatsUpdated: "$lastAttempt.isStatsUpdated",
+          user_id: "$proficiency.user_id",
+          _id: 1,
+          name: 1,
+          icon: 1,
+          totalNoOfQuestions: 1,
+        },
+      },
+      {
+        $match: { user_id: ObjectId(id) },
+      },
+      { $sort: { name: 1 } },
+      {
+        $project: {
+          user_id: 0,
         },
       },
     ]);
-    topicAndProficiency = topicAndProficiency.map((data) => {
-      return {
-        ...data,
-        proficiency: data.proficiency.filter(({ user_id }) => user_id == id),
-      };
-    });
-    for (let i = 0; i < topicAndProficiency.length; i++) {
-      let { proficiency } = topicAndProficiency[i];
-      if (proficiency.length) {
-        let lastAttempt = topicAndProficiency[i].proficiency[0].attempts.pop()
-        topicAndProficiency[i].proficiency =
-          topicAndProficiency[i].proficiency[0].stats;
-        topicAndProficiency[i].lastAttempt = lastAttempt.stats
+    let allTopics = await Topic.aggregate([
+      {
+        $addFields: {
+          totalNoOfQuestions: { $size: { $ifNull: ["$questions", []] } },
+          proficiency: [],
+        },
+      },
+      { $unset: "questions" },
+      { $sort: { name: 1 } },
+    ]).exec();
+    for (let i = 0; i < allTopics.length; i++) {
+      for (let j = 0; j < topicAndProficiency.length; j++) {
+        if (allTopics[i].name === topicAndProficiency[j].name) {
+          allTopics[i].proficiency = topicAndProficiency[j].proficiency;
+          allTopics[i].lastAttempt = topicAndProficiency[j].lastAttempt;
+          topicAndProficiency.splice(j, 1);
+        }
       }
     }
     res.status(200).json({
       error: false,
-      data: topicAndProficiency,
+      data: allTopics,
     });
   } catch (err) {
     res.status(400).json({
@@ -53,5 +80,4 @@ const getTopicsSummary = async (req, res) => {
     });
   }
 };
-
 module.exports = { getTopicsSummary };
