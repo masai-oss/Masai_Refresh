@@ -4,7 +4,9 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center"
-    tools:context=".GoogleSignInActivty">
+    tools:context=".GoogleSignInActivty"
+    android:orientation="vertical">
+
 
     <com.google.android.gms.common.SignInButton
         android:id="@+id/gSignInBtn"
