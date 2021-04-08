@@ -16,6 +16,7 @@ export const OptionStyles = makeStyles((theme) => ({
   label: {
     width: "100%",
     height: "100%",
+    fontFamily: "Open-sans"
   },
   radio: {
     color: "#6C8D9E",
