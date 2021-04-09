@@ -2,6 +2,9 @@ import { authConstants } from "./actionTypes";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 
+import LogRocket from "logrocket";
+LogRocket.init("zpsfu7/refresh-localhost");
+
 const initState = {
   isLoggingIn: false,
   loginError: false,
@@ -21,7 +24,16 @@ const authentication = (state = initState, { type, payload }) => {
         isLoggingIn: true,
         loginError: false,
       };
-    case authConstants.USERS_LOGIN_SUCCESS:
+    case authConstants.USERS_LOGIN_SUCCESS: {
+      const {
+        token,
+        user: { email, name },
+      } = payload;
+      console.log(email, name, payload, token);
+      LogRocket.identify(token, {
+        name,
+        email,
+      });
       return {
         ...state,
         token: getFromStorage(storageEnums.TOKEN, ""),
@@ -31,6 +43,7 @@ const authentication = (state = initState, { type, payload }) => {
         isLoggingIn: false,
         loginError: false,
       };
+    }
     case authConstants.USERS_LOGIN_FAILURE:
       return {
         ...state,

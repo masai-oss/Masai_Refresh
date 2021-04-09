@@ -26,6 +26,7 @@
     "i": "^0.3.6",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.20",
+    "logrocket": "^1.0.14",
     "markdown-it": "^12.0.4",
     "notistack": "^1.0.3",
     "npm": "^6.14.12",
