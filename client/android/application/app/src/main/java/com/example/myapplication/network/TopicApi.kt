@@ -17,9 +17,8 @@ import retrofit2.http.*
 
 
 interface TopicApi {
-    @GET("api/topic/")
+    @GET("api/topic/summary")
     fun getTopics(@Header("Authorization") bearer: String?): Call<TopicsModel>
-
 
     @POST("/api/attempt/create")
     fun FirstAttemptPost(
@@ -37,6 +36,7 @@ interface TopicApi {
     //    @Headers("Content-Type : application/json")
     @POST("/api/auth/login_user")
     fun postToken(@Body task: AuthTask): Call<AuthSuccess>
+
 
     @GET("/api/attempt/question")
     fun getNextQuestion(
