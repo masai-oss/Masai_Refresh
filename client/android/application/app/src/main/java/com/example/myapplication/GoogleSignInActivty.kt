@@ -47,13 +47,13 @@ class GoogleSignInActivty : AppCompatActivity() {
         val intent: Intent = mGoogleSignInClient.signInIntent
         startActivityForResult(intent, 101)
     }
-
-    override fun onStart() {
-        super.onStart()
-        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
-        updateUI(account)
-
-    }
+//
+//    override fun onStart() {
+//        super.onStart()
+//        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+//        updateUI(account)
+//
+//    }
 
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {
@@ -63,7 +63,6 @@ class GoogleSignInActivty : AppCompatActivity() {
             postToken.enqueue(object : Callback<AuthSuccess>{
                 override fun onResponse(call: Call<AuthSuccess>, response: Response<AuthSuccess>) {
                     if (response.body()?.token !=null)
-
                     Toast.makeText(this@GoogleSignInActivty, response.body()?.message +response.body()?.token,Toast.LENGTH_SHORT).show()
                     val intent = Intent(this@GoogleSignInActivty,TopicsActivity::class.java)
                     intent.putExtra("token",response.body()?.token)

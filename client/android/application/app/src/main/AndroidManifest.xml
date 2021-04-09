@@ -21,7 +21,7 @@
         </activity>
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
-        <activity android:name=".AttemptActivity"></activity>
+        <activity android:name=".AttemptActivity" />
         <activity android:name=".GoogleSignInActivty">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
