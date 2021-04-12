@@ -1,0 +1,5 @@
+node_modules
+dataDumpScript
+.env.example
+.gitignore
+.env
