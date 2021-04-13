@@ -1,0 +1,13 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1617788281513,1022,-9,200,OK,Thread Group 1-1,text,true,,1978,533,1,1,https://refresh.masai.tech/api/topic/summary,1022,0,691
+1617788281422,1022,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,1978,533,1,1,null,1022,94,691
+1617788282538,1770,-10,200,OK,Thread Group 1-1,text,true,,613,651,1,1,https://refresh.masai.tech/api/attempt/create,1770,0,0
+1617788282537,1770,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,613,651,1,1,null,1770,1,0
+1617788284309,243,-11,200,OK,Thread Group 1-1,text,true,,604,648,1,1,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,243,0,0
+1617788284553,234,-12,200,OK,Thread Group 1-1,text,true,,613,648,1,1,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,234,0,0
+1617788284788,236,-13,200,OK,Thread Group 1-1,text,true,,635,648,1,1,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,235,0,0
+1617788285024,232,-14,200,OK,Thread Group 1-1,text,true,,712,648,1,1,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,232,0,0
+1617788285257,237,-15,200,OK,Thread Group 1-1,text,true,,752,648,1,1,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,237,0,0
+1617788284309,1182,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-1,,true,,3316,3240,1,1,null,1181,4,0
+1617788285495,256,-16,200,OK,Thread Group 1-1,text,true,,2929,559,1,1,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,256,0,0
+1617788285495,256,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,2929,559,1,1,null,256,0,0

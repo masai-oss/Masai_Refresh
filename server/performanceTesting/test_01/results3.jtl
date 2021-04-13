@@ -1,0 +1,361 @@
+timeStamp,elapsed,label,responseCode,responseMessage,threadName,dataType,success,failureMessage,bytes,sentBytes,grpThreads,allThreads,URL,Latency,IdleTime,Connect
+1617788651876,905,-9,200,OK,Thread Group 1-12,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,905,0,575
+1617788651875,905,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-12,,true,,1978,533,30,30,null,905,2,575
+1617788651713,1287,-9,200,OK,Thread Group 1-7,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1287,0,753
+1617788651712,1287,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-7,,true,,1978,533,30,30,null,1287,1,753
+1617788651598,1514,-9,200,OK,Thread Group 1-3,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1514,0,876
+1617788651581,1514,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-3,,true,,1978,533,30,30,null,1514,17,876
+1617788651945,1273,-9,200,OK,Thread Group 1-14,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1272,0,526
+1617788651944,1273,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-14,,true,,1978,533,30,30,null,1272,1,526
+1617788651746,1548,-9,200,OK,Thread Group 1-8,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1548,0,725
+1617788651745,1548,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-8,,true,,1978,533,30,30,null,1548,1,725
+1617788651647,1779,-9,200,OK,Thread Group 1-5,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1779,0,824
+1617788651646,1779,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-5,,true,,1978,533,30,30,null,1779,1,824
+1617788651615,1904,-9,200,OK,Thread Group 1-4,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1904,0,861
+1617788651614,1904,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-4,,true,,1978,533,30,30,null,1904,2,861
+1617788651598,1995,-9,200,OK,Thread Group 1-2,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1994,0,879
+1617788651546,1995,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-2,,true,,1978,533,30,30,null,1994,52,879
+1617788651776,1960,-9,200,OK,Thread Group 1-9,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,1960,0,704
+1617788651775,1960,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-9,,true,,1978,533,30,30,null,1960,1,704
+1617788651598,2182,-9,200,OK,Thread Group 1-1,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2182,0,881
+1617788651518,2182,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,1978,533,30,30,null,2182,81,881
+1617788651679,2187,-9,200,OK,Thread Group 1-6,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2187,0,791
+1617788651678,2187,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-6,,true,,1978,533,30,30,null,2187,2,791
+1617788651911,2041,-9,200,OK,Thread Group 1-13,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2041,0,559
+1617788651910,2041,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-13,,true,,1978,533,30,30,null,2041,1,559
+1617788651810,2247,-9,200,OK,Thread Group 1-10,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2247,0,670
+1617788651809,2247,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-10,,true,,1978,533,30,30,null,2247,2,670
+1617788651845,2298,-9,200,OK,Thread Group 1-11,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2298,0,635
+1617788651844,2298,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-11,,true,,1978,533,30,30,null,2298,1,635
+1617788652008,2201,-9,200,OK,Thread Group 1-16,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2201,0,479
+1617788652007,2201,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-16,,true,,1978,533,30,30,null,2201,1,479
+1617788651975,2320,-9,200,OK,Thread Group 1-15,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2320,0,507
+1617788651975,2320,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-15,,true,,1978,533,30,30,null,2320,0,507
+1617788652042,2323,-9,200,OK,Thread Group 1-17,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2323,0,469
+1617788652041,2323,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-17,,true,,1978,533,30,30,null,2323,1,469
+1617788652081,2372,-9,200,OK,Thread Group 1-18,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2372,0,465
+1617788652079,2372,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-18,,true,,1978,533,30,30,null,2372,2,465
+1617788652107,2467,-9,200,OK,Thread Group 1-19,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2467,0,470
+1617788652106,2467,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-19,,true,,1978,533,30,30,null,2467,1,470
+1617788652154,2479,-9,200,OK,Thread Group 1-20,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2479,0,477
+1617788652146,2479,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-20,,true,,1978,533,30,30,null,2479,8,477
+1617788652173,2581,-9,200,OK,Thread Group 1-21,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2581,0,477
+1617788652172,2581,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-21,,true,,1978,533,30,30,null,2581,1,477
+1617788652207,2642,-9,200,OK,Thread Group 1-22,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2641,0,492
+1617788652206,2642,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-22,,true,,1978,533,30,30,null,2641,1,492
+1617788652240,2674,-9,200,OK,Thread Group 1-23,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2674,0,482
+1617788652239,2674,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-23,,true,,1978,533,30,30,null,2674,1,482
+1617788652273,2710,-9,200,OK,Thread Group 1-24,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2710,0,476
+1617788652272,2710,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-24,,true,,1978,533,30,30,null,2710,1,476
+1617788652305,2857,-9,200,OK,Thread Group 1-25,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2857,0,483
+1617788652304,2857,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-25,,true,,1978,533,30,30,null,2857,2,483
+1617788652338,2864,-9,200,OK,Thread Group 1-26,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2864,0,465
+1617788652337,2864,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-26,,true,,1978,533,30,30,null,2864,1,465
+1617788652371,2919,-9,200,OK,Thread Group 1-27,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,2919,0,462
+1617788652370,2919,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-27,,true,,1978,533,30,30,null,2919,1,462
+1617788652402,3009,-9,200,OK,Thread Group 1-28,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,3009,0,469
+1617788652401,3009,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-28,,true,,1978,533,30,30,null,3009,1,469
+1617788652440,3041,-9,200,OK,Thread Group 1-29,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,3041,0,470
+1617788652439,3041,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-29,,true,,1978,533,30,30,null,3041,2,470
+1617788652477,3084,-9,200,OK,Thread Group 1-30,text,true,,1978,533,30,30,https://refresh.masai.tech/api/topic/summary,3084,0,473
+1617788652475,3084,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-30,,true,,1978,533,30,30,null,3084,2,473
+1617788653001,13401,-10,200,OK,Thread Group 1-7,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,13401,0,0
+1617788653000,13401,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-7,,true,,613,651,30,30,null,13401,1,0
+1617788653113,13761,-10,200,OK,Thread Group 1-3,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,13761,0,0
+1617788653113,13761,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-3,,true,,613,651,30,30,null,13761,0,0
+1617788653218,14124,-10,200,OK,Thread Group 1-14,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,14124,0,0
+1617788653218,14124,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-14,,true,,613,651,30,30,null,14124,0,0
+1617788652782,15023,-10,200,OK,Thread Group 1-12,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,15023,0,0
+1617788652782,15023,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-12,,true,,613,651,30,30,null,15023,0,0
+1617788653295,17344,-10,200,OK,Thread Group 1-8,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,17344,0,0
+1617788653295,17344,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-8,,true,,613,651,30,30,null,17344,1,0
+1617788653427,17687,-10,200,OK,Thread Group 1-5,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,17687,0,0
+1617788653426,17687,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-5,,true,,613,651,30,30,null,17687,1,0
+1617788653520,18066,-10,200,OK,Thread Group 1-4,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,18066,0,0
+1617788653520,18066,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-4,,true,,613,651,30,30,null,18066,0,0
+1617788653593,18455,-10,200,OK,Thread Group 1-2,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,18455,0,0
+1617788653593,18455,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-2,,true,,613,651,30,30,null,18455,0,0
+1617788653737,18795,-10,200,OK,Thread Group 1-9,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,18795,0,0
+1617788653736,18795,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-9,,true,,613,651,30,30,null,18795,1,0
+1617788653781,19218,-10,200,OK,Thread Group 1-1,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,19218,0,0
+1617788653781,19218,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,613,651,30,30,null,19218,1,0
+1617788654209,24290,-10,200,OK,Thread Group 1-16,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,24290,0,0
+1617788654209,24290,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-16,,true,,613,651,30,30,null,24290,0,0
+1617788654296,24708,-10,200,OK,Thread Group 1-15,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,24707,0,0
+1617788654295,24708,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-15,,true,,613,651,30,30,null,24707,1,0
+1617788654366,24961,-10,200,OK,Thread Group 1-17,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,24960,0,0
+1617788654366,24961,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-17,,true,,613,651,30,30,null,24960,0,0
+1617788653952,26441,-10,200,OK,Thread Group 1-13,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,26441,0,0
+1617788653952,26441,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-13,,true,,613,651,30,30,null,26441,0,0
+1617788654144,26686,-10,200,OK,Thread Group 1-11,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,26686,0,0
+1617788654143,26686,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-11,,true,,613,651,30,30,null,26686,1,0
+1617788653867,27397,-10,200,OK,Thread Group 1-6,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,27397,0,0
+1617788653867,27397,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-6,,true,,613,651,30,30,null,27397,0,0
+1617788654058,27644,-10,200,OK,Thread Group 1-10,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,27643,0,0
+1617788654058,27644,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-10,,true,,613,651,30,30,null,27643,0,0
+1617788654453,29103,-10,200,OK,Thread Group 1-18,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,29103,0,0
+1617788654453,29103,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-18,,true,,613,651,30,30,null,29103,0,0
+1617788654574,29628,-10,200,OK,Thread Group 1-19,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,29628,0,0
+1617788654574,29628,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-19,,true,,613,651,30,30,null,29628,0,0
+1617788654633,30008,-10,200,OK,Thread Group 1-20,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,30007,0,0
+1617788654633,30008,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-20,,true,,613,651,30,30,null,30007,0,0
+1617788654755,30891,-10,200,OK,Thread Group 1-21,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,30891,0,0
+1617788654755,30891,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-21,,true,,613,651,30,30,null,30891,1,0
+1617788654849,31247,-10,200,OK,Thread Group 1-22,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,31247,0,0
+1617788654849,31247,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-22,,true,,613,651,30,30,null,31247,0,0
+1617788654915,31625,-10,200,OK,Thread Group 1-23,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,31625,0,0
+1617788654914,31625,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-23,,true,,613,651,30,30,null,31625,2,0
+1617788654983,31996,-10,200,OK,Thread Group 1-24,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,31996,0,0
+1617788654983,31996,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-24,,true,,613,651,30,30,null,31996,0,0
+1617788655163,32280,-10,200,OK,Thread Group 1-25,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,32280,0,0
+1617788655163,32280,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-25,,true,,613,651,30,30,null,32280,0,0
+1617788655203,32708,-10,200,OK,Thread Group 1-26,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,32708,0,0
+1617788655202,32708,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-26,,true,,613,651,30,30,null,32708,2,0
+1617788655291,33671,-10,200,OK,Thread Group 1-27,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,33671,0,0
+1617788655291,33671,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-27,,true,,613,651,30,30,null,33671,0,0
+1617788666404,22563,-11,200,OK,Thread Group 1-7,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,22563,0,0
+1617788655411,34355,-10,200,OK,Thread Group 1-28,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,34355,0,0
+1617788655411,34355,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-28,,true,,613,651,30,30,null,34355,0,0
+1617788655483,34708,-10,200,OK,Thread Group 1-29,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,34708,0,0
+1617788655482,34708,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-29,,true,,613,651,30,30,null,34708,2,0
+1617788666875,23760,-11,200,OK,Thread Group 1-3,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,23760,0,0
+1617788655561,35076,-10,200,OK,Thread Group 1-30,text,true,,613,651,30,30,https://refresh.masai.tech/api/attempt/create,35076,0,0
+1617788655561,35076,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-30,,true,,613,651,30,30,null,35076,0,0
+1617788667806,22853,-11,200,OK,Thread Group 1-12,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,22853,0,0
+1617788667344,23315,-11,200,OK,Thread Group 1-14,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,23315,0,0
+1617788670642,20023,-11,200,OK,Thread Group 1-8,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,20023,0,0
+1617788671116,19553,-11,200,OK,Thread Group 1-5,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,19553,0,0
+1617788671588,19104,-11,200,OK,Thread Group 1-4,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,19104,0,0
+1617788672049,18646,-11,200,OK,Thread Group 1-2,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,18646,0,0
+1617788672533,18167,-11,200,OK,Thread Group 1-9,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,18167,0,0
+1617788673001,17706,-11,200,OK,Thread Group 1-1,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,17706,0,0
+1617788679005,11704,-11,200,OK,Thread Group 1-15,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,11704,0,0
+1617788678500,12210,-11,200,OK,Thread Group 1-16,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,12210,0,0
+1617788679328,11382,-11,200,OK,Thread Group 1-17,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,11382,0,0
+1617788680395,10317,-11,200,OK,Thread Group 1-13,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,10317,0,0
+1617788680832,9885,-11,200,OK,Thread Group 1-11,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,9885,0,0
+1617788681265,9460,-11,200,OK,Thread Group 1-6,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,9460,0,0
+1617788681703,9026,-11,200,OK,Thread Group 1-10,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,9026,0,0
+1617788683557,7179,-11,200,OK,Thread Group 1-18,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,7179,0,0
+1617788684203,6542,-11,200,OK,Thread Group 1-19,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,6542,0,0
+1617788684642,6108,-11,200,OK,Thread Group 1-20,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,6108,0,0
+1617788685648,5102,-11,200,OK,Thread Group 1-21,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,5102,0,0
+1617788687913,2841,-11,200,OK,Thread Group 1-26,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,2841,0,0
+1617788686542,4212,-11,200,OK,Thread Group 1-23,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,4212,0,0
+1617788686981,3773,-11,200,OK,Thread Group 1-24,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,3773,0,0
+1617788688964,1791,-11,200,OK,Thread Group 1-27,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,1791,0,0
+1617788686097,4658,-11,200,OK,Thread Group 1-22,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,4658,0,0
+1617788690193,562,-11,200,OK,Thread Group 1-29,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,562,0,0
+1617788688967,1789,-12,200,OK,Thread Group 1-7,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,1789,0,0
+1617788689767,990,-11,200,OK,Thread Group 1-28,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,990,0,0
+1617788687444,3318,-11,200,OK,Thread Group 1-25,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,3318,0,0
+1617788690635,236,-12,200,OK,Thread Group 1-3,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,236,0,0
+1617788690638,243,-11,200,OK,Thread Group 1-30,text,true,,604,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683dde,243,0,0
+1617788690660,241,-12,200,OK,Thread Group 1-12,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,241,0,0
+1617788690660,241,-12,200,OK,Thread Group 1-14,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,241,0,0
+1617788690666,241,-12,200,OK,Thread Group 1-8,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,241,0,0
+1617788690669,244,-12,200,OK,Thread Group 1-5,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,244,0,0
+1617788690693,241,-12,200,OK,Thread Group 1-4,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,241,0,0
+1617788690696,254,-12,200,OK,Thread Group 1-2,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,254,0,0
+1617788690700,255,-12,200,OK,Thread Group 1-9,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,255,0,0
+1617788690710,259,-12,200,OK,Thread Group 1-16,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,259,0,0
+1617788690707,266,-12,200,OK,Thread Group 1-1,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,266,0,0
+1617788690713,270,-12,200,OK,Thread Group 1-13,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,270,0,0
+1617788690711,283,-12,200,OK,Thread Group 1-17,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,283,0,0
+1617788690710,285,-12,200,OK,Thread Group 1-15,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,285,0,0
+1617788690725,299,-12,200,OK,Thread Group 1-6,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,299,0,0
+1617788690717,310,-12,200,OK,Thread Group 1-11,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,310,0,0
+1617788690729,317,-12,200,OK,Thread Group 1-10,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,317,0,0
+1617788690736,317,-12,200,OK,Thread Group 1-18,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,317,0,0
+1617788690750,318,-12,200,OK,Thread Group 1-21,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,318,0,0
+1617788690750,318,-12,200,OK,Thread Group 1-20,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,318,0,0
+1617788690746,322,-12,200,OK,Thread Group 1-19,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,322,0,0
+1617788690755,316,-12,200,OK,Thread Group 1-27,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,316,0,0
+1617788690756,317,-12,200,OK,Thread Group 1-29,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,317,0,0
+1617788690756,317,-13,200,OK,Thread Group 1-7,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,317,0,0
+1617788690755,321,-12,200,OK,Thread Group 1-26,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,321,0,0
+1617788690757,319,-12,200,OK,Thread Group 1-28,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,319,0,0
+1617788690755,323,-12,200,OK,Thread Group 1-23,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,323,0,0
+1617788690755,324,-12,200,OK,Thread Group 1-24,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,324,0,0
+1617788690756,326,-12,200,OK,Thread Group 1-22,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,326,0,0
+1617788690762,326,-12,200,OK,Thread Group 1-25,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,326,0,0
+1617788690872,234,-13,200,OK,Thread Group 1-3,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,234,0,0
+1617788690882,237,-12,200,OK,Thread Group 1-30,text,true,,613,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f31,237,0,0
+1617788690901,243,-13,200,OK,Thread Group 1-12,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,243,0,0
+1617788690902,254,-13,200,OK,Thread Group 1-14,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,254,0,0
+1617788690907,252,-13,200,OK,Thread Group 1-8,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,252,0,0
+1617788690913,254,-13,200,OK,Thread Group 1-5,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,254,0,0
+1617788690934,239,-13,200,OK,Thread Group 1-4,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,239,0,0
+1617788690950,238,-13,200,OK,Thread Group 1-2,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,238,0,0
+1617788690955,245,-13,200,OK,Thread Group 1-9,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,245,0,0
+1617788690969,248,-13,200,OK,Thread Group 1-16,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,248,0,0
+1617788690974,243,-13,200,OK,Thread Group 1-1,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,243,0,0
+1617788690983,245,-13,200,OK,Thread Group 1-13,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,245,0,0
+1617788690994,242,-13,200,OK,Thread Group 1-17,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,242,0,0
+1617788690995,242,-13,200,OK,Thread Group 1-15,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,242,0,0
+1617788691024,233,-13,200,OK,Thread Group 1-6,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,233,0,0
+1617788691027,240,-13,200,OK,Thread Group 1-11,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,240,0,0
+1617788691053,235,-13,200,OK,Thread Group 1-18,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,235,0,0
+1617788691047,246,-13,200,OK,Thread Group 1-10,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,246,0,0
+1617788691068,264,-13,200,OK,Thread Group 1-21,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,264,0,0
+1617788691068,266,-13,200,OK,Thread Group 1-20,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,266,0,0
+1617788691071,270,-13,200,OK,Thread Group 1-27,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,270,0,0
+1617788691073,286,-14,200,OK,Thread Group 1-7,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,286,0,0
+1617788691068,292,-13,200,OK,Thread Group 1-19,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,291,0,0
+1617788691073,294,-13,200,OK,Thread Group 1-29,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,294,0,0
+1617788691076,291,-13,200,OK,Thread Group 1-26,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,291,0,0
+1617788691079,297,-13,200,OK,Thread Group 1-24,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,297,0,0
+1617788691077,301,-13,200,OK,Thread Group 1-28,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,301,0,0
+1617788691078,301,-13,200,OK,Thread Group 1-23,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,301,0,0
+1617788691082,300,-13,200,OK,Thread Group 1-22,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,300,0,0
+1617788691088,296,-13,200,OK,Thread Group 1-25,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,296,0,0
+1617788691106,281,-14,200,OK,Thread Group 1-3,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,281,0,0
+1617788691119,276,-13,200,OK,Thread Group 1-30,text,true,,635,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683f12,276,0,0
+1617788691145,255,-14,200,OK,Thread Group 1-12,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,255,0,0
+1617788691159,242,-14,200,OK,Thread Group 1-8,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,242,0,0
+1617788691157,247,-14,200,OK,Thread Group 1-14,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,247,0,0
+1617788691168,250,-14,200,OK,Thread Group 1-5,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,250,0,0
+1617788691173,245,-14,200,OK,Thread Group 1-4,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,245,0,0
+1617788691188,238,-14,200,OK,Thread Group 1-2,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,238,0,0
+1617788691201,238,-14,200,OK,Thread Group 1-9,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,238,0,0
+1617788691217,238,-14,200,OK,Thread Group 1-16,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,238,0,0
+1617788691218,238,-14,200,OK,Thread Group 1-1,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,238,0,0
+1617788691228,235,-14,200,OK,Thread Group 1-13,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,235,0,0
+1617788691238,237,-14,200,OK,Thread Group 1-15,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,237,0,0
+1617788691236,242,-14,200,OK,Thread Group 1-17,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,242,0,0
+1617788691257,232,-14,200,OK,Thread Group 1-6,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,232,0,0
+1617788691268,241,-14,200,OK,Thread Group 1-11,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,241,0,0
+1617788691289,232,-14,200,OK,Thread Group 1-18,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,232,0,0
+1617788691294,241,-14,200,OK,Thread Group 1-10,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,241,0,0
+1617788691332,239,-14,200,OK,Thread Group 1-21,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,238,0,0
+1617788691334,244,-14,200,OK,Thread Group 1-20,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,244,0,0
+1617788691342,240,-14,200,OK,Thread Group 1-27,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,240,0,0
+1617788691359,239,-15,200,OK,Thread Group 1-7,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,238,0,0
+1617788666403,25194,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-7,,true,,3316,3240,30,30,null,25193,1,0
+1617788691360,249,-14,200,OK,Thread Group 1-19,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,249,0,0
+1617788691367,261,-14,200,OK,Thread Group 1-29,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,261,0,0
+1617788691368,261,-14,200,OK,Thread Group 1-26,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,261,0,0
+1617788691379,274,-14,200,OK,Thread Group 1-23,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,273,0,0
+1617788691378,275,-14,200,OK,Thread Group 1-28,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,275,0,0
+1617788691376,285,-14,200,OK,Thread Group 1-24,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,285,0,0
+1617788691388,273,-15,200,OK,Thread Group 1-3,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,273,0,0
+1617788666875,24784,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-3,,true,,3316,3240,30,30,null,24784,3,0
+1617788691384,286,-14,200,OK,Thread Group 1-25,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,286,0,0
+1617788691383,291,-14,200,OK,Thread Group 1-22,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,291,0,0
+1617788691404,272,-15,200,OK,Thread Group 1-14,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,272,0,0
+1617788667343,24329,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-14,,true,,3316,3240,30,30,null,24329,4,0
+1617788691400,277,-15,200,OK,Thread Group 1-12,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,277,0,0
+1617788667806,23869,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-12,,true,,3316,3240,30,30,null,23869,2,0
+1617788691401,286,-15,200,OK,Thread Group 1-8,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,286,0,0
+1617788670641,21044,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-8,,true,,3316,3240,30,30,null,21044,2,0
+1617788691395,292,-14,200,OK,Thread Group 1-30,text,true,,712,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab45a8553cfbcb0683eb0,292,0,0
+1617788691418,278,-15,200,OK,Thread Group 1-5,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,278,0,0
+1617788671115,20579,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-5,,true,,3316,3240,30,30,null,20579,2,0
+1617788691426,272,-15,200,OK,Thread Group 1-2,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,272,0,0
+1617788672049,19648,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-2,,true,,3316,3240,30,30,null,19648,1,0
+1617788691418,283,-15,200,OK,Thread Group 1-4,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,283,0,0
+1617788671587,20112,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-4,,true,,3316,3240,30,30,null,20112,2,0
+1617788691457,259,-15,200,OK,Thread Group 1-1,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,259,0,0
+1617788673001,18712,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-1,,true,,3316,3240,30,30,null,18712,3,0
+1617788691439,278,-15,200,OK,Thread Group 1-9,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,278,0,0
+1617788672533,19183,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-9,,true,,3316,3240,30,30,null,19183,1,0
+1617788691455,264,-15,200,OK,Thread Group 1-16,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,264,0,0
+1617788678500,13219,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-16,,true,,3316,3240,30,30,null,13219,0,0
+1617788691463,266,-15,200,OK,Thread Group 1-13,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,266,0,0
+1617788680394,11333,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-13,,true,,3316,3240,30,30,null,11333,2,0
+1617788691478,255,-15,200,OK,Thread Group 1-17,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,255,0,0
+1617788679328,12404,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-17,,true,,3316,3240,30,30,null,12404,1,0
+1617788691475,260,-15,200,OK,Thread Group 1-15,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,259,0,0
+1617788679005,12728,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-15,,true,,3316,3240,30,30,null,12727,2,0
+1617788691490,259,-15,200,OK,Thread Group 1-6,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,259,0,0
+1617788681265,10483,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-6,,true,,3316,3240,30,30,null,10483,1,0
+1617788691509,244,-15,200,OK,Thread Group 1-11,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,244,0,0
+1617788680831,10920,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-11,,true,,3316,3240,30,30,null,10920,2,0
+1617788691521,234,-15,200,OK,Thread Group 1-18,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,234,0,0
+1617788683557,8197,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-18,,true,,3316,3240,30,30,null,8197,1,0
+1617788691535,242,-15,200,OK,Thread Group 1-10,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,242,0,0
+1617788681703,10072,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-10,,true,,3316,3240,30,30,null,10072,3,0
+1617788691571,234,-15,200,OK,Thread Group 1-21,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,234,0,0
+1617788685648,6157,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-21,,true,,3316,3240,30,30,null,6156,1,0
+1617788691582,236,-15,200,OK,Thread Group 1-27,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,236,0,0
+1617788688963,2853,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-27,,true,,3316,3240,30,30,null,2853,2,0
+1617788691578,242,-15,200,OK,Thread Group 1-20,text,true,,752,648,30,30,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,242,0,0
+1617788684642,7178,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-20,,true,,3316,3240,30,30,null,7178,0,0
+1617788691598,244,-16,200,OK,Thread Group 1-7,text,true,,2929,559,30,30,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,244,0,0
+1617788691598,244,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-7,,true,,2929,559,30,30,null,244,0,0
+1617788691610,236,-15,200,OK,Thread Group 1-19,text,true,,752,648,29,29,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,236,0,0
+1617788684203,7641,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-19,,true,,3316,3240,29,29,null,7640,3,0
+1617788691629,247,-15,200,OK,Thread Group 1-26,text,true,,752,648,29,29,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,247,0,0
+1617788687913,3961,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-26,,true,,3316,3240,29,29,null,3961,2,0
+1617788691628,250,-15,200,OK,Thread Group 1-29,text,true,,752,648,29,29,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,250,0,0
+1617788690193,1684,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-29,,true,,3316,3240,29,29,null,1684,1,0
+1617788691653,245,-15,200,OK,Thread Group 1-23,text,true,,752,648,29,29,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,245,0,0
+1617788686542,5355,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-23,,true,,3316,3240,29,29,null,5354,1,0
+1617788691654,249,-15,200,OK,Thread Group 1-28,text,true,,752,648,29,29,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,248,0,0
+1617788689767,2134,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-28,,true,,3316,3240,29,29,null,2133,2,0
+1617788691662,286,-16,200,OK,Thread Group 1-3,text,true,,2929,559,29,29,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,286,0,0
+1617788691662,286,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-3,,true,,2929,559,29,29,null,286,1,0
+1617788691661,289,-15,200,OK,Thread Group 1-24,text,true,,752,648,28,28,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,289,0,0
+1617788686980,4968,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-24,,true,,3316,3240,28,28,null,4968,2,0
+1617788691671,287,-15,200,OK,Thread Group 1-25,text,true,,752,648,28,28,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,287,0,0
+1617788687444,4513,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-25,,true,,3316,3240,28,28,null,4513,2,0
+1617788691678,300,-16,200,OK,Thread Group 1-12,text,true,,2929,559,28,28,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,300,0,0
+1617788691678,300,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-12,,true,,2929,559,28,28,null,300,0,0
+1617788691687,301,-16,200,OK,Thread Group 1-8,text,true,,2929,559,27,27,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,301,0,0
+1617788691687,301,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-8,,true,,2929,559,27,27,null,301,0,0
+1617788691674,324,-15,200,OK,Thread Group 1-22,text,true,,752,648,26,26,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,324,0,0
+1617788686097,5899,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-22,,true,,3316,3240,26,26,null,5899,2,0
+1617788691676,329,-16,200,OK,Thread Group 1-14,text,true,,2929,559,26,26,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,328,0,0
+1617788691676,329,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-14,,true,,2929,559,26,26,null,328,0,0
+1617788691688,327,-15,200,OK,Thread Group 1-30,text,true,,752,648,25,25,https://refresh.masai.tech/api/attempt/question?attempt_id=606ca95eb99eedbde03e5907&submission_id=606acc51b99eedbde03e5818&question_id=606ab4598553cfbcb0683e3a,327,0,0
+1617788690638,1375,,200,"Number of samples in transaction : 5, number of failing samples : 0",Thread Group 1-30,,true,,3316,3240,25,25,null,1375,2,0
+1617788691698,352,-16,200,OK,Thread Group 1-2,text,true,,2929,559,25,25,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,352,0,0
+1617788691698,352,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-2,,true,,2929,559,25,25,null,352,0,0
+1617788691701,383,-16,200,OK,Thread Group 1-4,text,true,,2929,559,24,24,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,383,0,0
+1617788691701,383,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-4,,true,,2929,559,24,24,null,383,0,0
+1617788691696,390,-16,200,OK,Thread Group 1-5,text,true,,2929,559,23,23,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,390,0,0
+1617788691696,390,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-5,,true,,2929,559,23,23,null,390,1,0
+1617788691717,385,-16,200,OK,Thread Group 1-9,text,true,,2929,559,22,22,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,385,0,0
+1617788691717,385,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-9,,true,,2929,559,22,22,null,385,0,0
+1617788691719,419,-16,200,OK,Thread Group 1-16,text,true,,2929,559,21,21,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,419,0,0
+1617788691719,419,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-16,,true,,2929,559,21,21,null,419,0,0
+1617788691717,424,-16,200,OK,Thread Group 1-1,text,true,,2929,559,20,20,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,424,0,0
+1617788691716,424,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-1,,true,,2929,559,20,20,null,424,2,0
+1617788691733,409,-16,200,OK,Thread Group 1-17,text,true,,2929,559,19,19,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,409,0,0
+1617788691733,409,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-17,,true,,2929,559,19,19,null,409,0,0
+1617788691729,423,-16,200,OK,Thread Group 1-13,text,true,,2929,559,18,18,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,423,0,0
+1617788691729,423,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-13,,true,,2929,559,18,18,null,423,0,0
+1617788691749,423,-16,200,OK,Thread Group 1-6,text,true,,2929,559,17,17,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,423,0,0
+1617788691749,423,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-6,,true,,2929,559,17,17,null,423,0,0
+1617788691735,447,-16,200,OK,Thread Group 1-15,text,true,,2929,559,16,16,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,447,0,0
+1617788691735,447,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-15,,true,,2929,559,16,16,null,447,0,0
+1617788691753,448,-16,200,OK,Thread Group 1-11,text,true,,2929,559,15,15,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,448,0,0
+1617788691753,448,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-11,,true,,2929,559,15,15,null,448,1,0
+1617788691778,450,-16,200,OK,Thread Group 1-10,text,true,,2929,559,14,14,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,450,0,0
+1617788691778,450,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-10,,true,,2929,559,14,14,null,450,0,0
+1617788691755,487,-16,200,OK,Thread Group 1-18,text,true,,2929,559,13,13,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,487,0,0
+1617788691755,487,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-18,,true,,2929,559,13,13,null,487,0,0
+1617788691847,403,-16,200,OK,Thread Group 1-19,text,true,,2929,559,12,12,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,403,0,0
+1617788691847,403,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-19,,true,,2929,559,12,12,null,403,0,0
+1617788691820,456,-16,200,OK,Thread Group 1-20,text,true,,2929,559,11,11,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,456,0,0
+1617788691820,456,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-20,,true,,2929,559,11,11,null,456,0,0
+1617788691806,479,-16,200,OK,Thread Group 1-21,text,true,,2929,559,10,10,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,479,0,0
+1617788691806,479,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-21,,true,,2929,559,10,10,null,479,0,0
+1617788691898,399,-16,200,OK,Thread Group 1-23,text,true,,2929,559,9,9,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,399,0,0
+1617788691898,399,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-23,,true,,2929,559,9,9,null,399,0,0
+1617788691878,432,-16,200,OK,Thread Group 1-29,text,true,,2929,559,8,8,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,432,0,0
+1617788691878,432,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-29,,true,,2929,559,8,8,null,432,0,0
+1617788691876,451,-16,200,OK,Thread Group 1-26,text,true,,2929,559,7,7,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,451,0,0
+1617788691876,451,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-26,,true,,2929,559,7,7,null,451,0,0
+1617788691818,512,-16,200,OK,Thread Group 1-27,text,true,,2929,559,6,6,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,512,0,0
+1617788691818,512,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-27,,true,,2929,559,6,6,null,512,0,0
+1617788691903,433,-16,200,OK,Thread Group 1-28,text,true,,2929,559,5,5,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,433,0,0
+1617788691903,433,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-28,,true,,2929,559,5,5,null,433,0,0
+1617788691951,389,-16,200,OK,Thread Group 1-24,text,true,,2929,559,4,4,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,389,0,0
+1617788691950,389,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-24,,true,,2929,559,4,4,null,389,2,0
+1617788692015,356,-16,200,OK,Thread Group 1-30,text,true,,2929,559,3,3,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,356,0,0
+1617788692015,356,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-30,,true,,2929,559,3,3,null,356,1,0
+1617788691998,380,-16,200,OK,Thread Group 1-22,text,true,,2929,559,2,2,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,380,0,0
+1617788691998,380,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-22,,true,,2929,559,2,2,null,380,0,0
+1617788691959,420,-16,200,OK,Thread Group 1-25,text,true,,2929,559,1,1,https://refresh.masai.tech/api/attempt/result/606ca95eb99eedbde03e5907,420,0,0
+1617788691959,420,,200,"Number of samples in transaction : 1, number of failing samples : 0",Thread Group 1-25,,true,,2929,559,1,1,null,420,0,0
