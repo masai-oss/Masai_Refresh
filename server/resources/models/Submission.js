@@ -80,6 +80,7 @@ const submissionSchema = new Schema(
   },
   {
     versionKey: false,
+    timestamps: true
   }
 );
 
