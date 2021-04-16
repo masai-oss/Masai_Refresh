@@ -49,15 +49,15 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
                     Glide.with(imCircle_performance).load(R.drawable.ic_nodejs_icon).into(imCircle_performance)
                 }
                 dataItem.name.equals("SQL") -> {
-                    Glide.with(imCircle_performance).load(sql).into(imCircle_performance)
+                    Glide.with(imCircle_performance).load(R.drawable.sql).into(imCircle_performance)
 
                 }
                 dataItem.name.equals("REACT") -> {
-                    Glide.with(imCircle_performance).load(react).into(imCircle_performance)
+                    Glide.with(imCircle_performance).load(R.drawable.react).into(imCircle_performance)
 
                 }
                 dataItem.name.equals("NODE_JS") -> {
-                    Glide.with(imCircle_performance).load(node_js).into(imCircle_performance)
+                    Glide.with(imCircle_performance).load(R.drawable.ic_nodejs).into(imCircle_performance)
 
                 }
                 dataItem.name.equals("JAVA") -> {
@@ -65,7 +65,7 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
 
                 }
                 dataItem.name.equals("PYTHON") -> {
-                    Glide.with(imCircle_performance).load(python).into(imCircle_performance)
+                    Glide.with(imCircle_performance).load(R.drawable.python).into(imCircle_performance)
 
                 }
             }
