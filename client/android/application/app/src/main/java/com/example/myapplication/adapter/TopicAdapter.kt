@@ -5,10 +5,9 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.example.myapplication.R
 import com.example.myapplication.interface_clickListener.TopicClickListener
-import com.example.myapplication.model.DataItem
 import com.example.myapplication.viewholder.TopicViewHolder
 
-class TopicAdapter(private var dataModelList: List<DataItem>,private val listener: TopicClickListener) :
+class TopicAdapter(private var dataModelList: List<com.example.myapplication.model.TopicsModelUpdated.DataItem>,private val listener: TopicClickListener) :
     RecyclerView.Adapter<TopicViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
@@ -25,7 +24,7 @@ class TopicAdapter(private var dataModelList: List<DataItem>,private val listene
         return dataModelList.size
     }
 
-    fun updateList(modelList: List<DataItem>) {
+    fun updateList(modelList: List<com.example.myapplication.model.TopicsModelUpdated.DataItem>) {
         dataModelList = modelList
         notifyDataSetChanged()
     }

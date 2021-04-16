@@ -5,9 +5,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.interface_clickListener.TopicClickListener
-import com.example.myapplication.model.DataItem
 import kotlinx.android.synthetic.main.item_layout_topics_new.view.*
-import kotlinx.android.synthetic.main.topics_item_layout.view.*
 
 class TopicViewHolder(private val view: View, private val listener: TopicClickListener) :
     RecyclerView.ViewHolder(view) {
@@ -33,7 +31,7 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
     val python =
         "https://firebasestorage.googleapis.com/v0/b/splitwise-project.appspot.com/o/python-5.svg?alt=media&token=836d57f5-28fd-46d4-ae11-daa0eea54459"
 
-    fun setData(dataItem: DataItem) {
+    fun setData(dataItem: com.example.myapplication.model.TopicsModelUpdated.DataItem) {
         view.apply {
             when {
                 dataItem.name.equals("CSS") -> {
@@ -77,6 +75,7 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
 //
 
             tvTopicNameNew.text = dataItem.name.toString()
+            tvTotalNoOfQuestions.text=dataItem.totalNoOfQuestions.toString()
             llTopic_Click.setOnClickListener {
                 listener.onItemClicked(adapterPosition, dataItem)
             }

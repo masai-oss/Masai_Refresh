@@ -7,7 +7,7 @@ import com.example.myapplication.AuthResponse.AuthTask
 import com.example.myapplication.AuthSuccess
 import com.example.myapplication.RecordAnswerRequest
 import com.example.myapplication.RecordAnswerResponse
-import com.example.myapplication.model.TopicsModel
+import com.example.myapplication.model.TopicsModelUpdated.TopicsModelUpdated
 import com.example.myapplication.model.first_attemp.FirstAttempApiResponse
 import com.example.myapplication.model.first_attemp.FirstAttemptPostRequest
 import com.example.myapplication.model.next_question.NextQuestionApiResponse
@@ -18,7 +18,8 @@ import retrofit2.http.*
 
 interface TopicApi {
     @GET("api/topic/summary")
-    fun getTopics(@Header("Authorization") bearer: String?): Call<TopicsModel>
+    fun getTopics(@Header("Authorization") bearer: String?): Call<TopicsModelUpdated>
+
 
     @POST("/api/attempt/create")
     fun FirstAttemptPost(
