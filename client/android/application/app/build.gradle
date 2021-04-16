@@ -101,5 +101,5 @@ dependencies {
     implementation "androidx.navigation:navigation-fragment-ktx:$nav_version"
     implementation "androidx.navigation:navigation-ui-ktx:$nav_version"
 
-
-    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'}
+    implementation 'com.github.tiagohm.MarkdownView:library:0.19.0'
+}

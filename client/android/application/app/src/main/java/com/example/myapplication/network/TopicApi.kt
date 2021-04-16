@@ -11,6 +11,7 @@ import com.example.myapplication.model.TopicsModel
 import com.example.myapplication.model.first_attemp.FirstAttempApiResponse
 import com.example.myapplication.model.first_attemp.FirstAttemptPostRequest
 import com.example.myapplication.model.next_question.NextQuestionApiResponse
+import com.example.myapplication.model.result_model.ResultModel
 import retrofit2.Call
 import retrofit2.http.*
 
@@ -58,6 +59,15 @@ interface TopicApi {
         @Header("Authorization") bearer: String?,
         @Body request: RecordAnswerRequest
     ): Call<RecordAnswerResponse>
+
+
+
+    @GET("/api/attempt/result/{attemptId}")
+    fun detailedResult(
+        @Path("attemptId") attempt_id: String?,
+        @Header("Authorization") bearer: String?):Call<ResultModel>
+
+
 
 //
 //    @POST("user/classes")
