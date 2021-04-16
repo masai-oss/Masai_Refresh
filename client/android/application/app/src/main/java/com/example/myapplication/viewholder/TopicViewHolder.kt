@@ -61,7 +61,7 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
 
                 }
                 dataItem.name.equals("JAVA") -> {
-                    Glide.with(imCircle_performance).load(java).into(imCircle_performance)
+                    Glide.with(imCircle_performance).load(R.drawable.java).into(imCircle_performance)
 
                 }
                 dataItem.name.equals("PYTHON") -> {
