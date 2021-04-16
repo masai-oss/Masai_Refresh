@@ -1,5 +1,5 @@
 const passport = require("passport");
-const User = require("../models/User");
+const { User } = require("../models/User");
 const googleStratergy = require("./googleStrategy");
 const zohoCrmStrategy = require("./zohoStrategy");
 
@@ -12,7 +12,7 @@ passport.deserializeUser((user, done) => {
   const { _id: id, crnAuth } = user;
   User.findById(id, { __v: 0, oauth: 0 })
     .then((user) => {
-      user._doc.crnAuth = crnAuth
+      user._doc.crnAuth = crnAuth;
       done(null, user);
     })
     .catch((err) => {

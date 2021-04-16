@@ -2,6 +2,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const QuestionTypeEnum = require("../utils/enums/QuestionTypeEnum");
 const reasonEnum = require("../utils/enums/ReasonEnum");
+const { Stat } = require("./Stats");
 
 const questionSchema = new Schema(
   {
@@ -18,6 +19,10 @@ const questionSchema = new Schema(
     source: {
       type: String,
       required: true,
+    },
+    stats: {
+      type: Schema.Types.ObjectId,
+      ref: "stats",
     },
     topic_id: {
       type: Schema.Types.ObjectId,

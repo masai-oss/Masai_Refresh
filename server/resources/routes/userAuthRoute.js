@@ -7,7 +7,7 @@ const {
   getUser,
   loginUser,
   loginFailure,
-  zohoCrmLogout
+  zohoCrmLogout,
 } = require("../controller/authController");
 
 const CLIENT_LOGIN_PAGE = process.env.CLIENT_LOGIN_PAGE;
@@ -41,4 +41,4 @@ userAuthRoute.get("/zoho-crm-logout", zohoCrmLogout);
 // Android will send the info sent by google to backend will be verified, stored and token will be sent as response
 userAuthRoute.post("/login_user", loginUser);
 
-module.exports = userAuthRoute;
+module.exports = { userAuthRoute };
