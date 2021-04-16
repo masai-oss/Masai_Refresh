@@ -5,17 +5,15 @@ const mongoose = require("mongoose");
 const cors = require("cors");
 const passport = require("passport");
 const bodyParser = require("body-parser");
-const cookieSession = require("cookie-session");
-const cookieParser = require("cookie-parser");
 const session = require("express-session");
 const MemoryStore = require("memorystore")(session);
-const fs = require("fs")
+const fs = require("fs");
 require("./resources/services/passportSetup");
 
-const userAuthRoute = require("./resources/routes/userAuthRoute");
-const topicRoute = require("./resources/routes/topicRoute");
-const questionRoute = require("./resources/routes/questionRoute");
-const attemptRoute = require("./resources/routes/attemptRoute");
+const { userAuthRoute } = require("./resources/routes/userAuthRoute");
+// const topicRoute = require("./resources/routes/topicRoute");
+const { questionRoute } = require("./resources/routes/questionRoute");
+const { attemptRoute } = require("./resources/routes/attemptRoute");
 
 dotenv.config();
 
@@ -27,7 +25,6 @@ const MONGO_URI = process.env.MONGO_URI;
 const COOKIE_KEY = process.env.COOKIE_KEY;
 const CLIENT_HOME_PAGE_URL = process.env.CLIENT_HOME_PAGE_URL;
 const ENVIRONMENT = process.env.NODE_ENV;
-
 
 mongoose.connect(
   MONGO_URI,
@@ -76,14 +73,14 @@ app.use(
     credentials: true,
   })
 );
-const uploadDir = "./uploads"
+const uploadDir = "./uploads";
 if (!fs.existsSync(uploadDir)) {
   fs.mkdirSync(uploadDir);
 }
 app.use(express.json());
 app.use("/uploads", express.static("uploads"));
 app.use("/api/auth", userAuthRoute);
-app.use("/api/topic", topicRoute);
+// app.use("/api/topic", topicRoute);
 app.use("/api/question", questionRoute);
 app.use("/api/attempt", attemptRoute);
 

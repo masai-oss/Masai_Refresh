@@ -1,6 +1,6 @@
 const GoogleStrategy = require("passport-google-oauth20").Strategy;
 const dotenv = require("dotenv");
-const User = require("../models/User");
+const { User } = require("../models/User");
 
 dotenv.config();
 
@@ -19,9 +19,11 @@ const googleStrategy = new GoogleStrategy(
   async (accessToken, refreshToken, profile, done) => {
     try {
       const { id, displayName, emails, photos } = profile;
-      const crnAuth = "google"
+      const crnAuth = "google";
       let oauth = { provider: "google", identifier: id };
-      const userPresentWithGmail = await User.findOne({ email: emails[0].value });
+      const userPresentWithGmail = await User.findOne({
+        email: emails[0].value,
+      });
       if (!userPresentWithGmail) {
         const role =
           emails[0].value.split("@")[1] === ADMIN_CONTROL_EMAIL
@@ -49,7 +51,7 @@ const googleStrategy = new GoogleStrategy(
         userPresentWithGmail.oauth.length === 2 ||
         userPresentWithGmail.oauth[0].provider === "google"
       ) {
-        userPresentWithGmail._doc.crnAuth = crnAuth
+        userPresentWithGmail._doc.crnAuth = crnAuth;
         return done(null, userPresentWithGmail);
       } else {
         const modifiedUser = await User.findOneAndUpdate(

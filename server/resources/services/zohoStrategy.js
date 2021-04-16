@@ -1,6 +1,6 @@
 const ZohoCRMStrategy = require("passport-zoho-crm").Strategy;
 const dotenv = require("dotenv");
-const User = require("../models/User");
+const { User } = require("../models/User");
 
 dotenv.config();
 
@@ -29,7 +29,7 @@ const zohoCrmStrategy = new ZohoCRMStrategy(
         provider,
         _json: { Email },
       } = profile;
-      const crnAuth = "zoho-crm"
+      const crnAuth = "zoho-crm";
       const oauth = { provider: provider, identifier: id };
       const userPresentWithGmail = await User.findOne({
         email: Email,
@@ -58,7 +58,7 @@ const zohoCrmStrategy = new ZohoCRMStrategy(
         userPresentWithGmail.oauth.length === 2 ||
         userPresentWithGmail.oauth[0].provider === provider
       ) {
-        userPresentWithGmail._doc.crnAuth = crnAuth
+        userPresentWithGmail._doc.crnAuth = crnAuth;
         return done(null, userPresentWithGmail);
       } else {
         const modifiedUser = await User.findOneAndUpdate(
