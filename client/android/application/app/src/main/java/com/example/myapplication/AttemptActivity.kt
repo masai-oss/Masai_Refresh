@@ -153,6 +153,8 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
         }
         if(questionIndex==size-1){
             btnNextQuestion.text = "Submit"
+        }else{
+            btnNextQuestion.text = "Next"
         }
 
     }
