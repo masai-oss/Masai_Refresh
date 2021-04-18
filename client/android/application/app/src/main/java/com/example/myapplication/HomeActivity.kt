@@ -6,7 +6,6 @@ import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.core.view.size
 import androidx.lifecycle.ViewModelProviders
 import br.tiagohm.markdownview.css.ExternalStyleSheet
 import br.tiagohm.markdownview.css.InternalStyleSheet
@@ -20,8 +19,8 @@ class HomeActivity : AppCompatActivity() {
     private lateinit var attemptViewModel: AttemptViewModel
     private lateinit var dataQuestions: DataQuestions
     private var size = 5
-    private lateinit var css : InternalStyleSheet
-    var count = 0
+    private lateinit var css: InternalStyleSheet
+    var count = -1
     private lateinit var launchData: DataStart
 
 
@@ -43,26 +42,39 @@ class HomeActivity : AppCompatActivity() {
     }
 
     private fun Onclicks() {
+
+        floatPreviousBtn.setOnClickListener {
+            launchQuiz(1)
+
+        }
+
+
         floatnextQstn.setOnClickListener {
-            launchQuiz()
-            recordResponse()
+            if (count == size - 1) {
+                Toast.makeText(this,"Quiz Completed",Toast.LENGTH_SHORT).show()
+            } else {
+
+                launchQuiz(0)
+                recordResponse()
+            }
         }
     }
 
     private fun recordResponse() {
-       var responseId = optionsRadio.checkedRadioButtonId
+        var responseId = optionsRadio.checkedRadioButtonId
 
-        val radioButton : RadioButton = findViewById(responseId)
-       when(responseId){
-           R.id.optionOne -> recordQuiz(0)
-       }
+        val radioButton: RadioButton = findViewById(responseId)
+        when (responseId) {
+            R.id.optionOne -> recordQuiz(0)
+
+        }
         var text = radioButton.text
-        Toast.makeText(this,"Response : $text",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Response : $text", Toast.LENGTH_SHORT).show()
         optionsRadio.clearCheck()
     }
 
     private fun recordQuiz(i: Int) {
-        Toast.makeText(this,"Option : $i",Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Option : $i", Toast.LENGTH_SHORT).show()
 
     }
 
@@ -70,8 +82,8 @@ class HomeActivity : AppCompatActivity() {
         attemptViewModel.questionsLiveData.observe(this, {
             when (it) {
                 is QuestionsUIModel.Success -> {
-                    questionText.addStyleSheet(ExternalStyleSheet.fromAsset("github.css",null))
-                    questionText.loadMarkdown( it.questionData.data?.statement)
+                    questionText.addStyleSheet(ExternalStyleSheet.fromAsset("github.css", null))
+                    questionText.loadMarkdown(it.questionData.data?.statement)
 
                     optionOne.text = it.questionData.data?.options?.get(0)?.text.toString()
                     optionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
@@ -80,7 +92,7 @@ class HomeActivity : AppCompatActivity() {
 
                     progressFrameHome.visibility = View.GONE
                     floatnextQstn.visibility = View.VISIBLE
-                    floatPreviousBtn.visibility = View.VISIBLE
+
                 }
             }
         })
@@ -97,7 +109,8 @@ class HomeActivity : AppCompatActivity() {
                     if (dataStart != null) {
                         startQuiz.setOnClickListener {
                             launchData = dataStart
-                           launchQuiz()
+                            launchQuiz(0)
+                            floatPreviousBtn.visibility = View.GONE
                             startText.visibility = View.GONE
                             progressFrameHome.visibility = View.VISIBLE
 
@@ -121,17 +134,15 @@ class HomeActivity : AppCompatActivity() {
         })
     }
 
-    private fun launchQuiz() {
+    private fun launchQuiz(btnClicked: Int) {
 
 
-            if (count < size) {
+        if (count < size) {
 
 
+            if (btnClicked == 0) {
+                launchData.questions?.get(++count)?.let { it1 ->
 
-
-
-
-                launchData.questions?.get(count)?.let { it1 ->
                     launchData.attemptId?.let { it2 ->
                         launchData.submissionId?.let { it3 ->
                             attemptViewModel.callQuestionsData(
@@ -141,14 +152,29 @@ class HomeActivity : AppCompatActivity() {
                         }
                     }
                 }
-                count++
 
             } else {
+                launchData.questions?.get(--count)?.let { it1 ->
+
+                    launchData.attemptId?.let { it2 ->
+                        launchData.submissionId?.let { it3 ->
+                            attemptViewModel.callQuestionsData(
+                                token, it2, it3,
+                                it1
+                            )
+                        }
+                    }
+                }
+            }
+            if (count > 0) {
+                floatPreviousBtn.visibility = View.VISIBLE
+            }
+            if (count == size - 1) {
                 floatnextQstn.text = "Submit"
-//                                progressFrameHome.visibility = View.VISIBLE
 
             }
 
+        }
 
 
     }

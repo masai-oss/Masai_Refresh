@@ -17,7 +17,7 @@ import retrofit2.http.*
 
 
 interface TopicApi {
-    @GET("api/topic/")
+    @GET("api/topic/summary")
     fun getTopics(@Header("Authorization") bearer: String?): Call<TopicsModel>
 
 

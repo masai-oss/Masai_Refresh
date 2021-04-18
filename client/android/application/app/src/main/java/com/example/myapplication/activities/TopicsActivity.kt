@@ -68,7 +68,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     }
 
     override fun onItemClicked(position: Int, dataItem: DataItem) {
-        val intent=Intent(this,AttemptActivity::class.java)
+        val intent=Intent(this,HomeActivity::class.java)
         intent.putExtra("topicId",dataItem.id)
         intent.putExtra("token",tokenID)
         startActivity(intent)
