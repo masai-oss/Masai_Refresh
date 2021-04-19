@@ -75,7 +75,7 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
 //
 
             tvTopicNameNew.text = dataItem.name.toString()
-            tvTotalNoOfQuestions.text=dataItem.totalNoOfQuestions.toString()
+            tvProficiency.text= dataItem.lastAttempt?.correct.toString()
             llTopic_Click.setOnClickListener {
                 listener.onItemClicked(adapterPosition, dataItem)
             }

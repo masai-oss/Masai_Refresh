@@ -46,7 +46,7 @@ public class Results extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        initviews();
+        inItViews();
         getDataFromIntent();
         setData();
         callApiResult();
@@ -109,7 +109,7 @@ public class Results extends AppCompatActivity {
 
     }
 
-    private void initviews() {
+    private void inItViews() {
         tvR = findViewById(R.id.tvR);
         tvPython = findViewById(R.id.tvPython);
         tvCPP = findViewById(R.id.tvCPP);

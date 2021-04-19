@@ -42,10 +42,10 @@
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
                 android:textColor="#6C8D9E"
-                android:text="Total No. of Questions :"/>
+                android:text="Proficiency : "/>
 
             <TextView
-                android:id="@+id/tvTotalNoOfQuestions"
+                android:id="@+id/tvProficiency"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:textSize="20sp"
