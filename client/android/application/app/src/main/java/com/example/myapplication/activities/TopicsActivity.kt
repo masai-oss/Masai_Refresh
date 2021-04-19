@@ -59,7 +59,8 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
 
     private fun setRecyclerAdapter() {
         userAdapter = TopicAdapter(dataModelList,this)
-        val layoutManager = GridLayoutManager(this,2)
+        val layoutManager=LinearLayoutManager(this)
+//        val layoutManager = GridLayoutManager(this,1)
         recyclerView.apply {
             this.layoutManager = layoutManager
             adapter = userAdapter

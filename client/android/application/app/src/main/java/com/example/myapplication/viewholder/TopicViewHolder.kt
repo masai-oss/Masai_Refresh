@@ -6,6 +6,7 @@ import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.interface_clickListener.TopicClickListener
 import kotlinx.android.synthetic.main.item_layout_topics_new.view.*
+import kotlinx.android.synthetic.main.topics_item_layout.view.*
 
 class TopicViewHolder(private val view: View, private val listener: TopicClickListener) :
     RecyclerView.ViewHolder(view) {
@@ -35,35 +36,40 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
         view.apply {
             when {
                 dataItem.name.equals("CSS") -> {
-                    Glide.with(imCircle_performance).load(css).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(css).into(ivTopicIconCircle)
                 }
                 dataItem.name.equals("HTML") -> {
-                    Glide.with(imCircle_performance).load(html).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(html).into(ivTopicIconCircle)
                 }
                 dataItem.name.equals("EXPRESS") -> {
-                    Glide.with(imCircle_performance).load(express).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(express).into(ivTopicIconCircle)
                 }
                 dataItem.name.equals("JAVASCRIPT") -> {
-                    Glide.with(imCircle_performance).load(R.drawable.ic_nodejs_icon).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_nodejs_icon)
+                        .into(ivTopicIconCircle)
                 }
                 dataItem.name.equals("SQL") -> {
-                    Glide.with(imCircle_performance).load(R.drawable.sql).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.sql).into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("REACT") -> {
-                    Glide.with(imCircle_performance).load(R.drawable.react).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.react)
+                        .into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("NODE_JS") -> {
-                    Glide.with(imCircle_performance).load(R.drawable.ic_nodejs).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_nodejs)
+                        .into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("JAVA") -> {
-                    Glide.with(imCircle_performance).load(R.drawable.java).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.java)
+                        .into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("PYTHON") -> {
-                    Glide.with(imCircle_performance).load(R.drawable.python).into(imCircle_performance)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.python)
+                        .into(ivTopicIconCircle)
 
                 }
             }
@@ -74,11 +80,23 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
 //                Glide.with(imCircle_performance).load(nodejs).into(ivTopicIcon)
 //
 
-            tvTopicNameNew.text = dataItem.name.toString()
-            tvProficiency.text= dataItem.lastAttempt?.correct.toString()
-            llTopic_Click.setOnClickListener {
+            tvTopicNameCircle.text = dataItem.name.toString()
+            tvLastAttemptCorrect.text= dataItem.lastAttempt?.correct.toString()
+            tvLastAttemptWrong.text= dataItem.lastAttempt?.wrong.toString()
+            tvLastAttemptSkipped.text= dataItem.lastAttempt?.skipped.toString()
+
+//            tvTopicNameNew.text = dataItem.name.toString()
+
+            llTopicsWholeCard.setOnClickListener {
                 listener.onItemClicked(adapterPosition, dataItem)
+
             }
+//            tvProficiency.text = dataItem.lastAttempt?.correct.toString()
+
+//            llTopic_Click.setOnClickListener {
+//                listener.onItemClicked(adapterPosition, dataItem)
+//            }
+
         }
     }
 

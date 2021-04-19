@@ -11,7 +11,7 @@ class TopicAdapter(private var dataModelList: List<com.example.myapplication.mod
     RecyclerView.Adapter<TopicViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): TopicViewHolder {
-        val view = LayoutInflater.from(parent.context).inflate(R.layout.item_layout_topics_new, parent, false)
+        val view = LayoutInflater.from(parent.context).inflate(R.layout.topics_item_layout, parent, false)
         return TopicViewHolder(view,listener)
     }
 
