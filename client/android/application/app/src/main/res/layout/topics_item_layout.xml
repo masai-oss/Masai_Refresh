@@ -124,37 +124,61 @@
 
 
 
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:weightSum="2"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal">
+            android:layout_height="match_parent">
 
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivTopicIconCircle"
-                android:layout_width="0dp"
-                android:layout_margin="8dp"
-                android:layout_gravity="center_vertical"
-                android:layout_weight="0.75"
-                android:layout_height="100dp"/>
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true" />
 
             <TextView
                 android:id="@+id/tvTopicNameCircle"
-                android:layout_width="0dp"
-                android:layout_weight="1.25"
-                android:gravity="center_vertical"
-                android:text="nddjdj"
+                android:textSize="24sp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="@color/black"
+                android:layout_centerHorizontal="true"
+                android:layout_marginStart="20dp"
                 android:textStyle="bold"
-                android:textSize="24sp"/>
+                android:textColor="@color/black"
+                android:layout_centerVertical="true"
+                android:padding="12dp" />
+
+        </RelativeLayout>
+
+
+<!--        <LinearLayout-->
+<!--            android:layout_width="match_parent"-->
+<!--            android:weightSum="2"-->
+<!--            android:layout_height="wrap_content"-->
+<!--            android:orientation="horizontal">-->
+
+<!--            <de.hdodenhof.circleimageview.CircleImageView-->
+<!--                android:id="@+id/ivTopicIconCircle"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_margin="8dp"-->
+<!--                android:layout_gravity="center_vertical"-->
+<!--                android:layout_weight="0.75"-->
+<!--                android:layout_height="100dp"/>-->
+
+<!--            <TextView-->
+<!--                android:id="@+id/tvTopicNameCircle"-->
+<!--                android:layout_width="0dp"-->
+<!--                android:layout_weight="1.25"-->
+<!--                android:gravity="center_vertical"-->
+<!--                android:text="nddjdj"-->
+<!--                android:layout_height="wrap_content"-->
+<!--                android:textColor="@color/black"-->
+<!--                android:textStyle="bold"-->
+<!--                android:textSize="24sp"/>-->
 
 
 
 
 
-        </LinearLayout>
+<!--        </LinearLayout>-->
 
 
 
@@ -163,26 +187,4 @@
     </LinearLayout>
 
 
-
-<!--        <RelativeLayout-->
-<!--            android:layout_width="match_parent"-->
-<!--            android:layout_height="match_parent">-->
-
-<!--            <de.hdodenhof.circleimageview.CircleImageView-->
-<!--                android:id="@+id/ivTopicIcon"-->
-<!--                android:layout_width="100dp"-->
-<!--                android:layout_height="100dp"-->
-<!--                android:layout_centerVertical="true" />-->
-
-<!--            <TextView-->
-<!--                android:id="@+id/tvTopicName"-->
-<!--                android:textSize="23sp"-->
-<!--                android:layout_width="wrap_content"-->
-<!--                android:layout_height="wrap_content"-->
-<!--                android:layout_centerHorizontal="true"-->
-<!--                android:layout_marginStart="20dp"-->
-<!--                android:layout_centerVertical="true"-->
-<!--                android:padding="12dp" />-->
-
-<!--        </RelativeLayout>-->
 </androidx.cardview.widget.CardView>
