@@ -131,7 +131,8 @@
             <de.hdodenhof.circleimageview.CircleImageView
                 android:id="@+id/ivTopicIconCircle"
                 android:layout_width="100dp"
-                android:layout_height="100dp"
+                android:layout_height="120dp"
+                android:layout_marginBottom="2dp"
                 android:layout_centerVertical="true" />
 
             <TextView
@@ -142,9 +143,10 @@
                 android:layout_centerHorizontal="true"
                 android:layout_marginStart="20dp"
                 android:textStyle="bold"
+                android:layout_marginLeft="1dp"
                 android:textColor="@color/black"
                 android:layout_centerVertical="true"
-                android:padding="12dp" />
+                android:padding="10dp" />
 
         </RelativeLayout>
 
