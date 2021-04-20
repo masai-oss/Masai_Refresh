@@ -29,7 +29,6 @@ const authentication = (state = initState, { type, payload }) => {
         token,
         user: { email, name },
       } = payload;
-      console.log(email, name, payload, token);
       LogRocket.identify(token, {
         name,
         email,

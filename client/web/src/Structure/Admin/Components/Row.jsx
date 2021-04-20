@@ -8,22 +8,61 @@ import {
   Dialog,
   DialogActions,
   DialogTitle,
+  Switch,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
-import { SyntaxHighlight, TopicChip } from "../../Common";
+import { SyntaxHighlight, TopicChip, IsLoading } from "../../Common";
+import { useSelector, useDispatch } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
+import { withStyles } from "@material-ui/core/styles";
+import { green, grey } from "@material-ui/core/colors";
+import { adminActions } from "../State/action";
+
+const VerifiedSwitch = withStyles({
+  switchBase: {
+    color: grey[300],
+    "&$checked": {
+      color: green[500],
+    },
+    "&$checked + $track": {
+      backgroundColor: green[500],
+    },
+  },
+  checked: {},
+  track: {},
+})(Switch);
 
 const Row = ({ item, handleDelete, topic = item.topic }) => {
+  const dispatch = useDispatch()
+  let shortSource = item.source.split(".");
   const history = useHistory();
   const classes = QuestionsStyles();
   const [open, setOpen] = useState(false);
   const [deleteOpen, setDeleteOpen] = useState(false);
-
+  let verified = item.verified;
+  const isVerifying = useSelector((state) => state.admin.isVerifying);
+  const verifiedQuestions = useSelector(
+    (state) => state.admin.verifiedQuestions
+  );
+  const isVerifyInvoked = useSelector((state) => state.admin.isVerifyInvoked);
+  if (!verified && isVerifyInvoked) {
+    verified = verifiedQuestions.includes(item._id);
+  }
+  const verifyQuestion = () => {
+    let id = item._id
+    dispatch(adminActions.verifyQuestionProcess({ id, verified }));
+  };
   return (
     <TableRow>
       <TableCell className={classes.id} onClick={() => setOpen(true)}>
         {item._id}
+      </TableCell>
+      <TableCell
+        onClick={() => window.open(item.source, "_blank")}
+        className={classes.id}
+      >
+        {shortSource[shortSource.length - 2]}
       </TableCell>
       <TableCell>{topic}</TableCell>
       <TableCell>{item.type}</TableCell>
@@ -31,7 +70,9 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
         <Button
           variant="contained"
           className={classes.save}
-          onClick={() => history.push(`/questions/edit/${topic}/${item._id}`)}
+          onClick={() =>
+            history.push(`/admin/questions/edit/${topic}/${item._id}`)
+          }
         >
           Edit
         </Button>
@@ -44,6 +85,17 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
         >
           Delete
         </Button>
+      </TableCell>
+      <TableCell>
+        {isVerifying ? (
+          <IsLoading />
+        ) : (
+          <VerifiedSwitch
+            checked={verified}
+            onChange={verifyQuestion}
+            name="verified"
+          />
+        )}
       </TableCell>
       <Modal open={open} className={classes.modal}>
         <Box className={classes.paper}>

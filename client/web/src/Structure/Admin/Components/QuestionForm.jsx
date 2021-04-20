@@ -48,6 +48,8 @@ const QuestionForm = (props) => {
     shortAnswer: data === undefined ? "" : data.answer,
     mcqAnswer:
       data === undefined ? 0 : data.options?.findIndex((item) => item.correct),
+    source: data.source,
+    verified: data.verified
   };
 
   const [question, setQuestion] = useState(questionData);
@@ -85,6 +87,7 @@ const QuestionForm = (props) => {
         type: "MCQ",
         statement: question.statement,
         explanation: question.explanation,
+        source: question.source,
         options: [
           {
             text: question.options[0].text,
@@ -110,6 +113,7 @@ const QuestionForm = (props) => {
         statement: question.statement,
         explanation: question.explanation,
         correct: question.tfAnswer,
+        source: question.source,
       };
     } else {
       payload = {
@@ -117,6 +121,7 @@ const QuestionForm = (props) => {
         statement: question.statement,
         answer: question.shortAnswer,
         explanation: question.explanation,
+        source: question.source,
       };
     }
 
@@ -127,9 +132,8 @@ const QuestionForm = (props) => {
         adminActions.updateQuestionsRequest(payload, data._id, question.topic)
       );
     }
-    history.push("/questions_admin");
+    history.push(`/admin/questions/${question.topic}`);
   };
-
   return (
     <div className={classes.root}>
       <form onSubmit={handleSubmit}>
@@ -190,7 +194,18 @@ const QuestionForm = (props) => {
             placeholder="Explanation"
           />
         </FormControl>
-
+        <FormControl required>
+          <TextareaAutosize
+            className={classes.textAreaWidth}
+            required
+            rowsMin={5}
+            onChange={(e) => handleChange(e.target)}
+            value={question.source}
+            id="source"
+            name="source"
+            placeholder="Source"
+          />
+        </FormControl>
         {question.type === "MCQ" && (
           <>
             <Box className={classes.verticalStyle}>

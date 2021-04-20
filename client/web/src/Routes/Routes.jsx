@@ -10,7 +10,7 @@ import {
   QuestionUpdate,
 } from "../Structure/Admin";
 import { Topics } from "../Structure/Topics";
-import { CrudTopics, SearchByTopic } from "../Structure/Admin";
+import { CrudTopics } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
 import { PageNotFound } from "../Structure/Common/PageNotFound";
@@ -30,15 +30,14 @@ const Routes = () => {
         />
 
         {/* all admin routes here */}
-        <AdminRoute exact path="/questions_admin" component={AdminQuestions} />
-        <AdminRoute exact path="/questions/add" component={QuestionForm} />
+        <AdminRoute exact path="/admin/questions/:topic" component={AdminQuestions} />
+        <AdminRoute exact path="/admin/questions/add" component={QuestionForm} />
         <AdminRoute
           exact
-          path="/questions/edit/:topic/:id"
+          path="/admin/questions/edit/:topic/:id"
           component={QuestionUpdate}
         />
-        <AdminRoute exact path="/topics" component={CrudTopics} />
-        <AdminRoute exact path="/topics/:id" component={SearchByTopic} />
+        <AdminRoute exact path="/admin/topics" component={CrudTopics} />
 
         {/* all public routes here */}
         <PublicRoute path="/login" component={Login} />

@@ -4,13 +4,13 @@ const {
   idTopicValidation,
   topicValidation,
   statsValidate,
-  toggleVerificationValidation
+  toggleVerificationValidation,
 } = require("../utils/validation/questionValidation");
 
 const addQuestion = async (req, res) => {
   const { topic: name } = req.params;
   const question = req.body;
-  const { error } = questionAddValidate({ ...question, name, source : "fake" });
+  const { error } = questionAddValidate({ ...question, name, source: "fake" });
   if (error) {
     return res.status(400).json({
       error: true,
@@ -46,8 +46,8 @@ const addQuestion = async (req, res) => {
 };
 
 // Joi verification pending
-const toggleVerification = async(req, res) => {
-  const { id } = req.params
+const toggleVerification = async (req, res) => {
+  const { id } = req.params;
   const { error } = toggleVerificationValidation({ id });
   if (error) {
     return res.status(400).json({
@@ -57,26 +57,31 @@ const toggleVerification = async(req, res) => {
     });
   }
 
-  try{
-    let topic = await Topic.findOne({"questions._id": id})
-    let verified = topic.questions.find(q => q._id == id).verified
+  try {
+    let topic = await Topic.findOne({ "questions._id": id });
+    let verified = topic.questions.find((q) => q._id == id).verified;
     await Topic.updateOne(
       {
-        "questions._id": id
+        "questions._id": id,
       },
       {
-        $set : {
-          "questions.$.verified" : !verified
-        }
+        $set: {
+          "questions.$.verified": !verified,
+        },
       }
-    )
+    );
 
-    res.status(200).json({error: true, message: "The toggle of verification has been successful", data: {verified: !verified} })
+    res
+      .status(200)
+      .json({
+        error: true,
+        message: "The toggle of verification has been successful",
+        data: { verified: !verified },
+      });
+  } catch (err) {
+    res.status(400).json({ error: true, message: `${err}` });
   }
-  catch(err){
-    res.status(400).json({error: true, message: `${err}`})
-  }
-}
+};
 
 const updateQuestion = async (req, res) => {
   const { topic: name, id: _id } = req.params;
@@ -264,6 +269,8 @@ const getAllQuestion = async (req, res) => {
 };
 
 const getQuestionByTopic = async (req, res) => {
+  const page = parseInt(req.query.page) || 1;
+  const limit = parseInt(req.query.limit) || 10;
   const { topic: name } = req.params;
   const { error } = topicValidation(req.params);
   if (error) {
@@ -274,6 +281,12 @@ const getQuestionByTopic = async (req, res) => {
     });
   }
   try {
+    if (page < 1) {
+      return res.status(400).json({
+        error: true,
+        message: "The Page No must be greater than 0",
+      });
+    }
     let findedQuestion = await Topic.find(
       {
         name: name,
@@ -287,10 +300,11 @@ const getQuestionByTopic = async (req, res) => {
       });
     }
     const [{ questions }] = findedQuestion;
+    let paginatedResults = pagination(page, limit, questions);
     return res.status(200).json({
       error: false,
       message: "Question found successfully",
-      questions: questions,
+      questions: paginatedResults,
     });
   } catch (err) {
     return res.status(400).json({
@@ -336,5 +350,5 @@ module.exports = {
   updateQuestion,
   deleteQuestion,
   getAllQuestion,
-  toggleVerification
+  toggleVerification,
 };

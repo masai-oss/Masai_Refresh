@@ -12,7 +12,7 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
       render={(props) =>
         isAuth ? (
           isAdmin ? (
-            <Redirect to="/topics" />
+            <Redirect to="/admin/topics" />
           ) : (
             <Component {...props} />
           )
