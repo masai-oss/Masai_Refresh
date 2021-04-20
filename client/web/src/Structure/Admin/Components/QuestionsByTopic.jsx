@@ -34,49 +34,50 @@ export const QuestionsByTopic = ({ topic, handleDelete, topics }) => {
   };
 
   useEffect(() => {
-    dispatch(adminActions.getQuestionsByTopicRequest(topic));
+    dispatch(adminActions.getQuestionsByTopicRequest(topic, page, rowsPerPage));
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [questionDeletionStatus, questionAddedStatus]);
+  }, [
+    questionDeletionStatus,
+    questionAddedStatus,
+    page,
+    rowsPerPage,
+    questionDeletionStatus,
+    questionAddedStatus,
+    topic,
+    dispatch,
+  ]);
 
-  return !isLoading ? (
+  return isLoading || !data?.questions?.current?.length ? (
+    <div>...isLoading</div>
+  ) : (
     <>
       <Table>
         <TableHead>
           <TableRow>
             <TableCell>Id</TableCell>
+            <TableCell>Source</TableCell>
             <TableCell>Topic</TableCell>
             <TableCell>Type</TableCell>
             <TableCell>Edit</TableCell>
             <TableCell>Delete</TableCell>
+            <TableCell>Verified</TableCell>
           </TableRow>
         </TableHead>
         <TableBody>
-          {data.questions?.map((item, idx) => {
-            // item.topic = topic
-            return (
-              idx < (page + 1) * rowsPerPage &&
-              idx >= page * rowsPerPage && (
-                <Row
-                  handleDelete={handleDelete}
-                  topic={topic}
-                  key={item._id}
-                  item={item}
-                />
-              )
-            );
-          })}
+          {data?.questions?.current?.length &&
+            data?.questions?.current?.map((item) => (
+              <Row handleDelete={handleDelete} key={item._id} item={item} topic={topic}/>
+            ))}
         </TableBody>
       </Table>
       <TablePagination
         component="div"
-        count={data.questions.length}
+        count={data?.questions?.totalCount}
         rowsPerPage={rowsPerPage}
         page={page}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
     </>
-  ) : (
-    <div>Loading...</div>
   );
 };

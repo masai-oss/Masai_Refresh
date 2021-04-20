@@ -47,7 +47,6 @@ const getCrudTopics = () => async (dispatch) => {
   }
 };
 
-
 const getCrudTopicByIdRequest = () => {
   return {
     type: adminConstants.GET_BY_CRUD_TOPIC_ID_REQUEST,
@@ -197,10 +196,10 @@ const getQuestionsByTopicFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsByTopicRequest = (topic) => (dispatch) => {
+const getQuestionsByTopicRequest = (topic, page, limit) => (dispatch) => {
   dispatch(getQuestionsByTopicLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byTopic/${topic}`;
+  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page + 1}&limit=${limit}`;
 
   axios({
     method: "get",
@@ -318,47 +317,86 @@ const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
 };
 
 const uploadIconRequest = () => ({
-  type: adminConstants.UPLOAD_ICON_REQUEST
+  type: adminConstants.UPLOAD_ICON_REQUEST,
 });
 
 const uploadIconSuccess = (payload) => ({
   type: adminConstants.UPLOAD_ICON_SUCCESS,
-  payload
+  payload,
 });
 
 const uploadIconFailure = (payload) => ({
   type: adminConstants.UPLOAD_ICON_FAILURE,
-  payload
+  payload,
 });
 
-const uploadIconProcess = ({file: icon, id}) => {
-  return async (dispatch ) => {
-    dispatch(uploadIconRequest());
-    const token = getFromStorage(storageEnums.TOKEN, "");
-    const config = {
-      headers: {
-        "Content-Type": "application/json",
-        Accept: "application/json",
-        Authorization: `Bearer ${token}`,
-      },
-    };
-    let postData = new FormData();
-    if (icon !== undefined) {
-      postData.append("icon", icon);
-    }
-    try {
-      const response = await axios.patch(
-        `${TOPIC_API}/icon/${id}`,
-        postData,
-        config
-      );
-      dispatch(uploadIconSuccess(response));
-      return "success";
-    } catch (error) {
-      dispatch(uploadIconFailure(error.response));
-      return "failure";
-    }
+const uploadIconProcess = ({ file: icon, id }) => async (dispatch) => {
+  dispatch(uploadIconRequest());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  const config = {
+    headers: {
+      "Content-Type": "application/json",
+      Accept: "application/json",
+      Authorization: `Bearer ${token}`,
+    },
   };
+  let postData = new FormData();
+  if (icon !== undefined) {
+    postData.append("icon", icon);
+  }
+  try {
+    const response = await axios.patch(
+      `${TOPIC_API}/icon/${id}`,
+      postData,
+      config
+    );
+    dispatch(uploadIconSuccess(response));
+    return "success";
+  } catch (error) {
+    dispatch(uploadIconFailure(error.response));
+    return "failure";
+  }
+};
+
+const verifyQuestionRequest = () => ({
+  type: adminConstants.VERIFY_QUESTION_REQUEST,
+});
+
+const verifyQuestionSuccess = (payload) => ({
+  type: adminConstants.VERIFY_QUESTION_SUCCESS,
+  payload,
+});
+
+const verifyQuestionFailure = (payload) => ({
+  type: adminConstants.VERIFY_QUESTION_FAILURE,
+  payload,
+});
+
+const verifyQuestionAdjustment = (payload) => ({
+  type: adminConstants.VERIFY_QUESTION_ADJUSTMENT,
+  payload,
+});
+
+const verifyQuestionProcess = ({ id, verified: crnState }) => async (
+  dispatch
+) => {
+  dispatch(verifyQuestionRequest());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  const config = {
+    method: "patch",
+    url: `${QUESTION_URL}/verify_toggle/${id}`,
+    withCredentials: true,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  };
+  try {
+    const response = await axios(config);
+    dispatch(verifyQuestionSuccess({ response, id }));
+    crnState && dispatch(verifyQuestionAdjustment(id));
+  } catch (error) {
+    dispatch(verifyQuestionFailure(error.response));
+  }
 };
 
 export const adminActions = {
@@ -371,5 +409,6 @@ export const adminActions = {
   addQuestionsRequest,
   updateQuestionsRequest,
   getQuestionRequest,
-  uploadIconProcess
+  uploadIconProcess,
+  verifyQuestionProcess,
 };

@@ -18,6 +18,9 @@ const initState = {
   questionEditStatus: false,
   singleQuestion: "",
   gotQuestionData: "",
+  isVerifying: false,
+  verifiedQuestions: [],
+  isVerifyInvoked: false,
 };
 
 const admin = (state = initState, { type, payload }) => {
@@ -26,11 +29,13 @@ const admin = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
+        data: [],
       };
     case adminConstants.GET_ALL_QUESTIONS_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        singleQuestion: "",
         data: payload,
       };
     case adminConstants.GET_ALL_QUESTIONS_FAILURE:
@@ -61,11 +66,13 @@ const admin = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
+        data: [],
       };
     case adminConstants.GET_QUESTIONS_BY_TOPIC_SUCCESS:
       return {
         ...state,
         isLoading: false,
+        singleQuestion: "",
         data: payload,
       };
     case adminConstants.GET_QUESTIONS_BY_TOPIC_FAILURE:
@@ -79,6 +86,7 @@ const admin = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
+        isVerifyInvoked: false,
       };
     case adminConstants.GET_QUESTION_SUCCESS:
       return {
@@ -147,7 +155,7 @@ const admin = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        errorMessage: payload,
+        singleQuestion: "",
         questionEditStatus: true,
       };
     case adminConstants.EDIT_QUESTION_FAILURE:
@@ -186,6 +194,7 @@ const admin = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
+        singleQuestion: "",
         specificTopicData: payload,
       };
     case adminConstants.GET_BY_CRUD_TOPIC_ID_FAILURE:
@@ -212,6 +221,30 @@ const admin = (state = initState, { type, payload }) => {
         isUploadingIcon: false,
         isUploadError: true,
         errorMessage: payload,
+      };
+    case adminConstants.VERIFY_QUESTION_REQUEST:
+      return {
+        ...state,
+        isVerifyInvoked: true,
+        isVerifying: true,
+      };
+    case adminConstants.VERIFY_QUESTION_SUCCESS:
+      return {
+        ...state,
+        verifiedQuestions: [...state.verifiedQuestions, payload.id], // verfied question id will be added to stop addtional call
+        isVerifying: false,
+      };
+    case adminConstants.VERIFY_QUESTION_FAILURE:
+      return {
+        ...state,
+        isVerifying: false,
+      };
+    case adminConstants.VERIFY_QUESTION_ADJUSTMENT: // if the verified question was geeting unverifed the id will be removed from array
+      return {
+        ...state,
+        verifiedQuestions: state.verifiedQuestions.filter(
+          (item) => item !== payload
+        ),
       };
     default:
       return state;

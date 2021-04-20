@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { adminActions } from "../State/action";
 import { useSelector, useDispatch } from "react-redux";
-import { Row } from "../index";
+import { Row } from "./Row";
 import {
   Table,
   TableHead,
@@ -52,10 +52,12 @@ export const AllQuestions = ({ handleDelete, topics }) => {
           <TableHead>
             <TableRow>
               <TableCell>Id</TableCell>
+              <TableCell>Source</TableCell>
               <TableCell>Topic</TableCell>
               <TableCell>Type</TableCell>
               <TableCell>Edit</TableCell>
               <TableCell>Delete</TableCell>
+              <TableCell>Verified</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>

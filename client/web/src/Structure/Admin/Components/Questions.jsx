@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { adminActions } from "../State/action";
@@ -12,31 +12,28 @@ import {
   Container,
 } from "@material-ui/core";
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
+import { useParams } from "react-router";
 
 export const Questions = () => {
   const classes = QuestionsStyles();
   const dispatch = useDispatch();
   const history = useHistory();
   const topics = useSelector((state) => state.admin.topics);
-  const [topic, setTopic] = useState("all");
-
+  let { topic: selected } = useParams();
   const handleDelete = (id, topic) => {
     dispatch(adminActions.deleteQuestionsRequest(id, topic));
   };
 
   const handleChange = (value) => {
-    setTopic(value);
-
-    if (value === "all") {
-      dispatch(adminActions.getQuestionsRequest());
-    } else {
-      dispatch(adminActions.getQuestionsByTopicRequest(value));
-    }
+    history.push(value);
   };
 
   useEffect(() => {
     dispatch(adminActions.getTopicsRequest());
-  }, [dispatch]);
+    if (selected === "all") {
+      dispatch(adminActions.getQuestionsRequest());
+    }
+  }, [dispatch, selected]);
 
   return (
     <Container>
@@ -44,7 +41,7 @@ export const Questions = () => {
         <CardContent>
           <Box className={classes.top}>
             <Select
-              value={topic}
+              value={selected}
               onChange={(e) => handleChange(e.target.value)}
             >
               <option value="all">ALL</option>
@@ -57,20 +54,20 @@ export const Questions = () => {
             <Button
               variant="contained"
               className={classes.save}
-              onClick={() => history.push("/questions/add")}
+              onClick={() => history.push("/admin/questions/add")}
             >
               ADD
             </Button>
           </Box>
           <Box>
-            {topic === "all" && (
+            {selected === "all" && (
               <AllQuestions topics={topics} handleDelete={handleDelete} />
             )}
-            {topic !== "all" && (
+            {selected !== "all" && (
               <QuestionsByTopic
                 topics={topics}
                 handleDelete={handleDelete}
-                topic={topic}
+                topic={selected}
               />
             )}
           </Box>
