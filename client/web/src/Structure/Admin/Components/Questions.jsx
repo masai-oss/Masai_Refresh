@@ -12,7 +12,7 @@ import {
   Container,
 } from "@material-ui/core";
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
-import { useParams } from "react-router";
+import { useParams, useLocation } from "react-router";
 
 export const Questions = () => {
   const classes = QuestionsStyles();
@@ -20,6 +20,10 @@ export const Questions = () => {
   const history = useHistory();
   const topics = useSelector((state) => state.admin.topics);
   let { topic: selected } = useParams();
+  const { pathname, search } = useLocation();
+  const q = new URLSearchParams(search);
+  let page = Number(q.get("page"));
+  let rowsPerPage = Number(q.get("rowsPerPage"));
   const handleDelete = (id, topic) => {
     dispatch(adminActions.deleteQuestionsRequest(id, topic));
   };
@@ -29,11 +33,16 @@ export const Questions = () => {
   };
 
   useEffect(() => {
-    dispatch(adminActions.getTopicsRequest());
-    if (selected === "all") {
-      dispatch(adminActions.getQuestionsRequest());
+    console.log(page, rowsPerPage);
+    if (
+      (page === null || page === 0) &&
+      (rowsPerPage === null || rowsPerPage === 0)
+    ) {
+      history.push(pathname + "?page=1&rowsPerPage=10");
+    } else {
+      dispatch(adminActions.getTopicsRequest());
     }
-  }, [dispatch, selected]);
+  }, [dispatch, history, page, pathname, rowsPerPage]);
 
   return (
     <Container>
@@ -61,13 +70,20 @@ export const Questions = () => {
           </Box>
           <Box>
             {selected === "all" && (
-              <AllQuestions topics={topics} handleDelete={handleDelete} />
+              <AllQuestions
+                topics={topics}
+                handleDelete={handleDelete}
+                page={page}
+                rowsPerPage={rowsPerPage}
+              />
             )}
             {selected !== "all" && (
               <QuestionsByTopic
                 topics={topics}
                 handleDelete={handleDelete}
                 topic={selected}
+                page={page}
+                rowsPerPage={rowsPerPage}
               />
             )}
           </Box>

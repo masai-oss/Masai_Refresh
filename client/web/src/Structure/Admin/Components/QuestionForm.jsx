@@ -61,7 +61,6 @@ const QuestionForm = (props) => {
         : name === "tfAnswer"
         ? checked
         : value;
-
     if (name !== "options") {
       setQuestion((state) => ({
         ...state,
@@ -77,7 +76,6 @@ const QuestionForm = (props) => {
   const handleReset = () => {
     setQuestion(questionData);
   };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload;
@@ -88,24 +86,10 @@ const QuestionForm = (props) => {
         statement: question.statement,
         explanation: question.explanation,
         source: question.source,
-        options: [
-          {
-            text: question.options[0].text,
-            correct: question.mcqAnswer === 0,
-          },
-          {
-            text: question.options[1].text,
-            correct: question.mcqAnswer === 1,
-          },
-          {
-            text: question.options[2].text,
-            correct: question.mcqAnswer === 2,
-          },
-          {
-            text: question.options[3].text,
-            correct: question.mcqAnswer === 3,
-          },
-        ],
+        options: question.options.map(({ text }, ind) => ({
+          text: text,
+          correct: question.mcqAnswer === ind,
+        })),
       };
     } else if (question.type === "TF") {
       payload = {
@@ -124,7 +108,6 @@ const QuestionForm = (props) => {
         source: question.source,
       };
     }
-
     if (data === undefined) {
       dispatch(adminActions.addQuestionsRequest(payload, question.topic));
     } else {
@@ -132,7 +115,7 @@ const QuestionForm = (props) => {
         adminActions.updateQuestionsRequest(payload, data._id, question.topic)
       );
     }
-    history.push(`/admin/questions/${question.topic}`);
+    history.goBack();
   };
   return (
     <div className={classes.root}>
@@ -146,7 +129,7 @@ const QuestionForm = (props) => {
               value={question.topic}
               onChange={(e) => handleChange(e.target)}
             >
-              {topics.data?.map((item) => (
+              {topics?.data?.map((item) => (
                 <option key={item.name} value={item.name}>
                   {item.name}
                 </option>
@@ -209,61 +192,22 @@ const QuestionForm = (props) => {
         {question.type === "MCQ" && (
           <>
             <Box className={classes.verticalStyle}>
-              <FormControl required>
-                <TextareaAutosize
-                  className={classes.textAreaWidth}
-                  required
-                  name="options"
-                  id="0"
-                  rowsMin={5}
-                  value={question.options[0].text}
-                  onChange={(e) => handleChange(e.target)}
-                  type="text"
-                  placeholder="option 1"
-                />
-              </FormControl>
-
-              <FormControl required>
-                <TextareaAutosize
-                  className={classes.textAreaWidth}
-                  required
-                  name="options"
-                  id="1"
-                  rowsMin={5}
-                  value={question.options[1].text}
-                  onChange={(e) => handleChange(e.target)}
-                  type="text"
-                  placeholder="option 2"
-                />
-              </FormControl>
-
-              <FormControl required>
-                <TextareaAutosize
-                  className={classes.textAreaWidth}
-                  required
-                  name="options"
-                  id="2"
-                  rowsMin={5}
-                  value={question.options[2].text}
-                  onChange={(e) => handleChange(e.target)}
-                  type="text"
-                  placeholder="option 3"
-                />
-              </FormControl>
-
-              <FormControl required>
-                <TextareaAutosize
-                  className={classes.textAreaWidth}
-                  required
-                  name="options"
-                  id="3"
-                  rowsMin={5}
-                  value={question.options[3].text}
-                  onChange={(e) => handleChange(e.target)}
-                  type="text"
-                  placeholder="option 4"
-                />
-              </FormControl>
+              {question?.options?.map((opt, ind) => (
+                <FormControl required>
+                  <TextareaAutosize
+                    className={classes.textAreaWidth}
+                    required
+                    name="options"
+                    id={ind}
+                    rowsMin={5}
+                    value={opt.text}
+                    onChange={(e) => handleChange(e.target)}
+                    type="text"
+                    placeholder={`option ${ind}`}
+                    key={ind}
+                  />
+                </FormControl>
+              ))}
 
               <FormControl required>
                 Correct Answer *
@@ -273,10 +217,9 @@ const QuestionForm = (props) => {
                   value={question.mcqAnswer}
                   name="mcqAnswer"
                 >
-                  <FormControlLabel value={0} control={<Radio />} label="A" />
-                  <FormControlLabel value={1} control={<Radio />} label="B" />
-                  <FormControlLabel value={2} control={<Radio />} label="C" />
-                  <FormControlLabel value={3} control={<Radio />} label="D" />
+                  {question?.options?.map((opt, ind) => (
+                    <FormControlLabel value={ind} control={<Radio />} label={ind} key={ind}/>
+                  ))}
                 </RadioGroup>
               </FormControl>
             </Box>

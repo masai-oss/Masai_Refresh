@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { adminActions } from "../State/action";
 import { useSelector, useDispatch } from "react-redux";
 import { Row } from "./Row";
@@ -12,9 +12,11 @@ import {
   Card,
   CardContent,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
-export const AllQuestions = ({ handleDelete, topics }) => {
+export const AllQuestions = ({ handleDelete, topics, page, rowsPerPage }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const questions = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
   const questionDeletionStatus = useSelector(
@@ -23,16 +25,19 @@ export const AllQuestions = ({ handleDelete, topics }) => {
   const questionAddedStatus = useSelector(
     (state) => state.admin.questionAddedStatus
   );
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    const params = new URLSearchParams();
+    params.append("page", newPage + 1);
+    params.append("rowsPerPage", rowsPerPage);
+    history.push({ search: params.toString() });
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    setPage(0);
+    const params = new URLSearchParams();
+    params.append("page", page);
+    params.append("rowsPerPage", event.target.value);
+    history.push({ search: params.toString() });
   };
 
   useEffect(() => {
@@ -70,7 +75,7 @@ export const AllQuestions = ({ handleDelete, topics }) => {
           component="div"
           count={questions.questions.totalCount}
           rowsPerPage={rowsPerPage}
-          page={page}
+          page={page - 1}
           onChangePage={handleChangePage}
           onChangeRowsPerPage={handleChangeRowsPerPage}
         />
