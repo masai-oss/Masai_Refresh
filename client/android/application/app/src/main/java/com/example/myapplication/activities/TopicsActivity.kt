@@ -1,6 +1,7 @@
 package com.example.myapplication.activities
 
 import android.content.Intent
+import android.content.SharedPreferences
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -27,16 +28,19 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     private lateinit var userAdapter: TopicAdapter
     private val dataModelList = emptyList<DataItem>()
     lateinit var tokenID:String
+    var key : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_topics)
         topicsViewModel=ViewModelProviders.of(this).get(TopicsViewModel::class.java)
-
+        val sp : SharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE)
+        key = sp.getString("login_key",null)
         setRecyclerAdapter()
         observeLiveData()
         flProgressBar.visibility = View.VISIBLE
-        val str : String = intent.getStringExtra("token")!!
-        tokenID="Bearer $str"
+        var str : String = intent.getStringExtra("token")!!
+//        if(str.isEmpty()) str = key.toString()
+        tokenID="Bearer $key"
         topicsViewModel.callAPI(str)
     }
 
