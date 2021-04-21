@@ -16,7 +16,7 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginStart="30sp"
+            android:layout_marginStart="2dp"
             android:layout_marginTop="20sp"
             android:layout_weight="1.60"
             android:src="@drawable/ic_brand_identity" />
@@ -37,7 +37,9 @@
         android:id="@+id/recyclerView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_margin="30dp" />
+        android:layout_marginTop="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginRight="20dp"/>
 
     <FrameLayout
         android:id="@+id/flProgressBar"

@@ -45,30 +45,30 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
                     Glide.with(ivTopicIconCircle).load(express).into(ivTopicIconCircle)
                 }
                 dataItem.name.equals("JAVASCRIPT") -> {
-                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_nodejs_icon)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_logo_javascript)
                         .into(ivTopicIconCircle)
                 }
                 dataItem.name.equals("SQL") -> {
-                    Glide.with(ivTopicIconCircle).load(R.drawable.sql).into(ivTopicIconCircle)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_mysql_seeklogo_com).into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("REACT") -> {
-                    Glide.with(ivTopicIconCircle).load(R.drawable.react)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_react_2)
                         .into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("NODE_JS") -> {
-                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_nodejs)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_nodejs_icon)
                         .into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("JAVA") -> {
-                    Glide.with(ivTopicIconCircle).load(R.drawable.java)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_java_14)
                         .into(ivTopicIconCircle)
 
                 }
                 dataItem.name.equals("PYTHON") -> {
-                    Glide.with(ivTopicIconCircle).load(R.drawable.python)
+                    Glide.with(ivTopicIconCircle).load(R.drawable.ic_python_5)
                         .into(ivTopicIconCircle)
 
                 }
@@ -81,9 +81,16 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
 //
 
             tvTopicNameCircle.text = dataItem.name.toString()
-            tvLastAttemptCorrect.text= dataItem.lastAttempt?.correct.toString()
-            tvLastAttemptWrong.text= dataItem.lastAttempt?.wrong.toString()
-            tvLastAttemptSkipped.text= dataItem.lastAttempt?.skipped.toString()
+            if(dataItem.lastAttempt?.correct.toString()==null){
+                tvLastAttemptSkipped.text="0"
+                tvLastAttemptWrong.text="0"
+                    tvLastAttemptCorrect.text="0"
+            }else{
+                tvLastAttemptCorrect.text= dataItem.lastAttempt?.correct.toString()
+                tvLastAttemptWrong.text= dataItem.lastAttempt?.wrong.toString()
+                tvLastAttemptSkipped.text= dataItem.lastAttempt?.skipped.toString()
+
+            }
 
 //            tvTopicNameNew.text = dataItem.name.toString()
 
