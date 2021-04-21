@@ -16,6 +16,7 @@ const userAuthRoute = require("./resources/routes/userAuthRoute");
 const topicRoute = require("./resources/routes/topicRoute");
 const questionRoute = require("./resources/routes/questionRoute");
 const attemptRoute = require("./resources/routes/attemptRoute");
+const scraperRoute = require('./resources/routes/scraperRoute')
 
 dotenv.config();
 
@@ -86,6 +87,7 @@ app.use("/api/auth", userAuthRoute);
 app.use("/api/topic", topicRoute);
 app.use("/api/question", questionRoute);
 app.use("/api/attempt", attemptRoute);
+app.use("/api/scraper", scraperRoute);
 
 app.listen(PORT, () => {
   console.log(`server is listening at ${PORT}`);
