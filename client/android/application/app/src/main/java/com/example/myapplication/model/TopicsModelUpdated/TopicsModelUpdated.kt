@@ -1,9 +1,9 @@
-package com.example.myapplication.model
+package com.example.myapplication.model.TopicsModelUpdated
 
 import com.google.gson.annotations.SerializedName
 import java.io.Serializable
 
-data class TopicsModel(
+data class TopicsModelUpdated(
 
 	@field:SerializedName("error")
 	val error: Boolean? = null,

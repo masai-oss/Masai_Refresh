@@ -52,12 +52,12 @@ class GoogleSignInActivty : AppCompatActivity() {
         startActivityForResult(intent, 101)
     }
 
-    override fun onStart() {
-        super.onStart()
-        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
-        updateUI(account)
-
-    }
+//    override fun onStart() {
+//        super.onStart()
+//        val account: GoogleSignInAccount? = GoogleSignIn.getLastSignedInAccount(this)
+//        updateUI(account)
+//
+//    }
 
     private fun updateUI(account: GoogleSignInAccount?) {
         if (account != null) {

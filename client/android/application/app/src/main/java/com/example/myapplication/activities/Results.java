@@ -22,6 +22,7 @@ import org.eazegraph.lib.models.PieModel;
 import java.net.HttpURLConnection;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -31,6 +32,9 @@ public class Results extends AppCompatActivity {
     private RecyclerView recyclerViewDetails;
     TextView tvR, tvPython, tvCPP, tvJava;
     PieChart pieChart;
+    int correct=0;
+    int incorrect=0;
+    int skipped=0;
     private String attemptId,bearerToken,submissionId;
     private ResultDetailsAdapter resultDetailsAdapter;
     private List<ResultItem> responseList = new ArrayList<>();
@@ -42,7 +46,7 @@ public class Results extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_results);
-        initviews();
+        inItViews();
         getDataFromIntent();
         setData();
         callApiResult();
@@ -80,6 +84,18 @@ public class Results extends AppCompatActivity {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     responseList = response.body().getResult();
                     resultDetailsAdapter.updateData(responseList);
+                    for(int i=0;i<responseList.size();i++){
+                        if(Objects.requireNonNull(responseList.get(i).getOutcome()).equals("correct")){
+                            correct++;
+                        }
+                        if(Objects.requireNonNull(responseList.get(i).getOutcome()).equals("wrong")){
+                            incorrect++;
+                        }
+                        if(Objects.requireNonNull(responseList.get(i).getOutcome()).equals("skipped")){
+                            skipped++;
+
+                        }
+                    }
                 }
             }
 
@@ -93,7 +109,7 @@ public class Results extends AppCompatActivity {
 
     }
 
-    private void initviews() {
+    private void inItViews() {
         tvR = findViewById(R.id.tvR);
         tvPython = findViewById(R.id.tvPython);
         tvCPP = findViewById(R.id.tvCPP);
@@ -103,6 +119,7 @@ public class Results extends AppCompatActivity {
     }
 
     private void setData() {
+//        tvR.setText(Integer.toString(correct));
         tvR.setText(Integer.toString(3));
         tvPython.setText(Integer.toString(1));
         tvCPP.setText(Integer.toString(1));

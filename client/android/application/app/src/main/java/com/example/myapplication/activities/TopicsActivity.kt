@@ -26,7 +26,7 @@ import kotlinx.android.synthetic.main.activity_topics.*
 class TopicsActivity : AppCompatActivity(), TopicClickListener {
     private lateinit var topicsViewModel: TopicsViewModel
     private lateinit var userAdapter: TopicAdapter
-    private val dataModelList = emptyList<DataItem>()
+    private val dataModelList = emptyList<com.example.myapplication.model.TopicsModelUpdated.DataItem>()
     lateinit var tokenID:String
     var key : String? = null
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -71,8 +71,8 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
         }
     }
 
-    override fun onItemClicked(position: Int, dataItem: DataItem) {
-        val intent=Intent(this,HomeActivity::class.java)
+    override fun onItemClicked(position: Int, dataItem: com.example.myapplication.model.TopicsModelUpdated.DataItem) {
+        val intent=Intent(this,AttemptActivity::class.java)
         intent.putExtra("topicId",dataItem.id)
         intent.putExtra("token",tokenID)
         startActivity(intent)
