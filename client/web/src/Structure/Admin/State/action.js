@@ -103,10 +103,10 @@ const getQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsRequest = (page = 0, limit = 10) => (dispatch) => {
+const getQuestionsRequest = (page = 1, limit = 10) => (dispatch) => {
   dispatch(getQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/all/?page=${page + 1}&limit=${limit}`;
+  let url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}`;
 
   axios({
     method: "get",
@@ -196,10 +196,12 @@ const getQuestionsByTopicFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsByTopicRequest = (topic, page, limit) => (dispatch) => {
+const getQuestionsByTopicRequest = (topic, page = 1, limit = 10) => (
+  dispatch
+) => {
   dispatch(getQuestionsByTopicLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page + 1}&limit=${limit}`;
+  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}`;
 
   axios({
     method: "get",

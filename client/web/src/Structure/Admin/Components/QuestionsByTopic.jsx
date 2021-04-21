@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { adminActions } from "../State/action";
 import { useSelector, useDispatch } from "react-redux";
 import { Row } from "./Row";
@@ -10,8 +10,15 @@ import {
   TableBody,
   TablePagination,
 } from "@material-ui/core";
+import { useHistory } from "react-router-dom";
 
-export const QuestionsByTopic = ({ topic, handleDelete, topics }) => {
+export const QuestionsByTopic = ({
+  topic,
+  handleDelete,
+  topics,
+  page,
+  rowsPerPage,
+}) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
@@ -21,16 +28,20 @@ export const QuestionsByTopic = ({ topic, handleDelete, topics }) => {
   const questionAddedStatus = useSelector(
     (state) => state.admin.questionAddedStatus
   );
-  const [page, setPage] = useState(0);
-  const [rowsPerPage, setRowsPerPage] = useState(10);
+  const history = useHistory();
 
   const handleChangePage = (event, newPage) => {
-    setPage(newPage);
+    const params = new URLSearchParams();
+    params.append("page", newPage + 1);
+    params.append("rowsPerPage", rowsPerPage);
+    history.push({ search: params.toString() });
   };
 
   const handleChangeRowsPerPage = (event) => {
-    setRowsPerPage(event.target.value);
-    setPage(0);
+    const params = new URLSearchParams();
+    params.append("page", page);
+    params.append("rowsPerPage", event.target.value);
+    history.push({ search: params.toString() });
   };
 
   useEffect(() => {
@@ -66,7 +77,12 @@ export const QuestionsByTopic = ({ topic, handleDelete, topics }) => {
         <TableBody>
           {data?.questions?.current?.length &&
             data?.questions?.current?.map((item) => (
-              <Row handleDelete={handleDelete} key={item._id} item={item} topic={topic}/>
+              <Row
+                handleDelete={handleDelete}
+                key={item._id}
+                item={item}
+                topic={topic}
+              />
             ))}
         </TableBody>
       </Table>
@@ -74,7 +90,7 @@ export const QuestionsByTopic = ({ topic, handleDelete, topics }) => {
         component="div"
         count={data?.questions?.totalCount}
         rowsPerPage={rowsPerPage}
-        page={page}
+        page={page - 1}
         onChangePage={handleChangePage}
         onChangeRowsPerPage={handleChangeRowsPerPage}
       />
