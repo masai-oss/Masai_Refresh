@@ -11,7 +11,6 @@ import retrofit2.Response
 class AttemptViewModel : ViewModel(), Callback<Any> {
 
     private val attemptRepository = AttemptRepository(this)
-
     private val questionsRepo = QuestionsRepo(this)
     private val mutableQuestionsLiveData = MutableLiveData<QuestionsUIModel>()
     val questionsLiveData: LiveData<QuestionsUIModel> = mutableQuestionsLiveData
