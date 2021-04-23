@@ -1,10 +1,10 @@
 package com.example.myapplication.repository
 
-import com.example.myapplication.model.TopicsModel
+import com.example.myapplication.model.TopicsModelUpdated.TopicsModelUpdated
 import com.example.myapplication.network.Network
 import com.example.myapplication.network.TopicApi
 
-class TopicsRepository (private val callback: retrofit2.Callback<TopicsModel>){
+class TopicsRepository (private val callback: retrofit2.Callback<TopicsModelUpdated>){
 
     fun getListOfTopics(tokenId:String) {
         val apiClient=Network.getInstance().create(TopicApi::class.java)

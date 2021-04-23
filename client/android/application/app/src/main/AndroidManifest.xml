@@ -11,6 +11,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
+        <activity android:name=".activities.QuizActivity"></activity>
         <activity android:name=".activities.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -18,15 +19,13 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".activities.Results"></activity>
-        <activity android:name=".activities.Result_Chart"></activity>
-        <activity android:name=".activities.TopicsActivity"></activity>
+        <activity android:name=".activities.Results" />
+        <activity android:name=".activities.Result_Chart" />
+        <activity android:name=".activities.TopicsActivity" />
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".AttemptActivity" />
-        <activity android:name=".GoogleSignInActivty">
-
-        </activity>
+        <activity android:name=".GoogleSignInActivty"></activity>
 
         <meta-data
             android:name="preloaded_fonts"
