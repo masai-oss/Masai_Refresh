@@ -18,7 +18,6 @@ import com.example.myapplication.MainActivity
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
 import com.example.myapplication.interface_clickListener.TopicClickListener
-import com.example.myapplication.model.DataItem
 import com.example.myapplication.model.UserUIModel
 import com.example.myapplication.viewModel.TopicsViewModel
 import kotlinx.android.synthetic.main.activity_topics.*
@@ -72,7 +71,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
     }
 
     override fun onItemClicked(position: Int, dataItem: com.example.myapplication.model.TopicsModelUpdated.DataItem) {
-        val intent=Intent(this,AttemptActivity::class.java)
+        val intent=Intent(this,QuizActivity::class.java)
         intent.putExtra("topicId",dataItem.id)
         intent.putExtra("token",tokenID)
         startActivity(intent)
