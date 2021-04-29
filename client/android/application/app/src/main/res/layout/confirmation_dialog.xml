@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+   >
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="20sp"
+        android:background="@drawable/answer_border"
+        >
+
+    <TextView
+        android:id="@+id/dialogText"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fontFamily="sans-serif"
+        android:text="You are about to start a Quiz on HTML. Are you sure you want to go ahead? "
+        android:textColor="@color/black"
+        android:layout_margin="10dp"
+        android:textSize="20sp">
+
+        <requestFocus />
+    </TextView>
+
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button.TextButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialogText"
+        android:id="@+id/cancelDialog"
+        android:layout_toLeftOf="@id/startQuizDialog"
+        android:fontFamily="sans-serif"
+        android:text="Cancel"
+        />
+    <com.google.android.material.button.MaterialButton
+        style="@style/Widget.MaterialComponents.Button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/dialogText"
+        android:fontFamily="sans-serif"
+        android:text="Start"
+        android:id="@+id/startQuizDialog"
+        android:layout_alignParentEnd="true"
+
+        />
+    </RelativeLayout>
+</androidx.cardview.widget.CardView>
