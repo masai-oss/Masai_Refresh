@@ -92,8 +92,8 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                 })}
               </div>
             </CardContent>
-            <div style={{ border: "1px solid #6C8D9E" }} />
-            <Grid container alignItems="center" spacing={1}>
+            <div style={{ border: "1px solid #a0c0cf" }} />
+            <Grid container alignItems="center" spacing={1} className={classes.topic_bottom}>
               <Grid item>
                 <Box mx={2}>
                   <Avatar alt={topic} src={icon} />
@@ -107,9 +107,6 @@ const TopicCard = ({ topicData, handleClickOpen, handleOpenProficiency }) => {
                     style={{ fontWeight: "bold" }}
                   >
                     {topic.split("_").join(" ")}
-                  </Typography>
-                  <Typography variant="button" display="block" gutterBottom>
-                    HTML, CSS, HTML, CSS
                   </Typography>
                 </div>
               </Grid>
