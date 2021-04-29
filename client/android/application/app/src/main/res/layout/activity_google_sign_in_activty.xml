@@ -10,18 +10,18 @@
     <ImageView
         android:layout_width="100dp"
         android:layout_height="100dp"
-       android:layout_alignLeft="@id/refreshText"
         android:layout_above="@id/refreshText"
+        android:layout_alignLeft="@id/refreshText"
         android:src="@drawable/ic_logo_masai" />
 
     <TextView
+        android:id="@+id/refreshText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_centerInParent="true"
         android:layout_centerHorizontal="true"
         android:fontFamily="monospace"
         android:text="refresh"
-        android:id="@+id/refreshText"
         android:textColor="@color/white"
         android:textSize="50sp" />
 

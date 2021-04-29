@@ -34,7 +34,7 @@ class GoogleSignInActivty : AppCompatActivity() {
 
     lateinit var mGoogleSignInClient: GoogleSignInClient
     lateinit var mGoogleSignInAccount: GoogleSignInAccount
-    var key : String? = null
+    var key: String? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -42,7 +42,7 @@ class GoogleSignInActivty : AppCompatActivity() {
         val handler = Handler(Looper.getMainLooper())
         handler.postDelayed({
             checkLogin()
-        },2000)
+        }, 2000)
         val gso: GoogleSignInOptions =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
                 .requestIdToken("1076096355894-tlqr133lhbep9c9n8jkv24msqri7pvb2.apps.googleusercontent.com")
@@ -58,16 +58,16 @@ class GoogleSignInActivty : AppCompatActivity() {
     }
 
     private fun checkLogin() {
-        val sp : SharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE)
-        key = sp.getString("login_key",null)
+        val sp: SharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE)
+        key = sp.getString("login_key", null)
 
-        if (key!=null){
-            val intent = Intent(this,TopicsActivity::class.java)
-            intent.putExtra("token",key)
-            Toast.makeText(this,"Welcome Back",Toast.LENGTH_SHORT).show()
+        if (key != null) {
+            val intent = Intent(this, TopicsActivity::class.java)
+            intent.putExtra("token", key)
+            Toast.makeText(this, "Welcome Back", Toast.LENGTH_SHORT).show()
             startActivity(intent)
-            finish()}
-        else{
+            finish()
+        } else {
             gSignInBtn.visibility = View.VISIBLE
         }
 
@@ -113,7 +113,8 @@ class GoogleSignInActivty : AppCompatActivity() {
                 }
 
                 override fun onFailure(call: Call<AuthSuccess>, t: Throwable) {
-                    Toast.makeText(this@GoogleSignInActivty,"Invalid Account",Toast.LENGTH_SHORT).show()
+                    Toast.makeText(this@GoogleSignInActivty, "Invalid Account", Toast.LENGTH_SHORT)
+                        .show()
                 }
 
             })

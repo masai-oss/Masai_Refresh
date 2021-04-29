@@ -26,10 +26,10 @@
                 android:textSize="25sp" />
 
             <RadioGroup
+                android:id="@+id/optionsRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/questionText"
-                android:id="@+id/optionsRadio"
                 android:layout_margin="10dp">
 
                 <RadioButton
@@ -73,46 +73,48 @@
         </RelativeLayout>
     </ScrollView>
 
-   <LinearLayout
-       android:layout_width="match_parent"
-       android:layout_height="wrap_content"
-       android:orientation="horizontal"
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
         android:elevation="20dp"
 
-       android:layout_gravity="bottom">
-       <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-           android:id="@+id/floatPreviousBtn"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:layout_weight="1"
-           android:backgroundTint="#2D799F"
-           android:fontFamily="@font/poppins_medium"
-           android:padding="10dp"
-           android:text="Previous"
+        android:orientation="horizontal">
 
-           android:textColor="@color/white"
-           android:textSize="18sp"
-           android:visibility="gone"
-           app:icon="@drawable/ic_baseline_navigate_before_24"
-           app:iconSize="40dp"
-           app:iconTint="@color/white" />
-       <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-           android:id="@+id/floatnextQstn"
-           android:layout_width="wrap_content"
-           android:layout_height="wrap_content"
-           android:backgroundTint="#2D799F"
-           android:fontFamily="@font/poppins_medium"
-           android:padding="10dp"
-           android:layout_weight="1"
-           android:text="    Next"
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatPreviousBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#2D799F"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="10dp"
+            android:text="Previous"
+
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_navigate_before_24"
+            app:iconSize="40dp"
+            app:iconTint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatnextQstn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#2D799F"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="10dp"
+            android:text="    Next"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_navigate_next_24"
             app:iconGravity="end"
-           android:textColor="@color/white"
-           android:textSize="18sp"
-           android:visibility="gone"
-           app:icon="@drawable/ic_baseline_navigate_next_24"
-           app:iconSize="40dp"
-           app:iconTint="@color/white" />
-   </LinearLayout>
+            app:iconSize="40dp"
+            app:iconTint="@color/white" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/progressFrameHome"

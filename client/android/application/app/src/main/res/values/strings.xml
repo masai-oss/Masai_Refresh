@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">Masai Refresh</string>
     <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="sample_question">1. Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here.</string>
     <string name="report_text"><u>Report an issue with the question</u></string>
 </resources>

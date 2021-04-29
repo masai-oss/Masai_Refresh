@@ -1,18 +1,16 @@
 package com.example.myapplication.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import br.tiagohm.markdownview.css.ExternalStyleSheet
 import com.example.myapplication.Attempt.*
 import com.example.myapplication.R
 import com.example.myapplication.viewModel.AttemptViewModel
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_quiz.*
 
 class QuizActivity : AppCompatActivity() {
@@ -51,8 +49,8 @@ class QuizActivity : AppCompatActivity() {
                 Toast.makeText(this, "Quiz Completed", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Results::class.java)
                 intent.putExtra("token", token)
-// implement before launch               intent.putExtra("attempt_id" , attempId)
-//                intent.putExtra("submission_id",submissionID)
+                intent.putExtra("attempt_id", launchData.attemptId)
+                intent.putExtra("submission_id", launchData.submissionId)
                 startActivity(intent)
             } else {
                 recordResponse()
@@ -90,10 +88,10 @@ class QuizActivity : AppCompatActivity() {
                     i
                 )
             }
-            "TF"->{
+            "TF" -> {
                 Toast.makeText(this, "Response : recorded", Toast.LENGTH_SHORT).show()
-                var answer :Boolean =true
-                answer = i==0
+                var answer: Boolean = true
+                answer = i == 0
                 attemptViewModel.recordCurrentTFAnswer(
                     token,
                     launchData.submissionId,

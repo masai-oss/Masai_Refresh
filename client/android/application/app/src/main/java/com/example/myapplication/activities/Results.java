@@ -1,13 +1,13 @@
 package com.example.myapplication.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.recyclerview.widget.LinearLayoutManager;
-import androidx.recyclerview.widget.RecyclerView;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ResultDetailsAdapter;
@@ -29,13 +29,13 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Results extends AppCompatActivity {
-    private RecyclerView recyclerViewDetails;
     TextView tvR, tvPython, tvCPP, tvJava;
     PieChart pieChart;
-    int correct=0;
-    int incorrect=0;
-    int skipped=0;
-    private String attemptId,bearerToken,submissionId;
+    int correct = 0;
+    int incorrect = 0;
+    int skipped = 0;
+    private RecyclerView recyclerViewDetails;
+    private String attemptId, bearerToken, submissionId;
     private ResultDetailsAdapter resultDetailsAdapter;
     private List<ResultItem> responseList = new ArrayList<>();
 
@@ -57,9 +57,9 @@ public class Results extends AppCompatActivity {
     private void getDataFromIntent() {
 
         if (getIntent() != null && getIntent().getExtras() != null) {
-            attemptId=getIntent().getStringExtra("attempt_id");
-            bearerToken=getIntent().getStringExtra("token");
-            submissionId=getIntent().getStringExtra("submission_id");
+            attemptId = getIntent().getStringExtra("attempt_id");
+            bearerToken = getIntent().getStringExtra("token");
+            submissionId = getIntent().getStringExtra("submission_id");
 
         }
     }
@@ -84,14 +84,14 @@ public class Results extends AppCompatActivity {
                 if (response.code() == HttpURLConnection.HTTP_OK) {
                     responseList = response.body().getResult();
                     resultDetailsAdapter.updateData(responseList);
-                    for(int i=0;i<responseList.size();i++){
-                        if(Objects.requireNonNull(responseList.get(i).getOutcome()).equals("correct")){
+                    for (int i = 0; i < responseList.size(); i++) {
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("correct")) {
                             correct++;
                         }
-                        if(Objects.requireNonNull(responseList.get(i).getOutcome()).equals("wrong")){
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("wrong")) {
                             incorrect++;
                         }
-                        if(Objects.requireNonNull(responseList.get(i).getOutcome()).equals("skipped")){
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("skipped")) {
                             skipped++;
 
                         }
@@ -115,7 +115,7 @@ public class Results extends AppCompatActivity {
         tvCPP = findViewById(R.id.tvCPP);
         tvJava = findViewById(R.id.tvJava);
         pieChart = findViewById(R.id.piechart);
-        recyclerViewDetails=findViewById(R.id.recyclerViewDetails);
+        recyclerViewDetails = findViewById(R.id.recyclerViewDetails);
     }
 
     private void setData() {

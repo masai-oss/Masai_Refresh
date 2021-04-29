@@ -6,7 +6,6 @@
     android:elevation="10dp">
 
     <RelativeLayout
-        android:id="@+id/llTopic_Click"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_rect"
@@ -15,74 +14,71 @@
         <TextView
             android:id="@+id/tvQuestionNo"
             android:layout_width="wrap_content"
-            android:text="Question 1"
-            android:textStyle="bold"
+            android:layout_height="wrap_content"
             android:layout_margin="8dp"
-            android:layout_height="wrap_content" />
+            android:text="Question 1"
+            android:textStyle="bold" />
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:id="@+id/tvQuestionContent"
-            android:layout_toRightOf="@+id/tvQuestionNo"
             android:layout_margin="8dp"
-            android:text="Which of the following---"/>
+            android:layout_toRightOf="@+id/tvQuestionNo"
+            android:text="Which of the following---" />
 
-       <LinearLayout
-           android:id="@+id/llHeadingOfresponse"
-           android:layout_width="match_parent"
-           android:weightSum="2"
-           android:layout_below="@+id/tvQuestionNo"
-           android:layout_height="wrap_content">
+        <LinearLayout
+            android:id="@+id/llHeadingOfresponse"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/tvQuestionNo"
+            android:weightSum="2">
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_height="wrap_content"
-               android:id="@+id/tvYourResponseHeading"
-               android:layout_margin="8dp"
-               android:layout_weight="1"
-               android:textColor="@android:color/black"
-               android:text="Your Response"
-               android:textStyle="bold"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Your Response"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
 
-           <TextView
-               android:layout_width="wrap_content"
-               android:layout_weight="1"
-               android:id="@+id/tvCorrectAnswerHeading"
-               android:layout_height="wrap_content"
-               android:textColor="@android:color/black"
-               android:text="Correct Response"
-               android:textStyle="bold"
-               android:layout_margin="8dp"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:text="Correct Response"
+                android:textColor="@android:color/black"
+                android:textStyle="bold" />
 
 
-       </LinearLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:id="@+id/llResponseContent"
             android:layout_width="match_parent"
-            android:weightSum="2"
+            android:layout_height="wrap_content"
             android:layout_below="@+id/llHeadingOfresponse"
-            android:layout_height="wrap_content">
+            android:weightSum="2">
 
             <TextView
+                android:id="@+id/tvYourResponseAnswer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:id="@+id/tvYourResponseAnswer"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:text="Your Answer is     ,,\njsjsjsjjjajajaj\njjjsjsjsjsjsjsj\mlslslsls"
-                android:textStyle="bold"/>
+                android:textStyle="bold" />
 
             <TextView
-                android:layout_width="wrap_content"
-                android:layout_weight="1"
                 android:id="@+id/tvCorrectAnswer"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textColor="#00FF00"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
                 android:text="Correct Response is  \n jjjsjsjs\nsjsjsjsja"
-                android:textStyle="bold"
-                android:layout_margin="8dp"/>
+                android:textColor="#00FF00"
+                android:textStyle="bold" />
 
 
         </LinearLayout>
@@ -95,14 +91,14 @@
             android:layout_margin="8dp"
             android:text="Explanation"
             android:textColor="@android:color/black"
-            android:textStyle="bold"/>
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvExplanationContent"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            android:layout_below="@+id/tvExplanationHeading"/>
+            android:layout_below="@+id/tvExplanationHeading"
+            android:layout_margin="8dp" />
 
 
     </RelativeLayout>

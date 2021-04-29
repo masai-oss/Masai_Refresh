@@ -14,7 +14,8 @@
         <!-- Customize your theme here. -->
         <item name="android:displayOptions">useLogo</item>
     </style>
-    <style name="NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar" >
+
+    <style name="NoActionBar" parent="Theme.AppCompat.DayNight.NoActionBar">
         <item name="colorPrimary">@color/Theme</item>
         <item name="colorPrimaryVariant">@color/Theme</item>
         <item name="colorOnPrimary">@color/white</item>
