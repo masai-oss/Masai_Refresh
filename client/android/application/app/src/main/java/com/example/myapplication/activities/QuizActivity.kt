@@ -1,5 +1,6 @@
 package com.example.myapplication.activities
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.util.Log
@@ -22,6 +23,7 @@ class QuizActivity : AppCompatActivity() {
     private lateinit var dataQuestions: DataQuestions
     private var size = 5
     var count = -1
+    var questionType: String? = ""
     private lateinit var launchData: DataStart
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -46,11 +48,15 @@ class QuizActivity : AppCompatActivity() {
 
         nextQstnBtn.setOnClickListener {
             if (count == size - 1) {
-                Toast.makeText(this,"Quiz Completed",Toast.LENGTH_SHORT).show()
+                Toast.makeText(this, "Quiz Completed", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Results::class.java)
+                intent.putExtra("token", token)
+// implement before launch               intent.putExtra("attempt_id" , attempId)
+//                intent.putExtra("submission_id",submissionID)
+                startActivity(intent)
             } else {
-
-                launchQuiz(0)
                 recordResponse()
+                launchQuiz(0)
             }
         }
     }
@@ -70,8 +76,35 @@ class QuizActivity : AppCompatActivity() {
         Toast.makeText(this, "Response : $text", Toast.LENGTH_SHORT).show()
         radioGroupOptions.clearCheck()
     }
+
     private fun recordQuiz(i: Int) {
-        Toast.makeText(this, "Option : $i", Toast.LENGTH_SHORT).show()
+        when (questionType) {
+            "MCQ" -> {
+                Toast.makeText(this, "Response : recorded", Toast.LENGTH_SHORT).show()
+                attemptViewModel.recordCurrentMCQAnswer(
+                    token,
+                    launchData.submissionId,
+                    launchData.attemptId,
+                    launchData.questions?.get(count),
+                    questionType,
+                    i
+                )
+            }
+            "TF"->{
+                Toast.makeText(this, "Response : recorded", Toast.LENGTH_SHORT).show()
+                var answer :Boolean =true
+                answer = i==0
+                attemptViewModel.recordCurrentTFAnswer(
+                    token,
+                    launchData.submissionId,
+                    launchData.attemptId,
+                    launchData.questions?.get(count),
+                    questionType,
+                    answer
+                )
+            }
+
+        }
 
     }
 
@@ -80,13 +113,21 @@ class QuizActivity : AppCompatActivity() {
             when (it) {
                 is QuestionsUIModel.Success -> {
 
-                    questionDesTV.text=it.questionData.data?.statement
-
-                    radioOptionOne.text = it.questionData.data?.options?.get(0)?.text.toString()
-                    radioOptionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
-                    radioOptionThree.text = it.questionData.data?.options?.get(2)?.text.toString()
-                    radioOptionFour.text = it.questionData.data?.options?.get(3)?.text.toString()
-
+                    questionDesTV.text = it.questionData.data?.statement
+                    questionType = it.questionData.data?.type
+                    if (questionType.equals("TF")) {
+                        radioOptionOne.text = it.questionData.data?.options?.get(0)?.text.toString()
+                        radioOptionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
+                        radioOptionFour.visibility = View.GONE
+                        radioOptionThree.visibility = View.GONE
+                    } else {
+                        radioOptionOne.text = it.questionData.data?.options?.get(0)?.text.toString()
+                        radioOptionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
+                        radioOptionThree.text =
+                            it.questionData.data?.options?.get(2)?.text.toString()
+                        radioOptionFour.text =
+                            it.questionData.data?.options?.get(3)?.text.toString()
+                    }
 
 
                 }
@@ -98,7 +139,7 @@ class QuizActivity : AppCompatActivity() {
 
 
         attemptViewModel.liveData.observe(
-            this,{
+            this, {
                 when (it) {
                     is AttemptUIModel.Success -> {
                         Log.d("Attempt", it.startQuiz.data?.attemptId.toString())
@@ -106,9 +147,9 @@ class QuizActivity : AppCompatActivity() {
 
                         if (dataStart != null) {
 
-                                launchData = dataStart
-                                launchQuiz(0)
-                                prevQstnBtn.visibility = View.GONE
+                            launchData = dataStart
+                            launchQuiz(0)
+                            prevQstnBtn.visibility = View.GONE
 
 
                         }
@@ -129,6 +170,7 @@ class QuizActivity : AppCompatActivity() {
             }
         )
     }
+
     private fun launchQuiz(btnClicked: Int) {
 
 
@@ -163,7 +205,7 @@ class QuizActivity : AppCompatActivity() {
             }
             if (count > 0) {
                 prevQstnBtn.visibility = View.VISIBLE
-            }else if(count ==0){
+            } else if (count == 0) {
                 prevQstnBtn.visibility = View.GONE
             }
             if (count == size - 1) {
