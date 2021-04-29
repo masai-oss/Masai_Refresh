@@ -1,10 +1,10 @@
 package com.example.myapplication
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.activities.Results
 import com.example.myapplication.adapter.QuestionsAdapter
@@ -20,49 +20,57 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
+class AttemptActivity : AppCompatActivity(), AnswerClickedListener {
 
-    var attempId :String=""
-    var submissionID: String=""
-    lateinit var token:String
-    var questionIndex =0
+    var attempId: String = ""
+    var submissionID: String = ""
+    lateinit var token: String
+    var questionIndex = 0
     lateinit var firstAttempApiResponse: FirstAttempApiResponse
     lateinit var nextQuestionApiResponse: NextQuestionApiResponse
-    var answer =-1
-    val size =5
+    var answer = -1
+    val size = 5
     private lateinit var questionsAdapter: QuestionsAdapter
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_attempt)
 
-        val topicId :String=intent.getStringExtra("topicId")!!
+        val topicId: String = intent.getStringExtra("topicId")!!
 
         token = intent.getStringExtra("token")!!
-        getFirstAttempt(topicId,size)
+        getFirstAttempt(topicId, size)
         setRecyclerAdapter()
         initializeClicks()
     }
 
     private fun initializeClicks() {
         btnNextQuestion.setOnClickListener {
-            if (answer != -1){
+            if (answer != -1) {
                 recordNextAnswer(
                     RecordAnswerRequest
-                        (submissionID,attempId,firstAttempApiResponse.data?.questions?.get(questionIndex),nextQuestionApiResponse?.data?.type,null,answer,null)
+                        (
+                        submissionID,
+                        attempId,
+                        firstAttempApiResponse.data?.questions?.get(questionIndex),
+                        nextQuestionApiResponse?.data?.type,
+                        null,
+                        answer,
+                        null
+                    )
                 )
             }
-            if (questionIndex<size-1) {
+            if (questionIndex < size - 1) {
                 setRecyclerAdapter()
                 getNextQuestion(
                     attempId,
                     submissionID,
                     firstAttempApiResponse.data?.questions?.get(++questionIndex)
                 )
-            }else{
+            } else {
                 val intent = Intent(this, Results::class.java)
-                intent.putExtra("token",token)
-                intent.putExtra("attempt_id" , attempId)
-                intent.putExtra("submission_id",submissionID)
+                intent.putExtra("token", token)
+                intent.putExtra("attempt_id", attempId)
+                intent.putExtra("submission_id", submissionID)
                 startActivity(intent)
             }
         }
@@ -77,8 +85,9 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
     }
 
     private fun setRecyclerAdapter() {
-        var list : List<OptionsItem?>? = emptyList()
-        questionsAdapter = QuestionsAdapter(NextQuestionApiResponse(false, Data("","","", list,false,0)),this)
+        var list: List<OptionsItem?>? = emptyList()
+        questionsAdapter =
+            QuestionsAdapter(NextQuestionApiResponse(false, Data("", "", "", list, false, 0)), this)
         val layoutManager = LinearLayoutManager(this)
         rvOptions.layoutManager = layoutManager
         rvOptions.adapter = questionsAdapter
@@ -94,12 +103,13 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
             )
 
         val apiClient = Network.getInstance().create(TopicApi::class.java)
-        apiClient.FirstAttemptPost(token,
+        apiClient.FirstAttemptPost(
+            token,
             postRequest
         )
-            .enqueue(object : Callback <FirstAttempApiResponse>{
+            .enqueue(object : Callback<FirstAttempApiResponse> {
                 override fun onFailure(call: Call<FirstAttempApiResponse>, t: Throwable) {
-                    Toast.makeText(this@AttemptActivity,"Api not called ",Toast.LENGTH_SHORT)
+                    Toast.makeText(this@AttemptActivity, "Api not called ", Toast.LENGTH_SHORT)
                 }
 
                 override fun onResponse(
@@ -110,19 +120,23 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
                         firstAttempApiResponse = it
                     }
                     attempId = response.body()?.data?.attemptId!!
-                    submissionID= response.body()?.data?.submissionId!!
-                    getNextQuestion(attempId,submissionID,response?.body()?.data?.questions?.get(questionIndex).toString())
+                    submissionID = response.body()?.data?.submissionId!!
+                    getNextQuestion(
+                        attempId,
+                        submissionID,
+                        response?.body()?.data?.questions?.get(questionIndex).toString()
+                    )
                 }
 
             }
-        )
+            )
     }
 
-    private fun getNextQuestion(attempId: String?, submissionID: String? ,question:String?) {
+    private fun getNextQuestion(attempId: String?, submissionID: String?, question: String?) {
         val apiClient = Network.getInstance().create(TopicApi::class.java)
 
-        apiClient.getNextQuestion(token,attempId,submissionID,question)
-            .enqueue(object : Callback <NextQuestionApiResponse>{
+        apiClient.getNextQuestion(token, attempId, submissionID, question)
+            .enqueue(object : Callback<NextQuestionApiResponse> {
                 override fun onFailure(call: Call<NextQuestionApiResponse>, t: Throwable) {
                 }
 
@@ -131,7 +145,7 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
                     response: Response<NextQuestionApiResponse>
                 ) {
                     response.body()?.let {
-                        nextQuestionApiResponse= it
+                        nextQuestionApiResponse = it
                         updateUIForQuestions(it)
 
                     }
@@ -146,40 +160,43 @@ class AttemptActivity : AppCompatActivity() , AnswerClickedListener{
     private fun updateUIForQuestions(it: NextQuestionApiResponse) {
         questionsAdapter.updateAdapter(it)
         tvQuestion.loadMarkdown(it.data?.statement)
-        if(questionIndex==0){
-            btnPreviousQuestion.visibility= View.GONE
-        }else{
-            btnPreviousQuestion.visibility= View.VISIBLE
+        if (questionIndex == 0) {
+            btnPreviousQuestion.visibility = View.GONE
+        } else {
+            btnPreviousQuestion.visibility = View.VISIBLE
         }
-        if(questionIndex==size-1){
+        if (questionIndex == size - 1) {
             btnNextQuestion.text = "Submit"
+        } else {
+            btnNextQuestion.text = "Next"
         }
 
     }
 
-    private fun recordNextAnswer(recordAnswerRequest: RecordAnswerRequest){
-         val apiClient = Network.getInstance().create(TopicApi::class.java)
-         apiClient.recordAnswer(token,recordAnswerRequest).enqueue(object : Callback<RecordAnswerResponse>{
-             override fun onFailure(call: Call<RecordAnswerResponse>, t: Throwable) {
-             }
+    private fun recordNextAnswer(recordAnswerRequest: RecordAnswerRequest) {
+        val apiClient = Network.getInstance().create(TopicApi::class.java)
+        apiClient.recordAnswer(token, recordAnswerRequest)
+            .enqueue(object : Callback<RecordAnswerResponse> {
+                override fun onFailure(call: Call<RecordAnswerResponse>, t: Throwable) {
+                }
 
-             override fun onResponse(
-                 call: Call<RecordAnswerResponse>,
-                 response: Response<RecordAnswerResponse>
-             ) {
+                override fun onResponse(
+                    call: Call<RecordAnswerResponse>,
+                    response: Response<RecordAnswerResponse>
+                ) {
 
-             }
+                }
 
-         })
-        answer =-1
-     }
+            })
+        answer = -1
+    }
 
     override fun returnAnswer(position: Int) {
         var type = nextQuestionApiResponse?.data?.type
-        when(type){
+        when (type) {
             "MCQ" ->
-                answer =position
-                "TF" -> answer = position
+                answer = position
+            "TF" -> answer = position
 
         }
 

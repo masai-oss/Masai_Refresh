@@ -1,10 +1,11 @@
 package com.example.myapplication.model
 
-sealed class    UserUIModel {
-    data class Success(val dateModelList: List<DataItem>):UserUIModel()
+import com.example.myapplication.model.TopicsModelUpdated.DataItem
 
-    data class Failure(val  error :String):UserUIModel()
+sealed class UserUIModel {
+    data class Success(val dateModelList: List<DataItem>) : UserUIModel()
 
+    data class Failure(val error: String) : UserUIModel()
 
 
 }
