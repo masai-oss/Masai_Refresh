@@ -7,9 +7,9 @@ import kotlinx.android.parcel.Parcelize
 @Parcelize
 data class PostStart(
 
-	@field:SerializedName("size")
-	val size: Int? = null,
+    @field:SerializedName("size")
+    val size: Int? = null,
 
-	@field:SerializedName("topic_id")
-	val topicId: String? = null
+    @field:SerializedName("topic_id")
+    val topicId: String? = null
 ) : Parcelable
