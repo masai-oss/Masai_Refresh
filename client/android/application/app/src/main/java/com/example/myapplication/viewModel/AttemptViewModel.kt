@@ -11,8 +11,8 @@ import retrofit2.Response
 class AttemptViewModel : ViewModel(), Callback<Any> {
 
     private val attemptRepository = AttemptRepository(this)
-
     private val questionsRepo = QuestionsRepo(this)
+    private val recordAnswerRepo = RecordAnswerRepo(this)
     private val mutableQuestionsLiveData = MutableLiveData<QuestionsUIModel>()
     val questionsLiveData: LiveData<QuestionsUIModel> = mutableQuestionsLiveData
 
@@ -27,6 +27,16 @@ class AttemptViewModel : ViewModel(), Callback<Any> {
         questionId: String
     ) {
         questionsRepo.getQuestionsData(token, attemptId, submissionId, questionId)
+    }
+    fun recordCurrentMCQAnswer(token:String,submissionId:String?,attemptId:String?
+                            ,questionId:String?,answerType:String?,selected:Int){
+        recordAnswerRepo.recordMCQAnswer(token, submissionId, attemptId,
+                    questionId, answerType, selected)
+    }
+    fun recordCurrentTFAnswer(token:String,submissionId:String?,attemptId:String?
+                              ,questionId:String?,answerType:String?,decision:Boolean){
+        recordAnswerRepo.recordTFAnswer(token, submissionId, attemptId,
+            questionId, answerType, decision)
     }
 
     fun callStartAttemptApi(token: String, postStart: PostStart) {
