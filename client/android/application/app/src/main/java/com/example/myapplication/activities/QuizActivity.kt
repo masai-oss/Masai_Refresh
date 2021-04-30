@@ -114,8 +114,9 @@ class QuizActivity : AppCompatActivity() {
                     questionDesTV.text = it.questionData.data?.statement
                     questionType = it.questionData.data?.type
                     if (questionType.equals("TF")) {
-                        radioOptionOne.text = it.questionData.data?.options?.get(0)?.text.toString()
-                        radioOptionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
+                        radioOptionOne.text = "true"
+                        radioOptionTwo.text = "false"
+
                         radioOptionFour.visibility = View.GONE
                         radioOptionThree.visibility = View.GONE
                     } else {

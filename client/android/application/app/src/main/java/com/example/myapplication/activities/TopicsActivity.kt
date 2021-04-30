@@ -14,6 +14,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
 import com.example.myapplication.interface_clickListener.TopicClickListener
@@ -67,7 +68,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
 
     private fun setRecyclerAdapter() {
         userAdapter = TopicAdapter(dataModelList, this)
-        val layoutManager = GridLayoutManager(this, 2)
+        val layoutManager = LinearLayoutManager(this)
         recyclerView.apply {
             this.layoutManager = layoutManager
             adapter = userAdapter

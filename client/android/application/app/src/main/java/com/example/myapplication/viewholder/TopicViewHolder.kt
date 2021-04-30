@@ -5,7 +5,6 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import com.example.myapplication.R
 import com.example.myapplication.interface_clickListener.TopicClickListener
-import kotlinx.android.synthetic.main.item_layout_topics_new.view.*
 import kotlinx.android.synthetic.main.topics_item_layout.view.*
 
 class TopicViewHolder(private val view: View, private val listener: TopicClickListener) :
