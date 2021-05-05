@@ -20,7 +20,7 @@ const googleStrategy = new GoogleStrategy(
     try {
       const { id, displayName, emails, photos } = profile;
       const crnAuth = "google"
-      let oauth = { provider: "google", identifier: id };
+      const oauth = { provider: crnAuth, identifier: id };
       const userPresentWithGmail = await User.findOne({ email: emails[0].value });
       if (!userPresentWithGmail) {
         const role =
@@ -28,7 +28,7 @@ const googleStrategy = new GoogleStrategy(
             ? "admin"
             : "user";
         const currentUser = await User.findOne({
-          oauth: { $elemMatch: { provider: "google", identifier: id } },
+          oauth: { $elemMatch: { provider: crnAuth, identifier: id } },
         });
         if (!currentUser) {
           const newUser = await new User({
@@ -47,9 +47,9 @@ const googleStrategy = new GoogleStrategy(
         return done(null, currentUser);
       } else if (
         userPresentWithGmail.oauth.length === 2 ||
-        userPresentWithGmail.oauth[0].provider === "google"
+        userPresentWithGmail.oauth[0].provider === crnAuth
       ) {
-        userPresentWithGmail._doc.crnAuth = crnAuth
+        userPresentWithGmail._doc.crnAuth = crnAuth;
         return done(null, userPresentWithGmail);
       } else {
         const modifiedUser = await User.findOneAndUpdate(
