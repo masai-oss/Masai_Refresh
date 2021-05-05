@@ -1,11 +1,11 @@
 package com.example.myapplication.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-
 import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.widget.Toast;
+
+import androidx.appcompat.app.AppCompatActivity;
 
 import com.example.myapplication.R;
 import com.github.mikephil.charting.charts.PieChart;
@@ -21,10 +21,9 @@ import java.util.ArrayList;
 
 public class Result_Chart extends AppCompatActivity {
     private static String TAG = "Result_Chart";
-
-    private float[] yData = {33.33f, 33.33f, 33.33f};
-    private String[] xData = {"Correct", "Incorrect" , "Skipped"};
     PieChart pieChart;
+    private float[] yData = {33.33f, 33.33f, 33.33f};
+    private String[] xData = {"Correct", "Incorrect", "Skipped"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,8 +54,8 @@ public class Result_Chart extends AppCompatActivity {
                 int pos1 = e.toString().indexOf("(sum): ");
                 String sales = e.toString().substring(pos1 + 3);
 
-                for(int i = 0; i < yData.length; i++){
-                    if(yData[i] == Float.parseFloat(sales)){
+                for (int i = 0; i < yData.length; i++) {
+                    if (yData[i] == Float.parseFloat(sales)) {
                         pos1 = i;
                         break;
                     }
@@ -79,11 +78,11 @@ public class Result_Chart extends AppCompatActivity {
         ArrayList<PieEntry> yEntrys = new ArrayList<>();
         ArrayList<String> xEntrys = new ArrayList<>();
 
-        for(int i = 0; i < yData.length; i++){
-            yEntrys.add(new PieEntry(yData[i] , i));
+        for (int i = 0; i < yData.length; i++) {
+            yEntrys.add(new PieEntry(yData[i], i));
         }
 
-        for(int i = 1; i < xData.length; i++){
+        for (int i = 1; i < xData.length; i++) {
             xEntrys.add(xData[i]);
         }
 

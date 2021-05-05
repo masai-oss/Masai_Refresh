@@ -15,18 +15,18 @@
             android:layout_height="wrap_content">
 
 
-            <TextView
+            <br.tiagohm.markdownview.MarkdownView
                 android:id="@+id/questionText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:fontFamily="@font/poppins_medium"
                 android:padding="20dp"
-
                 android:text="Question"
                 android:textColor="@color/black"
                 android:textSize="25sp" />
 
             <RadioGroup
+                android:id="@+id/optionsRadio"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/questionText"
@@ -36,10 +36,10 @@
                     android:id="@+id/optionOne"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:padding="20dp"
-                    android:textColorHighlight="@android:color/holo_red_dark"
                     android:fontFamily="@font/poppins_medium"
+                    android:padding="20dp"
                     android:text="Option One"
+                    android:textColorHighlight="@android:color/holo_red_dark"
                     android:textSize="20dp" />
 
                 <RadioButton
@@ -73,22 +73,48 @@
         </RelativeLayout>
     </ScrollView>
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/floatnextQstn"
-        android:layout_width="wrap_content"
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="end|bottom"
-        android:layout_margin="20dp"
-        android:padding="10dp"
-        android:backgroundTint="#2D799F"
-        android:text="Start"
-        android:textSize="18sp"
-        android:fontFamily="@font/poppins_medium"
-        android:textColor="@color/white"
-        app:icon="@drawable/ic_baseline_navigate_next_24"
-        app:iconTint="@color/white"
-        app:iconSize="40dp"
-       />
+        android:layout_gravity="bottom"
+        android:elevation="20dp"
+
+        android:orientation="horizontal">
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatPreviousBtn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#2D799F"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="10dp"
+            android:text="Previous"
+
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_navigate_before_24"
+            app:iconSize="40dp"
+            app:iconTint="@color/white" />
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/floatnextQstn"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:backgroundTint="#2D799F"
+            android:fontFamily="@font/poppins_medium"
+            android:padding="10dp"
+            android:text="    Next"
+            android:textColor="@color/white"
+            android:textSize="18sp"
+            android:visibility="gone"
+            app:icon="@drawable/ic_baseline_navigate_next_24"
+            app:iconGravity="end"
+            app:iconSize="40dp"
+            app:iconTint="@color/white" />
+    </LinearLayout>
 
     <FrameLayout
         android:id="@+id/progressFrameHome"
@@ -102,6 +128,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center" />
     </FrameLayout>
+
     <FrameLayout
         android:id="@+id/startText"
         android:layout_width="match_parent"
@@ -109,15 +136,27 @@
         android:background="@color/white"
         android:visibility="visible">
 
-       <TextView
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:gravity="center"
-           android:textColor="@color/black"
-           android:textSize="30dp"
-           android:layout_margin="10dp"
-           android:fontFamily="@font/poppins_medium"
-           android:layout_gravity="center"
-           android:text="Click on Start to start Quiz"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_margin="10dp"
+            android:fontFamily="@font/poppins_medium"
+            android:gravity="center"
+            android:text="Click on Start to start Quiz"
+            android:textColor="@color/black"
+            android:textSize="30dp" />
+
+        <Button
+            android:id="@+id/startQuiz"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="bottom|end"
+            android:layout_margin="20dp"
+            android:text="Start Quiz"
+            android:textAllCaps="false"
+            android:textSize="22sp" />
+
+
     </FrameLayout>
 </androidx.coordinatorlayout.widget.CoordinatorLayout>
