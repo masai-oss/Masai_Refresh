@@ -83,9 +83,6 @@ dependencies {
     implementation 'androidx.cardview:cardview:1.0.0'
     implementation 'de.hdodenhof:circleimageview:3.1.0'
     implementation 'com.google.android.gms:play-services-auth:19.0.0'
-//pie chart dependencies
-    implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
-
     // Retrofit dependency which will be used to make network calls
     implementation 'com.squareup.retrofit2:retrofit:2.6.0'
     // GSON library which is used to convert POJO to JSON and vice versa
