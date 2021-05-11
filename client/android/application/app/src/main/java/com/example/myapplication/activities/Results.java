@@ -29,8 +29,8 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Results extends AppCompatActivity {
-    TextView tvR, tvPython, tvCPP, tvJava;
-    PieChart pieChart;
+//    TextView tvR, tvPython, tvCPP, tvJava;
+//    PieChart pieChart;
     int correct = 0;
     int incorrect = 0;
     int skipped = 0;
@@ -45,10 +45,10 @@ public class Results extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
+        setContentView(R.layout.activity_result__chart);
         inItViews();
         getDataFromIntent();
-        setData();
+//        setData();
         callApiResult();
         setRecyclerAdapter();
 
@@ -110,47 +110,42 @@ public class Results extends AppCompatActivity {
     }
 
     private void inItViews() {
-        tvR = findViewById(R.id.tvR);
-        tvPython = findViewById(R.id.tvPython);
-        tvCPP = findViewById(R.id.tvCPP);
-        tvJava = findViewById(R.id.tvJava);
-        pieChart = findViewById(R.id.piechart);
-        recyclerViewDetails = findViewById(R.id.recyclerViewDetails);
+
+        recyclerViewDetails = findViewById(R.id.rvDetailedReportNewLayout);
     }
 
-    private void setData() {
-//        tvR.setText(Integer.toString(correct));
-        tvR.setText(Integer.toString(3));
-        tvPython.setText(Integer.toString(1));
-        tvCPP.setText(Integer.toString(1));
-        int total = Integer.parseInt(tvR.getText().toString()) + Integer.parseInt(tvPython.getText().toString()) + Integer.parseInt(tvCPP.getText().toString());
-
-        tvJava.setText(Integer.toString(total));
-
-        pieChart.addPieSlice(
-                new PieModel(
-                        "R",
-                        Integer.parseInt(tvR.getText().toString()),
-                        Color.parseColor("#FFA726")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Python",
-                        Integer.parseInt(tvPython.getText().toString()),
-                        Color.parseColor("#66BB6A")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "C++",
-                        Integer.parseInt(tvCPP.getText().toString()),
-                        Color.parseColor("#EF5350")));
+//    private void setData() {
+////        tvR.setText(Integer.toString(correct));
+//        tvR.setText(Integer.toString(3));
+//        tvPython.setText(Integer.toString(1));
+//        tvCPP.setText(Integer.toString(1));
+//        int total = Integer.parseInt(tvR.getText().toString()) + Integer.parseInt(tvPython.getText().toString()) + Integer.parseInt(tvCPP.getText().toString());
+//
+//        tvJava.setText(Integer.toString(total));
+//
 //        pieChart.addPieSlice(
 //                new PieModel(
-//                        "Java",
-//                        Integer.parseInt(tvJava.getText().toString()),
-//                        Color.parseColor("#29B6F6")));
-
-
-        pieChart.startAnimation();
+//                        "R",
+//                        Integer.parseInt(tvR.getText().toString()),
+//                        Color.parseColor("#FFA726")));
+//        pieChart.addPieSlice(
+//                new PieModel(
+//                        "Python",
+//                        Integer.parseInt(tvPython.getText().toString()),
+//                        Color.parseColor("#66BB6A")));
+//        pieChart.addPieSlice(
+//                new PieModel(
+//                        "C++",
+//                        Integer.parseInt(tvCPP.getText().toString()),
+//                        Color.parseColor("#EF5350")));
+////        pieChart.addPieSlice(
+////                new PieModel(
+////                        "Java",
+////                        Integer.parseInt(tvJava.getText().toString()),
+////                        Color.parseColor("#29B6F6")));
+//
+//
+//        pieChart.startAnimation();
 
     }
 
-}
