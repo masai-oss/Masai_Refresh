@@ -6,6 +6,12 @@
     android:layout_height="match_parent"
     tools:context=".activities.QuizActivity">
 
+<ScrollView
+    android:id="@+id/scrollView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+
     <androidx.cardview.widget.CardView
         android:id="@+id/questionsCard"
         android:layout_width="match_parent"
@@ -96,12 +102,14 @@
         </LinearLayout>
     </androidx.cardview.widget.CardView>
 
+</ScrollView>
+
     <com.google.android.material.button.MaterialButton
         android:id="@+id/prevQstnBtn"
         style="@style/Widget.MaterialComponents.Button.TextButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/questionsCard"
+        android:layout_below="@id/scrollView"
         android:layout_margin="10dp"
         android:text="Previous Question"
         android:textAllCaps="false"
