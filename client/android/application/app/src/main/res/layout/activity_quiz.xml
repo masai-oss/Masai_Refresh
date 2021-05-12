@@ -49,6 +49,7 @@
                     android:id="@+id/radioOptionOne"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="#6C8D9E"
                     android:layout_margin="5dp"
                     android:background="@drawable/answer_border"
                     android:text="Option 1" />
@@ -57,6 +58,7 @@
                     android:id="@+id/radioOptionTwo"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:buttonTint="#6C8D9E"
                     android:layout_margin="5dp"
                     android:background="@drawable/answer_border"
                     android:text="Option 1" />
@@ -64,6 +66,7 @@
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioOptionThree"
                     android:layout_width="match_parent"
+                    android:buttonTint="#6C8D9E"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/answer_border"
@@ -72,6 +75,7 @@
                 <com.google.android.material.radiobutton.MaterialRadioButton
                     android:id="@+id/radioOptionFour"
                     android:layout_width="match_parent"
+                    android:buttonTint="#6C8D9E"
                     android:layout_height="wrap_content"
                     android:layout_margin="5dp"
                     android:background="@drawable/answer_border"

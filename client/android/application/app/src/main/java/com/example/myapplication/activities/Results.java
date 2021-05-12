@@ -1,7 +1,11 @@
 package com.example.myapplication.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -29,7 +33,11 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Results extends AppCompatActivity {
-//    TextView tvR, tvPython, tvCPP, tvJava;
+    TextView tvGoToHomePage, tvLastAttemptCorrect, tvLastAttemptWrong, tvLastAttemptSkipped;
+    ImageView tvGoToHomePageIcon;
+
+
+    //    TextView tvR, tvPython, tvCPP, tvJava;
 //    PieChart pieChart;
     int correct = 0;
     int incorrect = 0;
@@ -54,6 +62,15 @@ public class Results extends AppCompatActivity {
 
     }
 
+    private void updateQuizResult() {
+        tvLastAttemptCorrect.setText(correct + "");
+        tvLastAttemptWrong.setText(incorrect + "");
+        tvLastAttemptSkipped.setText(skipped + "");
+        Log.d("abhi", "Update");
+
+
+    }
+
     private void getDataFromIntent() {
 
         if (getIntent() != null && getIntent().getExtras() != null) {
@@ -69,6 +86,8 @@ public class Results extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewDetails.setLayoutManager(layoutManager);
         recyclerViewDetails.setAdapter(resultDetailsAdapter);
+        Log.d("abhi", "Adapter");
+
     }
 
     private void callApiResult() {
@@ -82,20 +101,28 @@ public class Results extends AppCompatActivity {
 
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
+                    assert response.body() != null;
                     responseList = response.body().getResult();
                     resultDetailsAdapter.updateData(responseList);
+                    Log.d("abhi", "CallApiBefore");
                     for (int i = 0; i < responseList.size(); i++) {
-                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("correct")) {
+
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("CORRECT")) {
                             correct++;
                         }
-                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("wrong")) {
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("WRONG")) {
                             incorrect++;
                         }
-                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("skipped")) {
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("SKIPPED")) {
                             skipped++;
 
                         }
+
                     }
+                    Log.d("abhi", "CallApiAfter");
+                    updateQuizResult();
+
+
                 }
             }
 
@@ -112,6 +139,31 @@ public class Results extends AppCompatActivity {
     private void inItViews() {
 
         recyclerViewDetails = findViewById(R.id.rvDetailedReportNewLayout);
+        tvGoToHomePage = findViewById(R.id.tvGoToHomePage);
+        tvGoToHomePageIcon = findViewById(R.id.ivPreviousLogo);
+        tvLastAttemptCorrect = findViewById(R.id.tvLastAttemptCorrect);
+        tvLastAttemptWrong = findViewById(R.id.tvLastAttemptWrong);
+        tvLastAttemptSkipped = findViewById(R.id.tvLastAttemptSkipped);
+
+
+        tvGoToHomePageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Results.this, TopicsActivity.class);
+                startActivity(intent);
+            }
+        });
+
+        tvGoToHomePageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Results.this, TopicsActivity.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
 //    private void setData() {
@@ -147,5 +199,5 @@ public class Results extends AppCompatActivity {
 //
 //        pieChart.startAnimation();
 
-    }
+}
 
