@@ -34,7 +34,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Results extends AppCompatActivity {
-    TextView tvGoToHomePage, tvLastAttemptCorrect, tvLastAttemptWrong, tvLastAttemptSkipped;
+    TextView tvGoToHomePage, tvLastAttemptCorrect, tvLastAttemptWrong, tvLastAttemptSkipped,tvTopicNameResultActivity;
     ImageView tvGoToHomePageIcon;
 
 
@@ -79,9 +79,8 @@ public class Results extends AppCompatActivity {
             bearerToken = getIntent().getStringExtra("token");
             submissionId = getIntent().getStringExtra("submission_id");
             topicName = getIntent().getStringExtra("topicName");
-
-
         }
+        tvTopicNameResultActivity.setText("Topic: "+topicName);
     }
 
     private void setRecyclerAdapter() {
@@ -147,6 +146,7 @@ public class Results extends AppCompatActivity {
         tvLastAttemptCorrect = findViewById(R.id.tvLastAttemptCorrect);
         tvLastAttemptWrong = findViewById(R.id.tvLastAttemptWrong);
         tvLastAttemptSkipped = findViewById(R.id.tvLastAttemptSkipped);
+        tvTopicNameResultActivity=findViewById(R.id.tvTopicNameResultActivity);
 
 
         tvGoToHomePageIcon.setOnClickListener(new View.OnClickListener() {
