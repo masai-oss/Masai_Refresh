@@ -82,6 +82,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
         val intent = Intent(this, QuizActivity::class.java)
         intent.putExtra("topicId", dataItem.id)
         intent.putExtra("token", tokenID)
+        intent.putExtra("topicName", dataItem.name)
         val dialog: AlertDialog = AlertDialog.Builder(this).create()
         var dialogText =
             "You are about to start a Quiz on ${dataItem.name}. Are you sure you want to go ahead? "
