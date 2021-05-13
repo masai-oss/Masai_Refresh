@@ -19,6 +19,7 @@ class QuizActivity : AppCompatActivity() {
 
     private lateinit var topicID: String
     private lateinit var token: String
+    private lateinit var topicName: String
     private lateinit var attemptViewModel: AttemptViewModel
     private lateinit var dataQuestions: DataQuestions
     private var size = 5
@@ -31,6 +32,7 @@ class QuizActivity : AppCompatActivity() {
         setContentView(R.layout.activity_quiz)
         topicID = intent.getStringExtra("topicId").toString()
         token = intent.getStringExtra("token").toString()
+        topicName=intent.getStringExtra("topicName").toString()
         attemptViewModel = ViewModelProviders.of(this).get(AttemptViewModel::class.java)
 
         observeLiveData()
@@ -63,6 +65,7 @@ class QuizActivity : AppCompatActivity() {
                 intent.putExtra("token", token)
                 intent.putExtra("attempt_id", launchData.attemptId)
                 intent.putExtra("submission_id", launchData.submissionId)
+                intent.putExtra("topicName",topicName)
                 startActivity(intent)
             } else {
                 recordQuiz(answer)
@@ -78,6 +81,7 @@ class QuizActivity : AppCompatActivity() {
                 intent.putExtra("token", token)
                 intent.putExtra("attempt_id", launchData.attemptId)
                 intent.putExtra("submission_id", launchData.submissionId)
+                intent.putExtra("topicName",topicName)
                 startActivity(intent)
             } else {
                 launchQuiz(0)

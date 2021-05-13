@@ -44,7 +44,7 @@ public class Results extends AppCompatActivity {
     int incorrect = 0;
     int skipped = 0;
     private RecyclerView recyclerViewDetails;
-    private String attemptId, bearerToken, submissionId;
+    private String attemptId, bearerToken, submissionId, topicName;
     private ResultDetailsAdapter resultDetailsAdapter;
     private List<ResultItem> responseList = new ArrayList<>();
 
@@ -78,6 +78,8 @@ public class Results extends AppCompatActivity {
             attemptId = getIntent().getStringExtra("attempt_id");
             bearerToken = getIntent().getStringExtra("token");
             submissionId = getIntent().getStringExtra("submission_id");
+            topicName = getIntent().getStringExtra("topicName");
+
 
         }
     }
