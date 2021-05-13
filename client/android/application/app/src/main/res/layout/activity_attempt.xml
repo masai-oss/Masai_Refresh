@@ -1,24 +1,24 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".AttemptActivity">
+
     <br.tiagohm.markdownview.MarkdownView
-        android:layout_margin="10dp"
+        android:id="@+id/tvQuestion"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:id="@+id/tvQuestion"/>
+        android:layout_margin="10dp" />
 
 
     <androidx.recyclerview.widget.RecyclerView
-        android:layout_marginTop="10dp"
         android:id="@+id/rvOptions"
-        android:layout_below="@id/tvQuestion"
-
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+
+        android:layout_below="@id/tvQuestion"
+        android:layout_marginTop="10dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 
@@ -27,25 +27,24 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:weightSum="2"
-        android:id="@+id/btnNextQuestionAndSubmit"
-        android:orientation="horizontal">
-    <Button
-        android:layout_margin="10dp"
-        android:layout_weight="1"
-        android:id="@+id/btnPreviousQuestion"
-        android:visibility="gone"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Previous"
-        />
+        android:orientation="horizontal"
+        android:weightSum="2">
+
         <Button
-            android:layout_weight="1"
+            android:id="@+id/btnPreviousQuestion"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
             android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="Previous"
+            android:visibility="gone" />
+
+        <Button
             android:id="@+id/btnNextQuestion"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="NEXT"
-            />
+            android:layout_margin="10dp"
+            android:layout_weight="1"
+            android:text="NEXT" />
     </LinearLayout>
 </RelativeLayout>

@@ -25,8 +25,6 @@ class Network {
 }
 
 
-
-
 //    companion object {
 //        private const val BASE_URL = "https://apiquizine.herokuapp.com/api/"
 //

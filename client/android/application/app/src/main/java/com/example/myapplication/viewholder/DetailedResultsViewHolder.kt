@@ -10,7 +10,7 @@ class DetailedResultsViewHolder(private val view: View) :
 
     fun setData(resultItem: ResultItem) {
         view.apply {
-            tvQuestionNo.text="Question: " + resultItem.statement
+            tvQuestionNo.text = "Question: " + resultItem.statement
             tvCorrectAnswer.text = resultItem.correct
             tvYourResponseAnswer.text = resultItem.response
             tvExplanationContent.text = resultItem.explanation

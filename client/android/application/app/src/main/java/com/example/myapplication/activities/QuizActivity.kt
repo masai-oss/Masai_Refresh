@@ -1,19 +1,20 @@
 package com.example.myapplication.activities
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.DisplayMetrics
 import android.util.Log
 import android.view.View
+import android.widget.RelativeLayout.LayoutParams
 import android.widget.RadioButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
-import br.tiagohm.markdownview.css.ExternalStyleSheet
 import com.example.myapplication.Attempt.*
 import com.example.myapplication.R
 import com.example.myapplication.viewModel.AttemptViewModel
-import kotlinx.android.synthetic.main.activity_home.*
 import kotlinx.android.synthetic.main.activity_quiz.*
+
 
 class QuizActivity : AppCompatActivity() {
 
@@ -37,6 +38,12 @@ class QuizActivity : AppCompatActivity() {
         val postStart = PostStart(size, topicID)
         attemptViewModel.callStartAttemptApi(token, postStart)
         onclicks()
+//        val displayMetrics = DisplayMetrics()
+//        windowManager.defaultDisplay.getMetrics(displayMetrics)
+//        var height = displayMetrics.heightPixels
+//        val width = displayMetrics.widthPixels
+//        scrollView.layoutParams = ViewGroup.LayoutParams(width, height-300)
+
     }
 
     private fun onclicks() {
@@ -135,8 +142,9 @@ class QuizActivity : AppCompatActivity() {
                     questionDesTV.text = it.questionData.data?.statement
                     questionType = it.questionData.data?.type
                     if (questionType.equals("TF")) {
-                        radioOptionOne.text = it.questionData.data?.options?.get(0)?.text.toString()
-                        radioOptionTwo.text = it.questionData.data?.options?.get(1)?.text.toString()
+                        radioOptionOne.text = "true"
+                        radioOptionTwo.text = "false"
+
                         radioOptionFour.visibility = View.GONE
                         radioOptionThree.visibility = View.GONE
                     } else {

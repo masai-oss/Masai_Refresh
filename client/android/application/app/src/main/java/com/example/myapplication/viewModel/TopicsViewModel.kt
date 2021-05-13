@@ -20,9 +20,13 @@ class TopicsViewModel : ViewModel(), Callback<TopicsModelUpdated> {
 
     val liveData: LiveData<UserUIModel> = mutableLiveData
 
-    override fun onResponse(call: Call<TopicsModelUpdated>, response: Response<TopicsModelUpdated>) {
+    override fun onResponse(
+        call: Call<TopicsModelUpdated>,
+        response: Response<TopicsModelUpdated>
+    ) {
         response.body()?.let {
-            mutableLiveData.value = UserUIModel.Success(it.data as List<com.example.myapplication.model.TopicsModelUpdated.DataItem>)
+            mutableLiveData.value =
+                UserUIModel.Success(it.data as List<com.example.myapplication.model.TopicsModelUpdated.DataItem>)
         }
     }
 

@@ -62,12 +62,11 @@ interface TopicApi {
     ): Call<RecordAnswerResponse>
 
 
-
     @GET("/api/attempt/result/{attemptId}")
     fun detailedResult(
         @Path("attemptId") attempt_id: String?,
-        @Header("Authorization") bearer: String?):Call<ResultModel>
-
+        @Header("Authorization") bearer: String?
+    ): Call<ResultModel>
 
 
 //

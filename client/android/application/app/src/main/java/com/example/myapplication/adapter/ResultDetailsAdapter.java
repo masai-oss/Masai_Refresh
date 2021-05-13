@@ -9,7 +9,6 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.example.myapplication.R;
 import com.example.myapplication.model.result_model.ResultItem;
-import com.example.myapplication.model.result_model.ResultModel;
 import com.example.myapplication.viewholder.DetailedResultsViewHolder;
 
 import java.util.List;
@@ -18,9 +17,8 @@ public class ResultDetailsAdapter extends RecyclerView.Adapter<DetailedResultsVi
     private List<ResultItem> resultItemLists;
 
 
-
     public ResultDetailsAdapter(List<ResultItem> resultItems) {
-        this.resultItemLists=resultItems;
+        this.resultItemLists = resultItems;
     }
 
     @NonNull
@@ -33,7 +31,7 @@ public class ResultDetailsAdapter extends RecyclerView.Adapter<DetailedResultsVi
 
     @Override
     public void onBindViewHolder(@NonNull DetailedResultsViewHolder holder, int position) {
-        ResultItem resultItemList=resultItemLists.get(position);
+        ResultItem resultItemList = resultItemLists.get(position);
         holder.setData(resultItemList);
 
     }
@@ -43,7 +41,7 @@ public class ResultDetailsAdapter extends RecyclerView.Adapter<DetailedResultsVi
         return resultItemLists.size();
     }
 
-    public void updateData(List<ResultItem> responseList){
+    public void updateData(List<ResultItem> responseList) {
         this.resultItemLists = responseList;
         notifyDataSetChanged();
     }
