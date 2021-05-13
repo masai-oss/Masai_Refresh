@@ -13,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.GoogleSignInActivty;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ResultDetailsAdapter;
 import com.example.myapplication.model.result_model.ResultItem;
@@ -150,7 +151,7 @@ public class Results extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(Results.this, TopicsActivity.class);
+                Intent intent = new Intent(Results.this, GoogleSignInActivty.class);
                 startActivity(intent);
             }
         });
@@ -158,7 +159,7 @@ public class Results extends AppCompatActivity {
         tvGoToHomePageIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent intent = new Intent(Results.this, TopicsActivity.class);
+                Intent intent = new Intent(Results.this, GoogleSignInActivty.class);
                 startActivity(intent);
 
             }
