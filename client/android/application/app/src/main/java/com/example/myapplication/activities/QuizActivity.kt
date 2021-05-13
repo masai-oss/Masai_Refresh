@@ -47,34 +47,53 @@ class QuizActivity : AppCompatActivity() {
 
 
         nextQstnBtn.setOnClickListener {
+
             if (count == size - 1) {
+                recordResponse()
                 Toast.makeText(this, "Quiz Completed", Toast.LENGTH_SHORT).show()
                 val intent = Intent(this, Results::class.java)
                 intent.putExtra("token", token)
-// implement before launch               intent.putExtra("attempt_id" , attempId)
-//                intent.putExtra("submission_id",submissionID)
+                intent.putExtra("attempt_id", launchData.attemptId)
+                intent.putExtra("submission_id", launchData.submissionId)
                 startActivity(intent)
             } else {
                 recordResponse()
                 launchQuiz(0)
             }
         }
+        skipQstnBtn.setOnClickListener {
+            recordQuiz(-1)
+            if (count == size - 1) {
+                Toast.makeText(this, "Quiz Completed", Toast.LENGTH_SHORT).show()
+                val intent = Intent(this, Results::class.java)
+                intent.putExtra("token", token)
+                intent.putExtra("attempt_id", launchData.attemptId)
+                intent.putExtra("submission_id", launchData.submissionId)
+                startActivity(intent)
+            } else {
+                launchQuiz(0)
+            }
+        }
     }
 
     private fun recordResponse() {
-        var responseId = radioGroupOptions.checkedRadioButtonId
+        if(radioGroupOptions.isPressed) {
+            var responseId = radioGroupOptions.checkedRadioButtonId
 
-        val radioButton: RadioButton = findViewById(responseId)
-        when (responseId) {
-            R.id.radioOptionOne -> recordQuiz(0)
-            R.id.radioOptionTwo -> recordQuiz(1)
-            R.id.radioOptionThree -> recordQuiz(2)
-            R.id.radioOptionFour -> recordQuiz(3)
+            val radioButton: RadioButton = findViewById(responseId)
+            when (responseId) {
+                R.id.radioOptionOne -> recordQuiz(0)
+                R.id.radioOptionTwo -> recordQuiz(1)
+                R.id.radioOptionThree -> recordQuiz(2)
+                R.id.radioOptionFour -> recordQuiz(3)
+
+            }
+
+            var text = radioButton.text
+            Toast.makeText(this, "Response : $text", Toast.LENGTH_SHORT).show()
+            radioGroupOptions.clearCheck()
 
         }
-        var text = radioButton.text
-        Toast.makeText(this, "Response : $text", Toast.LENGTH_SHORT).show()
-        radioGroupOptions.clearCheck()
     }
 
     private fun recordQuiz(i: Int) {
@@ -90,10 +109,10 @@ class QuizActivity : AppCompatActivity() {
                     i
                 )
             }
-            "TF"->{
+            "TF" -> {
                 Toast.makeText(this, "Response : recorded", Toast.LENGTH_SHORT).show()
-                var answer :Boolean =true
-                answer = i==0
+                var answer: Boolean = true
+                answer = i == 0
                 attemptViewModel.recordCurrentTFAnswer(
                     token,
                     launchData.submissionId,
