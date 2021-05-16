@@ -13,6 +13,7 @@
 - MongoDB
 - Kotlin
 - Java
+- HTML/CSS
 
 ## Getting Started
 
