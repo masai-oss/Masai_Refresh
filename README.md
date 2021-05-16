@@ -11,6 +11,8 @@
 - NodeJS
 - PassportJS
 - MongoDB
+- Kotlin
+- Java
 
 ## Getting Started
 
