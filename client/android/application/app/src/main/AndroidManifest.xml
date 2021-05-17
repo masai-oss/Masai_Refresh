@@ -12,10 +12,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.MyApplication">
-        <activity android:name=".activities.QuizActivity"></activity>
+        <activity
+            android:name=".activities.QuizActivity"
+            />
         <activity android:name=".activities.Results" />
         <activity android:name=".activities.Result_Chart" />
-        <activity android:name=".activities.TopicsActivity" />
+        <activity android:name=".activities.TopicsActivity"
+            android:theme="@style/NoActionBar"/>
         <activity android:name=".MainActivity" />
         <activity android:name=".HomeActivity" />
         <activity android:name=".AttemptActivity" />

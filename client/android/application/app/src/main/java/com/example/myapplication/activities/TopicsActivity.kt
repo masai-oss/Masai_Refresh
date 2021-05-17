@@ -14,6 +14,8 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
+import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.GoogleSignInActivty
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
 import com.example.myapplication.interface_clickListener.TopicClickListener
@@ -41,6 +43,16 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
 //        if(str.isEmpty()) str = key.toString()
         tokenID = "Bearer $key"
         topicsViewModel.callAPI(str)
+
+        signOutBtn.setOnClickListener {
+            val sp: SharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE)
+            val editor : SharedPreferences.Editor = sp.edit()
+            editor.clear()
+            editor.commit()
+            val intent = Intent(this, GoogleSignInActivty::class.java)
+            Toast.makeText(this, "Signing Out", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+        }
     }
 
     private fun observeLiveData() {
@@ -67,7 +79,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
 
     private fun setRecyclerAdapter() {
         userAdapter = TopicAdapter(dataModelList, this)
-        val layoutManager = GridLayoutManager(this, 2)
+        val layoutManager = LinearLayoutManager(this)
         recyclerView.apply {
             this.layoutManager = layoutManager
             adapter = userAdapter
@@ -81,6 +93,7 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
         val intent = Intent(this, QuizActivity::class.java)
         intent.putExtra("topicId", dataItem.id)
         intent.putExtra("token", tokenID)
+        intent.putExtra("topicName", dataItem.name)
         val dialog: AlertDialog = AlertDialog.Builder(this).create()
         var dialogText =
             "You are about to start a Quiz on ${dataItem.name}. Are you sure you want to go ahead? "
