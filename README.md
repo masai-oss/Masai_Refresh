@@ -23,9 +23,9 @@ To get a local copy up and running follow these simple example steps.
 
 ### Prerequisites
 
-1 Install Node js in your local system
-2 Code Editor
-4 Must have a MongoDb Server and fill the .env with .env.example
+1. Install Node js in your local system
+2. Code Editor
+3. Must have a MongoDb Server and fill the .env with .env.example
 
 ### Install
 
