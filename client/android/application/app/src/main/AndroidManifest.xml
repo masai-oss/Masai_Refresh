@@ -15,11 +15,7 @@
         <activity android:name=".activities.TestingUIActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan">
-            <intent-filter>
-            <action android:name="android.intent.action.MAIN" />
 
-            <category android:name="android.intent.category.LAUNCHER" />
-        </intent-filter>
         </activity>
         <activity android:name=".activities.QuizActivity" />
         <activity android:name=".activities.Results" />
@@ -33,6 +29,11 @@
         <activity
             android:name=".GoogleSignInActivty"
             android:theme="@style/NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
 
         </activity>
 
