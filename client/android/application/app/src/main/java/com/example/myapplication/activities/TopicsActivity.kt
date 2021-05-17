@@ -15,6 +15,7 @@ import androidx.lifecycle.ViewModelProviders
 import androidx.lifecycle.observe
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.myapplication.GoogleSignInActivty
 import com.example.myapplication.R
 import com.example.myapplication.adapter.TopicAdapter
 import com.example.myapplication.interface_clickListener.TopicClickListener
@@ -42,6 +43,16 @@ class TopicsActivity : AppCompatActivity(), TopicClickListener {
 //        if(str.isEmpty()) str = key.toString()
         tokenID = "Bearer $key"
         topicsViewModel.callAPI(str)
+
+        signOutBtn.setOnClickListener {
+            val sp: SharedPreferences = getSharedPreferences("LOGIN", MODE_PRIVATE)
+            val editor : SharedPreferences.Editor = sp.edit()
+            editor.clear()
+            editor.commit()
+            val intent = Intent(this, GoogleSignInActivty::class.java)
+            Toast.makeText(this, "Signing Out", Toast.LENGTH_SHORT).show()
+            startActivity(intent)
+        }
     }
 
     private fun observeLiveData() {
