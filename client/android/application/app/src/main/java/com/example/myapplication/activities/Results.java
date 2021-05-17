@@ -1,7 +1,11 @@
 package com.example.myapplication.activities;
 
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -9,6 +13,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.example.myapplication.GoogleSignInActivty;
 import com.example.myapplication.R;
 import com.example.myapplication.adapter.ResultDetailsAdapter;
 import com.example.myapplication.model.result_model.ResultItem;
@@ -29,13 +34,17 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 public class Results extends AppCompatActivity {
-    TextView tvR, tvPython, tvCPP, tvJava;
-    PieChart pieChart;
+    TextView tvGoToHomePage, tvLastAttemptCorrect, tvLastAttemptWrong, tvLastAttemptSkipped,tvTopicNameResultActivity;
+    ImageView tvGoToHomePageIcon;
+
+
+    //    TextView tvR, tvPython, tvCPP, tvJava;
+//    PieChart pieChart;
     int correct = 0;
     int incorrect = 0;
     int skipped = 0;
     private RecyclerView recyclerViewDetails;
-    private String attemptId, bearerToken, submissionId;
+    private String attemptId, bearerToken, submissionId, topicName;
     private ResultDetailsAdapter resultDetailsAdapter;
     private List<ResultItem> responseList = new ArrayList<>();
 
@@ -45,12 +54,21 @@ public class Results extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_results);
+        setContentView(R.layout.activity_result__chart);
         inItViews();
         getDataFromIntent();
-        setData();
+//        setData();
         callApiResult();
         setRecyclerAdapter();
+
+    }
+
+    private void updateQuizResult() {
+        tvLastAttemptCorrect.setText(correct + "");
+        tvLastAttemptWrong.setText(incorrect + "");
+        tvLastAttemptSkipped.setText(skipped + "");
+        Log.d("abhi", "Update");
+
 
     }
 
@@ -60,8 +78,9 @@ public class Results extends AppCompatActivity {
             attemptId = getIntent().getStringExtra("attempt_id");
             bearerToken = getIntent().getStringExtra("token");
             submissionId = getIntent().getStringExtra("submission_id");
-
+            topicName = getIntent().getStringExtra("topicName");
         }
+        tvTopicNameResultActivity.setText("Topic: "+topicName);
     }
 
     private void setRecyclerAdapter() {
@@ -69,6 +88,8 @@ public class Results extends AppCompatActivity {
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerViewDetails.setLayoutManager(layoutManager);
         recyclerViewDetails.setAdapter(resultDetailsAdapter);
+        Log.d("abhi", "Adapter");
+
     }
 
     private void callApiResult() {
@@ -82,20 +103,28 @@ public class Results extends AppCompatActivity {
 
 
                 if (response.code() == HttpURLConnection.HTTP_OK) {
+                    assert response.body() != null;
                     responseList = response.body().getResult();
                     resultDetailsAdapter.updateData(responseList);
+                    Log.d("abhi", "CallApiBefore");
                     for (int i = 0; i < responseList.size(); i++) {
-                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("correct")) {
+
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("CORRECT")) {
                             correct++;
                         }
-                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("wrong")) {
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("WRONG")) {
                             incorrect++;
                         }
-                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("skipped")) {
+                        if (Objects.requireNonNull(responseList.get(i).getOutcome()).equals("SKIPPED")) {
                             skipped++;
 
                         }
+
                     }
+                    Log.d("abhi", "CallApiAfter");
+                    updateQuizResult();
+
+
                 }
             }
 
@@ -110,47 +139,68 @@ public class Results extends AppCompatActivity {
     }
 
     private void inItViews() {
-        tvR = findViewById(R.id.tvR);
-        tvPython = findViewById(R.id.tvPython);
-        tvCPP = findViewById(R.id.tvCPP);
-        tvJava = findViewById(R.id.tvJava);
-        pieChart = findViewById(R.id.piechart);
-        recyclerViewDetails = findViewById(R.id.recyclerViewDetails);
+
+        recyclerViewDetails = findViewById(R.id.rvDetailedReportNewLayout);
+        tvGoToHomePage = findViewById(R.id.tvGoToHomePage);
+        tvGoToHomePageIcon = findViewById(R.id.ivPreviousLogo);
+        tvLastAttemptCorrect = findViewById(R.id.tvLastAttemptCorrect);
+        tvLastAttemptWrong = findViewById(R.id.tvLastAttemptWrong);
+        tvLastAttemptSkipped = findViewById(R.id.tvLastAttemptSkipped);
+        tvTopicNameResultActivity=findViewById(R.id.tvTopicNameResultActivity);
+
+
+        tvGoToHomePageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+                Intent intent = new Intent(Results.this, GoogleSignInActivty.class);
+                startActivity(intent);
+            }
+        });
+
+        tvGoToHomePageIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(Results.this, GoogleSignInActivty.class);
+                startActivity(intent);
+
+            }
+        });
+
     }
 
-    private void setData() {
-//        tvR.setText(Integer.toString(correct));
-        tvR.setText(Integer.toString(3));
-        tvPython.setText(Integer.toString(1));
-        tvCPP.setText(Integer.toString(1));
-        int total = Integer.parseInt(tvR.getText().toString()) + Integer.parseInt(tvPython.getText().toString()) + Integer.parseInt(tvCPP.getText().toString());
-
-        tvJava.setText(Integer.toString(total));
-
-        pieChart.addPieSlice(
-                new PieModel(
-                        "R",
-                        Integer.parseInt(tvR.getText().toString()),
-                        Color.parseColor("#FFA726")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "Python",
-                        Integer.parseInt(tvPython.getText().toString()),
-                        Color.parseColor("#66BB6A")));
-        pieChart.addPieSlice(
-                new PieModel(
-                        "C++",
-                        Integer.parseInt(tvCPP.getText().toString()),
-                        Color.parseColor("#EF5350")));
+//    private void setData() {
+////        tvR.setText(Integer.toString(correct));
+//        tvR.setText(Integer.toString(3));
+//        tvPython.setText(Integer.toString(1));
+//        tvCPP.setText(Integer.toString(1));
+//        int total = Integer.parseInt(tvR.getText().toString()) + Integer.parseInt(tvPython.getText().toString()) + Integer.parseInt(tvCPP.getText().toString());
+//
+//        tvJava.setText(Integer.toString(total));
+//
 //        pieChart.addPieSlice(
 //                new PieModel(
-//                        "Java",
-//                        Integer.parseInt(tvJava.getText().toString()),
-//                        Color.parseColor("#29B6F6")));
-
-
-        pieChart.startAnimation();
-
-    }
+//                        "R",
+//                        Integer.parseInt(tvR.getText().toString()),
+//                        Color.parseColor("#FFA726")));
+//        pieChart.addPieSlice(
+//                new PieModel(
+//                        "Python",
+//                        Integer.parseInt(tvPython.getText().toString()),
+//                        Color.parseColor("#66BB6A")));
+//        pieChart.addPieSlice(
+//                new PieModel(
+//                        "C++",
+//                        Integer.parseInt(tvCPP.getText().toString()),
+//                        Color.parseColor("#EF5350")));
+////        pieChart.addPieSlice(
+////                new PieModel(
+////                        "Java",
+////                        Integer.parseInt(tvJava.getText().toString()),
+////                        Color.parseColor("#29B6F6")));
+//
+//
+//        pieChart.startAnimation();
 
 }
+

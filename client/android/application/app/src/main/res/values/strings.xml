@@ -3,4 +3,5 @@
     <!-- TODO: Remove or change this placeholder text -->
     <string name="sample_question">1. Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here Question is written here.</string>
     <string name="report_text"><u>Report an issue with the question</u></string>
+    <string name="go_to_home_page">Go to Home Page</string>
 </resources>
