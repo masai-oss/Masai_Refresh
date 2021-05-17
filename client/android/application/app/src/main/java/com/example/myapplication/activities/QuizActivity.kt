@@ -108,7 +108,7 @@ class QuizActivity : AppCompatActivity() {
                 }
             }
             if (radioGroupOptions.checkedRadioButtonId==-1){
-                nextQstnBtn.visibility = View.GONE
+                nextQstnBtn.visibility = View.INVISIBLE
 
             }else{
                 nextQstnBtn.visibility = View.VISIBLE
@@ -194,7 +194,22 @@ class QuizActivity : AppCompatActivity() {
 
                     }else{
                         when(it.questionData.data?.selected){
+                            1 ->{
+                                radioOptionOne.isChecked=true
 
+                            }
+                            2 ->{
+                                radioOptionTwo.isChecked=true
+
+                            }
+                            3 ->{
+                                radioOptionThree.isChecked=true
+
+                            }
+                            4 ->{
+                                radioOptionFour.isChecked=true
+
+                            }
                         }
 
                     }
