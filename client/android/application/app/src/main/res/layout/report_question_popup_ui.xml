@@ -130,9 +130,10 @@
             android:layout_height="0dp"
             android:layout_margin="8dp"
             android:layout_weight="1.5"
-            android:inputType="text|textMultiLine|textCapSentences"            android:gravity="top|left"
             android:background="@drawable/bg_add_details"
             android:fontFamily="@font/open_sans"
+            android:gravity="top|left"
+            android:inputType="text|textMultiLine|textCapSentences"
             android:textColor="@color/black"
             android:textSize="12sp" />
 
@@ -164,10 +165,10 @@
                 android:layout_height="wrap_content"
                 android:layout_centerVertical="true"
                 android:layout_toLeftOf="@+id/btnSubmit_report_pop_Up"
+                android:fontFamily="@font/droid_sans_mono"
                 android:text="Cancel"
                 android:textColor="#21424A"
                 android:textSize="12sp"
-                android:fontFamily="@font/droid_sans_mono"
                 android:textStyle="bold" />
 
 
