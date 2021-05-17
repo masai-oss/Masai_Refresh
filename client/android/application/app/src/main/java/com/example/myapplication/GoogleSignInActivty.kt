@@ -139,7 +139,7 @@ class GoogleSignInActivty : AppCompatActivity() {
             // The Task returned from this call is always completed, no need to attach
             // a listener.
             val task: Task<GoogleSignInAccount> = GoogleSignIn.getSignedInAccountFromIntent(data)
-            handleSignInResult(task);
+            handleSignInResult(task)
 
         }
 
