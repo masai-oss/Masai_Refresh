@@ -88,7 +88,7 @@ class TopicViewHolder(private val view: View, private val listener: TopicClickLi
                     percentage = ((it.correct.toFloat() / it.alloted.toFloat())  * 100)
                 }
           }
-            tvLastAttemptPercentage.text="Last Attempt: (${percentage.toInt()})"
+            tvLastAttemptPercentage.text="Last Attempt: (${percentage.toInt()} % )"
 
 
 
