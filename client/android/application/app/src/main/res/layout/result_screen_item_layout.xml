@@ -13,6 +13,7 @@
 
         <TextView
             android:id="@+id/tvQuestionNo"
+            android:fontFamily="@font/open_sans"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_margin="8dp"
@@ -22,6 +23,7 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:fontFamily="@font/open_sans"
             android:layout_margin="8dp"
             android:layout_toRightOf="@+id/tvQuestionNo"
             android:text="Which of the following---" />
@@ -46,6 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:fontFamily="@font/open_sans"
                 android:layout_weight="1"
                 android:text="Correct Response"
                 android:textColor="@android:color/black"
@@ -65,6 +68,7 @@
                 android:id="@+id/tvYourResponseAnswer"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+                android:fontFamily="@font/open_sans"
                 android:layout_margin="8dp"
                 android:layout_weight="1"
                 android:text="Your Answer is     ,,\njsjsjsjjjajajaj\njjjsjsjsjsjsjsj\mlslslsls"
@@ -75,9 +79,10 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
+                android:fontFamily="@font/open_sans"
                 android:layout_weight="1"
                 android:text="Correct Response is  \n jjjsjsjs\nsjsjsjsja"
-                android:textColor="#00FF00"
+                android:textColor="#04A91E"
                 android:textStyle="bold" />
 
 
@@ -89,6 +94,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/llResponseContent"
             android:layout_margin="8dp"
+            android:fontFamily="@font/open_sans"
             android:text="Explanation"
             android:textColor="@android:color/black"
             android:textStyle="bold" />
@@ -96,6 +102,7 @@
         <TextView
             android:id="@+id/tvExplanationContent"
             android:layout_width="wrap_content"
+            android:fontFamily="@font/open_sans"
             android:layout_height="wrap_content"
             android:layout_below="@+id/tvExplanationHeading"
             android:layout_margin="8dp" />
