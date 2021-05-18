@@ -24,6 +24,7 @@ import com.google.android.gms.common.Scopes
 import com.google.android.gms.common.SignInButton
 import com.google.android.gms.common.api.ApiException
 import com.google.android.gms.common.api.Scope
+import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
 import kotlinx.android.synthetic.main.activity_google_sign_in_activty.*
 import retrofit2.Call
@@ -45,7 +46,7 @@ class GoogleSignInActivty : AppCompatActivity() {
         }, 2000)
         val gso: GoogleSignInOptions =
             GoogleSignInOptions.Builder(GoogleSignInOptions.DEFAULT_SIGN_IN)
-                .requestIdToken("1076096355894-tlqr133lhbep9c9n8jkv24msqri7pvb2.apps.googleusercontent.com")
+                .requestIdToken(BuildConfig.GSignIn_Key)
                 .requestScopes(Scope(Scopes.PROFILE))
                 .requestEmail().build()
         mGoogleSignInClient = GoogleSignIn.getClient(this@GoogleSignInActivty, gso)
@@ -68,6 +69,9 @@ class GoogleSignInActivty : AppCompatActivity() {
             startActivity(intent)
             finish()
         } else {
+            mGoogleSignInClient.signOut().addOnCompleteListener(this, OnCompleteListener {
+
+            })
             gSignInBtn.visibility = View.VISIBLE
         }
 

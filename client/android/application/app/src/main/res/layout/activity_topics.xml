@@ -21,12 +21,14 @@
             android:layout_weight="1.60"
             android:src="@drawable/ic_brand_identity" />
 
-        <ImageView
+        <ImageButton
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="37sp"
             android:layout_weight="0.40"
             android:layout_marginEnd="16dp"
+            android:id="@+id/signOutBtn"
+            android:background="@android:color/transparent"
             android:src="@drawable/ic_sign_out" />
 
 
