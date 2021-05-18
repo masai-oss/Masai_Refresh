@@ -17,7 +17,7 @@
 
 ## Getting Started
 
-**Just fork it and fell free to use it.**
+**Just fork it and feel free to use it.**
 
 To get a local copy up and running follow these simple example steps.
 
