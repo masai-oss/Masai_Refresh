@@ -186,6 +186,90 @@ const getResults = async (req, res) => {
   }
 };
 
+// get all attempt results data for a particular topic for a user
+const getResultsTopicwise = async (req, res) => {
+	let {topic_id} = req.params
+  let user_id = req.id
+
+	// checking for topic id in request
+	if(topic_id == undefined){
+		return res(400).json({
+			error : true,
+			message : "Send topic id"
+		})
+	}
+
+  // check if it's a valid topic id
+  const find_topic = await Topic.find(
+      {_id : topic_id}, 
+      {_id : true, name : true}
+  ).lean().exec()
+  if(find_topic.length == 0){
+      return res.status(400).json({
+        error : true,
+        message : "Invalid topic id"
+      })
+  }
+
+	try{
+		// getting all attempts for particular topic from submissions
+		let topic_attempts = await Submission.findOne(
+			{
+        $and : [
+          {topic_id : topic_id},
+          {user_id : user_id}
+        ]
+			},
+			{
+				"attempts" : 1,
+				_id : 0
+			}
+		).lean().exec()
+
+		// if no attempts, send user hadn't started any attempts
+		if(topic_attempts === null){
+			return res.status(200).json({
+				error : false,
+				started_attempts : false,
+				topic_attempt_stats : topic_attempts
+			})
+		}
+
+		// if attempts are present
+		else{
+			let all_attempt_status = topic_attempts.attempts.map((attempt) => {
+				// converting the gmt time to ist time in required format
+				let converted_time = attempt.time_stamp.toLocaleString('en-GB', { timeZone: 'Asia/Kolkata' })
+
+				let response = {
+					attempt_id : attempt._id,
+					correct : attempt.stats.correct,
+					skipped : attempt.stats.skipped,
+					incorrect : attempt.stats.wrong,
+          total_questions : attempt.questions.length,
+					date : converted_time
+				}
+				return response
+			})
+
+			// sending response
+			return res.status(200).json({
+				error : false,
+				started_attempts : true,
+				topic_attempt_stats : all_attempt_status
+			})
+		}
+	}
+	catch(error){
+		return res.status(500).json({
+			error : true,
+			message : "Something went wrong",
+			reason : `${error}`
+		})
+	}
+}
+
 module.exports = {
   getResults,
+  getResultsTopicwise
 };

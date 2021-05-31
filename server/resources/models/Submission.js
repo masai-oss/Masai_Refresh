@@ -34,6 +34,11 @@ const submissionSchema = new Schema(
         attempts: [
             {
                 questions: [Schema.Types.ObjectId],
+                time_stamp : {
+                    type : Date,
+                    required : true,
+                    default : Date.now()
+                },
                 answers: [
                     {
                         question_id: {
@@ -106,7 +111,8 @@ const submissionSchema = new Schema(
                         type: Number,
                         min: 0
                     }
-                }
+                },
+
             }
         ]
     },
