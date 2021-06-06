@@ -32,55 +32,55 @@ const CLIENT_HOME_PAGE_URL = process.env.CLIENT_HOME_PAGE_URL
 const ENVIRONMENT = process.env.NODE_ENV
 
 mongoose.connect(
-	MONGO_URI,
-	{
-		useNewUrlParser: true,
-		useCreateIndex: true,
-		useUnifiedTopology: true,
-		useFindAndModify: false,
-	},
-	(err) => {
-		if (err) {
-			console.log(`Error : ${err}`)
-		} else {
-			console.log("The Database is connected")
-		}
-	}
+  MONGO_URI,
+  {
+    useNewUrlParser: true,
+    useCreateIndex: true,
+    useUnifiedTopology: true,
+    useFindAndModify: false,
+  },
+  (err) => {
+    if (err) {
+      console.log(`Error : ${err}`)
+    } else {
+      console.log("The Database is connected")
+    }
+  }
 )
 
 app.set("trust proxy", 1)
 
 app.use(
-	session({
-		name: "quizine",
-		secret: COOKIE_KEY,
-		resave: true,
-		saveUninitialized: false,
-		ttl: 30 * 24 * 60 * 10 * 1000, //30 days
-		cookie: {
-			sameSite: ENVIRONMENT === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
-			secure: ENVIRONMENT === "production", // must be true if sameSite='none'
-			maxAge: 30 * 24 * 60 * 10 * 1000, //30 days
-		},
-		store: new MemoryStore({
-			checkPeriod: 30 * 24 * 60 * 10 * 1000, // prune expired entries every 30 days
-		}),
-	})
+  session({
+    name: "quizine",
+    secret: COOKIE_KEY,
+    resave: true,
+    saveUninitialized: false,
+    ttl: 30 * 24 * 60 * 10 * 1000, //30 days
+    cookie: {
+      sameSite: ENVIRONMENT === "production" ? "none" : "lax", // must be 'none' to enable cross-site delivery
+      secure: ENVIRONMENT === "production", // must be true if sameSite='none'
+      maxAge: 30 * 24 * 60 * 10 * 1000, //30 days
+    },
+    store: new MemoryStore({
+      checkPeriod: 30 * 24 * 60 * 10 * 1000, // prune expired entries every 30 days
+    }),
+  })
 )
 
 app.use(passport.initialize())
 app.use(passport.session())
 
 app.use(
-	cors({
-		origin: CLIENT_HOME_PAGE_URL,
-		methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
-		credentials: true,
-	})
+  cors({
+    origin: CLIENT_HOME_PAGE_URL,
+    methods: ["GET,HEAD,PUT,PATCH,POST,DELETE"],
+    credentials: true,
+  })
 )
 const uploadDir = "./uploads"
 if (!fs.existsSync(uploadDir)) {
-	fs.mkdirSync(uploadDir)
+  fs.mkdirSync(uploadDir)
 }
 app.use(express.json())
 app.use("/uploads", express.static("uploads"))
@@ -93,5 +93,5 @@ app.use("/api/stats", statsRoute)
 app.use("/api/scraper", scraperRoute)
 
 app.listen(PORT, () => {
-	console.log(`server is listening at ${PORT}`)
+  console.log(`server is listening at ${PORT}`)
 })
