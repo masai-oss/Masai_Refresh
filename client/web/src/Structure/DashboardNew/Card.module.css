@@ -8,26 +8,17 @@
   cursor: pointer;
 }
 .svgLogo {
-  /* background: linear-gradient(
-    152.85deg,
-    #fc490b -42.62%,
-    rgba(254, 177, 151, 0.428027) 25.72%,
-    rgba(254, 189, 166, 0.364284) 46.09%,
-    rgba(254, 216, 202, 0.215488) 88.61%,
-    rgba(255, 255, 255, 0) 121.7%
-  ); */
-  text-align: center;
   border-radius: 10px;
   border-top-right-radius: 0px;
   border-bottom-right-radius: 0px;
-  padding-top: 25%;
+  padding-top: 15%;
 }
-.svgLogo p {
-  font-weight: 600;
-  font-size: 18px;
-  color: #fc490b;
-  margin-top: 15px;
+.svgLogo img {
+  display: block;
+  margin: auto;
+  padding: 10px 0 10px 0;
 }
+
 .startQuiz {
   text-align: center;
   padding-top: 25%;

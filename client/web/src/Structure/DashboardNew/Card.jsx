@@ -6,6 +6,7 @@ const Card = ({ topicData, setQuizTitle }) => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   const { name } = topicData;
   const logoPath = `/logos/${name.toLowerCase()}/${name.toLowerCase()}_logo.svg`;
+  const textPath = `/logos/${name.toLowerCase()}/${name.toLowerCase()}.svg`;
   const backGround = {
     html: `linear-gradient(152.85deg, #FC490B -42.62%, rgba(254, 177, 151, 0.428027) 25.72%, rgba(254, 189, 166, 0.364284) 46.09%, rgba(254, 216, 202, 0.215488) 88.61%, rgba(255, 255, 255, 0) 121.7%)
   `,
@@ -25,8 +26,19 @@ const Card = ({ topicData, setQuizTitle }) => {
     `,
   };
 
-  let color = backGround[name.toLowerCase()];
-  console.log(color);
+  const allColors = {
+    html: `#FC490B`,
+    css: `#2196F3`,
+    java: `#DB380E`,
+    javascript: `#000000`,
+    node_js: `#539E43`,
+    python: `#FFC331`,
+    react: `#5BCCEB`,
+    sql: ` #F29111`,
+  };
+
+  const gradientColor = backGround[name.toLowerCase()];
+  const textColor = allColors[name.toLowerCase()];
   return (
     <>
       <div
@@ -36,9 +48,10 @@ const Card = ({ topicData, setQuizTitle }) => {
           setQuizTitle(name);
         }}
       >
-        <div className={styles.svgLogo} style={{ background: color }}>
+        <div className={styles.svgLogo} style={{ background: gradientColor }}>
           <img src={logoPath} alt="Logo not found" />
-          <p>{name}</p>
+          <img src={textPath} alt="Logo not found" />
+          {/* <p style={{ color: textColor }}>{name}</p> */}
         </div>
         <div className={styles.startQuiz}>
           <h3>START {name} QUIZ</h3>
