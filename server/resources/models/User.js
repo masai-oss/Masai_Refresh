@@ -1,5 +1,5 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
 
 const userSchema = new Schema(
   {
@@ -14,10 +14,12 @@ const userSchema = new Schema(
         identifier: String,
       },
     ],
+    likes: Schema.Types.Mixed,
+    bookmarks: Schema.Types.Mixed,
   },
   {
     versionKey: false,
   }
-);
+)
 
-module.exports = mongoose.model("users", userSchema);
+module.exports = mongoose.model("users", userSchema)

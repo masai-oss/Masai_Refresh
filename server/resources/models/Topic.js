@@ -1,8 +1,8 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-const topics_enum = require("../utils/enums/TopicsEnum");
-const QuestionTypeEnum = require("../utils/enums/QuestionTypeEnum");
-const reasonEnum = require("../utils/enums/ReasonEnum");
+const mongoose = require("mongoose")
+const Schema = mongoose.Schema
+const topics_enum = require("../utils/enums/TopicsEnum")
+const QuestionTypeEnum = require("../utils/enums/QuestionTypeEnum")
+const reasonEnum = require("../utils/enums/ReasonEnum")
 
 const topicSchema = new Schema(
   {
@@ -84,13 +84,13 @@ const topicSchema = new Schema(
         correct: {
           type: Boolean,
           required: function () {
-            return this.type === QuestionTypeEnum.TF;
+            return this.type === QuestionTypeEnum.TF
           },
         },
         answer: {
           type: String,
           required: function () {
-            return this.type === QuestionTypeEnum.SHORT;
+            return this.type === QuestionTypeEnum.SHORT
           },
         },
         options: {
@@ -109,7 +109,7 @@ const topicSchema = new Schema(
             },
           ],
           required: function () {
-            return this.type === QuestionTypeEnum.MCQ;
+            return this.type === QuestionTypeEnum.MCQ
           },
         },
         stats: {
@@ -140,6 +140,6 @@ const topicSchema = new Schema(
   {
     versionKey: false,
   }
-);
+)
 
-module.exports = mongoose.model("topics", topicSchema);
+module.exports = mongoose.model("topics", topicSchema)
