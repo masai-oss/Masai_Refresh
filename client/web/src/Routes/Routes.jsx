@@ -4,6 +4,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication";
 import { Dashboard } from "../Structure/Dashboard";
+import { DashboardNew } from "../Structure/DashboardNew/DashboardNew";
 import {
   Questions as AdminQuestions,
   QuestionForm,
@@ -21,8 +22,10 @@ const Routes = () => {
       <Switch>
         {/* all private routes here */}
         <PrivateRoute exact path="/" component={Dashboard} />
+        <PrivateRoute exact path="/new-dashboard" component={DashboardNew} />
         <PrivateRoute exact path="/quiz_topics" component={Topics} />
         <PrivateRoute exact path="/quiz_questions" component={Questions} />
+
         <PrivateRoute
           exact
           path="/results_display"
@@ -30,8 +33,16 @@ const Routes = () => {
         />
 
         {/* all admin routes here */}
-        <AdminRoute exact path="/admin/questions/:topic" component={AdminQuestions} />
-        <AdminRoute exact path="/admin/questions/add" component={QuestionForm} />
+        <AdminRoute
+          exact
+          path="/admin/questions/:topic"
+          component={AdminQuestions}
+        />
+        <AdminRoute
+          exact
+          path="/admin/questions/add"
+          component={QuestionForm}
+        />
         <AdminRoute
           exact
           path="/admin/questions/edit/:topic/:id"

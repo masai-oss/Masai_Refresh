@@ -1,0 +1,9 @@
+.Cards {
+  /* border: 1px solid red; */
+
+  padding: 60px 100px 60px 100px;
+  display: grid;
+  grid-template-columns: 48% 48%;
+  grid-column-gap: 4%;
+  grid-row-gap: 50px;
+}
