@@ -1,33 +1,33 @@
 import {
-  GET_QUIZ_TOPICS_LOADING,
-  GET_QUIZ_TOPICS_SUCCESS,
-  GET_QUIZ_TOPICS_FAILURE,
+  GET_PRACTICE_TOPICS_LOADING,
+  GET_PRACTICE_TOPICS_SUCCESS,
+  GET_PRACTICE_TOPICS_FAILURE,
 } from "./actionTypes";
 
 const initState = {
   isLoading: false,
   isError: false,
   errMessage: "",
-  quizTopicsData: [],
   practiceTopicsData: [],
 };
 
-const topics = (state = initState, { type, payload }) => {
+const practice_topics = (state = initState, { type, payload }) => {
   switch (type) {
-    case GET_QUIZ_TOPICS_LOADING:
+    case GET_PRACTICE_TOPICS_LOADING:
       return {
         ...state,
         isLoading: true,
         isError: false,
         errMessage: "",
       };
-    case GET_QUIZ_TOPICS_SUCCESS:
+    case GET_PRACTICE_TOPICS_SUCCESS:
+      console.log(payload)
       return {
         ...state,
         isLoading: false,
-        quizTopicsData: payload,
+        practiceTopicsData: payload,
       };
-    case GET_QUIZ_TOPICS_FAILURE:
+    case GET_PRACTICE_TOPICS_FAILURE:
       return {
         ...state,
         isLoading: false,
@@ -39,4 +39,4 @@ const topics = (state = initState, { type, payload }) => {
   }
 };
 
-export { topics };
+export { practice_topics };

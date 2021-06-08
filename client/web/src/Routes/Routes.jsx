@@ -14,6 +14,7 @@ import { CrudTopics } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
 import { PageNotFound } from "../Structure/Common/PageNotFound";
+import {Practice} from '../Structure/Practice'
 
 const Routes = () => {
   return (
@@ -28,6 +29,7 @@ const Routes = () => {
           path="/results_display"
           component={Results_display}
         />
+         <PrivateRoute exact path="/practice_topics" component={Practice} />
 
         {/* all admin routes here */}
         <AdminRoute exact path="/admin/questions/:topic" component={AdminQuestions} />
