@@ -50,7 +50,8 @@ const userLoginProcess = () => async (dispatch) => {
   try {
     const res = await axios(config);
     const { user, token } = res.data
-    const { name, email, profilePic } = user
+    const { name, email, profilePic, _id } = user
+    saveToStorage(storageEnums.USER_ID, _id)
     saveToStorage(storageEnums.TOKEN, token)
     saveToStorage(storageEnums.NAME, name);
     saveToStorage(storageEnums.EMAIL, email);
@@ -69,6 +70,7 @@ const logoutProcess = () => async (dispatch) => {
     return dispatch(logoutFailure());
   }
   finally {
+    removeFromStorage(storageEnums.USER_ID)
     removeFromStorage(storageEnums.TOKEN)
     removeFromStorage(storageEnums.NAME)
     removeFromStorage(storageEnums.EMAIL)
