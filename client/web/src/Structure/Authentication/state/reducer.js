@@ -9,6 +9,7 @@ const initState = {
   isLoggingIn: false,
   loginError: false,
   loginErrorMessage: "",
+  user_id: getFromStorage(storageEnums.USER_ID, ""),
   token: getFromStorage(storageEnums.TOKEN, ""),
   name: getFromStorage(storageEnums.NAME, ""),
   email: getFromStorage(storageEnums.EMAIL, ""),
@@ -35,6 +36,7 @@ const authentication = (state = initState, { type, payload }) => {
       });
       return {
         ...state,
+        user_id: getFromStorage(storageEnums.USER_ID, ""),
         token: getFromStorage(storageEnums.TOKEN, ""),
         name: getFromStorage(storageEnums.NAME, ""),
         email: getFromStorage(storageEnums.EMAIL, ""),
