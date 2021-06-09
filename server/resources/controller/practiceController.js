@@ -227,18 +227,27 @@ const bookmarking = async (req, res) => {
 
   try {
     // check if such question is present
-    // let question_check = await Practice.findOne({
-    // 	"questions._id": question_id,
-    // })
-    // 	.lean()
-    // 	.exec()
+    let question_check = await Practice.findOne(
+      {
+        "questions._id": question_id,
+      },
+      {
+        _id: 1,
+      }
+    )
+      .lean()
+      .exec()
 
-    // if (question_check === null) {
-    // 	return res.status(400).json({
-    // 		error: true,
-    // 		message: "No such question id",
-    // 	})
-    // }
+    // if no such question present
+    if (question_check === null) {
+      return res.status(400).json({
+        error: true,
+        message: "No such question id",
+      })
+    }
+
+    // get topic id
+    const topic_id = question_check._id
 
     // get the user document
     const user_document = await User.findOne({
@@ -252,7 +261,7 @@ const bookmarking = async (req, res) => {
 
     // add or remove the question from bookmark
     if (user_document.bookmarks[question_id] === undefined) {
-      user_document.bookmarks[question_id] = question_id
+      user_document.bookmarks[question_id] = [question_id, topic_id]
     } else {
       delete user_document.bookmarks[question_id]
     }
