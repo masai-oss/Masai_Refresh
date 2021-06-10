@@ -5,6 +5,9 @@ import { FavoriteBorderOutlined } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { practiceTopicActions } from "../State/action";
+import BookmarkIcon from "@material-ui/icons/Bookmark";
+import AddCircleIcon from "@material-ui/icons/AddCircle";
+import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 
 import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
@@ -18,13 +21,17 @@ const LongType = () => {
   let topic_ID = params.topicID;
 
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID } = useSelector((state) => state.practice_topics);
+  const { practiceQuestionID, like_flag, bookmark_flag } = useSelector(
+    (state) => state.practice_topics
+  );
   console.log("practiceQuestionID[0]:", practiceQuestionID[0]);
 
   console.log("practiceQuestionIDlength:", practiceQuestionID.length);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { statement, answer, like_flag, bookmark_flag, likes } = question;
+  const { statement, answer } = question;
+  console.log("like_flag:", like_flag);
+
   React.useEffect(() => {
     dispatch(
       practiceTopicActions.nextQuestion({
@@ -46,12 +53,27 @@ const LongType = () => {
     dispatch(practiceTopicActions.likes(practiceQuestionID[indexNum - 1]));
   };
 
+  const toggleBookmark = () => {
+    dispatch(practiceTopicActions.bookmarks(practiceQuestionID[indexNum - 1]));
+  };
+
   return (
     <>
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
+        <AddCircleIcon className={styles.addCircle}></AddCircleIcon>
         <div className={styles.icons}>
-          <BookmarkBorderIcon></BookmarkBorderIcon>
+          {bookmark_flag ? (
+            <BookmarkIcon
+              className={styles.filledBookmark}
+              onClick={toggleBookmark}
+            ></BookmarkIcon>
+          ) : (
+            <BookmarkBorderIcon
+              className={styles.bookmark}
+              onClick={toggleBookmark}
+            ></BookmarkBorderIcon>
+          )}
           {like_flag ? (
             <FavoriteIcon
               onClick={toggleLike}
@@ -83,7 +105,7 @@ const LongType = () => {
         <button
           disabled={indexNum == 1 ? true : false}
           onClick={() => getQuestion(indexNum - 1)}
-          className={indexNum == 1?styles.disabledBtn:styles.btn}
+          className={indexNum == 1 ? styles.disabledBtn : styles.btn}
         >
           Back
         </button>

@@ -55,6 +55,10 @@ body {
   color: #4285f4;
 }
 
+.bookmark:hover {
+  color: #4285f4;
+}
+
 .filledHeart {
   color: #4285f4;
   margin-left: 30px;
@@ -141,4 +145,18 @@ body {
 .nextBtn {
   display: flex;
   margin-left: 18%;
+}
+
+.filledBookmark {
+  color: #2b75cd;
+}
+
+.addCircle {
+  position: absolute;
+  top: 60;
+  bottom: 60;
+}
+
+.filledBookmark {
+  position: relative;
 }

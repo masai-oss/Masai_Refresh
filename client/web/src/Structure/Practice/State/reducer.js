@@ -30,6 +30,8 @@ const initState = {
   practiceQuestionID: [],
   question: getFromStorage(storageEnums.LONG_QUESTION_PRACTICE, null),
   topicId: "",
+  like_flag: false,
+  bookmark_flag: false,
 };
 
 const practice_topics = (state = initState, { type, payload }) => {
@@ -116,7 +118,7 @@ const practice_topics = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        practiceQuestionID: payload,
+        bookmark_flag: payload.bookmark_flag,
       };
     case POST_BOOKMARK_FAILURE:
       return {
@@ -140,7 +142,7 @@ const practice_topics = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        
+        like_flag: payload.like_flag,
       };
     case POST_LIKE_FAILURE:
       return {
