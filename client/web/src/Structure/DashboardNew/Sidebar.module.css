@@ -10,16 +10,17 @@
   /* border: 1px solid red; */
   padding: 20px;
   align-items: center;
+  cursor: pointer;
 }
 .navContainer ul li h4 {
   font-size: 24px;
   color: #9f9f9f;
 }
-.navContainer ul li:first-child {
+.navContainer ul li:hover {
   background-color: #edf5ff;
   border-left: 4px solid #1e90ff;
 }
-.navContainer ul li:first-child h4 {
+.navContainer ul li:hover h4 {
   color: #1e90ff;
 }
 .navContainer ul li img {
@@ -31,4 +32,10 @@
 }
 .logoContainer img {
   width: 120px;
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 992px) {
+  .Sidebar {
+    display: none;
+  }
 }

@@ -1,0 +1,41 @@
+.bookmarks {
+  padding: 20px;
+}
+.bookmarks__backButton {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 16px;
+}
+.bookmarks__backButton img {
+  margin-right: 15px;
+}
+.bookmarks__bookmarkCount {
+  display: flex;
+  align-items: center;
+  font-weight: bold;
+  font-size: 20px;
+  margin-bottom: 30px;
+}
+.bookmarks__bookmarkCount img {
+  margin-right: 15px;
+}
+.bookmarks__bookmarkCount img {
+  max-width: 25px;
+}
+.bookmarks__singleBookmark {
+  display: flex;
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  padding: 5px 20px 5px 20px;
+  font-weight: bold;
+  justify-content: space-between;
+  cursor: pointer;
+}
+.bookmarks__bookmarksList {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: center;
+  grid-gap: 30px;
+}

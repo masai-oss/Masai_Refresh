@@ -2,7 +2,10 @@ import React from "react";
 import styles from "./Sidebar.module.css";
 import logo from "./logo.svg";
 import profile from "./profile.svg";
-const Sidebar = () => {
+const Sidebar = ({ setRightSideContent }) => {
+  const handleListItemClick = (id) => {
+    setRightSideContent(id);
+  };
   return (
     <div className={styles.Sidebar}>
       <div className={styles.logoContainer}>
@@ -10,17 +13,21 @@ const Sidebar = () => {
       </div>
       <div className={styles.navContainer}>
         <ul>
-          <li>
+          <li onClick={() => handleListItemClick("Cards")}>
             <img src={profile} alt="Profile" />
             <h4>Quiz</h4>
           </li>
-          <li>
+          <li onClick={() => handleListItemClick("Cards")}>
             <img src={profile} alt="Profile" />
             <h4>Practice</h4>
           </li>
-          <li>
+          <li onClick={() => handleListItemClick("Cards")}>
             <img src={profile} alt="Profile" />
             <h4>Profile</h4>
+          </li>
+          <li onClick={() => handleListItemClick("MyBookmarks")}>
+            <img src={profile} alt="MyBookmarks" />
+            <h4>My Bookmarks</h4>
           </li>
         </ul>
       </div>
