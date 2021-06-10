@@ -15,8 +15,8 @@ const Cards = () => {
     console.log("Dispatching done...");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  const isLoading = useSelector((state) => state.topics.isLoading);
-  const isError = useSelector((state) => state.topics.isError);
+  // const isLoading = useSelector((state) => state.topics.isLoading);
+  // const isError = useSelector((state) => state.topics.isError);
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
   console.log(quizTopicsData);
   const modalContent = (
@@ -34,9 +34,23 @@ const Cards = () => {
 
   const renderTopicCards = () => {
     console.log("hello");
-    return quizTopicsData.map((topic) => (
-      <Card topicData={topic} setQuizTitle={setQuizTitle} />
-    ));
+    return quizTopicsData.map((topic) => {
+      const cardContent = (
+        <div className={styles.startQuiz}>
+          <h3>START {topic.name} QUIZ</h3>
+        </div>
+      );
+      return (
+        <Card
+          name={topic.name}
+          cardContent={cardContent}
+          onClick={() => {
+            setIsOpen(true);
+            setQuizTitle(topic.name);
+          }}
+        />
+      );
+    });
   };
   return (
     <div className={styles.Cards}>

@@ -20,14 +20,3 @@
   margin: auto;
   padding: 10px 0 10px 0;
 }
-
-.startQuiz {
-  display: grid;
-  grid-template-columns: 100%;
-  align-items: center;
-  justify-items: center;
-}
-.startQuiz h3 {
-  color: #1e90ff;
-  font-size: 20px;
-}
