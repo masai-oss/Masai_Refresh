@@ -67,7 +67,10 @@ const LongType = () => {
         </div>
       </div>
       <div className={styles.answer}>
-        <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
+        <ReactMarkdown
+          className={styles.answerFont}
+          renderers={{ code: SyntaxHighlight }}
+        >
           {answer}
         </ReactMarkdown>
         <div className={styles.hr}></div>
@@ -80,7 +83,7 @@ const LongType = () => {
         <button
           disabled={indexNum == 1 ? true : false}
           onClick={() => getQuestion(indexNum - 1)}
-          className={styles.btn}
+          className={indexNum == 1?styles.disabledBtn:styles.btn}
         >
           Back
         </button>

@@ -5,8 +5,10 @@ import { useHistory } from "react-router-dom";
 import { practiceTopicActions } from "../State/action";
 import { BlurModal } from "../../Common/Modal/BlurModal";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
-const PracticeTopicCard = ({ data }) => {
+const PracticeTopicCard = ({ data, title }) => {
+  console.log('title:', title)
   const { name, icon, _id, size } = data;
+
   console.log("name:", name);
 
   const dispatch = useDispatch();
@@ -16,9 +18,7 @@ const PracticeTopicCard = ({ data }) => {
     (state) => state.practice_topics
   );
 
-  console.log("practiceTopicData:", practiceTopicsData);
 
-  const firstQue = practiceQuestionID[0];
 
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   const startAttempt = () => {
@@ -38,7 +38,7 @@ const PracticeTopicCard = ({ data }) => {
   const modalContent = (
     <div className={styles.modalContent}>
       <p>
-        You are about to start a Quiz on <span>title</span>
+        You are about to start a Quiz on <span>{title}</span>
       </p>
       <p>Are you sure you want to go ahead ?</p>
       <div className={styles.modalContent__buttons}>
