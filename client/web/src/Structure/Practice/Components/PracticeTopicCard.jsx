@@ -1,39 +1,44 @@
 import React from "react";
 import styles from "../Styles/Card.module.css";
 import { useDispatch, useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import { practiceTopicActions } from "../State/action";
 import { BlurModal } from "../../Common/Modal/BlurModal";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 const PracticeTopicCard = ({ data }) => {
   const { name, icon, _id, size } = data;
+  console.log("name:", name);
+
   const dispatch = useDispatch();
-  const { practiceTopicsData } = useSelector((state) => state.practice_topics);
-  const topicId = practiceTopicsData.find((item) => item._id == _id);
-  const { practiceQuestionID } = useSelector((state) => state.practice_topics);
+  const history = useHistory();
+
+  const { practiceQuestionID, topicId, practiceTopicsData } = useSelector(
+    (state) => state.practice_topics
+  );
+
+  console.log("practiceTopicData:", practiceTopicsData);
+
   const firstQue = practiceQuestionID[0];
 
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-
   const startAttempt = () => {
+    setIsOpen(false);
+
+    history.push(`/practice_topics/individual_question/${topicId}/1`);
+  };
+  const openModalBox = (id) => {
     const payload = {
-      _id: topicId._id,
+      _id: id,
       size: size,
     };
-    const questionPayload = {
-      topic_id: topicId._id,
-      question_id: firstQue,
-    };
-    dispatch(practiceTopicActions.startPractice(payload));
-  };
-
-  const openModalBox = () => {
     setIsOpen(true);
+    dispatch(practiceTopicActions.startPractice(payload));
   };
 
   const modalContent = (
     <div className={styles.modalContent}>
       <p>
-        You are about to start a Quiz on <span>Title</span>
+        You are about to start a Quiz on <span>title</span>
       </p>
       <p>Are you sure you want to go ahead ?</p>
       <div className={styles.modalContent__buttons}>
@@ -44,7 +49,7 @@ const PracticeTopicCard = ({ data }) => {
   );
   return (
     <>
-      <div onClick={openModalBox} className={styles.Card}>
+      <div onClick={() => openModalBox(_id)} className={styles.Card}>
         <div className={styles.svgLogo}>
           <img src={icon} alt="Logo not found" />
           <p>{name}</p>

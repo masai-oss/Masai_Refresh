@@ -8,10 +8,19 @@ import {
   GET_NEXT_QUESTION_FAILURE,
   GET_NEXT_QUESTION_SUCCESS,
   GET_NEXT_QUESTION_LOADING,
+  POST_BOOKMARK_LOADING,
+  POST_BOOKMARK_SUCCESS,
+  POST_BOOKMARK_FAILURE,
+  POST_LIKE_SUCCESS,
+  POST_LIKE_LOADING,
+  POST_LIKE_FAILURE,
 } from "./actionTypes";
 
 import { storageEnums } from "../../../Enums/storageEnums";
-import {getFromStorage,saveToStorage} from "../../../Utils/localStorageHelper";
+import {
+  getFromStorage,
+  saveToStorage,
+} from "../../../Utils/localStorageHelper";
 
 const initState = {
   isLoading: false,
@@ -20,6 +29,7 @@ const initState = {
   practiceTopicsData: [],
   practiceQuestionID: [],
   question: getFromStorage(storageEnums.LONG_QUESTION_PRACTICE, null),
+  topicId: "",
 };
 
 const practice_topics = (state = initState, { type, payload }) => {
@@ -55,11 +65,12 @@ const practice_topics = (state = initState, { type, payload }) => {
         errMessage: "",
       };
     case START_PRACTICE_SUCCESS:
-     
+      console.log(payload, "payload");
       return {
         ...state,
         isLoading: false,
-        practiceQuestionID: payload,
+        practiceQuestionID: payload.questions,
+        topicId: payload.topic_id,
       };
     case START_PRACTICE_FAILURE:
       return {
@@ -67,6 +78,7 @@ const practice_topics = (state = initState, { type, payload }) => {
         isLoading: false,
         isError: true,
         errMessage: "Error extracting Topics",
+        practiceQuestionID: [],
       };
 
     //getting questions
@@ -89,6 +101,53 @@ const practice_topics = (state = initState, { type, payload }) => {
         ...state,
         isError: true,
         isLoading: false,
+      };
+
+    //bookmarks
+
+    case POST_BOOKMARK_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        errMessage: "",
+      };
+    case POST_BOOKMARK_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        practiceQuestionID: payload,
+      };
+    case POST_BOOKMARK_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errMessage: "Error in posting bookmarks",
+      };
+
+    //likes
+
+    case POST_LIKE_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        errMessage: "",
+      };
+    case POST_LIKE_SUCCESS:
+      console.log(payload, "likesPayload");
+      return {
+        ...state,
+        isLoading: false,
+        
+      };
+    case POST_LIKE_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errMessage: "Error in posting bookmarks",
       };
 
     default:

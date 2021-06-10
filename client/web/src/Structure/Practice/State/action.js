@@ -8,6 +8,12 @@ import {
   GET_NEXT_QUESTION_FAILURE,
   GET_NEXT_QUESTION_LOADING,
   GET_NEXT_QUESTION_SUCCESS,
+  POST_BOOKMARK_SUCCESS,
+  POST_BOOKMARK_LOADING,
+  POST_BOOKMARK_FAILURE,
+  POST_LIKE_SUCCESS,
+  POST_LIKE_LOADING,
+  POST_LIKE_FAILURE,
 } from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
@@ -80,10 +86,8 @@ const startPractice =
     };
     return axios(config)
       .then((res) => {
-        dispatch(startPracticeSuccess({ ...res.data.questions })).then(
-          dispatch(
-            nextQuestion({ topic_id: _id, question_id: res.data.questions[0] })
-          )
+        dispatch(
+          startPracticeSuccess({ questions: res.data.questions, topic_id: _id })
         );
       })
       .catch((err) => {
@@ -115,26 +119,110 @@ const nextQuestion =
 
     dispatch(nextQuestionLoading());
     const token = getFromStorage(storageEnums.TOKEN, "");
-    var data = { topic_id, question_id };
-    axios({
-      method: "GET",
+
+    var data = { topic_id: topic_id, question_id: question_id };
+
+    var config = {
+      method: "post",
       url: `${PRACTICE_TOPIC_API_URL}/question`,
       headers: {
         Authorization: `Bearer ${token}`,
         "Content-Type": "application/json",
       },
       data: data,
-    })
+    };
+
+    axios(config)
       .then((res) => {
         console.log(res);
         dispatch(nextQuestionSuccess(res.data.data));
       })
-
       .catch((err) => dispatch(nextQuestionFailure(err)));
   };
 
+// bookmarks
+
+const postBookmarkLoading = () => ({
+  type: POST_BOOKMARK_LOADING,
+});
+
+const postBookmarkSuccess = (payload) => ({
+  type: POST_BOOKMARK_SUCCESS,
+  payload,
+});
+
+const postBookmarkFailure = (payload) => ({
+  type: POST_BOOKMARK_FAILURE,
+  payload,
+});
+
+const bookmarks =
+  ({ question_id }) =>
+  async (dispatch) => {
+    dispatch(postBookmarkLoading());
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    const config = {
+      method: "POST",
+      url: `${PRACTICE_TOPIC_API_URL}/question_bookmark`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        question_id,
+      },
+    };
+    return axios(config)
+      .then((res) => {
+        dispatch(postBookmarkSuccess({}));
+      })
+      .catch((err) => {
+        dispatch(postBookmarkFailure(err.message));
+        return { output: false };
+      });
+  };
+
+//likes
+
+const postLikeLoading = () => ({
+  type: POST_LIKE_LOADING,
+});
+
+const postLikeSuccess = (payload) => ({
+  type: POST_LIKE_SUCCESS,
+  payload,
+});
+
+const postLikeFailure = (payload) => ({
+  type: POST_LIKE_FAILURE,
+  payload,
+});
+
+const likes = (question_id) => async (dispatch) => {
+  dispatch(postLikeLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  const config = {
+    method: "POST",
+    url: `${PRACTICE_TOPIC_API_URL}/question_like`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      question_id: question_id,
+    },
+  };
+  return axios(config)
+    .then((res) => {
+      dispatch(postLikeSuccess(res));
+    })
+    .catch((err) => {
+      dispatch(postLikeFailure(err.message));
+      return { output: false };
+    });
+};
 export const practiceTopicActions = {
   getPracticeTopics,
   startPractice,
   nextQuestion,
+  bookmarks,
+  likes,
 };

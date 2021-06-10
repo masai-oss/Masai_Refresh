@@ -13,8 +13,8 @@ const Practice = () => {
   return (
     <>
       {practiceTopicsData?.map((item) => (
-        <div className={styles.card}>
-          <PracticeTopicCard data={item} />
+        <div key={ item._id} className={styles.card}>
+          <PracticeTopicCard data={item} title={item.name} />
         </div>
       ))}
     </>

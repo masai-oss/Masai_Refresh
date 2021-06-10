@@ -1,0 +1,51 @@
+.outer {
+  width: 60%;
+  height: 820px;
+  margin: auto;
+  background: #ffffff;
+}
+
+.stars {
+  text-align: center;
+  padding-top: 7%;
+}
+
+.message {
+  height: 34px;
+  font-family: sans-serif;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 170%;
+  margin: auto;
+  color: #333434;
+  width: 320px;
+  padding-top: 3%;
+}
+
+.btn {
+  position: absolute;
+  margin: auto;
+  width: 255px;
+  height: 56px;
+  background: linear-gradient(239.11deg, #1e90ff -4.11%, #2b75cd 88.83%);
+  box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
+  border-radius: 8px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 170%;
+  border: 0;
+  letter-spacing: 0.2px;
+  margin-top: 3%;
+  color: #ffffff;
+  margin-left: 22%;
+  cursor: pointer;
+}
+
+.vector {
+  background: #ffffff;
+  margin-top: 20%;
+  margin-left: 34%;
+}
