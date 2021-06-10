@@ -9,7 +9,8 @@ const storageEnums = Object.freeze({
     NAME : 'NAME',
     EMAIL : 'EMAIL',
     PROFILEPIC : 'PROFILEPIC',
-    TOPIC: 'TOPIC'
+    TOPIC: 'TOPIC',
+    USER_ID: 'USER_ID'
 })
 
 export { storageEnums }
