@@ -8,7 +8,7 @@ const {
   deleteTopic,
 } = require("../controller/topicController");
 const { getTopicsSummary } = require("../controller/proficiencyController");
-const { authenticateToken } = require("../controller/authController");
+const { authenticateToken } = require("../controller/thirdPartyAuthController");
 const { checkAdmin } = require("../utils/validation/adminValidation");
 const { upload } = require("../utils/helper/uploader");
 

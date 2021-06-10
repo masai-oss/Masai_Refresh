@@ -5,7 +5,7 @@ const {
   recordAttempt,
 } = require("../controller/attemptController");
 const { getResults } = require("../controller/resultController");
-const { authenticateToken } = require("../controller/authController");
+const { authenticateToken } = require("../controller/thirdPartyAuthController");
 
 attemptRoute.post("/create", authenticateToken, createAttempt);
 attemptRoute.get("/question", authenticateToken, getAttemptQuestion);

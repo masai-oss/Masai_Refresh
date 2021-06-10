@@ -1,5 +1,6 @@
 const userAuthRoute = require("express").Router();
 const passport = require("passport");
+const { signupUser, signinUser, verifyUser, resendOtp } = require("../controller/ownAuthController");
 const {
   logoutController,
   isLoggedIn,
@@ -8,7 +9,7 @@ const {
   loginUser,
   loginFailure,
   zohoCrmLogout
-} = require("../controller/authController");
+} = require("../controller/thirdPartyAuthController");
 
 const CLIENT_LOGIN_PAGE = process.env.CLIENT_LOGIN_PAGE;
 
@@ -40,5 +41,11 @@ userAuthRoute.get("/zoho-crm-logout", zohoCrmLogout);
 
 // Android will send the info sent by google to backend will be verified, stored and token will be sent as response
 userAuthRoute.post("/login_user", loginUser);
+
+//----------------------------- App auth -----------------------------
+userAuthRoute.post("/signup", signupUser)
+userAuthRoute.post("/verify_user", verifyUser)
+userAuthRoute.post("/resend_otp", resendOtp)
+userAuthRoute.post("/signin", signinUser)
 
 module.exports = userAuthRoute;

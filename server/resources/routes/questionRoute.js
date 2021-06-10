@@ -1,5 +1,5 @@
 const questionRoute = require("express").Router();
-const { authenticateToken } = require("../controller/authController");
+const { authenticateToken } = require("../controller/thirdPartyAuthController");
 const {
   addQuestion,
   getQuestionById,

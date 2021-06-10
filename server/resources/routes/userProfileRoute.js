@@ -1,5 +1,5 @@
 const express = require("express")
-const { authenticateToken } = require("../controller/authController")
+const { authenticateToken } = require("../controller/thirdPartyAuthController")
 const {
   getBookmarksDetailsTopicwise,
   getAllBookmarks,
@@ -7,7 +7,7 @@ const {
 const userProfileRoute = express.Router()
 
 userProfileRoute.get("/all_bookmarks", authenticateToken, getAllBookmarks)
-userProfileRoute.get(
+userProfileRoute.post(
   "/topicwise_bookmarks",
   authenticateToken,
   getBookmarksDetailsTopicwise
