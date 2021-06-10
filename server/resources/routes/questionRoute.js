@@ -1,5 +1,5 @@
-const questionRoute = require("express").Router();
-const { authenticateToken } = require("../controller/thirdPartyAuthController");
+const questionRoute = require("express").Router()
+const { authenticateToken } = require("../middlewares/authentication")
 const {
   addQuestion,
   getQuestionById,
@@ -8,25 +8,20 @@ const {
   getAllQuestion,
   deleteQuestion,
   toggleVerification,
-} = require("../controller/questionController");
+} = require("../controller/questionController")
 const {
   reportQuestion,
   getAllReports,
   getQuestionReportedById,
   solveReport,
-} = require("../controller/reportController");
-const { checkAdmin } = require("../utils/validation/adminValidation");
+} = require("../controller/reportController")
+const { checkAdmin } = require("../utils/validation/adminValidation")
 
 // Add a question
-questionRoute.post(
-  "/create/:topic",
-  authenticateToken,
-  checkAdmin,
-  addQuestion
-);
+questionRoute.post("/create/:topic", authenticateToken, checkAdmin, addQuestion)
 
 // Get question by ID
-questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
+questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById)
 
 // Get Question by Topic
 questionRoute.get(
@@ -34,10 +29,10 @@ questionRoute.get(
   authenticateToken,
   checkAdmin,
   getQuestionByTopic
-);
+)
 
 // Get All Questions
-questionRoute.get("/all", authenticateToken, checkAdmin, getAllQuestion);
+questionRoute.get("/all", authenticateToken, checkAdmin, getAllQuestion)
 
 // Update question by ID
 questionRoute.put(
@@ -45,7 +40,7 @@ questionRoute.put(
   authenticateToken,
   checkAdmin,
   updateQuestion
-);
+)
 
 // Delete question by ID
 questionRoute.delete(
@@ -53,7 +48,7 @@ questionRoute.delete(
   authenticateToken,
   checkAdmin,
   deleteQuestion
-);
+)
 
 // Verify question by ID
 questionRoute.patch(
@@ -61,13 +56,13 @@ questionRoute.patch(
   authenticateToken,
   checkAdmin,
   toggleVerification
-);
+)
 
 // Report question by ID
-questionRoute.patch("/report/:id", authenticateToken, reportQuestion);
+questionRoute.patch("/report/:id", authenticateToken, reportQuestion)
 
 // Get all reports
-questionRoute.get("/report", authenticateToken, checkAdmin, getAllReports);
+questionRoute.get("/report", authenticateToken, checkAdmin, getAllReports)
 
 // Get reported question by ID
 questionRoute.get(
@@ -75,7 +70,7 @@ questionRoute.get(
   authenticateToken,
   checkAdmin,
   getQuestionReportedById
-);
+)
 
 // Solve the report raised by user
 questionRoute.patch(
@@ -83,6 +78,6 @@ questionRoute.patch(
   authenticateToken,
   checkAdmin,
   solveReport
-);
+)
 
-module.exports = questionRoute;
+module.exports = questionRoute

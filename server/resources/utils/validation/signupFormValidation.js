@@ -10,5 +10,5 @@ const signupFormValidation = (data) => {
 }
 
 module.exports = {
-  signupFormValidation
+  signupFormValidation,
 }

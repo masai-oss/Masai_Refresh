@@ -7,39 +7,38 @@ const {
   signinFormValidation,
 } = require("../utils/validation/signinFormValidation")
 const Token = require("../models/Token")
-const jwt = require('jsonwebtoken')
+const jwt = require("jsonwebtoken")
 const OTPGenerator = require("otp-generator")
 const emailValidator = require("email-validator")
 const dotenv = require("dotenv")
 dotenv.config()
-
 
 const createToken = (user) => {
   // encryption key
   const SECRET_KEY_TO_ACCESS = process.env.SECRET_KEY_TO_ACCESS
 
   // decide whether admin or not
-  const isAdmin = user.role === "admin" ? true : false 
+  const isAdmin = user.role === "admin" ? true : false
 
   // form the data to be encrypted and generate token
   const user_data = {
     email: user.email,
     id: user._id,
-    isAdmin: isAdmin
+    isAdmin: isAdmin,
   }
   const token = jwt.sign(user_data, SECRET_KEY_TO_ACCESS, {
-    expiresIn: "710h"
+    expiresIn: "710h",
   })
-  
+
   return token
 }
 
 const createOTP = () => {
   const otp = OTPGenerator.generate(6, {
-    specialChars : false, 
-    upperCase:false, 
-    alphabets: false}
-  )
+    specialChars: false,
+    upperCase: false,
+    alphabets: false,
+  })
 
   return otp
 }
@@ -64,7 +63,7 @@ const signupUser = async (req, res) => {
     })
   }
 
-  // limit to masai_domain
+  // limit to specific domain
   const admin_domain = process.env.ADMIN_CONTROL_EMAIL.trim()
   const user_domain = process.env.USER_CONTROL_EMAIL.trim()
   let domain = email.trim().split("@")[1]
@@ -81,7 +80,7 @@ const signupUser = async (req, res) => {
 
     //if yes send error
     if (check_User.length > 0) {
-      res.status(200).json({
+      return res.status(200).json({
         error: false,
         message: "User Already exists",
       })
@@ -111,7 +110,7 @@ const signupUser = async (req, res) => {
     // send verification mail
     await send_verification_mail(name, email, OTP)
 
-    res.status(200).json({
+    return res.status(200).json({
       error: false,
       message: "Registration Successful",
     })
@@ -160,11 +159,10 @@ const verifyUser = async (req, res) => {
       })
     }
 
-    
     // if otp doesn't match
     OTP = String(OTP).trim()
     if (token.token !== OTP) {
-      res.status(400).json({
+      return res.status(400).json({
         error: true,
         message: "Invalid OTP",
       })
@@ -209,10 +207,19 @@ const resendOtp = async (req, res) => {
   try {
     const user = await User.findOne({ email: email }).lean().exec()
 
+    // if no user
     if (!user) {
       return res.status(400).json({
         error: true,
         message: "Invalid email",
+      })
+    }
+
+    // if user already verified
+    if (user.verified) {
+      return res.status(400).json({
+        error: true,
+        message: "Email already verified",
       })
     }
 
@@ -240,7 +247,7 @@ const resendOtp = async (req, res) => {
     // send verification mail
     await send_verification_mail(name, email, OTP)
 
-    res.status(200).json({
+    return res.status(200).json({
       error: false,
       message: "OTP sent successfully",
     })
@@ -266,21 +273,29 @@ const signinUser = async (req, res) => {
   const { email, password } = req.body
 
   try {
-    const user = await User.findOne({email : email}).exec()
+    const user = await User.findOne({ email: email }).exec()
 
     // if no user
-    if(!user){
+    if (!user) {
       return res.status(400).json({
         error: true,
-        message: "Invalid Email"
+        message: "Invalid Email",
+      })
+    }
+
+    // If user registered using OAuth
+    if (!user.password && user.oauth) {
+      return res.status(400).json({
+        error: true,
+        message: "User has only OAuth signin option",
       })
     }
 
     // If user not verified
-    if(!user.verified){
+    if (!user.verified) {
       return res.status(400).json({
         error: true,
-        message: "User email hasn't been verified"
+        message: "User email hasn't been verified",
       })
     }
 
@@ -288,10 +303,10 @@ const signinUser = async (req, res) => {
     const match = await user.password_checker(password)
 
     // if password doesn't match
-    if(!match){
+    if (!match) {
       return res.status(400).json({
         error: false,
-        message: "Invalid Password"
+        message: "Invalid Password",
       })
     }
 
@@ -300,18 +315,17 @@ const signinUser = async (req, res) => {
 
     // form data to be sent as response
     const user_data = {
-      _id: user._id, 
+      _id: user._id,
       name: user.name,
       email: user.email,
-      profilePic: user.profilePic === undefined ? null : user.profilePic
+      profilePic: user.profilePic === undefined ? null : user.profilePic,
     }
     return res.status(200).json({
       error: false,
       message: "user has been successfully authenticated",
       user: user_data,
-      token: token
+      token: token,
     })
-
   } catch (error) {
     return res.status(500).json({
       error: true,
@@ -320,7 +334,6 @@ const signinUser = async (req, res) => {
     })
   }
 }
-
 
 module.exports = {
   signupUser,
