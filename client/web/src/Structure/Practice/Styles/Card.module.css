@@ -46,3 +46,41 @@
   grid-column-gap: 4%;
   grid-row-gap: 50px;
 }
+
+
+.modalContent {
+  font-weight: bold;
+  font-size: 16px;
+  /* line-height: 10px; */
+  /* padding: 0 30px 0 30px; */
+  width: 350px;
+  text-align: center;
+}
+.modalContent span {
+  color: #1e90ff;
+}
+.modalContent__buttons {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 20px;
+  padding: 5px;
+  margin-top: 30px;
+}
+.modalContent__buttons button {
+  background: none;
+  border: 2px solid #1e90ff;
+  border-radius: 5px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+
+  color: #1e90ff;
+  cursor: pointer;
+}
+.modalContent__buttons button:last-of-type {
+  background-color: #1e90ff;
+  color: white;
+}

@@ -5,7 +5,13 @@ import {
   START_PRACTICE_FAILURE,
   START_PRACTICE_SUCCESS,
   START_PRACTICE_LOADING,
+  GET_NEXT_QUESTION_FAILURE,
+  GET_NEXT_QUESTION_SUCCESS,
+  GET_NEXT_QUESTION_LOADING,
 } from "./actionTypes";
+
+import { storageEnums } from "../../../Enums/storageEnums";
+import {getFromStorage,saveToStorage} from "../../../Utils/localStorageHelper";
 
 const initState = {
   isLoading: false,
@@ -13,6 +19,7 @@ const initState = {
   errMessage: "",
   practiceTopicsData: [],
   practiceQuestionID: [],
+  question: getFromStorage(storageEnums.LONG_QUESTION_PRACTICE, null),
 };
 
 const practice_topics = (state = initState, { type, payload }) => {
@@ -48,7 +55,7 @@ const practice_topics = (state = initState, { type, payload }) => {
         errMessage: "",
       };
     case START_PRACTICE_SUCCESS:
-      console.log(payload,"payload");
+     
       return {
         ...state,
         isLoading: false,
@@ -61,6 +68,29 @@ const practice_topics = (state = initState, { type, payload }) => {
         isError: true,
         errMessage: "Error extracting Topics",
       };
+
+    //getting questions
+    case GET_NEXT_QUESTION_LOADING:
+      return {
+        ...state,
+        isLoading: true,
+        isError: false,
+        errMsg: "",
+      };
+    case GET_NEXT_QUESTION_SUCCESS:
+      saveToStorage(storageEnums.LONG_QUESTION_PRACTICE, payload);
+      return {
+        ...state,
+        isLoading: false,
+        question: payload,
+      };
+    case GET_NEXT_QUESTION_FAILURE:
+      return {
+        ...state,
+        isError: true,
+        isLoading: false,
+      };
+
     default:
       return state;
   }

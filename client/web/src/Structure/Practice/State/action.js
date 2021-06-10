@@ -5,12 +5,14 @@ import {
   START_PRACTICE_FAILURE,
   START_PRACTICE_LOADING,
   START_PRACTICE_SUCCESS,
+  GET_NEXT_QUESTION_FAILURE,
+  GET_NEXT_QUESTION_LOADING,
+  GET_NEXT_QUESTION_SUCCESS,
 } from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 const PRACTICE_TOPIC_API_URL = process.env.REACT_APP_PRACTICE_TOPIC_URL;
-console.log(PRACTICE_TOPIC_API_URL, "URL");
 
 //get topics
 const getPracticeTopicsLoading = () => ({
@@ -28,7 +30,6 @@ const getPracticeTopicsFailure = (payload) => ({
 });
 
 const getPracticeTopics = () => async (dispatch) => {
-  console.log(PRACTICE_TOPIC_API_URL);
   dispatch(getPracticeTopicsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   try {
@@ -64,7 +65,6 @@ const startPracticeFailure = (payload) => ({
 const startPractice =
   ({ _id, size }) =>
   async (dispatch) => {
-    console.log(PRACTICE_TOPIC_API_URL);
     dispatch(startPracticeLoading());
     const token = getFromStorage(storageEnums.TOKEN, "");
     const config = {
@@ -80,9 +80,11 @@ const startPractice =
     };
     return axios(config)
       .then((res) => {
-        console.log(res, "res");
-        dispatch(startPracticeSuccess({ ...res.data.questions }));
-        return { output: true, state: { ...res.data.questions } };
+        dispatch(startPracticeSuccess({ ...res.data.questions })).then(
+          dispatch(
+            nextQuestion({ topic_id: _id, question_id: res.data.questions[0] })
+          )
+        );
       })
       .catch((err) => {
         dispatch(startPracticeFailure(err.message));
@@ -90,7 +92,49 @@ const startPractice =
       });
   };
 
+// getting questions
+
+const nextQuestionLoading = () => ({
+  type: GET_NEXT_QUESTION_LOADING,
+});
+
+const nextQuestionFailure = (payload) => ({
+  type: GET_NEXT_QUESTION_FAILURE,
+  payload,
+});
+
+const nextQuestionSuccess = (payload) => ({
+  type: GET_NEXT_QUESTION_SUCCESS,
+  payload,
+});
+
+const nextQuestion =
+  ({ topic_id, question_id }) =>
+  (dispatch) => {
+    console.log(topic_id, question_id, "nextque");
+
+    dispatch(nextQuestionLoading());
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    var data = { topic_id, question_id };
+    axios({
+      method: "GET",
+      url: `${PRACTICE_TOPIC_API_URL}/question`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+        "Content-Type": "application/json",
+      },
+      data: data,
+    })
+      .then((res) => {
+        console.log(res);
+        dispatch(nextQuestionSuccess(res.data.data));
+      })
+
+      .catch((err) => dispatch(nextQuestionFailure(err)));
+  };
+
 export const practiceTopicActions = {
   getPracticeTopics,
   startPractice,
+  nextQuestion,
 };
