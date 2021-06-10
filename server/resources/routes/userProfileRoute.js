@@ -7,7 +7,7 @@ const {
 const userProfileRoute = express.Router()
 
 userProfileRoute.get("/all_bookmarks", authenticateToken, getAllBookmarks)
-userProfileRoute.get(
+userProfileRoute.post(
   "/topicwise_bookmarks",
   authenticateToken,
   getBookmarksDetailsTopicwise
