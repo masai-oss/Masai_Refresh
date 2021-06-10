@@ -259,10 +259,13 @@ const bookmarking = async (req, res) => {
       user_document.bookmarks = {}
     }
 
+    // assume that user didn't bookmark this question previously
+    let prev_bookmark_flag = false
     // add or remove the question from bookmark
     if (user_document.bookmarks[question_id] === undefined) {
       user_document.bookmarks[question_id] = [question_id, topic_id]
     } else {
+      prev_bookmark_flag = true
       delete user_document.bookmarks[question_id]
     }
 
@@ -276,8 +279,11 @@ const bookmarking = async (req, res) => {
       }
     )
 
+    // get current bookmark flag
+    let current_bookmark_flag = !prev_bookmark_flag
     return res.status(200).json({
       error: false,
+      bookmark_flag: current_bookmark_flag,
       message: "Action successful",
     })
   } catch (error) {
@@ -365,8 +371,11 @@ const liking = async (req, res) => {
       }
     )
 
+    // get current like flag
+    const current_like_flag = !prev_like_flag
     return res.status(200).json({
       error: false,
+      like_flag: current_like_flag,
       message: "Action successful",
     })
   } catch (error) {
