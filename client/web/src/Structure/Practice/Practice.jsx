@@ -5,7 +5,9 @@ import styles from "./Styles/Card.module.css";
 import { practiceTopicActions } from "./State/action";
 
 const Practice = () => {
-  const { practiceTopicsData } = useSelector((state) => state.practice_topics);
+  const { practiceTopicsData, isLoading } = useSelector(
+    (state) => state.practice_topics
+  );
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(practiceTopicActions.getPracticeTopics());
@@ -13,7 +15,7 @@ const Practice = () => {
   return (
     <>
       {practiceTopicsData?.map((item) => (
-        <div key={ item._id} className={styles.card}>
+        <div key={item._id} className={styles.card}>
           <PracticeTopicCard data={item} title={item.name} />
         </div>
       ))}

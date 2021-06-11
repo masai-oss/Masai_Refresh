@@ -6,10 +6,7 @@ import { practiceTopicActions } from "../State/action";
 import { BlurModal } from "../../Common/Modal/BlurModal";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 const PracticeTopicCard = ({ data, title }) => {
-  console.log('title:', title)
   const { name, icon, _id, size } = data;
-
-  console.log("name:", name);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -17,8 +14,6 @@ const PracticeTopicCard = ({ data, title }) => {
   const { practiceQuestionID, topicId, practiceTopicsData } = useSelector(
     (state) => state.practice_topics
   );
-
-
 
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   const startAttempt = () => {

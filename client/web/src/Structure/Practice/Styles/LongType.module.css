@@ -67,6 +67,8 @@ body {
 
 .icons {
   padding-top: 30px;
+  display: flex;
+  align-items: center;
 }
 
 .likes {
@@ -151,12 +153,7 @@ body {
   color: #2b75cd;
 }
 
-.addCircle {
-  position: absolute;
-  top: 60;
-  bottom: 60;
-}
-
-.filledBookmark {
-  position: relative;
+.likesDiv {
+  display: flex;
+  align-items: center;
 }

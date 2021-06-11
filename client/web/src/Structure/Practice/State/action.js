@@ -115,8 +115,6 @@ const nextQuestionSuccess = (payload) => ({
 const nextQuestion =
   ({ topic_id, question_id }) =>
   (dispatch) => {
-    console.log(topic_id, question_id, "nextque");
-
     dispatch(nextQuestionLoading());
     const token = getFromStorage(storageEnums.TOKEN, "");
 
@@ -134,7 +132,6 @@ const nextQuestion =
 
     axios(config)
       .then((res) => {
-        console.log(res);
         dispatch(nextQuestionSuccess(res.data.data));
       })
       .catch((err) => dispatch(nextQuestionFailure(err)));
@@ -156,28 +153,34 @@ const postBookmarkFailure = (payload) => ({
   payload,
 });
 
-const bookmarks = (question_id) => async (dispatch) => {
-  dispatch(postBookmarkLoading());
-  const token = getFromStorage(storageEnums.TOKEN, "");
-  const config = {
-    method: "POST",
-    url: `${PRACTICE_TOPIC_API_URL}/question_bookmark`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    data: {
-      question_id,
-    },
+const bookmarks =
+  ({ question_id, topic_id }) =>
+  async (dispatch) => {
+    dispatch(postBookmarkLoading());
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    const config = {
+      method: "POST",
+      url: `${PRACTICE_TOPIC_API_URL}/question_bookmark`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        question_id: question_id,
+      },
+    };
+    return axios(config)
+      .then(async (res) => {
+        await dispatch(postBookmarkSuccess(res.data));
+        await dispatch(
+          nextQuestion({ question_id: question_id, topic_id: topic_id })
+        );
+      })
+
+      .catch((err) => {
+        dispatch(postBookmarkFailure(err.message));
+        return { output: false };
+      });
   };
-  return axios(config)
-    .then((res) => {
-      dispatch(postBookmarkSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(postBookmarkFailure(err.message));
-      return { output: false };
-    });
-};
 
 //likes
 
@@ -195,30 +198,34 @@ const postLikeFailure = (payload) => ({
   payload,
 });
 
-const likes = (question_id) => async (dispatch) => {
-  dispatch(postLikeLoading());
-  const token = getFromStorage(storageEnums.TOKEN, "");
-  const config = {
-    method: "POST",
-    url: `${PRACTICE_TOPIC_API_URL}/question_like`,
-    headers: {
-      Authorization: `Bearer ${token}`,
-    },
-    data: {
-      question_id: question_id,
-    },
-  };
-  return axios(config)
-    .then((res) => {
-      console.log("res:", res);
+const likes =
+  ({ question_id, topic_id }) =>
+  async (dispatch) => {
+    dispatch(postLikeLoading());
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    const config = {
+      method: "POST",
+      url: `${PRACTICE_TOPIC_API_URL}/question_like`,
+      headers: {
+        Authorization: `Bearer ${token}`,
+      },
+      data: {
+        question_id: question_id,
+      },
+    };
+    return axios(config)
+      .then(async (res) => {
+        await dispatch(postLikeSuccess(res.data));
+        await dispatch(
+          nextQuestion({ question_id: question_id, topic_id: topic_id })
+        );
+      })
 
-      dispatch(postLikeSuccess(res.data));
-    })
-    .catch((err) => {
-      dispatch(postLikeFailure(err.message));
-      return { output: false };
-    });
-};
+      .catch((err) => {
+        dispatch(postLikeFailure(err.message));
+        return { output: false };
+      });
+  };
 export const practiceTopicActions = {
   getPracticeTopics,
   startPractice,

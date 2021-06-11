@@ -6,9 +6,7 @@ import { practiceTopicActions } from "../State/action";
 const IndividualQue = () => {
   const topic_id = useParams();
   const { practiceQuestionID } = useSelector((state) => state.practice_topics);
-  console.log(practiceQuestionID, "ids");
   const firstQue = practiceQuestionID[0];
-  console.log(firstQue,'firstttttttttttt');
   const dispatch = useDispatch();
 
   const questionPayload = {

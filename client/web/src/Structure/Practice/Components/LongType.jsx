@@ -14,6 +14,7 @@ import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { useParams, useHistory } from "react-router-dom";
 import { ReportDialog } from "../../Common";
+import { Spinner } from "../../Common/Loader";
 
 const LongType = () => {
   let params = useParams();
@@ -21,16 +22,13 @@ const LongType = () => {
   let topic_ID = params.topicID;
 
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID, like_flag, bookmark_flag } = useSelector(
+  const { practiceQuestionID, isLoading } = useSelector(
     (state) => state.practice_topics
   );
-  console.log("practiceQuestionID[0]:", practiceQuestionID[0]);
 
-  console.log("practiceQuestionIDlength:", practiceQuestionID.length);
   const dispatch = useDispatch();
   const history = useHistory();
-  const { statement, answer } = question;
-  console.log("like_flag:", like_flag);
+  const { statement, answer, like_flag, bookmark_flag, likes } = question;
 
   React.useEffect(() => {
     dispatch(
@@ -42,7 +40,6 @@ const LongType = () => {
   }, [indexNum]);
 
   const getQuestion = (index) => {
-    console.log(index);
     history.push(`${index}`);
     if (index > practiceQuestionID.length) {
       history.push("/practice_topics/completed");
@@ -50,18 +47,29 @@ const LongType = () => {
   };
 
   const toggleLike = () => {
-    dispatch(practiceTopicActions.likes(practiceQuestionID[indexNum - 1]));
+    dispatch(
+      practiceTopicActions.likes({
+        question_id: practiceQuestionID[indexNum - 1],
+        topic_id: topic_ID,
+      })
+    );
   };
 
   const toggleBookmark = () => {
-    dispatch(practiceTopicActions.bookmarks(practiceQuestionID[indexNum - 1]));
+    dispatch(
+      practiceTopicActions.bookmarks({
+        question_id: practiceQuestionID[indexNum - 1],
+        topic_id: topic_ID,
+      })
+    );
   };
 
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
-        <AddCircleIcon className={styles.addCircle}></AddCircleIcon>
         <div className={styles.icons}>
           {bookmark_flag ? (
             <BookmarkIcon
@@ -74,18 +82,20 @@ const LongType = () => {
               onClick={toggleBookmark}
             ></BookmarkBorderIcon>
           )}
-          {like_flag ? (
-            <FavoriteIcon
-              onClick={toggleLike}
-              className={styles.filledHeart}
-            ></FavoriteIcon>
-          ) : (
-            <FavoriteBorderOutlined
-              onClick={toggleLike}
-              className={styles.heart}
-            ></FavoriteBorderOutlined>
-          )}
-          <span className={styles.likes}>120</span>
+          <div className={styles.likesDiv}>
+            {like_flag ? (
+              <FavoriteIcon
+                onClick={toggleLike}
+                className={styles.filledHeart}
+              ></FavoriteIcon>
+            ) : (
+              <FavoriteBorderOutlined
+                onClick={toggleLike}
+                className={styles.heart}
+              ></FavoriteBorderOutlined>
+            )}
+            <div className={styles.likes}>{likes}</div>
+          </div>
         </div>
       </div>
       <div className={styles.answer}>

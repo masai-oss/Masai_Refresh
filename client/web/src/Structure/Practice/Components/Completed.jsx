@@ -3,13 +3,18 @@ import styles from "../Styles/Completed.module.css";
 import star from "../../../Assets/completed.svg";
 import boy from "../../../Assets/vectorrr.svg";
 import { useHistory } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { Spinner } from "../../Common/Loader";
 const Completed = () => {
   const history = useHistory();
+  const { isLoading } = useSelector((state) => state.practice_topics);
 
   const goToPractice = () => {
     history.push("/practice_topics");
   };
-  return (
+  return isLoading ? (
+    <Spinner />
+  ) : (
     <>
       <div className={styles.outer}>
         <div className={styles.stars}>
