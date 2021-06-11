@@ -115,6 +115,7 @@ const loginUser = async (req, res) => {
         name: name,
         email: email,
         role: role,
+        verified: true,
         profilePic: picture,
         oauth: [
           {

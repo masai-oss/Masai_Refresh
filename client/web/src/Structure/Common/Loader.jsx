@@ -7,7 +7,7 @@ const useStyles = makeStyles((theme) => ({
   root: {
     zIndex: 45,
     width: "100vw",
-    height: "100vh"
+    height: "100vh",
   },
   align: {
     position: "absolute",
@@ -27,13 +27,10 @@ const Spinner = () => {
   return (
     <div className={classes.root}>
       <div className={classes.align}>
-        <Loader type="Grid" color="#2d799f" height={80} width={80} />{" "}
+        <Loader type="Grid" color="#4285F4" height={80} width={80} />{" "}
       </div>
     </div>
   );
 };
 
 export { Spinner };
-
-
-
