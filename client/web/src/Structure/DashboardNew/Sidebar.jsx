@@ -17,8 +17,8 @@ const Sidebar = ({ setRightSideContent }) => {
             <img src={profile} alt="Profile" />
             <h4>Quiz</h4>
           </li>
-          <li onClick={() => handleListItemClick("Cards")}>
-            <img src={profile} alt="Profile" />
+          <li onClick={() => handleListItemClick("Practice")}>
+            <img src={profile} alt="Practice" />
             <h4>Practice</h4>
           </li>
           <li onClick={() => handleListItemClick("Cards")}>

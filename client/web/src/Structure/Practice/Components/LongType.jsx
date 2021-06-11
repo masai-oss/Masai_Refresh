@@ -20,8 +20,9 @@ const LongType = () => {
   let params = useParams();
   let indexNum = Number(params.index);
   let topic_ID = params.topicID;
-
+  console.log(topic_ID);
   const { question } = useSelector((state) => state.practice_topics);
+
   const { practiceQuestionID, isLoading } = useSelector(
     (state) => state.practice_topics
   );

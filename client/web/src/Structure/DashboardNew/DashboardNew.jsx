@@ -4,6 +4,7 @@ import Cards from "./Cards";
 import Sidebar from "./Sidebar";
 import Bookmarks from "./MyBookmark/Bookmarks";
 import MyBookmarks from "./MyBookmark/MyBookmarks";
+import { Practice } from "../Practice/Practice";
 const DashboardNew = () => {
   const [rightSideContent, setRightSideContent] = React.useState("Cards");
   const renderRightSideContent = () => {
@@ -14,6 +15,8 @@ const DashboardNew = () => {
         return <MyBookmarks setRightSideContent={setRightSideContent} />;
       case "Bookmarks":
         return <Bookmarks />;
+      case "Practice":
+        return <Practice />;
       default:
         return <Cards />;
     }
