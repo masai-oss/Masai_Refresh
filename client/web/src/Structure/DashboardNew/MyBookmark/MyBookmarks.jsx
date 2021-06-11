@@ -1,22 +1,36 @@
 import React from "react";
-import { getFromStorage } from "../../../Utils/localStorageHelper";
-import { storageEnums } from "../../../Enums/storageEnums";
-import axios from "axios";
+import Card from "../Card";
+import styles from "./MyBookmarks.module.css";
 const MyBookmarks = ({ setRightSideContent }) => {
-  const BOOKMARK_API_URL = process.env.REACT_APP_ADMIN_BOOKMARK_URL;
-  const token = getFromStorage(storageEnums.TOKEN, "");
-  axios
-    .get(`http://localhost:5050/api/user_profile/all_bookmarks`, {
-      headers: {
-        Authorization: `Bearer ${token}`,
-      },
-    })
-    .then((res) => {
-      console.log(res);
-    });
   return (
-    <div>
-      <h1 onClick={() => setRightSideContent("Bookmarks")}>My Bookmarks</h1>
+    <div className={styles.MyBookmarks}>
+      <div className={styles.MyBookmarks__header}>
+        <p>18 bookmarks</p>
+      </div>
+      <div className={styles.MyBookmarks__content}>
+        <Card
+          name={"html"}
+          cardContent={""}
+          onClick={() => setRightSideContent("Bookmarks")}
+        />
+        <Card
+          name={"html"}
+          cardContent={""}
+          onClick={() => setRightSideContent("Bookmarks")}
+        />
+        <Card
+          name={"html"}
+          cardContent={""}
+          onClick={() => setRightSideContent("Bookmarks")}
+        />
+        <Card
+          name={"html"}
+          cardContent={""}
+          onClick={() => setRightSideContent("Bookmarks")}
+        />
+      </div>
+
+      {/* <h1 onClick={() => setRightSideContent("Bookmarks")}>My Bookmarks</h1> */}
     </div>
   );
 };
