@@ -89,8 +89,8 @@ const signupUser = async (req, res) => {
 
     //if user already exists
     if (check_User.length > 0) {
-      return res.status(200).json({
-        error: false,
+      return res.status(400).json({
+        error: true,
         message: "User Already exists",
       })
     }
