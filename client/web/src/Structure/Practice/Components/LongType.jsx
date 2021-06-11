@@ -20,7 +20,16 @@ const LongType = () => {
   let params = useParams();
   let indexNum = Number(params.index);
   let topic_ID = params.topicID;
-  console.log(topic_ID);
+  React.useEffect(() => {
+    console.log("Called-----------");
+    dispatch(
+      practiceTopicActions.nextQuestion({
+        topic_id: topic_ID,
+        question_id: practiceQuestionID[indexNum - 1],
+      })
+    );
+  }, [indexNum]);
+  console.log(indexNum, topic_ID, params);
   const { question } = useSelector((state) => state.practice_topics);
 
   const { practiceQuestionID, isLoading } = useSelector(
@@ -30,15 +39,6 @@ const LongType = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { statement, answer, like_flag, bookmark_flag, likes } = question;
-
-  React.useEffect(() => {
-    dispatch(
-      practiceTopicActions.nextQuestion({
-        topic_id: topic_ID,
-        question_id: practiceQuestionID[indexNum - 1],
-      })
-    );
-  }, [indexNum]);
 
   const getQuestion = (index) => {
     history.push(`${index}`);
