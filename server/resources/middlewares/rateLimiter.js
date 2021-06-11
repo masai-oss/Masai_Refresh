@@ -1,12 +1,12 @@
-const rateLimit = require('express-rate-limit')
+const rateLimit = require("express-rate-limit")
 
 const signupAndSigninRouteLimiter = rateLimit({
   windowMs: 5 * 60 * 1000,
   max: 10,
   message: {
     error: true,
-    message: "Too many attempts. Please after sometime."
-  }
+    message: "Too many attempts. Please after sometime.",
+  },
 })
 
 const passwordAndOtpRouteLimiter = rateLimit({
@@ -15,11 +15,11 @@ const passwordAndOtpRouteLimiter = rateLimit({
   max: 5,
   message: {
     error: true,
-    message: "Too many attempts. Please after sometime."
-  }
+    message: "Too many attempts. Please after sometime.",
+  },
 })
 
 module.exports = {
   signupAndSigninRouteLimiter,
-  passwordAndOtpRouteLimiter
+  passwordAndOtpRouteLimiter,
 }

@@ -466,7 +466,7 @@ const passwordReset = async (req, res) => {
     // get user id
     const user_id = user._id
 
-    // get otp 
+    // get otp
     const token = await Token.findOne({ user_id: user_id }).lean().exec()
 
     // if no otp
