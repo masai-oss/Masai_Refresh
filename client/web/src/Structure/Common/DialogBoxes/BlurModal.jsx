@@ -2,9 +2,9 @@ import React from "react";
 import Button from "@material-ui/core/Button";
 import Dialog from "@material-ui/core/Dialog";
 import { DialogContent } from "@material-ui/core";
-import { BlurModalContext } from "../../../../ContextProviders/BlurModalContextProvider";
+import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 import { makeStyles, Theme } from "@material-ui/core";
-import styles from "./BlurModal.module.css";
+
 const useStyles = makeStyles((theme) => ({
   backDrop: {
     backdropFilter: "blur(10px)",
