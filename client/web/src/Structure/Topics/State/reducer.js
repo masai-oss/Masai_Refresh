@@ -1,15 +1,15 @@
-import { 
+import {
   GET_QUIZ_TOPICS_LOADING,
   GET_QUIZ_TOPICS_SUCCESS,
-  GET_QUIZ_TOPICS_FAILURE
- } from "./actionTypes";
+  GET_QUIZ_TOPICS_FAILURE,
+} from "./actionTypes";
 
 const initState = {
   isLoading: false,
   isError: false,
   errMessage: "",
   quizTopicsData: [],
-  practiceTopicsData: []
+  practiceTopicsData: [],
 };
 
 const topics = (state = initState, { type, payload }) => {

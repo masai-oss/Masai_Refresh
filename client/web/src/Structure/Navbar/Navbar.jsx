@@ -16,11 +16,9 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { authActions } from "../Authentication";
 
-const GOOGLE_LOGOUT_URL =
-  process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
+const GOOGLE_LOGOUT_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 
-const ZOHO_LOGOUT_URL =
-  process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
+const ZOHO_LOGOUT_URL = process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
 
 function HideOnScroll(props) {
   const { children, window } = props;
@@ -63,6 +61,10 @@ function Navbar(props) {
     history.push("/");
   };
 
+  const goToPractice = () => {
+    history.push("/practice_topics");
+  };
+
   let isAuth = useSelector((state) => state.authentication.token);
   return (
     <>
@@ -79,6 +81,13 @@ function Navbar(props) {
               />
               <p className={classes.refresh}>refresh</p>
             </div>
+            <Button
+              onClick={goToPractice}
+              color="inherit"
+              style={{ cursor: "pointer", marginRight: 700 }}
+            >
+              Practice
+            </Button>
             {isAuth && (
               <Button color="inherit" onClick={() => setOpen(true)}>
                 Sign Out

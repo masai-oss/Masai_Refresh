@@ -1,0 +1,86 @@
+.Card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: 200px;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.svgLogo {
+  background: linear-gradient(
+    152.85deg,
+    #fc490b -42.62%,
+    rgba(254, 177, 151, 0.428027) 25.72%,
+    rgba(254, 189, 166, 0.364284) 46.09%,
+    rgba(254, 216, 202, 0.215488) 88.61%,
+    rgba(255, 255, 255, 0) 121.7%
+  );
+  text-align: center;
+  border-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  padding-top: 25%;
+}
+.svgLogo p {
+  font-weight: 600;
+  font-size: 18px;
+  color: #fc490b;
+  margin-top: 15px;
+}
+.startQuiz {
+  text-align: center;
+  padding-top: 25%;
+}
+.startQuiz h3 {
+  color: #1e90ff;
+  font-size: 20px;
+}
+
+.Cards {
+  /* border: 1px solid red; */
+
+  padding: 60px 100px 60px 100px;
+  display: grid;
+  grid-template-columns: 48% 48%;
+  grid-column-gap: 4%;
+  grid-row-gap: 50px;
+}
+
+
+.modalContent {
+  font-weight: bold;
+  font-size: 16px;
+  /* line-height: 10px; */
+  /* padding: 0 30px 0 30px; */
+  width: 350px;
+  text-align: center;
+}
+.modalContent span {
+  color: #1e90ff;
+}
+.modalContent__buttons {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 20px;
+  padding: 5px;
+  margin-top: 30px;
+}
+.modalContent__buttons button {
+  background: none;
+  border: 2px solid #1e90ff;
+  border-radius: 5px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+
+  color: #1e90ff;
+  cursor: pointer;
+}
+.modalContent__buttons button:last-of-type {
+  background-color: #1e90ff;
+  color: white;
+}

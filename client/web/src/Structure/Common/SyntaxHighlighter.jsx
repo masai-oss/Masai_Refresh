@@ -1,9 +1,9 @@
 import SyntaxHighlighter from "react-syntax-highlighter";
-import { duotoneDark } from "react-syntax-highlighter/dist/esm/styles/prism";
+import { solarizedLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const SyntaxHighlight = ({ value, language }) => {
   return (
-    <SyntaxHighlighter language={language} style={duotoneDark}>
+    <SyntaxHighlighter language={language} style={solarizedLight}>
       {value}
     </SyntaxHighlighter>
   );
