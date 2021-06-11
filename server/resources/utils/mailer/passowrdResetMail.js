@@ -1,12 +1,12 @@
-const { transporter } = require("./mailerConfig")
+const { transporter } = require("./config/mailerConfig")
 
-const send_verification_mail = (name, email, otp) => {
+const send_password_reset_mail = (name, email, otp) => {
   const mailOptions = {
     from: process.env.MAILER_EMAIL,
     to: email,
-    subject: "Verification OTP",
+    subject: "Password Reset OTP",
     html: `<div>
-    <h3>Account Verification</h3>
+    <h3>Password Reset</h3>
     <h4>Hi ${name}!</h4>
     <p>Your One Time Password is <strong>${otp}</strong> . It will be valid for 5 minutes.</p>
     </div>`,
@@ -20,5 +20,5 @@ const send_verification_mail = (name, email, otp) => {
 }
 
 module.exports = {
-  send_verification_mail,
+  send_password_reset_mail,
 }

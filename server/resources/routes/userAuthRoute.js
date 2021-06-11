@@ -4,7 +4,9 @@ const {
   signupUser,
   signinUser,
   verifyUser,
-  resendOtp,
+  resendEmailVerficationOTP,
+  sendPasswordResetOTP,
+  passwordReset,
 } = require("../controller/ownAuthController")
 const {
   logoutController,
@@ -15,6 +17,10 @@ const {
   loginFailure,
   zohoCrmLogout,
 } = require("../controller/thirdPartyAuthController")
+const {
+  passwordAndOtpRouteLimiter,
+  signupAndSigninRouteLimiter,
+} = require("../middlewares/rateLimiter")
 
 const CLIENT_LOGIN_PAGE = process.env.CLIENT_LOGIN_PAGE
 
@@ -48,9 +54,19 @@ userAuthRoute.get("/zoho-crm-logout", zohoCrmLogout)
 userAuthRoute.post("/login_user", loginUser)
 
 //----------------------------- App auth -----------------------------
-userAuthRoute.post("/signup", signupUser)
-userAuthRoute.post("/verify_user", verifyUser)
-userAuthRoute.post("/resend_otp", resendOtp)
-userAuthRoute.post("/signin", signinUser)
+userAuthRoute.post("/signup", signupAndSigninRouteLimiter, signupUser)
+userAuthRoute.post("/verify_user", passwordAndOtpRouteLimiter, verifyUser)
+userAuthRoute.post("/signin", signupAndSigninRouteLimiter, signinUser)
+userAuthRoute.post(
+  "/email_verification/resend_otp",
+  passwordAndOtpRouteLimiter,
+  resendEmailVerficationOTP
+)
+userAuthRoute.post(
+  "/password_resst/send_otp",
+  passwordAndOtpRouteLimiter,
+  sendPasswordResetOTP
+)
+userAuthRoute.post("/password_reset", passwordAndOtpRouteLimiter, passwordReset)
 
 module.exports = userAuthRoute
