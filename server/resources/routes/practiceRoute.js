@@ -1,5 +1,6 @@
-const express = require("express");
-const { authenticateToken } = require("../controller/authController");
+const express = require("express")
+const { authenticateToken } = require("../middlewares/authentication")
+
 const {
   createPracticeAttempt,
   getQuestion,
@@ -9,10 +10,10 @@ const {
 } = require("../controller/practiceController");
 const practiceRoute = express.Router();
 
-practiceRoute.get("/topics", authenticateToken, getAllTopics);
-practiceRoute.post("/create", authenticateToken, createPracticeAttempt);
-practiceRoute.post("/question", authenticateToken, getQuestion);
-practiceRoute.post("/question_bookmark", authenticateToken, bookmarking);
-practiceRoute.post("/question_like", authenticateToken, liking);
+practiceRoute.get("/topics", authenticateToken, getAllTopics)
+practiceRoute.post("/create", authenticateToken, createPracticeAttempt)
+practiceRoute.post("/question", authenticateToken, getQuestion)
+practiceRoute.post("/question_bookmark", authenticateToken, bookmarking)
+practiceRoute.post("/question_like", authenticateToken, liking)
 
 module.exports = practiceRoute;

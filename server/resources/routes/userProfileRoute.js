@@ -1,5 +1,5 @@
 const express = require("express")
-const { authenticateToken } = require("../controller/authController")
+const { authenticateToken } = require("../middlewares/authentication")
 const {
   getBookmarksDetailsTopicwise,
   getAllBookmarks,

@@ -42,6 +42,7 @@ const googleStrategy = new GoogleStrategy(
               name: displayName,
               email: emails[0].value,
               role: role,
+              verified: true,
               profilePic: photos[0].value,
               oauth: [oauth],
             }).save()
