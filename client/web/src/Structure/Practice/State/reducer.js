@@ -28,8 +28,9 @@ const initState = {
   errMessage: "",
   practiceTopicsData: [],
   practiceQuestionID: [],
-  question: getFromStorage(storageEnums.LONG_QUESTION_PRACTICE, null),
+  question: [],
   topicId: "",
+  likeLoading:false,
 };
 
 const practice_topics = (state = initState, { type, payload }) => {
@@ -89,7 +90,6 @@ const practice_topics = (state = initState, { type, payload }) => {
         errMsg: "",
       };
     case GET_NEXT_QUESTION_SUCCESS:
-      saveToStorage(storageEnums.LONG_QUESTION_PRACTICE, payload);
       return {
         ...state,
         isLoading: false,
@@ -107,20 +107,20 @@ const practice_topics = (state = initState, { type, payload }) => {
     case POST_BOOKMARK_LOADING:
       return {
         ...state,
-        isLoading: true,
+        likeLoading: false,
         isError: false,
         errMessage: "",
       };
     case POST_BOOKMARK_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        likeLoading: false,
         isError: false,
       };
     case POST_BOOKMARK_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        likeLoading: false,
         isError: true,
         errMessage: "Error in posting bookmarks",
       };
@@ -130,20 +130,20 @@ const practice_topics = (state = initState, { type, payload }) => {
     case POST_LIKE_LOADING:
       return {
         ...state,
-        isLoading: true,
+        likeLoading: false,
         isError: false,
         errMessage: "",
       };
     case POST_LIKE_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        likeLoading: false,
         isError: false,
       };
     case POST_LIKE_FAILURE:
       return {
         ...state,
-        isLoading: false,
+        likeLoading: false,
         isError: true,
         errMessage: "Error in posting bookmarks",
       };

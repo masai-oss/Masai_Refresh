@@ -13,7 +13,6 @@ import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { useParams, useHistory } from "react-router-dom";
-import { ReportDialog } from "../../Common";
 import { Spinner } from "../../Common/Loader";
 
 const LongType = () => {
@@ -22,7 +21,7 @@ const LongType = () => {
   let topic_ID = params.topicID;
 
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID, isLoading } = useSelector(
+  let { practiceQuestionID, isLoading, likeLoading } = useSelector(
     (state) => state.practice_topics
   );
 
@@ -40,12 +39,15 @@ const LongType = () => {
   }, [indexNum]);
 
   const getQuestion = (index) => {
+    likeLoading = true;
+    console.log("likeLoading:", likeLoading);
+
     history.push(`${index}`);
     if (index > practiceQuestionID.length) {
       history.push("/practice_topics/completed");
     }
   };
-
+  console.log(likeLoading, isLoading);
   const toggleLike = () => {
     dispatch(
       practiceTopicActions.likes({
@@ -64,7 +66,7 @@ const LongType = () => {
     );
   };
 
-  return isLoading ? (
+  return isLoading && likeLoading ? (
     <Spinner />
   ) : (
     <>
