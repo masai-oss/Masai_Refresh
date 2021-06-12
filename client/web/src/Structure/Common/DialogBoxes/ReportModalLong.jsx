@@ -13,7 +13,7 @@ import {
   TagsWrapper,
   CustomizedTextArea,
   CustomButton,
-} from "../Styles/ReportDialogBoxStyles";
+} from "../Styles/ReportDialogLong";
 import ReasonEnums from "../../../Enums/ReasonEnums";
 import { useSelector } from "react-redux";
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";

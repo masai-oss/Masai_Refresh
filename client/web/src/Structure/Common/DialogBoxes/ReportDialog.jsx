@@ -144,4 +144,4 @@ function ReportDialog({ question_id, customMargin }) {
   );
 }
 
-export { ReportDialog }
+export { ReportDialog };
