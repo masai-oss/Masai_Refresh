@@ -30,7 +30,8 @@ const LongType = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const { statement, answer, like_flag, bookmark_flag, likes } = question;
+
+  let { statement, answer, like_flag, bookmark_flag, likes } = question;
 
   React.useEffect(() => {
     dispatch(
@@ -40,6 +41,15 @@ const LongType = () => {
       })
     );
   }, [indexNum]);
+
+  React.useEffect(() => {
+    dispatch(
+      practiceTopicActions.nextQuestion({
+        topic_id: topic_ID,
+        question_id: practiceQuestionID[indexNum - 1],
+      })
+    );
+  }, []);
 
   const getQuestion = (index) => {
     history.push(`${index}`);
@@ -66,7 +76,7 @@ const LongType = () => {
     );
   };
 
-  return isLoading ? (
+  return isLoading || !question ? (
     <Spinner />
   ) : (
     <>
@@ -107,8 +117,8 @@ const LongType = () => {
         >
           {answer}
         </ReactMarkdown>
-        <div className={styles.hr}></div>
-        <ReportSuccessModal />
+        <hr className={styles.hr} />
+        <ReportDialogLong />
       </div>
       <div className={styles.nextBtn}>
         <button

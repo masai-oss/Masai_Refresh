@@ -80,13 +80,16 @@ function ReportDialogLong({ question_id, customMargin }) {
       {/* <IssueReport onClick={handleClickOpen} margin={customMargin}>
         Report an issue with the question
           </IssueReport> */}
-      <div style={{ display: "flex", alignItems: "center" }}>
-        <img
-          className={styles.reportImg}
-          onClick={handleClickOpen}
-          src={report}
-          alt="report"
-        />
+      <div
+        onClick={handleClickOpen}
+        style={{
+          display: "flex",
+          alignItems: "center",
+          marginTop: 20,
+          cursor: "pointer",
+        }}
+      >
+        <img src={report} alt="report" />
         <div className={styles.report}>Report an issue</div>
       </div>
       <Dialog

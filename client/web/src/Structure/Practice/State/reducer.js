@@ -15,13 +15,18 @@ import {
   POST_LIKE_LOADING,
   POST_LIKE_FAILURE,
 } from "./actionTypes";
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  getFromStorage,
+  saveToStorage,
+} from "../../../Utils/localStorageHelper";
 
 const initState = {
   isLoading: false,
   isError: false,
   errMessage: "",
   practiceTopicsData: [],
-  practiceQuestionID: [],
+  practiceQuestionID: getFromStorage(storageEnums.LONG_QUESTION_IDs, []),
   question: [],
   topicId: "",
 };
@@ -59,6 +64,8 @@ const practice_topics = (state = initState, { type, payload }) => {
         errMessage: "",
       };
     case START_PRACTICE_SUCCESS:
+      saveToStorage(storageEnums.LONG_QUESTION_IDs, payload.questions);
+
       return {
         ...state,
         isLoading: false,
@@ -83,6 +90,7 @@ const practice_topics = (state = initState, { type, payload }) => {
         errMsg: "",
       };
     case GET_NEXT_QUESTION_SUCCESS:
+      // saveToStorage(storageEnums.LONG_QUESTION_PRACTICE, payload);
       return {
         ...state,
         isLoading: false,
