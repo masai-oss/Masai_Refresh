@@ -15,6 +15,7 @@ import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { useParams, useHistory } from "react-router-dom";
 import { ReportDialog } from "../../Common";
 import { Spinner } from "../../Common/Loader";
+import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 
 const LongType = () => {
   let params = useParams();
@@ -127,6 +128,7 @@ const LongType = () => {
         </button>
       </div>
       <div style={{ height: 100 }}></div>
+      <ReportDialogLong />
     </>
   );
 };
