@@ -3,7 +3,9 @@ import { Dialog, DialogActions, DialogContent } from "@material-ui/core";
 import { resultAction, modalStyles } from "../../Results Display";
 import { useDispatch } from "react-redux";
 import { makeStyles, Theme } from "@material-ui/core";
-
+import report from "../../../Assets/report.svg";
+import styles from "../../Practice/Styles/LongType.module.css";
+import CloseIcon from "@material-ui/icons/Close";
 import {
   IssueReport,
   Line,
@@ -75,9 +77,18 @@ function ReportDialogLong({ question_id, customMargin }) {
 
   return (
     <div>
-      <IssueReport onClick={handleClickOpen} margin={customMargin}>
+      {/* <IssueReport onClick={handleClickOpen} margin={customMargin}>
         Report an issue with the question
-      </IssueReport>
+          </IssueReport> */}
+      <div style={{ display: "flex", alignItems: "center" }}>
+        <img
+          className={styles.reportImg}
+          onClick={handleClickOpen}
+          src={report}
+          alt="report"
+        />
+        <div className={styles.report}>Report an issue</div>
+      </div>
       <Dialog
         BackdropProps={{
           classes: {
@@ -91,7 +102,10 @@ function ReportDialogLong({ question_id, customMargin }) {
         aria-labelledby="responsive-dialog-title"
       >
         <div className={classes.title} id="responsive-dialog-title">
-          {"Report an issue with the question"}
+          {"Report an issue with the question"}{" "}
+          <span style={{ float: "right", cursor: "pointer" }}>
+            <CloseIcon onClick={() => handleClose(false)} />
+          </span>
         </div>
         <Line />
         <DialogContent>

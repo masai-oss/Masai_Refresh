@@ -16,6 +16,7 @@ import { useParams, useHistory } from "react-router-dom";
 import { ReportDialog } from "../../Common";
 import { Spinner } from "../../Common/Loader";
 import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
+import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
 
 const LongType = () => {
   let params = useParams();
@@ -107,10 +108,7 @@ const LongType = () => {
           {answer}
         </ReactMarkdown>
         <div className={styles.hr}></div>
-        <div style={{ display: "flex" }}>
-          <img className={styles.img} src={report} alt="report" />
-          <span className={styles.report}>Report an issue</span>{" "}
-        </div>
+        <ReportSuccessModal />
       </div>
       <div className={styles.nextBtn}>
         <button
@@ -128,7 +126,6 @@ const LongType = () => {
         </button>
       </div>
       <div style={{ height: 100 }}></div>
-      <ReportDialogLong />
     </>
   );
 };

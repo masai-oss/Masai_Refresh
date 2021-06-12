@@ -93,6 +93,11 @@ body {
   padding-top: 20px;
 }
 
+.reportDiv {
+  display: flex;
+  align-items: center;
+}
+
 .report {
   padding-top: 20px;
   padding-left: 12px;
@@ -103,6 +108,11 @@ body {
   line-height: 170%;
   letter-spacing: 0.2px;
   color: #6c8d9e;
+}
+
+.reportImg {
+  color: #6c8d9e;
+  margin-top: 40;
 }
 
 .btn {
