@@ -117,6 +117,7 @@ const MCQ = (props) => {
     }
   };
 
+  // console.log(attempt)
 
   const handleColor = ()=>{
     
@@ -183,10 +184,36 @@ const MCQ = (props) => {
         >
           Back
         </button>
-        <button
+        
+        {question_id_index === questionIds.length - 1 ? (
+              <button
+                onClick={() => submitAnswers(false, true)}
+              >
+                Submit
+              </button>
+          ) : (!attempt && value !== -1) ? (
+              <button
+              onClick={() =>
+                // !attempt && value !== -1
+                   getNextQuestion(true)
+                  // : getNextQuestion(false)
+                
+              }
+              attempted={attempt || value !== -1}
         >
-          Next
+              {!attempt ? "Skip" : "Next"}
         </button>
+          ) : (
+              <button
+              onClick={() =>
+                question_id_index === questionIds.length - 1
+                  ? submitAnswers(true, true)
+                  : getNextQuestion(true)
+              }
+               >
+                {!attempt ? "Skip" : "Next"}
+              </button>
+            )}
     </div>
         <div className={classes.btns}>
           <PrevButton
@@ -207,7 +234,8 @@ const MCQ = (props) => {
               style={{ cursor: "pointer" }}
             >
               Skip
-            </button>
+          </button>
+          
             {question_id_index === questionIds.length - 1 ? (
               <button
                 className={`${classes.nextBtn} ${classes.cursor_pointer}`}
