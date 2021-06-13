@@ -1,14 +1,18 @@
 .Sidebar {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  height: 100vh;
 }
 .navContainer {
   margin-top: 80px;
+}
+.navContainer ul {
+  padding: 0px;
 }
 .navContainer ul li {
   display: grid;
   grid-template-columns: 25% 75%;
   /* border: 1px solid red; */
-  padding: 20px;
+  padding: 0px 20px;
   align-items: center;
   cursor: pointer;
 }
@@ -38,4 +42,11 @@
   .Sidebar {
     display: none;
   }
+}
+
+.Sidebar__profileMenu {
+  padding-left: 30px !important;
+}
+.selected {
+  color: #1e90ff;
 }

@@ -13,7 +13,7 @@ const DashboardNew = () => {
       case "MyBookmarks":
         return <MyBookmarks setRightSideContent={setRightSideContent} />;
       case "Bookmarks":
-        return <Bookmarks />;
+        return <Bookmarks setRightSideContent={setRightSideContent} />;
       default:
         return <Cards />;
     }

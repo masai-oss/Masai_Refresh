@@ -2,30 +2,36 @@ import React from "react";
 import Card from "../Card";
 import styles from "./MyBookmarks.module.css";
 const MyBookmarks = ({ setRightSideContent }) => {
+  const cardContent = (
+    <div className={styles.cardContent}>
+      <h3>18 Bookmarks</h3>
+      <button>View</button>
+    </div>
+  );
   return (
     <div className={styles.MyBookmarks}>
       <div className={styles.MyBookmarks__header}>
-        <p>18 bookmarks</p>
+        <p>81 Total Bookmarks</p>
       </div>
       <div className={styles.MyBookmarks__content}>
         <Card
           name={"html"}
-          cardContent={""}
+          cardContent={cardContent}
           onClick={() => setRightSideContent("Bookmarks")}
         />
         <Card
-          name={"html"}
-          cardContent={""}
+          name={"css"}
+          cardContent={cardContent}
           onClick={() => setRightSideContent("Bookmarks")}
         />
         <Card
-          name={"html"}
-          cardContent={""}
+          name={"javascript"}
+          cardContent={cardContent}
           onClick={() => setRightSideContent("Bookmarks")}
         />
         <Card
-          name={"html"}
-          cardContent={""}
+          name={"java"}
+          cardContent={cardContent}
           onClick={() => setRightSideContent("Bookmarks")}
         />
       </div>

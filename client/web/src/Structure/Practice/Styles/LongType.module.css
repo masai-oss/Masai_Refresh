@@ -1,0 +1,179 @@
+body {
+  background-color: #f1efef;
+}
+
+.question {
+  height: fit-content;
+  width: 800px;
+  background-color: #edf5ff;
+  margin: auto;
+  padding: 2%;
+  padding-left: 3.5%;
+  padding-top: 4%;
+}
+
+.answer {
+  height: fit-content;
+  width: 800px;
+  background-color: #ffffff;
+  margin: auto;
+  padding: 2%;
+  padding-left: 3.5%;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 170%;
+
+  color: #333434;
+}
+
+.queFont {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 170%;
+  color: #333434;
+}
+
+.answerFont {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 170%;
+
+  color: #333434;
+}
+
+.heart {
+  margin-left: 30px;
+  display: flex;
+}
+.heart:hover {
+  color: #4285f4;
+}
+
+/* .bookmark {
+  position: relative;
+} */
+
+.addIcon {
+  position: absolute;
+  top: -4;
+  left: 0;
+  color: teal;
+}
+.bookmark:hover {
+  color: #4285f4;
+  cursor: pointer;
+}
+
+.filledHeart {
+  color: #4285f4;
+  margin-left: 30px;
+  display: flex;
+}
+
+.icons {
+  padding-top: 20px;
+  display: flex;
+  align-items: center;
+}
+
+.likes {
+  margin-left: 5px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  color: #333434;
+}
+
+.hr {
+  border: 1px solid #e5e5e5;
+  padding: 0;
+  margin: 0;
+  background-color: #e5e5e5;
+}
+
+.img {
+  color: #6c8d9e;
+  padding-left: 10px;
+  padding-top: 20px;
+}
+
+.reportDiv {
+  display: flex;
+  align-items: center;
+}
+
+.report {
+  padding-left: 12px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 170%;
+  letter-spacing: 0.2px;
+  color: #6c8d9e;
+}
+
+.reportImg {
+  filter: sepia(79%) saturate(2476%);
+}
+
+.btn {
+  width: 180px;
+  height: 56px;
+  margin-top: 20px;
+  cursor: pointer;
+  background: linear-gradient(239.11deg, #1e90ff -4.11%, #2b75cd 88.83%);
+  box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
+  border-radius: 10px;
+  border: 0;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 170%;
+  text-align: center;
+  margin-left: 30px;
+  color: #ffffff;
+}
+
+.disabledBtn {
+  margin-left: 30px;
+  margin-top: 20px;
+  cursor: pointer;
+  width: 180px;
+  height: 56px;
+  background: #ffffff;
+  border: 2px solid #e6e6e6;
+  box-sizing: border-box;
+  box-shadow: 0px 8px 16px -10px rgba(30, 144, 255, 0.4);
+  border-radius: 8px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 18px;
+  line-height: 170%;
+  text-align: center;
+  color: #cecece;
+}
+
+.nextBtn {
+  display: flex;
+  margin-left: 22%;
+}
+
+.filledBookmark {
+  color: #2b75cd;
+}
+
+.likesDiv {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
+}

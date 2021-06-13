@@ -25,7 +25,6 @@ export const Tag = styled.div`
   cursor: pointer;
   font-family: dm Sans;
   font-size: 17px;
-
   :hover {
     background: ${(props) =>
       props.selected ? "#2D799F" : "rgba(37, 61, 73, 0.1)"};
@@ -43,7 +42,6 @@ export const CustomizedTextArea = styled.textarea`
   background: rgba(108, 141, 158, 0.1);
   width: 100%;
   height: 150px;
-
   :focus {
     outline: 1px solid rgba(27, 48, 59, 0.2);
   }
@@ -62,7 +60,6 @@ export const CustomButton = styled.button`
   margin: 0px 10px;
   cursor: ${(props) => (props.disabled ? "default" : "pointer")};
   opacity: ${(props) => (props.disabled ? "0.2" : "1")};
-
   :focus {
     outline: none;
   }

@@ -5,15 +5,16 @@ import { topics } from "./Structure/Topics";
 import { admin } from "./Structure/Admin";
 import { questions } from "./Structure/Questions";
 import { resultReducer } from "./Structure/Results Display";
-import { common } from "./Structure/Common"
-
+import { common } from "./Structure/Common";
+import { practice_topics } from "./Structure/Practice";
 const reducers = {
   authentication,
   admin,
   topics,
   questions,
   resultReducer,
-  common
+  common,
+  practice_topics,
 };
 
 let composeEnhancers = compose;

@@ -15,6 +15,10 @@ import { CrudTopics } from "../Structure/Admin";
 import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
 import { PageNotFound } from "../Structure/Common/PageNotFound";
+import { Practice } from "../Structure/Practice";
+import IndividualQue from "../Structure/Practice/Components/IndividualQue";
+import LongType from "../Structure/Practice/Components/LongType";
+import Completed from "../Structure/Practice/Components/Completed";
 
 const Routes = () => {
   return (
@@ -30,6 +34,17 @@ const Routes = () => {
           exact
           path="/results_display"
           component={Results_display}
+        />
+        <PrivateRoute exact path="/practice_topics" component={Practice} />
+        <PrivateRoute
+          exact
+          path="/practice_topics/individual_question/:topicID/:index"
+          component={LongType}
+        />
+        <PrivateRoute
+          exact
+          path="/practice_topics/completed"
+          component={Completed}
         />
 
         {/* all admin routes here */}

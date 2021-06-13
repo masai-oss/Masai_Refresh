@@ -1,10 +1,33 @@
 .MyBookmarks {
-  border: 1px solid red;
+}
+.MyBookmarks__header {
+  padding: 50px 50px 0px 50px;
+  font-weight: bold;
 }
 .MyBookmarks__content {
-  padding: 60px 100px 60px 100px;
+  padding: 20px 50px 60px 50px;
   display: grid;
   grid-template-columns: 48% 48%;
   grid-column-gap: 4%;
   grid-row-gap: 50px;
+}
+.cardContent {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: center;
+  justify-items: center;
+}
+.cardContent h3 {
+  font-size: 20px;
+}
+.cardContent button {
+  background-color: #edf5ff;
+  color: #1e90ff;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  width: 252px;
+  height: 56px;
+  font-weight: bold;
+  font-size: 20px;
 }

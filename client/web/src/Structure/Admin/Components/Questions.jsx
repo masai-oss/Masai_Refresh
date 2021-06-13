@@ -33,7 +33,6 @@ export const Questions = () => {
   };
 
   useEffect(() => {
-    console.log(page, rowsPerPage);
     if (
       (page === null || page === 0) &&
       (rowsPerPage === null || rowsPerPage === 0)

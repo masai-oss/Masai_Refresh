@@ -22,15 +22,15 @@ const modalStyles = makeStyles((theme) => ({
   title: {
     fontFamily: "Open Sans",
     fontStyle: "normal",
-    fontSize: "18px",
+    fontSize: "14px",
     fontWeight: "bold",
-    color: "#000000",
+    color: "#111B20",
     margin: "19px",
     marginTop: "14px",
-    lineHeight: "150%",
+    lineHeight: "170%",
     height: "24px",
     width: "381px",
-    letterSpacing: "0.2px",
+    letterSpacing: "0.5px",
     marginLeft: "21px",
   },
   textAreaWidth: {
@@ -91,6 +91,30 @@ const modalStyles = makeStyles((theme) => ({
     paddingBottom: "20px",
     cursor: "pointer",
   },
+  modalWidth: {
+    width: "500px",
+    height: "650px",
+    marginLeft: "38%",
+  },
+  issue: {
+    fontFamily: "Open Sans",
+    fontStyle: "normal",
+    fontWeight: 600,
+    fontSize: 14,
+    lineHeight: "170%",
+    /* identical to box height, or 24px */
+
+    color: "#333434",
+  },
+  // submitBtn: {
+  //   width: 280,
+  //   height: 56,
+  //   background: "linear-gradient(239.11deg, #1E90FF -4.11%, #2B75CD 88.83%)",
+  //   boxShadow: "0px 12px 16px -10px rgba(30, 144, 255, 0.6)",
+  //   borderRadius: 8,
+  //   color: "#FFFFFF",
+  //   marginRight: "17%",
+  // },
 }));
 
 export { modalStyles };

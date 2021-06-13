@@ -50,6 +50,7 @@ const zohoCrmStrategy = new ZohoCRMStrategy(
               name: displayName,
               email: Email,
               role: role,
+              verified: true,
               oauth: [oauth],
             }).save();
             if (newUser) {
