@@ -8,6 +8,7 @@ import { practiceTopicActions } from "../State/action";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import Progress from "react-progressbar";
 
 import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
@@ -17,6 +18,7 @@ import { ReportDialog } from "../../Common";
 import { Spinner } from "../../Common/Loader";
 import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
+import QuestionProgress from "../../Common/ProgressBar";
 
 const LongType = () => {
   let params = useParams();
@@ -75,11 +77,16 @@ const LongType = () => {
       })
     );
   };
+  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
+  console.log("practiceQuestionID:", practiceQuestionID);
+  console.log("indexNum:", indexNum);
+  console.log("percentage:", percentage);
 
   return isLoading || !question ? (
     <Spinner />
   ) : (
     <>
+      <QuestionProgress completed={percentage} />
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>
