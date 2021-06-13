@@ -1,0 +1,102 @@
+.detail-section__question {
+  width: 381px;
+  height: 57px;
+  font-size: 16px;
+  line-height: 148%;
+  color: #333434;
+  margin: 32px 32px 16px;
+}
+.detail-section__style {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+}
+.detail-section__youranswer {
+  width: 381px;
+  height: 76px;
+  background: rgba(159, 159, 159, 0.06);
+  border: 1.5px solid rgba(159, 159, 159, 0.6);
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin: 0 32px 16px;
+  padding: 13px 15.04px 13px 18.38px;
+}
+.correct-answer__report {
+  width: 381px;
+  height: 76px;
+  background: rgba(167, 233, 175, 0.12);
+  border: 1.5px solid #a7e9af;
+  box-sizing: border-box;
+  border-radius: 4px;
+  margin-bottom: 16px;
+  padding: 13px 15.04px 13px 18.38px;
+  margin: 0 32px 16px;
+}
+.detailed-report__h4 {
+  width: 416px;
+  height: 25px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 170%;
+  color: #333434;
+  margin: 0 32px 2px;
+}
+.detailed-report__explain {
+  width: 397px;
+  height: 48px;
+  font-size: 14px;
+  line-height: 170%;
+  color: #333434;
+  margin: 0 32px 16px;
+}
+.detail-section__source {
+  width: 167px;
+  height: 20px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 12px;
+  line-height: 170%;
+  letter-spacing: 0.3px;
+  color: #9f9f9f;
+  margin: 0 32px 16px;
+}
+.detail-section__highlighter {
+  font-weight: bold;
+  font-size: 14px;
+  line-height: 170%;
+  line-height: 170%;
+  color: #333434;
+}
+.detail-section_myans {
+  font-size: 14px;
+  line-height: 170%;
+  color: #333434;
+}
+.detail-section__reportquestion {
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 10px;
+  line-height: 170%;
+  letter-spacing: 0.2px;
+  color: #6c8d9e;
+  display: inline-block;
+  margin-left: 13.5px;
+  cursor: pointer;
+}
+.detail-section__reportquestion:hover {
+  text-decoration: underline;
+  text-decoration-color: #6c8d9e;
+}
+.detail-section__reportsvgbox {
+  display: flex;
+  align-items: center;
+  margin: 0 0 34px 32px;
+}
+.detail-section__hr {
+  border: 1.5px solid #e5e5e5;
+  background-color: #e5e5e5;
+}

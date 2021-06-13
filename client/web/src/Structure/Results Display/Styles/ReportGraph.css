@@ -1,0 +1,72 @@
+.reportchart-graph__parentdiv {
+  position: absolute;
+  width: 505px;
+  height: 19px;
+  left: 65px;
+  top: 164px;
+  border-radius: 10px 10px 10px 10px;
+  overflow: hidden;
+  display: grid;
+  /* grid-template-columns: 0% 67% 33%; */
+}
+.reportchart-graph__childgreen {
+  height: 19px;
+  background: #65ae91;
+}
+.reportchart-graph__childyellow {
+  height: 19px;
+  background: #f3d464;
+}
+.reportchart-graph__childred {
+  height: 19px;
+  background: #d57572;
+}
+.reportchart-graph__box {
+  position: absolute;
+  width: 41px;
+  height: 34px;
+  top: 126px;
+}
+.reportgraph__boxes__green,
+.reportgraph__boxes__red,
+.reportgraph__boxes__skip {
+  position: absolute;
+  width: 16px;
+  height: 16px;
+  top: 226px;
+  border-radius: 4px;
+}
+.reportgraph__boxes__green {
+  left: 178px;
+  background: #65ae91;
+}
+.reportgraph__boxes__red {
+  background: #d57572;
+  left: 281px;
+}
+.reportgraph__boxes__skip {
+  left: 389px;
+  background: #f3d464;
+}
+.report__graph_typography {
+  position: absolute;
+  height: 20px;
+  top: 223px;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 12px;
+  line-height: 170%;
+  /* or 20px */
+  text-align: center;
+  color: #333434;
+}
+.reportgraph__explain__green {
+  left: 202px;
+}
+.reportgraph__explain__red {
+  left: 305px;
+}
+.reportgraph__explain__skip {
+  left: 413px;
+}
