@@ -8,6 +8,7 @@ import { practiceTopicActions } from "../State/action";
 import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
+import Progress from "react-progressbar";
 
 import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
@@ -16,6 +17,8 @@ import { useParams, useHistory } from "react-router-dom";
 import { ReportDialog } from "../../Common";
 import { Spinner } from "../../Common/Loader";
 import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
+import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
+import QuestionProgress from "../../Common/ProgressBar";
 
 const LongType = () => {
   let params = useParams();
@@ -29,7 +32,8 @@ const LongType = () => {
 
   const dispatch = useDispatch();
   const history = useHistory();
-  const { statement, answer, like_flag, bookmark_flag, likes } = question;
+
+  let { statement, answer, like_flag, bookmark_flag, likes } = question;
 
   React.useEffect(() => {
     dispatch(
@@ -39,6 +43,15 @@ const LongType = () => {
       })
     );
   }, [indexNum]);
+
+  React.useEffect(() => {
+    dispatch(
+      practiceTopicActions.nextQuestion({
+        topic_id: topic_ID,
+        question_id: practiceQuestionID[indexNum - 1],
+      })
+    );
+  }, []);
 
   const getQuestion = (index) => {
     history.push(`${index}`);
@@ -64,11 +77,16 @@ const LongType = () => {
       })
     );
   };
+  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
+  console.log("practiceQuestionID:", practiceQuestionID);
+  console.log("indexNum:", indexNum);
+  console.log("percentage:", percentage);
 
-  return isLoading ? (
+  return isLoading || !question ? (
     <Spinner />
   ) : (
     <>
+      <QuestionProgress completed={percentage} />
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>
@@ -106,11 +124,8 @@ const LongType = () => {
         >
           {answer}
         </ReactMarkdown>
-        <div className={styles.hr}></div>
-        <div style={{ display: "flex" }}>
-          <img className={styles.img} src={report} alt="report" />
-          <span className={styles.report}>Report an issue</span>{" "}
-        </div>
+        <hr className={styles.hr} />
+        <ReportDialogLong />
       </div>
       <div className={styles.nextBtn}>
         <button
@@ -128,7 +143,6 @@ const LongType = () => {
         </button>
       </div>
       <div style={{ height: 100 }}></div>
-      <ReportDialogLong />
     </>
   );
 };
