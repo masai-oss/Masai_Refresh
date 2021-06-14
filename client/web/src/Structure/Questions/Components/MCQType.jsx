@@ -20,9 +20,18 @@ import {
 } from "../Styles/QuestionStyles";
 import styles from "../Styles/MCQType.module.css";
 import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
+import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
+import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider"
+
 
 
 const MCQ = (props) => {
+
+  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  const modalContent = <>
+    <h1>Himanshu</h1>
+    </>
+
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
@@ -179,7 +188,9 @@ const MCQ = (props) => {
       </div>
     <div className={styles.buttons}>
         <button
-          onClick={getPrevQuestion}
+          // onClick={getPrevQuestion}
+
+          onClick={()=>setIsOpen(true)}
           // disabled={true}
         >
           Back
@@ -259,6 +270,13 @@ const MCQ = (props) => {
           </div>
         </div>
       
+
+      <BlurModal
+      isOpen={isOpen}
+      setIsOpen={setIsOpen}
+      modalContent={modalContent}
+
+      />
     </>
   ) : (
     <Redirect to="/topics_user" />
