@@ -1,0 +1,17 @@
+.Dashboard {
+  /* border: 1px solid blue; */
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 20% 80%;
+}
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (max-width: 992px) {
+  .Dashboard {
+    /* border: 1px solid blue; */
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: 100%;
+  }
+}

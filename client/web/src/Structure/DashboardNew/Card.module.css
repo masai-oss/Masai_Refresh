@@ -1,0 +1,22 @@
+.Card {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 10px 15px -3px,
+    rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
+  display: grid;
+  grid-template-columns: 40% 60%;
+  height: 25vh;
+  border-radius: 10px;
+  cursor: pointer;
+}
+.svgLogo {
+  border-radius: 10px;
+  border-top-right-radius: 0px;
+  border-bottom-right-radius: 0px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+}
+.svgLogo img {
+  display: block;
+  margin: auto;
+  padding: 10px 0 10px 0;
+}
