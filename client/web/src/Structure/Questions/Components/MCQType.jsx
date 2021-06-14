@@ -22,20 +22,42 @@ import styles from "../Styles/MCQType.module.css";
 import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider"
+import QuestionNav from "../../Navbar/Components/QuestionNav";
 
 
 
 const MCQ = (props) => {
 
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-  const modalContent = <>
-    <h1>Himanshu</h1>
-    </>
+  const handlePopup = () => {
+    question_id_index === questionIds.length - 1 ?
+      submitAnswers(true, true)
+      : getNextQuestion(true)
+    
+    setIsOpen(false);
+  }
+  const modalContent = <div>
+    <h3>Are you sure you want to skip this question?</h3>
+    <div className={styles.popupButtons}>
+      
+      <button
+      onClick={()=>setIsOpen(false)}
+      >
+        No
+      </button>
+      <button
+      onClick={()=>handlePopup()}
+      >
+        Yes
+      </button>
+    </div>
+    </div>
 
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
+  
   const { attempt_id, submission_id, question_id, topic } = props;
   const { questionIds, question } = useSelector(
     (state) => state.questions,
@@ -80,6 +102,7 @@ const MCQ = (props) => {
     }
   };
 
+  
   const getPrevQuestion = async () => {
     if (question_id_index <= 0) {
       return;
@@ -126,72 +149,73 @@ const MCQ = (props) => {
     }
   };
 
-  // console.log(attempt)
+  const handleNextBtn = () => {
+    if (value == -1) {
+      setIsOpen(true)
+    }
+    if (!attempt && value !== -1) {
+      getNextQuestion(true)
+    } else {
+      getNextQuestion(false);
+    }
+  }
+
+  // console.log(attempt, value)
 
   const handleColor = ()=>{
     
   }
     
-    // React.useEffect(() => {
-    //     dispatch(topic, question_id_index)
-    // }, [question_id_index])
 
   return question ? (
-      <>
-      <div style={{margin:'auto', width:'fit-content'}}>
-      <div className={styles.navbar}>
-        <h3 className={styles.heading}>Question {question_id_index + 1}/{ questionIds.length }</h3>
-        <div className={styles.reportIcon}>
-            
-            <ReportDialog question_id={question_id} customMargin="10px 20px" />
-        </div>
-    </div>
-      <div className={styles.container}>
-        <div className="boxShadow">
-          {/* <QuestionNavbar
-            type={type}
-            len={questionIds.length}
-            topicDisplay={topic}
-            q_num={question_id_index + 1}
-          /> */}
-          <div className={styles.questions}>
-            <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
-              {`${statement}`}
-            </ReactMarkdown>
+    <>
+      <QuestionNav topic={topic} action={"Exit"} progress />
+      
+      <div className={styles.content}>
+        <div className={styles.navbar}>
+          <h3 className={styles.heading}>Question {question_id_index + 1}/{ questionIds.length }</h3>
+          <div className={styles.reportIcon}>
+              <ReportDialog question_id={question_id} customMargin="10px 20px" statement={-1}/>
           </div>
-          <form className={styles.options}>
-            <FormControl fullWidth component="fieldset">
-              <RadioGroup
-                //  className={style.optionBox}
-                aria-label="quiz"
-                name="quiz"
-                value={Number(value)}
-                onChange={handleRadioChange}
-              >
-                <div className={styles.optionBox}> 
-                  {options.map((option, index) => (
-                    <OptionRadio
-                      className={styles.activeRadio}
-                      id={Number(index + 1)}
-                      value={<ReactMarkdown>{option.text}</ReactMarkdown>}
-                      key={index}
-                      handleColor={handleColor}
-                    />
-                  ))}
-                </div>
-              </RadioGroup>
-            </FormControl>
-          </form>
-          
         </div>
+        <div className={styles.container}>
+          <div className="boxShadow">
+            <div className={styles.questions}>
+              <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
+                {`${statement}`}
+              </ReactMarkdown>
+            </div>
+            <form className={styles.options}>
+              <FormControl fullWidth component="fieldset">
+                <RadioGroup
+                  //  className={style.optionBox}
+                  aria-label="quiz"
+                  name="quiz"
+                  value={Number(value)}
+                  onChange={handleRadioChange}
+                >
+                  <div className={styles.optionBox}> 
+                    {options.map((option, index) => (
+                      <OptionRadio
+                        className={styles.activeRadio}
+                        id={Number(index + 1)}
+                        value={<ReactMarkdown>{option.text}</ReactMarkdown>}
+                        key={index}
+                        handleColor={handleColor}
+                      />
+                    ))}
+                  </div>
+                </RadioGroup>
+              </FormControl>
+            </form>
+            
+          </div>
         </div>
       </div>
     <div className={styles.buttons}>
         <button
-          // onClick={getPrevQuestion}
-
-          onClick={()=>setIsOpen(true)}
-          // disabled={true}
+          onClick={getPrevQuestion}
+          first_question={question_id_index <= 0}
         >
           Back
         </button>
@@ -202,80 +226,21 @@ const MCQ = (props) => {
               >
                 Submit
               </button>
-          ) : (!attempt && value !== -1) ? (
-              <button
-              onClick={() =>
-                // !attempt && value !== -1
-                   getNextQuestion(true)
-                  // : getNextQuestion(false)
-                
-              }
-              attempted={attempt || value !== -1}
-        >
-              {!attempt ? "Skip" : "Next"}
-        </button>
-          ) : (
-              <button
-              onClick={() =>
-                question_id_index === questionIds.length - 1
-                  ? submitAnswers(true, true)
-                  : getNextQuestion(true)
-              }
-               >
-                {!attempt ? "Skip" : "Next"}
-              </button>
-            )}
-    </div>
-        <div className={classes.btns}>
-          <PrevButton
-            className={classes.prevBtn}
-            onClick={getPrevQuestion}
-            first_question={question_id_index <= 0}
-          >
-            Back
-          </PrevButton>
-          <div className={classes.nextDiv}>
-            <button
-              className={`${classes.skipBtn} ${classes.cursor_pointer}`}
-              onClick={() =>
-                question_id_index === questionIds.length - 1
-                  ? submitAnswers(true, true)
-                  : getNextQuestion(true)
-              }
-              style={{ cursor: "pointer" }}
-            >
-              Skip
-          </button>
-          
-            {question_id_index === questionIds.length - 1 ? (
-              <button
-                className={`${classes.nextBtn} ${classes.cursor_pointer}`}
-                onClick={() => submitAnswers(false, true)}
-              >
-                Submit
-              </button>
-            ) : (
+        ) : (
               <NextButton
-                onClick={() =>
-                  !attempt && value !== -1
-                    ? getNextQuestion(true)
-                    : getNextQuestion(false)
+                onClick={() =>handleNextBtn()
                 }
-                className={classes.nextBtn}
-                attempted={attempt || value !== -1}
+                attempted = {true}
               >
                 Next
               </NextButton>
             )}
-          </div>
-        </div>
-      
-
+    </div>
+        
       <BlurModal
-      isOpen={isOpen}
-      setIsOpen={setIsOpen}
-      modalContent={modalContent}
-
+        isOpen={isOpen}
+        setIsOpen={setIsOpen}
+        modalContent={modalContent}
       />
     </>
   ) : (

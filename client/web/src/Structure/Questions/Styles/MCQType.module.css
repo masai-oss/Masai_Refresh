@@ -1,21 +1,29 @@
+.content {
+	width: fit-content;
+	margin: auto;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	padding-top: 80px;
+}
 .navbar {
 	display: flex;
 	max-width: 920px;
 	justify-content: space-between;
 	align-items: center;
 }
+button {
+	cursor: pointer;
+}
 .heading {
-	/* font-family: Open Sans; */
 	font-style: normal;
 	font-weight: bold;
 	font-size: 20px;
 	line-height: 170%;
-	/* identical to box height, or 34px */
 
 	letter-spacing: 1.2px;
 	text-transform: uppercase;
 	text-align: left;
-	/* Vulcan */
 
 	color: #111b20;
 }
@@ -23,7 +31,6 @@
 	margin-right: 0;
 }
 .container {
-	/* position: absolute; */
 	max-width: 920px;
 	min-height: 314px;
 
@@ -31,19 +38,11 @@
 	box-shadow: 0px 16px 23px -15px rgba(0, 0, 0, 0.1);
 	border-radius: 8px;
 
-	/* margin: auto; */
-
 	padding-left: 90px;
 	padding-top: 15px;
-	padding-bottom: 0;
-
-	/* border: 1px solid gray; */
+	padding-bottom: 30px;
 }
 .questions {
-	/* position: absolute; */
-	/* padding-left: 88px;
-	margin-top: 36px; */
-	/* margin-bottom: 54px; */
 	/* font-family: Open Sans; */
 	font-style: normal;
 	font-weight: 550;
@@ -75,6 +74,7 @@
 	color: #1e90ff;
 }
 .buttons {
+	position: fixed;
 	width: 100vw;
 	height: 104px;
 	bottom: 0;
@@ -126,6 +126,54 @@
 	/* identical to box height, or 31px */
 
 	cursor: pointer;
+	color: #ffffff;
+}
+
+.popupButtons {
+	display: flex;
+	justify-content: center;
+}
+.popupButtons > button:first-child {
+	width: 180px;
+	height: 56px;
+
+	background: #ffffff;
+	border: 2px solid #1e90ff;
+	box-sizing: border-box;
+	box-shadow: 0px 8px 16px -10px rgba(30, 144, 255, 0.4);
+	border-radius: 8px;
+	order: none;
+
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 170%;
+	/* or 31px */
+
+	text-align: center;
+
+	color: #1e90ff;
+}
+
+.popupButtons > button:last-child {
+	width: 180px;
+	height: 56px;
+	/* Linear */
+
+	background: linear-gradient(239.11deg, #1e90ff -4.11%, #2b75cd 88.83%);
+	box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
+	border-radius: 8px;
+	border: none;
+	margin-left: 24px;
+
+	font-style: normal;
+	font-weight: bold;
+	font-size: 18px;
+	line-height: 170%;
+	/* or 31px */
+
+	text-align: center;
+
 	color: #ffffff;
 }
 
