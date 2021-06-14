@@ -74,20 +74,48 @@
 // };
 
 // export { Results_display };
-import React from "react";
+import React, { useEffect } from "react";
+import { useSelector } from "react-redux";
+import { useHistory } from "react-router-dom";
 import ResultNavabar from "./utils/ResultNavabar";
 import ReportChart from "./chart/ReportChart";
 import PreviousAttempts from "./attempts/PreviousAttempts";
 import DetailedReport from "./detailedReport/DetailedReport";
+import { Spinner, PageNotFound, QuestionNavbar } from "../../Common";
 
 const Results_display = () => {
-  return (
-    <div style={{ margin: "0px", padding: "0px", boxSizing: "border-box" }}>
-      <ResultNavabar />
-      <ReportChart />
-      <PreviousAttempts />
-      <DetailedReport />
-    </div>
+  const result = useSelector((state) => state.resultReducer.result);
+  const isError = useSelector((state) => state.resultReducer.isError);
+  const isLoading = useSelector((state) => state.resultReducer.isLoading);
+  const question = useSelector((state) => state.questions.question);
+  const topic = useSelector((state) => state.questions.topic);
+
+  let history = useHistory();
+
+  // const goBackToHome = () => {
+  //       history.replace("quiz_topics");
+  //     };
+  const correctSol =
+    result && result.filter((answer) => answer.outcome === "CORRECT").length;
+  const wrongSol =
+    result && result.filter((answer) => answer.outcome === "WRONG").length;
+  const skippedSol =
+    result && result.filter((answer) => answer.outcome === "SKIPPED").length;
+
+  const chart_value = [correctSol, wrongSol, skippedSol];
+  return isLoading ? (
+    <Spinner />
+  ) : isError ? (
+    <PageNotFound errorNum="400" message="Something went wrong" />
+  ) : (
+    result && (
+      <div>
+        <ResultNavabar />
+        <ReportChart chart_value={chart_value} />
+        <PreviousAttempts />
+        <DetailedReport result={result} />
+      </div>
+    )
   );
 };
 

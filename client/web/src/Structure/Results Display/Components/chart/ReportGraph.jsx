@@ -1,17 +1,19 @@
 import React from "react";
 import "../../Styles/ReportGraph.css";
 
-const ReportGraph = () => {
-  const [correct, wrong, skipped] = [4, 4, 2];
-  const str = `${(correct / 10) * 100}%  ${(wrong / 10) * 100}%  ${
-    (skipped / 10) * 100
+const ReportGraph = (props) => {
+  const [correct, wrong, skipped] = props.chart_value;
+  console.log(props);
+  console.log("hi");
+  const str = `${(correct / 5) * 100}%  ${(wrong / 5) * 100}%  ${
+    (skipped / 5) * 100
   }%`;
-  const green_chart = (correct / 20) * (100 - 20.47244);
-  const red_chart = 2 * green_chart + (wrong / 20) * (100 - 20.47244);
+  const green_chart = (correct / 10) * (100 - 20.47244);
+  const red_chart = 2 * green_chart + (wrong / 10) * (100 - 20.47244);
   const yellow_chart =
     red_chart +
-    (wrong / 20) * (100 - 20.47244) +
-    (skipped / 20) * (100 - 20.47244);
+    (wrong / 10) * (100 - 20.47244) +
+    (skipped / 10) * (100 - 20.47244);
   return (
     <React.Fragment>
       {correct > 0 && (
