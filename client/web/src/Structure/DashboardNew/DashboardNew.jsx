@@ -8,7 +8,7 @@ const DashboardNew = () => {
   const [rightSideContent, setRightSideContent] = React.useState("Cards");
   const renderRightSideContent = () => {
     switch (rightSideContent) {
-      case "Cards":
+      case "Quiz":
         return <Cards />;
       case "MyBookmarks":
         return <MyBookmarks setRightSideContent={setRightSideContent} />;

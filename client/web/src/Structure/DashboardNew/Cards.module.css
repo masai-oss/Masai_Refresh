@@ -49,11 +49,29 @@
   align-items: center;
   justify-items: center;
 }
-.startQuiz h3 {
+
+.startQuiz p {
+  font-size: 16px;
+  margin-bottom: -20px;
+}
+.startQuiz button {
   color: #1e90ff;
   font-size: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  background: none;
+  width: 80%;
+  height: 56px;
+  border: none;
+  cursor: pointer;
 }
 
+.startQuiz button:last-of-type {
+  background-color: #edf5ff;
+}
+.startQuiz button:hover {
+  text-decoration: underline;
+}
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
 } */

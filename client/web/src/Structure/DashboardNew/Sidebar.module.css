@@ -17,7 +17,7 @@
   cursor: pointer;
 }
 .navContainer ul li h4 {
-  font-size: 24px;
+  font-size: 20px;
   color: #9f9f9f;
 }
 .navContainer ul li:hover {
@@ -28,7 +28,7 @@
   color: #1e90ff;
 }
 .navContainer ul li img {
-  width: 40px;
+  width: 50%;
 }
 .logoContainer {
   text-align: center;
@@ -48,5 +48,5 @@
   padding-left: 30px !important;
 }
 .selected {
-  color: #1e90ff;
+  color: #1e90ff !important;
 }
