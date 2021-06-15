@@ -89,7 +89,7 @@ const Results_display = () => {
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const question = useSelector((state) => state.questions.question);
   const topic = useSelector((state) => state.questions.topic);
-
+  console.log("from result_display", result);
   let history = useHistory();
 
   // const goBackToHome = () => {
