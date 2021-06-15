@@ -7,6 +7,7 @@ import { store } from "./store";
 import { axiosInterceptor } from "./Utils/axiosInterceptor";
 import "./index.css";
 import { BlurModalContextProvider } from "./ContextProviders/BlurModalContextProvider";
+axiosInterceptor(); //used to track request
 
 const rootElement = document.getElementById("root");
 ReactDom.render(

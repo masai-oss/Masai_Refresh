@@ -95,12 +95,16 @@ const Results_display = () => {
   // const goBackToHome = () => {
   //       history.replace("quiz_topics");
   //     };
+  console.log("result", result);
   const correctSol =
-    result && result.filter((answer) => answer.outcome === "CORRECT").length;
+    result &&
+    result.result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =
-    result && result.filter((answer) => answer.outcome === "WRONG").length;
+    result &&
+    result.result.filter((answer) => answer.outcome === "WRONG").length;
   const skippedSol =
-    result && result.filter((answer) => answer.outcome === "SKIPPED").length;
+    result &&
+    result.result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   const chart_value = [correctSol, wrongSol, skippedSol];
   return isLoading ? (
@@ -113,7 +117,7 @@ const Results_display = () => {
         <ResultNavabar />
         <ReportChart chart_value={chart_value} />
         <PreviousAttempts />
-        <DetailedReport result={result} />
+        <DetailedReport result={result.result} />
       </div>
     )
   );
