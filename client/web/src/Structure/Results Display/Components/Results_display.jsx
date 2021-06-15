@@ -84,23 +84,26 @@ import DetailedReport from "./detailedReport/DetailedReport";
 import { Spinner, PageNotFound, QuestionNavbar } from "../../Common";
 
 const Results_display = () => {
-  const result = useSelector((state) => state.resultReducer.result.result);
+  const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const question = useSelector((state) => state.questions.question);
   const topic = useSelector((state) => state.questions.topic);
-
+  console.log("from result_display", result);
   let history = useHistory();
 
   // const goBackToHome = () => {
   //       history.replace("quiz_topics");
   //     };
   const correctSol =
-    result && result.filter((answer) => answer.outcome === "CORRECT").length;
+    result &&
+    result.result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =
-    result && result.filter((answer) => answer.outcome === "WRONG").length;
+    result &&
+    result.result.filter((answer) => answer.outcome === "WRONG").length;
   const skippedSol =
-    result && result.filter((answer) => answer.outcome === "SKIPPED").length;
+    result &&
+    result.result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   const chart_value = [correctSol, wrongSol, skippedSol];
   return isLoading ? (
@@ -113,7 +116,7 @@ const Results_display = () => {
         <ResultNavabar />
         <ReportChart chart_value={chart_value} />
         <PreviousAttempts />
-        <DetailedReport result={result} />
+        <DetailedReport result={result.result} />
       </div>
     )
   );

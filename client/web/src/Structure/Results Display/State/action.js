@@ -47,7 +47,7 @@ const getResult =
           dispatch(
             getResultSuccess({
               result: res.data.result,
-              prev_attempt: response.topic_attempt_stats,
+              prev_attempt: response.data.topic_attempt_stats,
             })
           );
         });
