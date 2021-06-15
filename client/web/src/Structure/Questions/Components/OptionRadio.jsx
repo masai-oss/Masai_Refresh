@@ -2,20 +2,37 @@ import React from 'react';
 import { Grid, Box, Radio, FormControlLabel, StylesProvider } from '@material-ui/core';
 import { OptionStyles } from '../Styles/OptionStyles';
 
-const OptionRadio = ({ id, value, handleColor }) => {
+import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+const theme = createMuiTheme({
+	palette: {
+		secondary: {
+			main: '#1E90FF'
+		}
+	}
+});
+
+const OptionRadio = ({ id, value, handleColor, active }) => {
 	const classes = OptionStyles();
 
 	return (
-		<div style={{ marginRight: '10px' }}>
-			<Box m={1} p={1} borderRadius={2} className={classes.main} onClick={handleColor}>
-				<FormControlLabel
-					className={classes.label}
-					value={id}
-					control={<Radio color="primary" className={classes.radio} />}
-					label={value}
-				/>
-			</Box>
-		</div>
+		<MuiThemeProvider theme={theme}>
+			<div style={{ marginRight: '10px' }}>
+				<Box
+					m={1}
+					p={1}
+					borderRadius={2}
+					className={active === id ? classes.active : classes.main}
+					onClick={() => handleColor(id)}
+				>
+					<FormControlLabel
+						className={classes.label}
+						value={id}
+						control={<Radio color="secondary" className={classes.radio} />}
+						label={value}
+					/>
+				</Box>
+			</div>
+		</MuiThemeProvider>
 	);
 };
 

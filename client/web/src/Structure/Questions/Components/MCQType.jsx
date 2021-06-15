@@ -23,35 +23,15 @@ import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider"
 import QuestionNav from "../../Navbar/Components/QuestionNav";
+import { LoadingButtonStyle } from "../../Common/Styles/LoadingButtonStyles";
 
 
 
 const MCQ = (props) => {
 
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-  const handlePopup = () => {
-    question_id_index === questionIds.length - 1 ?
-      submitAnswers(true, true)
-      : getNextQuestion(true)
-    
-    setIsOpen(false);
-  }
-  const modalContent = <div>
-    <h3>Are you sure you want to skip this question?</h3>
-    <div className={styles.popupButtons}>
-      
-      <button
-      onClick={()=>setIsOpen(false)}
-      >
-        No
-      </button>
-      <button
-      onClick={()=>handlePopup()}
-      >
-        Yes
-      </button>
-    </div>
-    </div>
+  
+  
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -71,13 +51,41 @@ const MCQ = (props) => {
   const next = questionIds[question_id_index + 1];
   const prev = questionIds[question_id_index - 1];
   const classes = QuestionStyles();
+  const [active, setActive] = React.useState(0);
+  const [count, setCount] = React.useState(0);
+  const [visited, setVisited] = React.useState(0);
 
+  const handlePopup = () => {
+    question_id_index === questionIds.length - 1 ?
+      submitAnswers(true, true)
+      : getNextQuestion(true)
+    
+    setIsOpen(false);
+  }
+  const modalContent = <div style={{padding:'15px'}}>
+    <h3>Are you sure you want to skip this question?</h3>
+    <div className={styles.popupButtons}>
+      
+      <button
+      onClick={()=>setIsOpen(false)}
+      >
+        No
+      </button>
+      <button
+      onClick={()=>handlePopup()}
+      >
+        Yes
+      </button>
+    </div>
+  </div>
+  
   const handleRadioChange = (e) => {
     setValue(e.target.value);
     setAttempt(true);
   };
 
   const getNextQuestion = async (skip_record) => {
+    setCount(question_id_index+1)
     if (!attempt && !skip_record) {
       return;
     }
@@ -150,6 +158,8 @@ const MCQ = (props) => {
   };
 
   const handleNextBtn = () => {
+    
+    setVisited(visited+1)
     if (value == -1) {
       setIsOpen(true)
     }
@@ -160,16 +170,40 @@ const MCQ = (props) => {
     }
   }
 
-  // console.log(attempt, value)
 
-  const handleColor = ()=>{
-    
+  const handleColor = (id)=>{
+    setActive(id);
   }
-    
+  React.useEffect(() => {
+    setActive(value)
+  }, [])
 
+  const secondIcon = <>
+    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M21 21L3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+      <path d="M21 3L3 21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+    </svg>
+    
+  </>;
+
+  const logoPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}_logo.svg`;
+  const textPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}.svg`;
+
+  const handleExit = () => {
+    history.push("/quiz_topics")
+  }
   return question ? (
     <>
-      <QuestionNav topic={topic} action={"Exit"} progress />
+      <QuestionNav
+        secondIcon={secondIcon}
+        firstIcon={logoPath}
+        secondText={"Exit"}
+        firstText = {topic}
+        progress
+        length={questionIds.length}
+        num={question_id_index + 1}
+        handleExit= {handleExit}
+      />
       
       <div className={styles.content}>
         <div className={styles.navbar}>
@@ -197,10 +231,10 @@ const MCQ = (props) => {
                   <div className={styles.optionBox}> 
                     {options.map((option, index) => (
                       <OptionRadio
-                        className={styles.activeRadio}
                         id={Number(index + 1)}
                         value={<ReactMarkdown>{option.text}</ReactMarkdown>}
                         key={index}
+                        active={active}
                         handleColor={handleColor}
                       />
                     ))}

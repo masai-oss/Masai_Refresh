@@ -40,10 +40,11 @@ button {
 
 	padding-left: 90px;
 	padding-top: 15px;
-	padding-bottom: 30px;
+	padding-bottom: 40px;
+	margin-bottom: 150px;
 }
 .questions {
-	/* font-family: Open Sans; */
+	font-family: Open Sans;
 	font-style: normal;
 	font-weight: 550;
 	font-size: 20px;
@@ -73,7 +74,18 @@ button {
 
 	color: #1e90ff;
 }
+.activeRadio {
+	width: 350px;
+	height: 56px;
+
+	background: #e6f1ff;
+	border: 2px solid #1e90ff;
+	box-sizing: border-box;
+	box-shadow: 0px 12px 12px -10px rgba(30, 144, 255, 0.24);
+	border-radius: 8px;
+}
 .buttons {
+	font-family: Open Sans;
 	position: fixed;
 	width: 100vw;
 	height: 104px;
@@ -132,6 +144,8 @@ button {
 .popupButtons {
 	display: flex;
 	justify-content: center;
+	font-family: Open Sans;
+	padding: 30px;
 }
 .popupButtons > button:first-child {
 	width: 180px;

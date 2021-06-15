@@ -3,8 +3,10 @@ import { makeStyles } from '@material-ui/core/styles';
 export const OptionStyles = makeStyles((theme) => ({
 	main: {
 		width: '350px',
-		height: '56px',
-		padding: '25px',
+		minHeight: '56px',
+		paddingLeft: '25px',
+		paddingTop: 0,
+		paddingBottom: 0,
 
 		background: '#FFFFFF',
 		border: '2px solid #E5E5E5',
@@ -15,12 +17,28 @@ export const OptionStyles = makeStyles((theme) => ({
 		display: 'flex',
 		alignItem: 'center'
 	},
+	active: {
+		width: '350px',
+		minHeight: '56px',
+		paddingLeft: '25px',
+		paddingTop: 0,
+		paddingBottom: 0,
+
+		background: '#e6f1ff',
+		border: '2px solid #1e90ff',
+		boxSizing: 'border-box',
+		boxShadow: '0px 12px 12px -10px rgba(30, 144, 255, 0.24)',
+		borderRadius: '8px',
+
+		display: 'flex',
+		alignItem: 'center'
+	},
 	label: {
 		fontFamily: ' Open Sans',
 		fontStyle: 'normal',
 		fontWeight: '600',
 		fontSize: '14px',
-		lineHeight: '170%'
+		lineHeight: '100%'
 
 		/* identical to box height, or 24px */
 		// textAlign: 'center'
