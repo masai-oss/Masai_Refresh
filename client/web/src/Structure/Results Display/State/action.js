@@ -26,21 +26,36 @@ const getResultFailure = (payload) => ({
   payload,
 });
 
-const getResult = ({ attempt_id }) => (dispatch) => {
-  dispatch(getResultRequest());
-  const token = getFromStorage(storageEnums.TOKEN, "");
-  axios({
-    method: "GET",
-    url: `${RESULT_API}/result/${attempt_id}`,
-    headers: { Authorization: `Bearer ${token}` },
-  })
-  .then((res) => {
-    dispatch(getResultSuccess(res.data.result))
-  })
-  .catch((err) => {
-    dispatch(getResultFailure(err))
-  });
-};
+const getResult =
+  ({ attempt_id }) =>
+  (dispatch) => {
+    dispatch(getResultRequest());
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    axios({
+      method: "GET",
+      url: `${RESULT_API}/result/${attempt_id}`,
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        axios({
+          method: "GET",
+          url: `http://localhost:5050/api/stats/topic_attempts_stats/6047279c73ec24bb3b12ebff`,
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+          console.log(response.data.topic_attempt_stats);
+          // dispatch(getResultSuccess(res.data.result));
+          dispatch(
+            getResultSuccess({
+              result: res.data.result,
+              prev_attempt: response.topic_attempt_stats,
+            })
+          );
+        });
+      })
+      .catch((err) => {
+        dispatch(getResultFailure(err));
+      });
+  };
 
 //----------Report questions ------//
 
@@ -58,28 +73,30 @@ const sendReportFailure = (payload) => ({
   payload,
 });
 
-const sendReport = ({ question_id, reason, des }) => async (dispatch) => {
-  dispatch(sendReportRequest);
-  const token = getFromStorage(storageEnums.TOKEN, "");
-  try {
-    const res = await axios({
-      method: "PATCH",
-      url: `${REPORT_API}/report/${question_id}`,
-      headers: { Authorization: `Bearer ${token}` },
-      data: {
-        reason: reason,
-        description: des,
-      },
-    });
-    dispatch(sendReportSuccess(res));
-    return { output: true };
-  } catch (err) {
-    dispatch(sendReportFailure(err.response));
-    return { output: false };
-  }
-};
+const sendReport =
+  ({ question_id, reason, des }) =>
+  async (dispatch) => {
+    dispatch(sendReportRequest);
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    try {
+      const res = await axios({
+        method: "PATCH",
+        url: `${REPORT_API}/report/${question_id}`,
+        headers: { Authorization: `Bearer ${token}` },
+        data: {
+          reason: reason,
+          description: des,
+        },
+      });
+      dispatch(sendReportSuccess(res));
+      return { output: true };
+    } catch (err) {
+      dispatch(sendReportFailure(err.response));
+      return { output: false };
+    }
+  };
 
 export const resultAction = {
   getResult,
-  sendReport
-}
+  sendReport,
+};

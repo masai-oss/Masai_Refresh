@@ -19,6 +19,7 @@ const initState = {
   isError: false,
   isErrorReport: false,
   errorMessage: "",
+  prev_attempt: null,
 };
 
 const resultReducer = (state = initState, { type, payload }) => {
@@ -42,7 +43,8 @@ const resultReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        result: payload,
+        result: payload.result,
+        prev_attempt: payload.prev_attempt,
       };
     case SEND_REPORT_LOADING:
       return {
