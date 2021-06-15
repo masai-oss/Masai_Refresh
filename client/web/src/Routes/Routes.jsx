@@ -26,8 +26,8 @@ const Routes = () => {
       <Switch>
         {/* all private routes here */}
         <PrivateRoute exact path="/" component={Dashboard} />
-        <PrivateRoute exact path="/new-dashboard" component={DashboardNew} />
-        <PrivateRoute exact path="/quiz_topics" component={Topics} />
+        <PrivateRoute exact path="/old-dashboard" component={Topics} />
+        <PrivateRoute exact path="/quiz_topics" component={DashboardNew} />
         <PrivateRoute exact path="/quiz_questions" component={Questions} />
 
         <PrivateRoute

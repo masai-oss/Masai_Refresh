@@ -1,6 +1,5 @@
 .Sidebar {
   box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
-  height: 100vh;
 }
 .navContainer {
   margin-top: 80px;
@@ -8,6 +7,7 @@
 .navContainer ul {
   padding: 0px;
 }
+
 .navContainer ul li {
   display: grid;
   grid-template-columns: 25% 75%;
@@ -37,6 +37,13 @@
 .logoContainer img {
   width: 120px;
 }
+
+.navContainer > ul > li:last-child {
+  margin-top: 100px;
+}
+.navContainer > ul > li:last-child h4 {
+  color: black;
+}
 /* Medium devices (landscape tablets, 768px and up) */
 @media only screen and (max-width: 992px) {
   .Sidebar {
@@ -47,6 +54,14 @@
 .Sidebar__profileMenu {
   padding-left: 30px !important;
 }
+.selected__list_item {
+  /* background-color: #edf5ff; */
+  /* border-left: 4px solid #1e90ff; */
+}
 .selected {
   color: #1e90ff !important;
+}
+.svg__selected {
+  filter: invert(35%) sepia(94%) saturate(963%) hue-rotate(186deg)
+    brightness(110%) contrast(101%);
 }

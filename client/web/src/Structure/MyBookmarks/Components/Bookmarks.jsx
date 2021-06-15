@@ -1,5 +1,5 @@
 import React from "react";
-import styles from "./Bookmarks.module.css";
+import styles from "../Styles/Bookmarks.module.css";
 const Bookmarks = () => {
   const bookmarksList = [
     "What are Tags,Attributes and Elements",

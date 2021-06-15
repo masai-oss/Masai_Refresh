@@ -1,6 +1,6 @@
 import React from "react";
 import styles from "./Card.module.css";
-import { backGround } from "./Styles/Colors";
+import { backGround } from "./Colors";
 const Card = ({ name, onClick, cardContent }) => {
   const logoPath = `/logos/${name.toLowerCase()}/${name.toLowerCase()}_logo.svg`;
   const textPath = `/logos/${name.toLowerCase()}/${name.toLowerCase()}.svg`;
@@ -18,4 +18,4 @@ const Card = ({ name, onClick, cardContent }) => {
   );
 };
 
-export default Card;
+export { Card };

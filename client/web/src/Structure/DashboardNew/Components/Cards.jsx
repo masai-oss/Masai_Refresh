@@ -1,11 +1,11 @@
 import React, { useEffect } from "react";
-import styles from "./Cards.module.css";
-import Card from "./Card";
-import { topicActions } from "../Topics/State/action";
-import { BlurModal } from "../Common/DialogBoxes/BlurModal";
+import styles from "../Styles/Cards.module.css";
+import { Card } from "../../Common/Card/Card";
+import { topicActions } from "../../Topics/State/action";
+import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
 import { useDispatch, useSelector } from "react-redux";
-import { BlurModalContext } from "../../ContextProviders/BlurModalContextProvider";
-import { questionActions } from "../Questions";
+import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
+import { questionActions } from "../../Questions";
 import { useHistory } from "react-router";
 const Cards = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);

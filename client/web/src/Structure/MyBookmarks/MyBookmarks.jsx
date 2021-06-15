@@ -1,6 +1,6 @@
 import React from "react";
-import Card from "../Card";
-import styles from "./MyBookmarks.module.css";
+import { Card } from "../Common/Card";
+import styles from "./Styles/MyBookmarks.module.css";
 const MyBookmarks = ({ setRightSideContent }) => {
   const cardContent = (
     <div className={styles.cardContent}>
@@ -41,4 +41,4 @@ const MyBookmarks = ({ setRightSideContent }) => {
   );
 };
 
-export default MyBookmarks;
+export { MyBookmarks };
