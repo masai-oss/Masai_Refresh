@@ -4,4 +4,6 @@
   height: 380px;
   left: 165px;
   top: 683px;
+  overflow-y: scroll;
+  overflow-x: hidden;
 }

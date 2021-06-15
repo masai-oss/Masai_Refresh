@@ -89,21 +89,22 @@ const Results_display = () => {
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const question = useSelector((state) => state.questions.question);
   const topic = useSelector((state) => state.questions.topic);
-  console.log("from result_display", result);
+  const prev_attempt_list = useSelector(
+    (state) => state.resultReducer.prev_attempt
+  );
+
   let history = useHistory();
+  // console.log("from prev_attempt", prev_attempt);
 
   // const goBackToHome = () => {
   //       history.replace("quiz_topics");
   //     };
   const correctSol =
-    result &&
-    result.result.filter((answer) => answer.outcome === "CORRECT").length;
+    result && result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =
-    result &&
-    result.result.filter((answer) => answer.outcome === "WRONG").length;
+    result && result.filter((answer) => answer.outcome === "WRONG").length;
   const skippedSol =
-    result &&
-    result.result.filter((answer) => answer.outcome === "SKIPPED").length;
+    result && result.filter((answer) => answer.outcome === "SKIPPED").length;
 
   const chart_value = [correctSol, wrongSol, skippedSol];
   return isLoading ? (
@@ -115,8 +116,8 @@ const Results_display = () => {
       <div>
         <ResultNavabar />
         <ReportChart chart_value={chart_value} />
-        <PreviousAttempts />
-        <DetailedReport result={result.result} />
+        <PreviousAttempts prev_attempts={prev_attempt_list} />
+        <DetailedReport result={result} />
       </div>
     )
   );

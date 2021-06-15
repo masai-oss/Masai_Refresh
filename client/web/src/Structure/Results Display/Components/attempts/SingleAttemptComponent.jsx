@@ -2,24 +2,26 @@ import React from "react";
 import "../../Styles/SingleAttempt.css";
 
 const SingleAttemptComponent = ({
-  ele: { date, correct, wrong, skipped },
-  index,
+  ele: { date, correct, incorrect, skipped, attempt_id },
   select,
   onClickDiv,
 }) => {
   let classes =
-    index === select
+    attempt_id === select
       ? "singleattempt__container select-attempt__container"
       : "singleattempt__container";
+  if (attempt_id === select) {
+    console.log("this is from singleAttempt");
+  }
 
   return (
-    <div className={classes} onClick={() => onClickDiv(index)}>
-      <div className="singleattempt__container-date">{date}</div>
+    <div className={classes} onClick={() => onClickDiv(attempt_id)}>
+      <div className="singleattempt__container-date">{date.slice(0, 10)}</div>
       <div className="singleattempt__container-correct singleattempt_typography">
         {correct}
       </div>
       <div className="singleattempt__container-wrong singleattempt_typography">
-        {wrong}
+        {incorrect}
       </div>
       <div className="singleattempt__container-skipped singleattempt_typography">
         {" "}
