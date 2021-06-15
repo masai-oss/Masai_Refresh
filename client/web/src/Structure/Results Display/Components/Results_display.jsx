@@ -84,7 +84,7 @@ import DetailedReport from "./detailedReport/DetailedReport";
 import { Spinner, PageNotFound, QuestionNavbar } from "../../Common";
 
 const Results_display = () => {
-  const result = useSelector((state) => state.resultReducer.result);
+  const result = useSelector((state) => state.resultReducer.result.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const question = useSelector((state) => state.questions.question);
