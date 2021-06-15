@@ -3,8 +3,6 @@ import "../../Styles/ReportGraph.css";
 
 const ReportGraph = (props) => {
   const [correct, wrong, skipped] = props.chart_value;
-  console.log(props);
-  console.log("hi");
   const str = `${(correct / 5) * 100}%  ${(wrong / 5) * 100}%  ${
     (skipped / 5) * 100
   }%`;

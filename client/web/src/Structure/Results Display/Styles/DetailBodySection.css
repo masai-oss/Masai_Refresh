@@ -1,10 +1,12 @@
 .detail-section__question {
   width: 381px;
-  height: 57px;
+  min-height: 57px;
   font-size: 16px;
   line-height: 148%;
   color: #333434;
   margin: 32px 32px 16px;
+  overflow-x: hidden;
+  word-wrap: break-word;
 }
 .detail-section__style {
   font-family: Open Sans;
@@ -45,7 +47,7 @@
 }
 .detailed-report__explain {
   width: 397px;
-  height: 48px;
+  min-height: 48px;
   font-size: 14px;
   line-height: 170%;
   color: #333434;

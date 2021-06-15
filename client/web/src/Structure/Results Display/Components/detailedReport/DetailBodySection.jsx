@@ -1,24 +1,32 @@
 import React from "react";
 import "../../Styles/DetailBodySection.css";
+import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
 
-const DetailBodySection = () => {
+const DetailBodySection = ({ ele, index }) => {
   return (
-    <div style={{ position: "relative", overflowY: "scroll" }}>
+    <div>
       <div className="detail-section__question detail-section__style">
-        Q1. Which element is used for defining a new custom DOM elements?
+        {`Q${index + 1}. `}
+        <SyntaxHighlight value={ele.statement} />
       </div>
       <div className="detail-section__youranswer">
         <p className="detail-section__highlighter">Your Answer</p>
-        <p className="detail-section_myans  detail-section__style">my answer</p>
+        <p className="detail-section_myans  detail-section__style">
+          {/* my answer */}
+          {`${ele.response}`}
+        </p>
       </div>
       <div className="correct-answer__report">
         <p className="detail-section__highlighter">Correct Answer</p>
-        <p className="detail-section_myans  detail-section__style">answer</p>
+        <p className="detail-section_myans  detail-section__style">
+          {ele.correct}
+        </p>
       </div>
       <h4 className="detailed-report__h4">Explanation</h4>
       <div className="detailed-report__explain  detail-section__style">
-        In law, an answer was originally a solemn assertion in opposition to
-        someone or something.
+        {/* In law, an answer was originally a solemn assertion in opposition to
+        someone or something. */}
+        {ele.explanation}
       </div>
       <div className="detail-section__source">Source: GeeksforGeeks.com</div>
       <div className="detail-section__reportsvgbox">
