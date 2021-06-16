@@ -41,6 +41,7 @@ const getResult =
   (dispatch) => {
     console.log("from the action function", topicId);
     dispatch(getResultRequest());
+    console.log("Topic Id in Dispatch : ", topicId);
     dispatch(getPreviousAttempt(attempt_id));
     const token = getFromStorage(storageEnums.TOKEN, "");
     axios({
