@@ -77,6 +77,7 @@
 import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { getParam } from "../../../Utils/paramHelper";
 import ResultNavabar from "./utils/ResultNavabar";
 import ReportChart from "./chart/ReportChart";
 import PreviousAttempts from "./attempts/PreviousAttempts";
@@ -89,6 +90,10 @@ const Results_display = () => {
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const question = useSelector((state) => state.questions.question);
   const topic = useSelector((state) => state.questions.topic);
+  let search = window.location.search;
+  const topicId = getParam("topicId", undefined, search);
+
+  console.log("Topic Id-----------------: ", topicId);
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
   );

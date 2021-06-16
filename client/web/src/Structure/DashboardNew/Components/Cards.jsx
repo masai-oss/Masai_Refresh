@@ -51,9 +51,11 @@ const Cards = () => {
       let question_id = state.questions[0];
       let payload = { attempt_id, submission_id, question_id };
       await dispatch(questionActions.getQuizQuestion(payload));
+      console.log("Topic id Cards: ", quizTitle, quizTitle._id);
       history.replace(
-        `/quiz_questions?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${question_id}&topic=${quizTitle.name}`
+        `/quiz_questions?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${question_id}&topic=${quizTitle.name}&topicId=${quizTitle._id}`
       );
+      setIsOpen(false);
     } else {
       alert("Unable to start Quiz try later");
     }
