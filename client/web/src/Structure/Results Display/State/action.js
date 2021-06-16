@@ -37,9 +37,10 @@ const getPreviousAttempt = (payload) => ({
 });
 //----------Calling this right after clicking submit buttons in the question part-------
 const getResult =
-  ({ attempt_id }) =>
+  ({ attempt_id, topicId }) =>
   (dispatch) => {
     dispatch(getResultRequest());
+    console.log("Topic Id in Dispatch : ", topicId);
     dispatch(getPreviousAttempt(attempt_id));
     const token = getFromStorage(storageEnums.TOKEN, "");
     axios({

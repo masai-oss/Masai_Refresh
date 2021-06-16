@@ -138,7 +138,7 @@ const MCQ = (props) => {
       var res = await answerRecordSetup();
     }
     if (!(!skip && attempt) || res.output) {
-      await dispatch(resultAction.getResult({ attempt_id }));
+      await dispatch(resultAction.getResult({ attempt_id, topicId }));
       console.log("Topic id mcq: ", topicId);
       history.replace(`/results_display?topicId=${topicId}`);
     }
