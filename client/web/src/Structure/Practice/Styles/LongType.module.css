@@ -4,7 +4,7 @@ body {
 
 .question {
   height: fit-content;
-  width: 920px;
+  width: 800px;
   background-color: #edf5ff;
   margin: auto;
   padding: 2%;
@@ -14,7 +14,7 @@ body {
 
 .answer {
   height: fit-content;
-  width: 920px;
+  width: 800px;
   background-color: #ffffff;
   margin: auto;
   padding: 2%;
@@ -55,8 +55,19 @@ body {
   color: #4285f4;
 }
 
+/* .bookmark {
+  position: relative;
+} */
+
+.addIcon {
+  position: absolute;
+  top: -4;
+  left: 0;
+  color: teal;
+}
 .bookmark:hover {
   color: #4285f4;
+  cursor: pointer;
 }
 
 .filledHeart {
@@ -81,10 +92,10 @@ body {
 }
 
 .hr {
-  width: 150%;
-  height: 1px;
-
   border: 1px solid #e5e5e5;
+  padding: 0;
+  margin: 0;
+  background-color: #e5e5e5;
 }
 
 .img {
@@ -93,8 +104,12 @@ body {
   padding-top: 20px;
 }
 
+.reportDiv {
+  display: flex;
+  align-items: center;
+}
+
 .report {
-  padding-top: 20px;
   padding-left: 12px;
   font-family: Open Sans;
   font-style: normal;
@@ -103,6 +118,10 @@ body {
   line-height: 170%;
   letter-spacing: 0.2px;
   color: #6c8d9e;
+}
+
+.reportImg {
+  filter: sepia(79%) saturate(2476%);
 }
 
 .btn {
@@ -146,7 +165,7 @@ body {
 
 .nextBtn {
   display: flex;
-  margin-left: 18%;
+  margin-left: 22%;
 }
 
 .filledBookmark {
@@ -156,4 +175,5 @@ body {
 .likesDiv {
   display: flex;
   align-items: center;
+  cursor: pointer;
 }

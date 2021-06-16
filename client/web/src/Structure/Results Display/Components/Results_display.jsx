@@ -99,6 +99,7 @@ const Results_display = () => {
   // const goBackToHome = () => {
   //       history.replace("quiz_topics");
   //     };
+  console.log("result", result);
   const correctSol =
     result && result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =

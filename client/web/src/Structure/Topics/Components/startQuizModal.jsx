@@ -6,6 +6,7 @@ import { CustomDialog } from "../../Common";
 
 const StartQuizModal = ({ modalData, handleClose }) => {
   const { open, topic, topicId } = modalData;
+  console.log("Quiz modal: ", topic, topicId);
   const dispatch = useDispatch();
   const history = useHistory();
   const isLoadingQuiz = useSelector((state) => state.questions.isLoading);
@@ -17,6 +18,7 @@ const StartQuizModal = ({ modalData, handleClose }) => {
     );
     if (res.output) {
       let state = res.state;
+      console.log("Questions data : ", state);
       let { attempt_id, submission_id } = state;
       let question_id = state.questions[0];
       let payload = { attempt_id, submission_id, question_id };

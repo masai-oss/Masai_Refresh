@@ -4,6 +4,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { AdminRoute } from "./AdminRoute";
 import { Login } from "../Structure/Authentication";
 import { Dashboard } from "../Structure/Dashboard";
+import { DashboardNew } from "../Structure/DashboardNew/DashboardNew";
 import {
   Questions as AdminQuestions,
   QuestionForm,
@@ -25,7 +26,8 @@ const Routes = () => {
       <Switch>
         {/* all private routes here */}
         <PrivateRoute exact path="/" component={Dashboard} />
-        <PrivateRoute exact path="/quiz_topics" component={Topics} />
+        <PrivateRoute exact path="/old-dashboard" component={Topics} />
+        <PrivateRoute exact path="/quiz_topics" component={DashboardNew} />
         <PrivateRoute exact path="/quiz_questions" component={Questions} />
 
         <PrivateRoute
