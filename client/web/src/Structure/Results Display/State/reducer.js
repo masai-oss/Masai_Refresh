@@ -10,6 +10,8 @@ import {
   SEND_REPORT_LOADING,
   SEND_REPORT_SUCCESS,
   SEND_REPORT_FAILURE,
+  GET_PREVIOUS_ATTEMPTS_LIST,
+  GET_PREVIOUS_ATTEMPT_RESULT,
 } from "./actionTypes";
 
 const initState = {
@@ -20,6 +22,7 @@ const initState = {
   isErrorReport: false,
   errorMessage: "",
   prev_attempt: null,
+  prev_attempt_result: "",
 };
 
 const resultReducer = (state = initState, { type, payload }) => {
@@ -31,6 +34,16 @@ const resultReducer = (state = initState, { type, payload }) => {
         isError: false,
         errorMessage: "",
       };
+    case GET_PREVIOUS_ATTEMPTS_LIST:
+      return {
+        ...state,
+        prev_attempt: payload,
+      };
+    case GET_PREVIOUS_ATTEMPT_RESULT:
+      return {
+        ...state,
+        prev_attempt_result: payload,
+      };
     case GET_RESULT_FAILURE:
       return {
         ...state,
@@ -39,12 +52,11 @@ const resultReducer = (state = initState, { type, payload }) => {
         errorMessage: payload,
       };
     case GET_RESULT_SUCCESS:
-      saveToStorage(storageEnums.PRACTICE_RESULTS, payload.result);
+      saveToStorage(storageEnums.PRACTICE_RESULTS, payload);
       return {
         ...state,
         isLoading: false,
-        result: payload.result,
-        prev_attempt: payload.prev_attempt,
+        result: payload,
       };
     case SEND_REPORT_LOADING:
       return {

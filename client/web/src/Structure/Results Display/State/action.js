@@ -5,6 +5,8 @@ import {
   SEND_REPORT_LOADING,
   SEND_REPORT_SUCCESS,
   SEND_REPORT_FAILURE,
+  GET_PREVIOUS_ATTEMPTS_LIST,
+  GET_PREVIOUS_ATTEMPT_RESULT,
 } from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
@@ -25,11 +27,20 @@ const getResultFailure = (payload) => ({
   type: GET_RESULT_FAILURE,
   payload,
 });
-
+const getPreviousAttemptsList = (payload) => ({
+  type: GET_PREVIOUS_ATTEMPTS_LIST,
+  payload,
+});
+const getPreviousAttempt = (payload) => ({
+  type: GET_PREVIOUS_ATTEMPT_RESULT,
+  payload,
+});
+//----------Calling this right after clicking submit buttons in the question part-------
 const getResult =
   ({ attempt_id }) =>
   (dispatch) => {
     dispatch(getResultRequest());
+    dispatch(getPreviousAttempt(attempt_id));
     const token = getFromStorage(storageEnums.TOKEN, "");
     axios({
       method: "GET",
@@ -43,13 +54,8 @@ const getResult =
           headers: { Authorization: `Bearer ${token}` },
         }).then((response) => {
           console.log(response.data.topic_attempt_stats);
-          // dispatch(getResultSuccess(res.data.result));
-          dispatch(
-            getResultSuccess({
-              result: res.data.result,
-              prev_attempt: response.data.topic_attempt_stats,
-            })
-          );
+          dispatch(getPreviousAttemptsList(response.data.topic_attempt_stats));
+          dispatch(getResultSuccess(res.data.result));
         });
       })
       .catch((err) => {

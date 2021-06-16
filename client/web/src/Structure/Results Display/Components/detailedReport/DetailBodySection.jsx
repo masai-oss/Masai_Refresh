@@ -4,7 +4,7 @@ import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
 
 const DetailBodySection = ({ ele, index }) => {
   return (
-    <div>
+    <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">
         {`Q${index + 1}. `}
         <SyntaxHighlight value={ele.statement} />

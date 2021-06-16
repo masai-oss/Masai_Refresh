@@ -1,10 +1,14 @@
 .singleattempt__container {
+  margin: 0;
+  padding: 0;
   width: 635px;
   height: 75px;
   padding: 24px 0 24px 37px;
   cursor: pointer;
 }
 .singleattempt__container-date {
+  margin: 0;
+  padding: 0;
   position: absolute;
   width: 67px;
   height: 27px;
@@ -16,6 +20,8 @@
   color: #514f64;
 }
 .singleattempt_typography {
+  margin: 0;
+  padding: 0;
   font-family: Open Sans;
   font-style: normal;
   font-weight: normal;
@@ -26,17 +32,23 @@
   position: absolute;
 }
 .singleattempt__container-correct {
+  margin: 0;
+  padding: 0;
   width: 19px;
   height: 27px;
   left: 233px;
   font-weight: bold;
 }
 .singleattempt__container-wrong {
+  margin: 0;
+  padding: 0;
   width: 19px;
   height: 27px;
   left: 373px;
 }
 .singleattempt__container-skipped {
+  margin: 0;
+  padding: 0;
   width: 19px;
   height: 27px;
   left: 511px;
