@@ -4,11 +4,7 @@ import { OptionRadio } from "./OptionRadio";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
 import ReactMarkdown from "react-markdown";
-import {
-  SyntaxHighlight,
-  QuestionNavbar,
-  ReportDialog,
-} from "../../Common";
+import { SyntaxHighlight, QuestionNavbar, ReportDialog } from "../../Common";
 import { resultAction } from "../../Results Display";
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
@@ -21,24 +17,20 @@ import {
 import styles from "../Styles/MCQType.module.css";
 import style from "react-syntax-highlighter/dist/esm/styles/hljs/a11y-dark";
 import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
-import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider"
+import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 import QuestionNav from "../../Navbar/Components/QuestionNav";
 import { LoadingButtonStyle } from "../../Common/Styles/LoadingButtonStyles";
 
-
-
 const MCQ = (props) => {
-
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-  
-  
 
   const dispatch = useDispatch();
   const history = useHistory();
   const location = useLocation();
 
-  
-  const { attempt_id, submission_id, question_id, topic } = props;
+  const { attempt_id, submission_id, question_id, topic, topicId } = props;
+  console.log("Topic id mcq: ", topicId);
+  console.log();
   const { questionIds, question } = useSelector(
     (state) => state.questions,
     shallowEqual
@@ -56,36 +48,31 @@ const MCQ = (props) => {
   const [visited, setVisited] = React.useState(0);
 
   const handlePopup = () => {
-    question_id_index === questionIds.length - 1 ?
-      submitAnswers(true, true)
-      : getNextQuestion(true)
-    
+    question_id_index === questionIds.length - 1
+      ? submitAnswers(true, true)
+      : getNextQuestion(true);
+
     setIsOpen(false);
-  }
-  const modalContent = <div style={{padding:'15px'}}>
-    <h3>Are you sure you want to skip this question?</h3>
-    <div className={styles.popupButtons}>
-      
-      <button
-      onClick={()=>setIsOpen(false)}
-      >
-        No
-      </button>
-      <button
-      onClick={()=>handlePopup()}
-      >
-        Yes
-      </button>
+  };
+  const modalContent = (
+    <div style={{ padding: "15px" }}>
+      <h3 style={{ textAlign: "center" }}>
+        Are you sure you want to skip this question?
+      </h3>
+      <div className={styles.popupButtons}>
+        <button onClick={() => setIsOpen(false)}>No</button>
+        <button onClick={() => handlePopup()}>Yes</button>
+      </div>
     </div>
-  </div>
-  
+  );
+
   const handleRadioChange = (e) => {
     setValue(e.target.value);
     setAttempt(true);
   };
 
   const getNextQuestion = async (skip_record) => {
-    setCount(question_id_index+1)
+    setCount(question_id_index + 1);
     if (!attempt && !skip_record) {
       return;
     }
@@ -104,13 +91,12 @@ const MCQ = (props) => {
       if (res.output) {
         history.replace({
           pathname: location.pathname,
-          search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${next}&topic=${topic}`,
+          search: `?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${next}&topic=${topic}&topicId=${topicId}`,
         });
       }
     }
   };
 
-  
   const getPrevQuestion = async () => {
     if (question_id_index <= 0) {
       return;
@@ -153,63 +139,89 @@ const MCQ = (props) => {
     }
     if (!(!skip && attempt) || res.output) {
       await dispatch(resultAction.getResult({ attempt_id }));
-      history.replace("/results_display");
+      console.log("Topic id mcq: ", topicId);
+      history.replace(`/results_display?topicId=${topicId}`);
     }
   };
 
   const handleNextBtn = () => {
-    
-    setVisited(visited+1)
-    if (value == -1) {
-      setIsOpen(true)
+    console.log("Next Called...");
+    if (!attempt && value == -1) {
+      setIsOpen(true);
     }
     if (!attempt && value !== -1) {
-      getNextQuestion(true)
+      getNextQuestion(true);
     } else {
       getNextQuestion(false);
     }
-  }
+  };
 
-
-  const handleColor = (id)=>{
-    setActive(id);
-  }
+  const handleColor = (id) => {
+    setActive(+id);
+    setValue(+id);
+    setAttempt(true);
+  };
   React.useEffect(() => {
-    setActive(value)
-  }, [])
+    setActive(value);
+  }, []);
 
-  const secondIcon = <>
-    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M21 21L3 3" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-      <path d="M21 3L3 21" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
-    </svg>
-    
-  </>;
+  const secondIcon = (
+    <>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21 21L3 3"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M21 3L3 21"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </>
+  );
 
   const logoPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}_logo.svg`;
   const textPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}.svg`;
 
   const handleExit = () => {
-    history.push("/quiz_topics")
-  }
+    history.push("/quiz_topics");
+  };
   return question ? (
     <>
       <QuestionNav
         secondIcon={secondIcon}
         firstIcon={logoPath}
         secondText={"Exit"}
-        firstText = {topic}
+        firstText={topic}
         progress
         length={questionIds.length}
         num={question_id_index + 1}
-        handleExit= {handleExit}
+        handleExit={handleExit}
       />
-      
+
       <div className={styles.content}>
         <div className={styles.navbar}>
-          <h3 className={styles.heading}>Question {question_id_index + 1}/{ questionIds.length }</h3>
+          <h3 className={styles.heading}>
+            Question {question_id_index + 1}/{questionIds.length}
+          </h3>
           <div className={styles.reportIcon}>
-              <ReportDialog question_id={question_id} customMargin="10px 20px" statement={-1}/>
+            <ReportDialog
+              question_id={question_id}
+              customMargin="10px 20px"
+              statement={-1}
+            />
           </div>
         </div>
         <div className={styles.container}>
@@ -222,13 +234,12 @@ const MCQ = (props) => {
             <form className={styles.options}>
               <FormControl fullWidth component="fieldset">
                 <RadioGroup
-                  //  className={style.optionBox}
                   aria-label="quiz"
                   name="quiz"
                   value={Number(value)}
                   onChange={handleRadioChange}
                 >
-                  <div className={styles.optionBox}> 
+                  <div className={styles.optionBox}>
                     {options.map((option, index) => (
                       <OptionRadio
                         id={Number(index + 1)}
@@ -242,35 +253,26 @@ const MCQ = (props) => {
                 </RadioGroup>
               </FormControl>
             </form>
-            
           </div>
         </div>
       </div>
-    <div className={styles.buttons}>
+      <div className={styles.buttons}>
         <button
           onClick={getPrevQuestion}
           first_question={question_id_index <= 0}
         >
           Back
         </button>
-        
+
         {question_id_index === questionIds.length - 1 ? (
-              <button
-                onClick={() => submitAnswers(false, true)}
-              >
-                Submit
-              </button>
+          <button onClick={() => submitAnswers(false, true)}>Submit</button>
         ) : (
-              <NextButton
-                onClick={() =>handleNextBtn()
-                }
-                attempted = {true}
-              >
-                Next
-              </NextButton>
-            )}
-    </div>
-        
+          <NextButton onClick={() => handleNextBtn()} attempted={true}>
+            Next
+          </NextButton>
+        )}
+      </div>
+
       <BlurModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}
