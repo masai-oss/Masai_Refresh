@@ -37,8 +37,9 @@ const getPreviousAttempt = (payload) => ({
 });
 //----------Calling this right after clicking submit buttons in the question part-------
 const getResult =
-  ({ attempt_id }) =>
+  ({ attempt_id, topicId }) =>
   (dispatch) => {
+    console.log("from the action function", topicId);
     dispatch(getResultRequest());
     dispatch(getPreviousAttempt(attempt_id));
     const token = getFromStorage(storageEnums.TOKEN, "");
@@ -50,7 +51,7 @@ const getResult =
       .then((res) => {
         axios({
           method: "GET",
-          url: `http://localhost:5050/api/stats/topic_attempts_stats/6047279c73ec24bb3b12ebff`,
+          url: `http://localhost:5050/api/stats/topic_attempts_stats/${topicId}`,
           headers: { Authorization: `Bearer ${token}` },
         }).then((response) => {
           console.log(response.data.topic_attempt_stats);
@@ -106,3 +107,5 @@ export const resultAction = {
   getResult,
   sendReport,
 };
+
+// 6047279c73ec24bb3b12ebff
