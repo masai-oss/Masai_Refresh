@@ -15,7 +15,11 @@ export const OptionStyles = makeStyles((theme) => ({
 		borderRadius: '8px',
 
 		display: 'flex',
-		alignItem: 'center'
+		alignItem: 'center',
+		cursor: 'pointer',
+		'@media (max-width: 400px)': {
+			maxWidth: '250px'
+		}
 	},
 	active: {
 		width: '350px',
@@ -31,7 +35,10 @@ export const OptionStyles = makeStyles((theme) => ({
 		borderRadius: '8px',
 
 		display: 'flex',
-		alignItem: 'center'
+		alignItem: 'center',
+		'@media (max-width: 400px)': {
+			maxWidth: '250px'
+		}
 	},
 	label: {
 		fontFamily: ' Open Sans',

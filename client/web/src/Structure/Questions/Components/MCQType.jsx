@@ -63,7 +63,7 @@ const MCQ = (props) => {
     setIsOpen(false);
   }
   const modalContent = <div style={{padding:'15px'}}>
-    <h3>Are you sure you want to skip this question?</h3>
+    <h3 style={{textAlign:'center'}}>Are you sure you want to skip this question?</h3>
     <div className={styles.popupButtons}>
       
       <button
@@ -158,9 +158,7 @@ const MCQ = (props) => {
   };
 
   const handleNextBtn = () => {
-    
-    setVisited(visited+1)
-    if (value == -1) {
+    if (!attempt && value == -1) {
       setIsOpen(true)
     }
     if (!attempt && value !== -1) {
@@ -172,7 +170,9 @@ const MCQ = (props) => {
 
 
   const handleColor = (id)=>{
-    setActive(id);
+    setActive(+id);
+    setValue(+id)
+    setAttempt(true);
   }
   React.useEffect(() => {
     setActive(value)
@@ -222,7 +222,6 @@ const MCQ = (props) => {
             <form className={styles.options}>
               <FormControl fullWidth component="fieldset">
                 <RadioGroup
-                  //  className={style.optionBox}
                   aria-label="quiz"
                   name="quiz"
                   value={Number(value)}
