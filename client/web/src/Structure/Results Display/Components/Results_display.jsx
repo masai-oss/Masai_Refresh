@@ -115,9 +115,11 @@ const Results_display = () => {
     result && (
       <div>
         <ResultNavabar />
-        <ReportChart chart_value={chart_value} />
-        <PreviousAttempts prev_attempts={prev_attempt_list} />
-        <DetailedReport result={result} />
+        {chart_value && <ReportChart chart_value={chart_value} />}
+        {prev_attempt_list && (
+          <PreviousAttempts prev_attempts={prev_attempt_list} />
+        )}
+        {result && <DetailedReport result={result} />}
       </div>
     )
   );

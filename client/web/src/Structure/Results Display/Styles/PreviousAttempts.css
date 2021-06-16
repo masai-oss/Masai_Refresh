@@ -1,4 +1,6 @@
-.prev-attempt {
+.prev-attempt_conatiner {
+  margin: 0;
+  padding: 0;
   position: absolute;
   width: 635px;
   height: 380px;
@@ -6,4 +8,7 @@
   top: 683px;
   overflow-y: scroll;
   overflow-x: hidden;
+}
+.prev-attempt_conatiner::-webkit-scrollbar {
+  width: 0;
 }

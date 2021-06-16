@@ -14,11 +14,12 @@ const PreviousAttempts = (props) => {
   const clickHandler = (id) => {
     dispatch(resultAction.getResult({ attempt_id: id }));
   };
-  const data = props.prev_attempts;
+  let data = props.prev_attempts;
+  data = data.reverse();
   return (
     <div>
       <AttemptHeading />
-      <StyleContainer className="prev-attempt">
+      <StyleContainer className="prev-attempt_conatiner">
         {data &&
           data.map((ele, index) =>
             index !== data.length - 1 ? (
@@ -33,6 +34,7 @@ const PreviousAttempts = (props) => {
                   style={{
                     border: "1px solid #E5E5E5",
                     backgroundColor: "#E5E5E5",
+                    margin: "0px",
                   }}
                 />
               </div>

@@ -3,7 +3,7 @@ import "../../Styles/AttemptHeading.css";
 
 const AttemptHeading = () => {
   return (
-    <div>
+    <div className="attempt-heading_container">
       <div className="attempt-heading">Previous Attempt</div>
       <div className="attempt-heading__date">Date</div>
       <div className="attempt-heading__correct">Correct</div>

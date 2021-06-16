@@ -10,13 +10,7 @@ const DetailedReport = (props) => {
         <div className="detail-head--section">
           <div className="detail-head__typography">Detailed Report</div>
         </div>
-        <div
-          style={{
-            overflowY: "scroll",
-            overflowX: "hidden",
-            height: "713px",
-          }}
-        >
+        <div className="detail-body-section__scroll">
           {props.result.map((ele, index) => (
             <DetailBodySection ele={ele} key={index} index={index} />
           ))}
