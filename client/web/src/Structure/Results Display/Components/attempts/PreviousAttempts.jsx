@@ -12,7 +12,9 @@ const PreviousAttempts = (props) => {
   );
   let dispatch = useDispatch();
   const clickHandler = (id) => {
-    dispatch(resultAction.getResult({ attempt_id: id }));
+    dispatch(
+      resultAction.getResult({ attempt_id: id, topicId: props.topicID })
+    );
   };
   let data = props.prev_attempts;
   data = data.reverse();

@@ -123,7 +123,10 @@ const Results_display = () => {
         <ResultNavabar topic={topic} />
         {chart_value && <ReportChart chart_value={chart_value} />}
         {prev_attempt_list && (
-          <PreviousAttempts prev_attempts={prev_attempt_list} />
+          <PreviousAttempts
+            prev_attempts={prev_attempt_list}
+            topicID={topicId}
+          />
         )}
         {result && <DetailedReport result={result} />}
       </div>
