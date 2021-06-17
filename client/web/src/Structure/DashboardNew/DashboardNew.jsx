@@ -6,6 +6,7 @@ import Bookmarks from "../MyBookmarks/Components/Bookmarks";
 import { MyBookmarks } from "../MyBookmarks/MyBookmarks";
 import { BlurModalContext } from "../../ContextProviders/BlurModalContextProvider";
 import { BlurModal } from "../Common/DialogBoxes/BlurModal";
+import { Practice } from "../Practice";
 const DashboardNew = () => {
   const [rightSideContent, setRightSideContent] = React.useState("Cards");
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
@@ -17,10 +18,14 @@ const DashboardNew = () => {
     switch (rightSideContent) {
       case "Quiz":
         return <Cards />;
+
       case "MyBookmarks":
         return <MyBookmarks setRightSideContent={setRightSideContent} />;
       case "Bookmarks":
         return <Bookmarks setRightSideContent={setRightSideContent} />;
+      case "Practice":
+        return <Practice />;
+
       default:
         return <Cards />;
     }

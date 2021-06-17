@@ -19,7 +19,7 @@ import { Practice } from "../Structure/Practice";
 import IndividualQue from "../Structure/Practice/Components/IndividualQue";
 import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
-
+import { PreviousAttempts } from "../Structure/DashboardNew/Components/PreviousAttempts";
 const Routes = () => {
   return (
     <>
@@ -36,11 +36,18 @@ const Routes = () => {
           component={Results_display}
         />
         <PrivateRoute exact path="/practice_topics" component={Practice} />
+
         <PrivateRoute
           exact
           path="/practice_topics/individual_question/:topicID/:index"
           component={LongType}
         />
+        <PrivateRoute
+          exact
+          path="/previous-attempts/:topicId/:topicName"
+          component={PreviousAttempts}
+        />
+
         <PrivateRoute
           exact
           path="/practice_topics/completed"
