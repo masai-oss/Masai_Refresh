@@ -216,9 +216,9 @@ const likes =
     return axios(config)
       .then(async (res) => {
         await dispatch(postLikeSuccess(res.data));
-        await dispatch(
-          nextQuestion({ question_id: question_id, topic_id: topic_id })
-        );
+        // await dispatch(
+        //   nextQuestion({ question_id: question_id, topic_id: topic_id })
+        // );
       })
 
       .catch((err) => {

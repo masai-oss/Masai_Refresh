@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "../Styles/LongType.module.css";
 import BookmarkBorderIcon from "@material-ui/icons/BookmarkBorder";
-import { FavoriteBorderOutlined } from "@material-ui/icons";
+import { CodeSharp, FavoriteBorderOutlined } from "@material-ui/icons";
 import { useDispatch, useSelector } from "react-redux";
 import FavoriteIcon from "@material-ui/icons/Favorite";
 import { practiceTopicActions } from "../State/action";
@@ -24,9 +24,11 @@ const LongType = () => {
   let params = useParams();
   let indexNum = Number(params.index);
   let topic_ID = params.topicID;
-
+  const [likeStatus, setLikeStatus] = React.useState(false);
+  const [allLikes, setAllLikes] = React.useState(0);
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID, isLoading } = useSelector(
+
+  const { practiceQuestionID, isLoading, isLikeSuccess } = useSelector(
     (state) => state.practice_topics
   );
 
@@ -34,6 +36,33 @@ const LongType = () => {
   const history = useHistory();
 
   let { statement, answer, like_flag, bookmark_flag, likes } = question;
+
+  console.log("Like flag: ", like_flag);
+  React.useEffect(() => {
+    setLikeStatus(like_flag);
+  }, [like_flag]);
+
+  React.useEffect(() => {
+    setLikeStatus(likes);
+  }, [likes]);
+
+  console.log("Like status: ", likeStatus);
+  const toggleLike = async () => {
+    await dispatch(
+      practiceTopicActions.likes({
+        question_id: practiceQuestionID[indexNum - 1],
+        topic_id: topic_ID,
+      })
+    );
+    if (isLikeSuccess) {
+      if (likeStatus) {
+        setAllLikes(allLikes - 1);
+      } else {
+        setAllLikes(allLikes + 1);
+      }
+      setLikeStatus(!likeStatus);
+    }
+  };
 
   React.useEffect(() => {
     dispatch(
@@ -60,15 +89,6 @@ const LongType = () => {
     }
   };
 
-  const toggleLike = () => {
-    dispatch(
-      practiceTopicActions.likes({
-        question_id: practiceQuestionID[indexNum - 1],
-        topic_id: topic_ID,
-      })
-    );
-  };
-
   const toggleBookmark = () => {
     dispatch(
       practiceTopicActions.bookmarks({
@@ -78,10 +98,10 @@ const LongType = () => {
     );
   };
   const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
-  console.log("practiceQuestionID:", practiceQuestionID);
-  console.log("indexNum:", indexNum);
-  console.log("percentage:", percentage);
-
+  // console.log("practiceQuestionID:", practiceQuestionID);
+  // console.log("indexNum:", indexNum);
+  // console.log("percentage:", percentage);
+  //console.log("IsLoading:------------ " + isLoading);
   return isLoading || !question ? (
     <Spinner />
   ) : (
@@ -102,7 +122,7 @@ const LongType = () => {
             ></BookmarkBorderIcon>
           )}
           <div className={styles.likesDiv}>
-            {like_flag ? (
+            {likeStatus ? (
               <FavoriteIcon
                 onClick={toggleLike}
                 className={styles.filledHeart}
@@ -113,7 +133,7 @@ const LongType = () => {
                 className={styles.heart}
               ></FavoriteBorderOutlined>
             )}
-            <div className={styles.likes}>{likes}</div>
+            <div className={styles.likes}>{allLikes}</div>
           </div>
         </div>
       </div>

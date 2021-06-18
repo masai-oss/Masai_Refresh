@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: 48% 48%;
   grid-column-gap: 4%;
+  overflow-y: scroll;
   grid-row-gap: 50px;
 }
 .modalContent {
