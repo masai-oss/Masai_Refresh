@@ -8,6 +8,7 @@ import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProv
 import { questionActions } from "../../Questions";
 import { useHistory } from "react-router";
 import { getPreviousAttempts } from "../State/action";
+import { resultAction } from "../../Results Display";
 
 const Cards = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
@@ -27,16 +28,10 @@ const Cards = () => {
   const previousAttempts = useSelector(
     (state) => state.getPreviousAttempts.previousAttempts
   );
-  const viewAllAttempts = async (topic) => {
-    console.log(topic);
-
-    history.push(`/previous-attempts/${topic._id}/${topic.name}`);
-    // await dispatch(getPreviousAttempts(topic._id));
+  const viewAllAttempts = (topic) => {
+    console.log("ViewAllAttempts: ", topic);
   };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
-  const practiceTopicsData = useSelector((state) => state.topics);
-  // console.log("Practice topics data: ", practiceTopicsData);
-  // console.log(quizTopicsData);
 
   const modalContent = (
     <div className={styles.modalContent}>

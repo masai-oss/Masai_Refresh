@@ -1,3 +1,7 @@
 .PreviousAttempts {
   border: 1px solid red;
+  position: absolute;
+}
+.abcd {
+  border: 1px solid blue;
 }

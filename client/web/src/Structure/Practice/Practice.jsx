@@ -40,7 +40,7 @@ const Practice = () => {
   const modalContent = (
     <div className={styles.modalContent}>
       <p>
-        You are about to start a Quiz on <span>{title}</span>
+        You are about to start practicing <span>{title}</span>
       </p>
       <p>Are you sure you want to go ahead ?</p>
       <div className={styles.modalContent__buttons}>
@@ -52,20 +52,6 @@ const Practice = () => {
   const renderPracticeCards = () => {
     return practiceTopicsData?.map((item) => {
       const { name, icon, _id, size } = item;
-
-      // const cardContent = (
-      //   <div
-      //     onClick={() => openModalBox(_id, size, name)}
-      //     className={styles.Card}
-      //   >
-      //     <div className={styles.svgLogo}>
-      //       <img src={icon} alt="Logo not found" />
-      //       <p>{name}</p>
-      //     </div>
-      //     <div className={styles.startQuiz}>
-      //       <h4>Start Practice</h4>
-      //     </div>
-      //   </div>
 
       const cardContent = (
         <div className={styles.startQuiz}>

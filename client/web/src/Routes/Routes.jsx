@@ -19,7 +19,7 @@ import { Practice } from "../Structure/Practice";
 import IndividualQue from "../Structure/Practice/Components/IndividualQue";
 import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
-import { PreviousAttempts } from "../Structure/DashboardNew/Components/PreviousAttempts";
+import { ViewPreviousAttempts } from "../Structure/DashboardNew/Components/ViewPreviousAttempts";
 const Routes = () => {
   return (
     <>
@@ -45,7 +45,7 @@ const Routes = () => {
         <PrivateRoute
           exact
           path="/previous-attempts/:topicId/:topicName"
-          component={PreviousAttempts}
+          component={ViewPreviousAttempts}
         />
 
         <PrivateRoute
