@@ -71,13 +71,11 @@ const toggleVerification = async (req, res) => {
       }
     );
 
-    res
-      .status(200)
-      .json({
-        error: true,
-        message: "The toggle of verification has been successful",
-        data: { verified: !verified },
-      });
+    res.status(200).json({
+      error: true,
+      message: "The toggle of verification has been successful",
+      data: { verified: !verified },
+    });
   } catch (err) {
     res.status(400).json({ error: true, message: `${err}` });
   }

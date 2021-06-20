@@ -17,6 +17,7 @@ const {
 } = require("../controller/reportController");
 const {
   getDisabledQuestion,
+  getDisabledQuestionById,
   toggleDisableStatus,
 } = require("../controller/disabledController");
 
@@ -90,12 +91,20 @@ questionRoute.patch(
   solveReport
 );
 
-//Get Disabled Questions
+//Get All Disabled Questions
 questionRoute.get(
   "/disabled",
   authenticateToken,
   checkAdmin,
   getDisabledQuestion
+);
+
+//Get Disabled Question by an Id..
+questionRoute.get(
+  "/disabled/:id",
+  authenticateToken,
+  checkAdmin,
+  getDisabledQuestionById
 );
 
 //Toggle Disabled status of a question.

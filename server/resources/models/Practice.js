@@ -1,7 +1,7 @@
-const mongoose = require("mongoose")
-const topics_enum = require("../utils/enums/TopicsEnum")
-const question_type_enum = require("../utils/enums/QuestionTypeEnum")
-const reason_enum = require("../utils/enums/ReasonEnum")
+const mongoose = require("mongoose");
+const topics_enum = require("../utils/enums/TopicsEnum");
+const question_type_enum = require("../utils/enums/QuestionTypeEnum");
+const reason_enum = require("../utils/enums/ReasonEnum");
 
 const practiceSchema = new mongoose.Schema(
   {
@@ -85,6 +85,6 @@ const practiceSchema = new mongoose.Schema(
   {
     versionKey: false,
   }
-)
+);
 
-module.exports = mongoose.model("practices", practiceSchema)
+module.exports = mongoose.model("practices", practiceSchema);
