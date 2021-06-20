@@ -28,6 +28,15 @@ const Routes = () => {
         <PrivateRoute exact path="/" component={Dashboard} />
         <PrivateRoute exact path="/old-dashboard" component={Topics} />
         <PrivateRoute exact path="/quiz_topics" component={DashboardNew} />
+
+        <PrivateRoute exact path="/practice_topics" component={DashboardNew} />
+        <PrivateRoute exact path="/my_bookmarks" component={DashboardNew} />
+        <PrivateRoute
+          exact
+          path="/bookmarks/:topicId"
+          component={DashboardNew}
+        />
+
         <PrivateRoute exact path="/quiz_questions" component={Questions} />
 
         <PrivateRoute

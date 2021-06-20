@@ -97,7 +97,7 @@ const Results_display = () => {
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
   );
-
+  console.log("Previous Attempt List-------: ", prev_attempt_list);
   let history = useHistory();
   // console.log("from prev_attempt", prev_attempt);
 

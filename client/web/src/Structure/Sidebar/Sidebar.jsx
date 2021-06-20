@@ -53,7 +53,10 @@ const Sidebar = ({ setRightSideContent }) => {
       <div className={styles.navContainer}>
         <ul>
           <li
-            onClick={(e) => handleListItemClick("Quiz", e)}
+            onClick={(e) => {
+              handleListItemClick("Quiz", e);
+              history.push("/quiz_topics");
+            }}
             className={
               currentActiveTab === "Quiz" ? styles.selected__list_item : ""
             }
@@ -70,7 +73,10 @@ const Sidebar = ({ setRightSideContent }) => {
             </h4>
           </li>
           <li
-            onClick={(e) => handleListItemClick("Practice", e)}
+            onClick={(e) => {
+              handleListItemClick("Practice", e);
+              history.push("/practice_topics");
+            }}
             className={
               currentActiveTab === "Practice" ? styles.selected__list_item : ""
             }
@@ -110,7 +116,10 @@ const Sidebar = ({ setRightSideContent }) => {
           {displayProfileMenu ? (
             <ul className={styles.Sidebar__profileMenu}>
               <li
-                onClick={(e) => handleListItemClick("MyBookmarks", e)}
+                onClick={(e) => {
+                  handleListItemClick("MyBookmarks", e);
+                  history.push("/my_bookmarks");
+                }}
                 className={
                   currentActiveTab === "MyBookmarks"
                     ? styles.selected__list_item

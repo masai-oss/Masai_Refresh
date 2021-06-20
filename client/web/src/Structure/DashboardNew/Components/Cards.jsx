@@ -32,7 +32,7 @@ const Cards = () => {
     console.log("ViewAllAttempts: ", topic);
   };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
-
+  console.log(quizTopicsData);
   const modalContent = (
     <div className={styles.modalContent}>
       <p>
