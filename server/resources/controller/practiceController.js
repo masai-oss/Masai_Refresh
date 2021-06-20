@@ -2,6 +2,9 @@ const Practice = require("../models/Practice")
 const mongoose = require("mongoose")
 const mongod = require("mongodb")
 const User = require("../models/User")
+const {
+  reportQuestionValidation,
+} = require("../utils/validation/reportValidation")
 
 // get all available topics
 const getAllTopics = async (req, res) => {
@@ -181,6 +184,7 @@ const getQuestion = async (req, res) => {
 
     const response_to_send = {
       question_id: question._id,
+      flag: question.flag,
       source: question.source,
       statement: question.statement,
       explanation:
@@ -387,10 +391,89 @@ const liking = async (req, res) => {
   }
 }
 
+// report a question
+const reportPracticeQuestion = async (req, res) => {
+  const { question_id } = req.params
+  const user_id = req.id
+
+  // request body validator
+  const { error } = reportQuestionValidation(req.body)
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: error.details[0].message,
+    })
+  }
+
+  // question id is not a valid mongo id
+  if (!mongoose.Types.ObjectId.isValid(question_id)) {
+    return res.status(400).json({
+      error: true,
+      message: "Invalid question id",
+    })
+  }
+
+  try {
+    // get the question
+    const question = await Practice.findOne(
+      {
+        questions: { $elemMatch: { _id: question_id } },
+      },
+      {
+        _id: 0,
+        "questions.$": 1,
+      }
+    )
+
+    // if no question
+    if (!question) {
+      return res.status(400).json({
+        error: true,
+        message: "No such question id",
+      })
+    }
+
+    // if no flags or user hasn't reported it previously
+    const flag = question.questions[0].flag
+    const previous_report = flag.some((item) => {
+      return item.user_id == user_id
+    })
+    if (flag.length === 0 || !previous_report) {
+      await Practice.updateOne(
+        {
+          questions: { $elemMatch: { _id: question_id } },
+        },
+        {
+          $push: {
+            "questions.$.flag": { user_id, ...req.body },
+          },
+        }
+      )
+
+      return res.status(200).json({
+        error: false,
+        message: "Question reported successfully",
+      })
+    }
+
+    return res.status(200).json({
+      error: true,
+      message: "You already reported the question",
+    })
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Something went wrong",
+      reason: `${error}`,
+    })
+  }
+}
+
 module.exports = {
   getAllTopics,
   createPracticeAttempt,
   getQuestion,
   bookmarking,
   liking,
+  reportPracticeQuestion,
 }
