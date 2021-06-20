@@ -14,11 +14,15 @@ import {
   POST_LIKE_SUCCESS,
   POST_LIKE_LOADING,
   POST_LIKE_FAILURE,
+  POST_REPORT_FAILURE,
+  POST_REPORT_SUCCESS,
+  POST_REPORT_LOADING,
 } from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 const PRACTICE_TOPIC_API_URL = process.env.REACT_APP_PRACTICE_TOPIC_URL;
+const REPORT_API_URL = process.env.REACT_APP_REPORT_API_URL;
 
 //get topics
 const getPracticeTopicsLoading = () => ({
@@ -226,10 +230,49 @@ const likes =
         return { output: false };
       });
   };
+
+// Report
+const postReportLoading = () => ({
+  type: POST_REPORT_LOADING,
+});
+
+const postReportSuccess = () => ({
+  type: POST_REPORT_SUCCESS,
+});
+
+const postReportFailure = () => ({
+  type: POST_REPORT_FAILURE,
+});
+
+const postReport = (question_id, issueData) => async (dispatch) => {
+  console.log("Inside action post report:", `${REPORT_API_URL}/${question_id}`);
+  dispatch(postReportLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  const config = {
+    method: "POST",
+    url: `${REPORT_API_URL}/${question_id}`,
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+    data: {
+      reason: [...issueData.options],
+      description: issueData.description,
+    },
+  };
+  return axios(config)
+    .then(async (res) => {
+      console.log("SUCCESS-------------------IN ACTION", res);
+      await dispatch(postReportSuccess());
+    })
+    .catch((err) => {
+      dispatch(postReportFailure(err.message));
+    });
+};
 export const practiceTopicActions = {
   getPracticeTopics,
   startPractice,
   nextQuestion,
   bookmarks,
   likes,
+  postReport,
 };

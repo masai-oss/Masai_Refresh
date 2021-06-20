@@ -35,7 +35,6 @@ function ReportDialogLong({ question_id, customMargin }) {
   let issues = Object.values(ReasonEnums);
 
   const dispatch = useDispatch();
-
   const handleClickOpen = () => {
     setOpen(true);
   };

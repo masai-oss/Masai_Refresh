@@ -9,18 +9,26 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Progress from "react-progressbar";
-
+import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
 import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { useParams, useHistory } from "react-router-dom";
-import { ReportDialog } from "../../Common";
+import { ReportQuestion } from "../../Common";
 import { Spinner } from "../../Common/Loader";
 import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
 import QuestionProgress from "../../Common/ProgressBar";
+import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
+import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import axios from "axios";
 
 const LongType = () => {
+  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  const [reportSuccessGreeting, setReportSuccessGreeting] =
+    React.useState(false);
+  console.log(practiceTopicActions.postReport);
   let params = useParams();
   let indexNum = Number(params.index);
   let topic_ID = params.topicID;
@@ -29,6 +37,15 @@ const LongType = () => {
   const { practiceQuestionID, isLoading } = useSelector(
     (state) => state.practice_topics
   );
+  const issuesList = [
+    "Question Unclear",
+    "Insufficient Data",
+    "Explanation not clear",
+    "Others",
+  ];
+
+  const { reportSuccess } = useSelector((state) => state.practice_topics);
+  console.log("ReportSuccess--------- : ", reportSuccess, indexNum, topic_ID);
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -77,12 +94,16 @@ const LongType = () => {
       })
     );
   };
-  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
-  console.log("practiceQuestionID:", practiceQuestionID);
-  console.log("indexNum:", indexNum);
-  console.log("percentage:", percentage);
 
-  return isLoading || !question ? (
+  const sendReport = (issueData) => {
+    dispatch(practiceTopicActions.postReport(question.question_id, issueData));
+  };
+  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
+  // console.log("practiceQuestionID:", practiceQuestionID);
+  // console.log("indexNum:", indexNum);
+  // console.log("percentage:", percentage);
+
+  return !question ? (
     <Spinner />
   ) : (
     <>
@@ -125,7 +146,12 @@ const LongType = () => {
           {answer}
         </ReactMarkdown>
         <hr className={styles.hr} />
-        <ReportDialogLong />
+        <ReportQuestion
+          issuesList={issuesList}
+          questionId={question._id}
+          sendReport={sendReport}
+          reportSuccessGreeting={reportSuccess}
+        />
       </div>
       <div className={styles.nextBtn}>
         <button
