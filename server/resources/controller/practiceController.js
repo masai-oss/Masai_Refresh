@@ -184,7 +184,6 @@ const getQuestion = async (req, res) => {
 
     const response_to_send = {
       question_id: question._id,
-      flag: question.flag,
       source: question.source,
       statement: question.statement,
       explanation:
