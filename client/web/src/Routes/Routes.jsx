@@ -20,6 +20,7 @@ import IndividualQue from "../Structure/Practice/Components/IndividualQue";
 import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
 import { ViewPreviousAttempts } from "../Structure/DashboardNew/Components/ViewPreviousAttempts";
+import { SingleQuestionBookmarkQuestion } from "../Structure/Practice/Components/SingleBookmarkQuestion";
 const Routes = () => {
   return (
     <>
@@ -36,7 +37,11 @@ const Routes = () => {
           path="/bookmarks/:topicId"
           component={DashboardNew}
         />
-
+        <PrivateRoute
+          exact
+          path="/bookmarks/:topicID/:questionId"
+          component={SingleQuestionBookmarkQuestion}
+        />
         <PrivateRoute exact path="/quiz_questions" component={Questions} />
 
         <PrivateRoute

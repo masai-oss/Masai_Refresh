@@ -13,6 +13,11 @@ const Bookmarks = ({ topicId }) => {
   const { topicwiseBookmarks } = useSelector((state) => state.myBookmarks);
   console.log("Topic wise bookmarks:", topicwiseBookmarks);
 
+  const showQuestion = (questionId) => {
+    console.log("Question id: ", questionId);
+    history.push(`/bookmarks/${topicId}/${questionId}`);
+  };
+
   const renderBookmarks = () => {
     if (!topicwiseBookmarks) {
       return "";
@@ -20,7 +25,11 @@ const Bookmarks = ({ topicId }) => {
     return topicwiseBookmarks.bookmark_details.map((singleBookmark, index) => {
       const { statement } = singleBookmark;
       return (
-        <div className={styles.bookmarks__singleBookmark} key={index}>
+        <div
+          className={styles.bookmarks__singleBookmark}
+          key={index}
+          onClick={() => showQuestion(singleBookmark.question_id)}
+        >
           <p>{statement}</p>
           <img src="/logos/GreaterThanIcon.svg" alt="back icon" />
         </div>

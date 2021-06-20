@@ -20,15 +20,12 @@ import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
 import QuestionProgress from "../../Common/ProgressBar";
 
-const LongType = () => {
+const SingleQuestionBookmarkQuestion = () => {
   let params = useParams();
-  let indexNum = Number(params.index);
+  let questionId = params.questionId;
   let topic_ID = params.topicID;
 
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID, isLoading } = useSelector(
-    (state) => state.practice_topics
-  );
 
   const dispatch = useDispatch();
   const history = useHistory();
@@ -39,31 +36,15 @@ const LongType = () => {
     dispatch(
       practiceTopicActions.nextQuestion({
         topic_id: topic_ID,
-        question_id: practiceQuestionID[indexNum - 1],
-      })
-    );
-  }, [indexNum]);
-
-  React.useEffect(() => {
-    dispatch(
-      practiceTopicActions.nextQuestion({
-        topic_id: topic_ID,
-        question_id: practiceQuestionID[indexNum - 1],
+        question_id: questionId,
       })
     );
   }, []);
 
-  const getQuestion = (index) => {
-    history.push(`${index}`);
-    if (index > practiceQuestionID.length) {
-      history.push("/practice_topics/completed");
-    }
-  };
-
   const toggleLike = () => {
     dispatch(
       practiceTopicActions.likes({
-        question_id: practiceQuestionID[indexNum - 1],
+        question_id: questionId,
         topic_id: topic_ID,
       })
     );
@@ -72,21 +53,16 @@ const LongType = () => {
   const toggleBookmark = () => {
     dispatch(
       practiceTopicActions.bookmarks({
-        question_id: practiceQuestionID[indexNum - 1],
+        question_id: questionId,
         topic_id: topic_ID,
       })
     );
   };
-  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
-  console.log("practiceQuestionID:", practiceQuestionID);
-  console.log("indexNum:", indexNum);
-  console.log("percentage:", percentage);
 
-  return isLoading || !question ? (
+  return !question ? (
     <Spinner />
   ) : (
     <>
-      <QuestionProgress completed={percentage} />
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>
@@ -127,24 +103,10 @@ const LongType = () => {
         <hr className={styles.hr} />
         <ReportDialogLong />
       </div>
-      <div className={styles.nextBtn}>
-        <button
-          disabled={indexNum == 1 ? true : false}
-          onClick={() => getQuestion(indexNum - 1)}
-          className={indexNum == 1 ? styles.disabledBtn : styles.btn}
-        >
-          Back
-        </button>
-        <button
-          onClick={() => getQuestion(indexNum + 1)}
-          className={styles.btn}
-        >
-          Next
-        </button>
-      </div>
+
       <div style={{ height: 100 }}></div>
     </>
   );
 };
 
-export default LongType;
+export { SingleQuestionBookmarkQuestion };

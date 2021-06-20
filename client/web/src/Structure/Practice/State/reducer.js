@@ -29,7 +29,6 @@ const initState = {
   practiceQuestionID: getFromStorage(storageEnums.LONG_QUESTION_IDs, []),
   question: [],
   topicId: "",
-  isLikeSuccess: false,
 };
 
 const practice_topics = (state = initState, { type, payload }) => {
@@ -132,17 +131,15 @@ const practice_topics = (state = initState, { type, payload }) => {
     case POST_LIKE_LOADING:
       return {
         ...state,
-        isLoading: false,
+        isLoading: true,
         isError: false,
         errMessage: "",
-        isLikeSuccess: false,
       };
     case POST_LIKE_SUCCESS:
       return {
         ...state,
         isLoading: false,
         isError: false,
-        isLikeSuccess: true,
       };
     case POST_LIKE_FAILURE:
       return {
@@ -150,7 +147,6 @@ const practice_topics = (state = initState, { type, payload }) => {
         isLoading: false,
         isError: true,
         errMessage: "Error in posting bookmarks",
-        isLikeSuccess: false,
       };
 
     default:
