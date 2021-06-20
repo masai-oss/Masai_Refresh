@@ -1,5 +1,6 @@
 const Topic = require("../models/Topic");
 
+// Get all disabled questions...
 const getDisabledQuestion = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
@@ -55,6 +56,62 @@ const getDisabledQuestion = async (req, res) => {
   }
 };
 
+// Get disabled question by Id..
+const getDisabledQuestionById = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let findedQuestion = await Topic.find(
+      { questions: { $elemMatch: { _id: id } } },
+      { "questions.$": 1, _id: 0 }
+    );
+    if (!findedQuestion.length) {
+      return res.status(400).json({
+        error: true,
+        message: "Question not present",
+      });
+    }
+    const [{ questions }] = findedQuestion;
+    return res.status(200).json({
+      error: false,
+      message: "Question found successfully",
+      question: questions,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: "Something Went Wrong",
+      reason: `${err}`,
+    });
+  }
+};
+
+// Toggle Disable Status of a Question...
+const toggleDisableStatus = async (req, res) => {
+  const { id } = req.params;
+  try {
+    let topic = await Topic.findOne({ "questions._id": id });
+    let disabled = topic.questions.find((q) => q._id == id).disabled;
+    await Topic.updateOne(
+      {
+        "questions._id": id,
+      },
+      {
+        $set: {
+          "questions.$.disabled": !disabled,
+        },
+      }
+    );
+
+    res.status(200).json({
+      error: true,
+      message: "successful",
+      data: { disabled: !disabled },
+    });
+  } catch (err) {
+    res.status(400).json({ error: true, message: `${err}` });
+  }
+};
+
 const pagination = (page, limit, questions) => {
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
@@ -90,31 +147,8 @@ const pagination = (page, limit, questions) => {
   return results;
 };
 
-// Toggle Disable button
-const toggleDisableStatus = async (req, res) => {
-  const { id } = req.params;
-  try {
-    let topic = await Topic.findOne({ "questions._id": id });
-    let disabled = topic.questions.find((q) => q._id == id).disabled;
-    await Topic.updateOne(
-      {
-        "questions._id": id,
-      },
-      {
-        $set: {
-          "questions.$.disabled": !disabled,
-        },
-      }
-    );
-
-    res.status(200).json({
-      error: true,
-      message: "successful",
-      data: { disabled: !disabled },
-    });
-  } catch (err) {
-    res.status(400).json({ error: true, message: `${err}` });
-  }
+module.exports = {
+  getDisabledQuestion,
+  getDisabledQuestionById,
+  toggleDisableStatus,
 };
-
-module.exports = { getDisabledQuestion, toggleDisableStatus };
