@@ -3,7 +3,7 @@ const mongoose = require("mongoose")
 const mongod = require("mongodb")
 const User = require("../models/User")
 const {
-  reportQuestionValidation,
+  reportPracticeQuestionValidation,
 } = require("../utils/validation/reportValidation")
 
 // get all available topics
@@ -396,7 +396,7 @@ const reportPracticeQuestion = async (req, res) => {
   const user_id = req.id
 
   // request body validator
-  const { error } = reportQuestionValidation(req.body)
+  const { error } = reportPracticeQuestionValidation(req.body)
   if (error) {
     return res.status(400).json({
       error: true,
@@ -456,7 +456,7 @@ const reportPracticeQuestion = async (req, res) => {
     }
 
     return res.status(200).json({
-      error: true,
+      error: false,
       message: "You already reported the question",
     })
   } catch (error) {
