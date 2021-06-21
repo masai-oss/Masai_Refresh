@@ -52,7 +52,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
       } else {
         setSuccess(false);
       }
-      snackbarBtnRef.current.click();
+      //snackbarBtnRef.current.click();
     }
     setOpen(false);
     setSelect([]);
