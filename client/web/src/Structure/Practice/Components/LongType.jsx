@@ -9,27 +9,58 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Progress from "react-progressbar";
-
+import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
 import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
 import { useParams, useHistory } from "react-router-dom";
-import { ReportDialog } from "../../Common";
+import { ReportQuestion } from "../../Common";
 import { Spinner } from "../../Common/Loader";
 import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
 import QuestionProgress from "../../Common/ProgressBar";
+import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
+import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import axios from "axios";
+import QuestionNav from "../../Navbar/Components/QuestionNav";
+import { practice_topics } from "../State/reducer";
 
 const LongType = () => {
+  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  const [reportModalStatus, setReportModalStatus] =
+    React.useState("inputModalOpen");
   let params = useParams();
   let indexNum = Number(params.index);
   let topic_ID = params.topicID;
 
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID, isLoading } = useSelector(
+  const { practiceQuestionID, isLoading, practiceTopicsData } = useSelector(
     (state) => state.practice_topics
   );
 
+  const topic = practiceTopicsData
+    ? practiceTopicsData.find((topic) => topic._id === topic_ID)
+    : "";
+  console.log("Practice data:-------------------------", practiceTopicsData);
+
+  const issuesList = [
+    "Question Unclear",
+    "Insufficient Data",
+    "Explanation not clear",
+    "Others",
+  ];
+
+  console.log("Practice data:-------------------------", topic);
+
+  const { reportStatus } = useSelector((state) => state.practice_topics);
+
+  React.useEffect(() => {
+    if (reportStatus === "success") {
+      setReportModalStatus("inputModalClose");
+    }
+  }, [reportStatus]);
+  console.log("report success: ", reportStatus);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -77,16 +108,66 @@ const LongType = () => {
       })
     );
   };
-  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
-  console.log("practiceQuestionID:", practiceQuestionID);
-  console.log("indexNum:", indexNum);
-  console.log("percentage:", percentage);
 
-  return isLoading || !question ? (
+  const sendReport = (issueData) => {
+    dispatch(practiceTopicActions.postReport(question.question_id, issueData));
+  };
+
+  const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
+
+  const secondIcon = (
+    <>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21 21L3 3"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M21 3L3 21"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </>
+  );
+
+  const handleExit = () => {
+    history.push("/quiz_topics");
+  };
+
+  const logoPath = topic
+    ? `/logoForNav/${topic.name.toLowerCase()}/${topic.name.toLowerCase()}_logo.svg`
+    : "";
+  return !question ? (
     <Spinner />
   ) : (
     <>
-      <QuestionProgress completed={percentage} />
+      {/* <QuestionProgress completed={percentage} /> */}
+      {topic ? (
+        <QuestionNav
+          secondIcon={secondIcon}
+          firstIcon={logoPath}
+          secondText={"Exit"}
+          firstText={topic.name}
+          progress
+          length={practiceQuestionID.length}
+          num={indexNum}
+          handleExit={handleExit}
+        />
+      ) : (
+        ""
+      )}
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>
@@ -125,7 +206,13 @@ const LongType = () => {
           {answer}
         </ReactMarkdown>
         <hr className={styles.hr} />
-        <ReportDialogLong />
+        <ReportQuestion
+          issuesList={issuesList}
+          questionId={question._id}
+          sendReport={sendReport}
+          reportModalStatus={reportModalStatus}
+          setReportModalStatus={setReportModalStatus}
+        />
       </div>
       <div className={styles.nextBtn}>
         <button

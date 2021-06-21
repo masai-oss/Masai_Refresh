@@ -13,3 +13,4 @@ export { SyntaxHighlight } from "./SyntaxHighlighter.jsx";
 export { CustomDialog } from "./DialogBoxes/CustomDialog";
 export { ReportDialog } from "./DialogBoxes/ReportDialog";
 export { DotsLogo } from "./DotsLogo";
+export { ReportQuestion } from "./DialogBoxes/ReportQuestion";

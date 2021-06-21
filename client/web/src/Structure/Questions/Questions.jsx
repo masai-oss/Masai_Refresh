@@ -2,9 +2,10 @@ import React from "react";
 import { shallowEqual, useSelector } from "react-redux";
 import { Redirect } from "react-router-dom";
 import { getParam } from "../../Utils/paramHelper";
-import { MCQ } from "./Components/MCQ";
+import { MCQ } from "./Components/MCQType";
 import { QuestionStyles } from "./Styles/QuestionStyles";
 import { Spinner, PageNotFound } from "../Common";
+import QuestionNav from "../Navbar/Components/QuestionNav";
 
 const Questions = () => {
   const { question, isLoading, isError } = useSelector(
@@ -17,12 +18,15 @@ const Questions = () => {
   const submission_id = getParam("submission_id", undefined, search);
   const question_id = getParam("question_id", undefined, search);
   const topic = getParam("topic", undefined, search);
+  const topicId = getParam("topicId", undefined, search);
+  console.log("Topic id Questions: ", topicId);
 
   let props = {
     attempt_id,
     submission_id,
     question_id,
     topic,
+    topicId,
   };
 
   return (

@@ -1,0 +1,48 @@
+.resultNavbar__container {
+  position: absolute;
+  height: 80px;
+  left: 0px;
+  top: 0px;
+  right: 0px;
+  background: #2b75cd;
+  box-shadow: 0px 6px 8px rgba(32, 87, 153, 0.3);
+  z-index: 0;
+}
+.resultNavbar__backhome {
+  position: absolute;
+  width: 175px;
+  height: 27px;
+  left: 201px;
+  top: 24px;
+  cursor: pointer;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 170%;
+  /* or 27px */
+
+  text-align: right;
+  letter-spacing: 0.2px;
+
+  color: #ffffff;
+}
+.resultNavbar__topic {
+  position: absolute;
+  width: 59px;
+  height: 30px;
+  left: 1216px;
+  top: 24px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 20px;
+  line-height: 150%;
+  /* identical to box height, or 30px */
+
+  text-align: center;
+  letter-spacing: 1px;
+
+  color: #ffffff;
+}
