@@ -98,3 +98,7 @@
   color: white;
   height: 56px;
 }
+.submitDisabled {
+  background: #d8dee2 !important;
+  box-shadow: none !important;
+}

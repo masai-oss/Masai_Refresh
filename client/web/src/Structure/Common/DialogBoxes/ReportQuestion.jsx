@@ -17,16 +17,32 @@ const ReportQuestion = ({
     options: [],
     description: "",
   });
+
+  React.useEffect(() => {
+    console.log("Issue data changed---------------");
+    if (
+      issueData.options.length > 0 &&
+      issueData.description.length > 0 &&
+      issueData.description.length < 255
+    ) {
+      setSubmitButtonEnable(true);
+    } else {
+      setSubmitButtonEnable(false);
+    }
+  }, [issueData]);
+  const [submitButtonEnable, setSubmitButtonEnable] = React.useState(false);
+
   const dispatch = useDispatch();
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   if (reportModalStatus === "inputModalClose") {
     setReportModalStatus("greetingModalOpen");
   }
   const renderIssues = () => {
-    return issuesList.map((issue) => {
+    return issuesList.map((issue, index) => {
       // console.log("Rendering: ", issueData.options);
       return (
         <p
+          key={index}
           className={
             issueData.options.includes(issue)
               ? styles.ReportQuestion__Options__Box__selected
@@ -42,13 +58,15 @@ const ReportQuestion = ({
   const checkReportData = () => {
     if (issueData.options.length == 0) {
       // console.log(issueData);
-      alert("Please select atleast one option.");
+      setSubmitButtonEnable(false);
       return;
     } else if (issueData.description === "") {
       // console.log(issueData);
       alert("Description cannot be empty!");
+      setSubmitButtonEnable(false);
       return;
     } else {
+      setSubmitButtonEnable(true);
       setIssueData({
         options: [],
         description: "",
@@ -81,13 +99,18 @@ const ReportQuestion = ({
           cols="30"
           rows="10"
           value={issueData.description}
-          onChange={(event) =>
-            setIssueData({ ...issueData, description: event.target.value })
-          }
+          onChange={(event) => {
+            setIssueData({ ...issueData, description: event.target.value });
+          }}
         ></textarea>
       </div>
       <div className={styles.ReportQuestionHeader__Submit}>
-        <button onClick={checkReportData}>Submit</button>
+        <button
+          onClick={checkReportData}
+          className={submitButtonEnable ? "" : styles.submitDisabled}
+        >
+          Submit
+        </button>
       </div>
     </div>
   );
@@ -149,6 +172,8 @@ const ReportQuestion = ({
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         modalContent={modalContent}
+        setReportModalStatus={setReportModalStatus}
+        isReportQuestion="yes"
       />
     </div>
   );

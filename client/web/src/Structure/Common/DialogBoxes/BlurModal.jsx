@@ -14,10 +14,17 @@ const useStyles = makeStyles((theme) => ({
     padding: "20px",
   },
 }));
-const BlurModal = ({ modalContent }) => {
+const BlurModal = ({
+  modalContent,
+  isReportQuestion,
+  setReportModalStatus,
+}) => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   const classes = useStyles();
   const handleClose = () => {
+    if (isReportQuestion === "yes") {
+      setReportModalStatus("inputModalOpen");
+    }
     setIsOpen(false);
   };
 
