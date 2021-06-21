@@ -170,7 +170,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
         </DialogActions>
       </Dialog>
       <CustomizedSnackbars
-        success={success}
+        success={false}
         message={!success && errorMessage}
         ref={snackbarBtnRef}
       />

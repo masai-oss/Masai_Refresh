@@ -29,10 +29,12 @@
 }
 .navContainer ul li img {
   width: 50%;
+  cursor: pointer;
 }
 .logoContainer {
   text-align: center;
   margin-top: 20px;
+  cursor: pointer;
 }
 .logoContainer img {
   width: 120px;
