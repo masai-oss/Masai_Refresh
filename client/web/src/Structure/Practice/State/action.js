@@ -17,6 +17,7 @@ import {
   POST_REPORT_FAILURE,
   POST_REPORT_SUCCESS,
   POST_REPORT_LOADING,
+  POST_REPORT_COMPLETED,
 } from "./actionTypes";
 import axios from "axios";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
@@ -244,6 +245,10 @@ const postReportFailure = () => ({
   type: POST_REPORT_FAILURE,
 });
 
+const postReportCompleted = () => ({
+  type: POST_REPORT_COMPLETED,
+});
+
 const postReport = (question_id, issueData) => async (dispatch) => {
   console.log("Inside action post report:", `${REPORT_API_URL}/${question_id}`);
   dispatch(postReportLoading());
@@ -275,4 +280,5 @@ export const practiceTopicActions = {
   bookmarks,
   likes,
   postReport,
+  postReportCompleted,
 };

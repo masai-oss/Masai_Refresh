@@ -11,9 +11,7 @@ import { useParams, useHistory } from "react-router-dom";
 const DashboardNew = () => {
   const [rightSideContent, setRightSideContent] = React.useState("Cards");
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-  // const [modalContent, setModalContent] = React.useState(
-  //   <h1>Default Modal Content</h1>
-  // );
+
   let params = useParams();
   const renderRightSideContent = () => {
     if (window.location.pathname.includes("/bookmarks")) {

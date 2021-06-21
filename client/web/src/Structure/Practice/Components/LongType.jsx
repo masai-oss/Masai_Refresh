@@ -26,9 +26,8 @@ import axios from "axios";
 
 const LongType = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-  const [reportSuccessGreeting, setReportSuccessGreeting] =
-    React.useState(false);
-  console.log(practiceTopicActions.postReport);
+  const [reportModalStatus, setReportModalStatus] =
+    React.useState("inputModalOpen");
   let params = useParams();
   let indexNum = Number(params.index);
   let topic_ID = params.topicID;
@@ -44,9 +43,14 @@ const LongType = () => {
     "Others",
   ];
 
-  const { reportSuccess } = useSelector((state) => state.practice_topics);
-  console.log("ReportSuccess--------- : ", reportSuccess, indexNum, topic_ID);
+  const { reportStatus } = useSelector((state) => state.practice_topics);
 
+  React.useEffect(() => {
+    if (reportStatus === "success") {
+      setReportModalStatus("inputModalClose");
+    }
+  }, [reportStatus]);
+  console.log("report success: ", reportStatus);
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -98,10 +102,8 @@ const LongType = () => {
   const sendReport = (issueData) => {
     dispatch(practiceTopicActions.postReport(question.question_id, issueData));
   };
+
   const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
-  // console.log("practiceQuestionID:", practiceQuestionID);
-  // console.log("indexNum:", indexNum);
-  // console.log("percentage:", percentage);
 
   return !question ? (
     <Spinner />
@@ -150,7 +152,8 @@ const LongType = () => {
           issuesList={issuesList}
           questionId={question._id}
           sendReport={sendReport}
-          reportSuccessGreeting={reportSuccess}
+          reportModalStatus={reportModalStatus}
+          setReportModalStatus={setReportModalStatus}
         />
       </div>
       <div className={styles.nextBtn}>

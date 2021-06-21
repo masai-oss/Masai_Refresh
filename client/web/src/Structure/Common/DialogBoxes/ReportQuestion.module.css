@@ -15,6 +15,10 @@
   display: flex;
   justify-content: space-between;
 }
+.ReportQuestion__Header img {
+  cursor: pointer;
+}
+
 .ReportQuestion__Header p {
   font-weight: bold;
   font-size: 16px;
@@ -63,6 +67,23 @@
   border-radius: 4px;
   outline: none;
   padding: 5px;
+}
+
+.ReportQuestion__ThankYou {
+  text-align: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.ReportQuestion__ThankYou p {
+  width: 60%;
+
+  margin: 10px auto;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 26.56px;
 }
 .ReportQuestionHeader__Submit {
   margin-top: 20px;

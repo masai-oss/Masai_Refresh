@@ -3,45 +3,25 @@ import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProv
 import { BlurModal } from "./BlurModal";
 import styles from "./ReportQuestion.module.css";
 import report from "../../../Assets/report.svg";
-const ReportQuestion = ({ issuesList, questionId, sendReport }) => {
+import { ReportSuccessModal } from "./ReportSuccessModal";
+import { practiceTopicActions } from "../../Practice/State/action";
+import { useDispatch, useSelector } from "react-redux";
+const ReportQuestion = ({
+  issuesList,
+  questionId,
+  sendReport,
+  reportModalStatus,
+  setReportModalStatus,
+}) => {
   const [issueData, setIssueData] = React.useState({
     options: [],
     description: "",
   });
-
-  const checkReportData = () => {
-    if (issueData.options.length == 0) {
-      // console.log(issueData);
-      alert("Please select atleast one option.");
-      return;
-    } else if (issueData.description === "") {
-      // console.log(issueData);
-      alert("Description cannot be empty!");
-      return;
-    } else {
-      setIssueData({
-        options: [],
-        description: "",
-      });
-      sendReport(issueData);
-    }
-  };
-
-  const toggleOption = (option) => {
-    let updatedOptions = [...issueData.options];
-    // console.log("Before Updaing: ", issueData.options, option, updatedOptions);
-    if (issueData.options.includes(option)) {
-      updatedOptions = updatedOptions.filter(
-        (singleOption) => singleOption !== option
-      );
-    } else {
-      updatedOptions = [...issueData.options, option];
-    }
-    setIssueData({ ...issueData, options: [...updatedOptions] });
-    // console.log("After Updating: ", issueData.options, option, updatedOptions);
-  };
-
-  // console.log("My Issue data us : ------------", issueData);
+  const dispatch = useDispatch();
+  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  if (reportModalStatus === "inputModalClose") {
+    setReportModalStatus("greetingModalOpen");
+  }
   const renderIssues = () => {
     return issuesList.map((issue) => {
       // console.log("Rendering: ", issueData.options);
@@ -59,14 +39,32 @@ const ReportQuestion = ({ issuesList, questionId, sendReport }) => {
       );
     });
   };
-
-  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
-
-  const modalContent = (
+  const checkReportData = () => {
+    if (issueData.options.length == 0) {
+      // console.log(issueData);
+      alert("Please select atleast one option.");
+      return;
+    } else if (issueData.description === "") {
+      // console.log(issueData);
+      alert("Description cannot be empty!");
+      return;
+    } else {
+      setIssueData({
+        options: [],
+        description: "",
+      });
+      sendReport(issueData);
+    }
+  };
+  let modalContent = (
     <div className={styles.ReportQuestion__Header__Modal}>
       <div className={styles.ReportQuestion__Header}>
         <p>Report Issue with a question</p>
-        <img src="/logos/CloseIcon.svg" alt="cross icon" />
+        <img
+          src="/logos/CloseIcon.svg"
+          alt="cross icon"
+          onClick={() => setIsOpen(false)}
+        />
       </div>
       <div className={styles.ReportQuestion__divider}></div>
       <div className={styles.ReportQuestion__Options}>
@@ -93,6 +91,54 @@ const ReportQuestion = ({ issuesList, questionId, sendReport }) => {
       </div>
     </div>
   );
+
+  if (reportModalStatus === "greetingModalOpen") {
+    modalContent = (
+      <div className={styles.ReportQuestion__Header__Modal}>
+        <div className={styles.ReportQuestion__Header}>
+          <p>Report Issue with a question</p>
+          <img src="/logos/CloseIcon.svg" alt="cross icon" />
+        </div>
+        <div className={styles.ReportQuestion__divider}></div>
+        <div className={styles.ReportQuestion__ThankYou}>
+          <img src="/logos/TickIcon.svg" alt="success icon" />
+          <p>
+            Thank you for submitting your query. We will ensure the problem is
+            resolved.
+          </p>
+        </div>
+
+        <div className={styles.ReportQuestionHeader__Submit}>
+          <button
+            onClick={() => {
+              setIsOpen(false);
+              setReportModalStatus("inputModalOpen");
+              dispatch(practiceTopicActions.postReportCompleted());
+            }}
+          >
+            Go Back
+          </button>
+        </div>
+      </div>
+    );
+  }
+
+  const toggleOption = (option) => {
+    let updatedOptions = [...issueData.options];
+    // console.log("Before Updaing: ", issueData.options, option, updatedOptions);
+    if (issueData.options.includes(option)) {
+      updatedOptions = updatedOptions.filter(
+        (singleOption) => singleOption !== option
+      );
+    } else {
+      updatedOptions = [...issueData.options, option];
+    }
+    setIssueData({ ...issueData, options: [...updatedOptions] });
+    // console.log("After Updating: ", issueData.options, option, updatedOptions);
+  };
+
+  // console.log("My Issue data us : ------------", issueData);
+
   return (
     <div>
       <div className={styles.ReportQuestion} onClick={() => setIsOpen(true)}>
