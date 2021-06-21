@@ -50,6 +50,7 @@ button {
 	font-weight: 550;
 	font-size: 20px;
 	line-height: 170%;
+	max-width: 750px;
 	/* identical to box height, or 34px */
 
 	color: #333434;
@@ -110,7 +111,7 @@ button {
 	box-shadow: 0px 8px 16px -10px rgba(30, 144, 255, 0.4);
 	border-radius: 8px;
 
-	/* font-family: Open Sans; */
+	font-family: Open Sans;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 18px;
@@ -119,6 +120,11 @@ button {
 	/* identical to box height, or 31px */
 
 	color: #1e90ff;
+}
+button:disabled,
+button[disabled] {
+	border: 2px solid #999999;
+	color: #666666;
 }
 .buttons > button:last-child {
 	width: 204px;
@@ -131,7 +137,7 @@ button {
 	box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
 	border-radius: 10px;
 
-	/* font-family: Open Sans; */
+	font-family: Open Sans;
 	font-style: normal;
 	font-weight: bold;
 	font-size: 18px;
