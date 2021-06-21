@@ -103,10 +103,10 @@ const getQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsRequest = (page = 1, limit = 10) => (dispatch) => {
+const getQuestionsRequest = (page = 1, limit = 10, disabledFilter = false, reportedFilter = false) => (dispatch) => {
   dispatch(getQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}`;
+  let url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
 
   axios({
     method: "get",
@@ -196,12 +196,12 @@ const getQuestionsByTopicFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsByTopicRequest = (topic, page = 1, limit = 10) => (
+const getQuestionsByTopicRequest = (topic, page = 1, limit = 10, disabledFilter = false, reportedFilter = false) => (
   dispatch
 ) => {
   dispatch(getQuestionsByTopicLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}`;
+  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
 
   axios({
     method: "get",
@@ -247,23 +247,23 @@ const addQuestionsRequest = (payload, topic) => (dispatch) => {
     .catch((err) => dispatch(addQuestionsFailure(err)));
 };
 
-const deleteQuestionsLoading = () => ({
-  type: adminConstants.DELETE_QUESTION_LOADING,
+const disableQuestionsLoading = () => ({
+  type: adminConstants.DISABLE_QUESTION_LOADING,
 });
 
-const deleteQuestionsSuccess = (payload, id) => ({
-  type: adminConstants.DELETE_QUESTION_SUCCESS,
+const disableQuestionsSuccess = (payload, id) => ({
+  type: adminConstants.DISABLE_QUESTION_SUCCESS,
   payload,
   id,
 });
 
-const deleteQuestionsFailure = (data) => ({
-  type: adminConstants.DELETE_QUESTION_FAILURE,
+const disableQuestionsFailure = (data) => ({
+  type: adminConstants.DISABLE_QUESTION_FAILURE,
   payload: data,
 });
 
-const deleteQuestionsRequest = (id, topic) => (dispatch) => {
-  dispatch(deleteQuestionsLoading());
+const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
+  dispatch(disableQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   let url = `${QUESTION_URL}/delete/${topic}/${id}`;
 
@@ -276,10 +276,10 @@ const deleteQuestionsRequest = (id, topic) => (dispatch) => {
     },
   })
     .then((res) => {
-      dispatch(deleteQuestionsSuccess(res.data, id));
-      dispatch(getQuestionsByTopicRequest(topic));
+      dispatch(disableQuestionsSuccess(res.data, id));
+      // dispatch(getQuestionsByTopicRequest(topic));
     })
-    .catch((err) => dispatch(deleteQuestionsFailure(err)));
+    .catch((err) => dispatch(disableQuestionsFailure(err)));
 };
 
 const updateQuestionsLoading = () => ({
@@ -379,7 +379,7 @@ const verifyQuestionAdjustment = (payload) => ({
   payload,
 });
 
-const verifyQuestionProcess = ({ id, verified: crnState }) => async (
+const verifyQuestionProcess = ({ id, verified: crnState, type }) => async (
   dispatch
 ) => {
   dispatch(verifyQuestionRequest());
@@ -407,7 +407,7 @@ export const adminActions = {
   getQuestionsRequest,
   getTopicsRequest,
   getQuestionsByTopicRequest,
-  deleteQuestionsRequest,
+  disableQuestionsRequest,
   addQuestionsRequest,
   updateQuestionsRequest,
   getQuestionRequest,

@@ -33,13 +33,13 @@ const VerifiedSwitch = withStyles({
   track: {},
 })(Switch);
 
-const Row = ({ item, handleDelete, topic = item.topic }) => {
+const Row = ({ item, handleDisable, topic = item.topic }) => {
   const dispatch = useDispatch()
   let shortSource = item.source.split(".");
   const history = useHistory();
   const classes = QuestionsStyles();
   const [open, setOpen] = useState(false);
-  const [deleteOpen, setDeleteOpen] = useState(false);
+  const [disableOpen, setDisableOpen] = useState(false);
   let verified = item.verified;
   const isVerifying = useSelector((state) => state.admin.isVerifying);
   const verifiedQuestions = useSelector(
@@ -51,7 +51,8 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
   }
   const verifyQuestion = () => {
     let id = item._id
-    dispatch(adminActions.verifyQuestionProcess({ id, verified }));
+    let type = item.type
+    dispatch(adminActions.verifyQuestionProcess({ id, verified, type}));
   };
   return (
     <TableRow>
@@ -66,6 +67,7 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
       </TableCell>
       <TableCell>{topic}</TableCell>
       <TableCell>{item.type}</TableCell>
+      <TableCell>{item.flag.length}</TableCell>
       <TableCell>
         <Button
           variant="contained"
@@ -80,10 +82,10 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
       <TableCell>
         <Button
           variant="contained"
-          className={classes.delete}
-          onClick={() => setDeleteOpen(true)}
+          className={classes.disable}
+          onClick={() => setDisableOpen(true)}
         >
-          Delete
+          {(item.disabled === undefined || item.disabled === false) ? "Disable" : "Enable"}
         </Button>
       </TableCell>
       <TableCell>
@@ -147,6 +149,12 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
                 {item.answer}
               </>
             )}
+            {item.type === "LONG" && (
+              <>
+                <h3>Correct Answer</h3>
+                {item.answer}
+              </>
+            )}
           </pre>
           <Button
             variant="text"
@@ -157,18 +165,18 @@ const Row = ({ item, handleDelete, topic = item.topic }) => {
           </Button>
         </Box>
       </Modal>
-      <Dialog open={deleteOpen} onClose={() => setDeleteOpen(false)}>
-        <DialogTitle>{"Are you sure you wanna delete?"}</DialogTitle>
+      <Dialog open={disableOpen} onClose={() => setDisableOpen(false)}>
+        <DialogTitle>{`Are you sure you wanna ${(item.disabled === undefined || item.disabled === false) ? "Disable" : "Enable"}?`}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setDeleteOpen(false)} color="primary">
+          <Button onClick={() => setDisableOpen(false)} color="primary">
             Cancel
           </Button>
           <Button
-            onClick={() => handleDelete(item._id, topic)}
+            onClick={() => handleDisable(item._id, topic, item.type)}
             color="primary"
             autoFocus
           >
-            Delete
+            {(item.disabled === undefined || item.disabled === false) ? "Disable" : "Enable"}
           </Button>
         </DialogActions>
       </Dialog>

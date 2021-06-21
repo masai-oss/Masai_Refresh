@@ -48,8 +48,8 @@ const QuestionForm = (props) => {
     shortAnswer: data === undefined ? "" : data.answer,
     mcqAnswer:
       data === undefined ? 0 : data.options?.findIndex((item) => item.correct),
-    source: data.source,
-    verified: data.verified
+    source: data === undefined ? "" : data.source,
+    verified: data === undefined ? "" : data.verified
   };
 
   const [question, setQuestion] = useState(questionData);

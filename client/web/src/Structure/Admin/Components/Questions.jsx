@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { adminActions } from "../State/action";
@@ -10,6 +10,7 @@ import {
   Select,
   Box,
   Container,
+  Checkbox
 } from "@material-ui/core";
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
 import { useParams, useLocation } from "react-router";
@@ -24,24 +25,34 @@ export const Questions = () => {
   const q = new URLSearchParams(search);
   let page = Number(q.get("page"));
   let rowsPerPage = Number(q.get("rowsPerPage"));
-  const handleDelete = (id, topic) => {
-    dispatch(adminActions.deleteQuestionsRequest(id, topic));
+  const [reportedFilter, handleReportedFilter] = useState(false)
+  const [disabledFilter, handleDisabledFilter] = useState(false)
+  const handleDisable = (id, topic, type) => {
+    dispatch(adminActions.disableQuestionsRequest(id, topic, type));
   };
 
   const handleChange = (value) => {
     history.push(value);
   };
 
+  const handleReportedFilterChange = () => {
+    handleReportedFilter(!reportedFilter)
+  }
+
+  const handleDisabledFilterChange = () => {
+    handleDisabledFilter(!disabledFilter)
+  } 
+
   useEffect(() => {
     if (
       (page === null || page === 0) &&
       (rowsPerPage === null || rowsPerPage === 0)
     ) {
-      history.push(pathname + "?page=1&rowsPerPage=10");
+      history.push(pathname + `?page=1&rowsPerPage=10&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`);
     } else {
       dispatch(adminActions.getTopicsRequest());
     }
-  }, [dispatch, history, page, pathname, rowsPerPage]);
+  }, [dispatch, history, page, pathname, rowsPerPage, disabledFilter, reportedFilter]);
 
   return (
     <Container>
@@ -59,6 +70,22 @@ export const Questions = () => {
                 </option>
               ))}
             </Select>
+            <div>
+              <Checkbox
+                checked = {reportedFilter}
+                onChange = {handleReportedFilterChange}
+                disabled = {disabledFilter ? true : false}  
+              />
+              <label>Reported Questions</label>
+            </div>
+            <div>
+              <Checkbox
+                checked = {disabledFilter}
+                onChange = {handleDisabledFilterChange}
+                disabled = {reportedFilter ? true : false}  
+              />
+              <label>Disabled Questions</label>
+            </div>
             <Button
               variant="contained"
               className={classes.save}
@@ -71,18 +98,22 @@ export const Questions = () => {
             {selected === "all" && (
               <AllQuestions
                 topics={topics}
-                handleDelete={handleDelete}
+                handleDisable={handleDisable}
                 page={page}
                 rowsPerPage={rowsPerPage}
+                disabledFilter = {disabledFilter}
+                reportedFilter = {reportedFilter}
               />
             )}
             {selected !== "all" && (
               <QuestionsByTopic
                 topics={topics}
-                handleDelete={handleDelete}
+                handleDisable={handleDisable}
                 topic={selected}
                 page={page}
                 rowsPerPage={rowsPerPage}
+                disabledFilter = {disabledFilter}
+                reportedFilter = {reportedFilter}
               />
             )}
           </Box>

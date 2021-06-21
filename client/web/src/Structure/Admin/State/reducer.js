@@ -14,7 +14,7 @@ const initState = {
   errorMessage: "",
   specificTopicData: "",
   questionAddedStatus: false,
-  questionDeletionStatus: false,
+  questionDisableStatus: false,
   questionEditStatus: false,
   singleQuestion: "",
   gotQuestionData: "",
@@ -124,24 +124,24 @@ const admin = (state = initState, { type, payload }) => {
         questionAddedStatus: false,
       };
 
-    case adminConstants.DELETE_QUESTION_LOADING:
+    case adminConstants.DISABLE_QUESTION_LOADING:
       return {
         ...state,
         isLoading: true,
       };
-    case adminConstants.DELETE_QUESTION_SUCCESS:
+    case adminConstants.DISABLE_QUESTION_SUCCESS:
       return {
         ...state,
         isLoading: false,
         errorMessage: payload,
-        questionDeletionStatus: true,
+        questionDisableStatus: true,
       };
 
-    case adminConstants.DELETE_QUESTION_FAILURE:
+    case adminConstants.DISABLE_QUESTION_FAILURE:
       return {
         ...state,
         isLoading: false,
-        questionDeletionStatus: false,
+        questionDisableStatus: false,
         errorMessage: payload,
         isError: true,
       };
