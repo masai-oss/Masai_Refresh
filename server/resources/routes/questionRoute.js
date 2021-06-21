@@ -39,7 +39,12 @@ questionRoute.get(
 );
 
 // Get question by ID
-questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
+questionRoute.get(
+  "/byId/:type/:id",
+  authenticateToken,
+  checkAdmin,
+  getQuestionById
+);
 
 // Update question by ID
 questionRoute.put(
@@ -59,7 +64,7 @@ questionRoute.delete(
 
 // Verify question by ID
 questionRoute.patch(
-  "/verify_toggle/:id",
+  "/toggleVerify/:type/:id",
   authenticateToken,
   checkAdmin,
   toggleVerification
