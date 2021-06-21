@@ -433,7 +433,7 @@ const getQuestionByTopic = async (req, res) => {
       });
     }
     var findedQuestion1, findedQuestion2, findedQuestion;
-    if (disabledFilter == "false" && reportedFilter == "false") {
+    if (disabledFilter != "true" && reportedFilter != "true") {
       findedQuestion1 = await Topic.find(
         {
           name: name,
