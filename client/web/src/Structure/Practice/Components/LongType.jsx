@@ -156,7 +156,7 @@ const LongType = () => {
         // firstText={topic}
         progress
         length={practiceQuestionID.length}
-        num={indexNum - 1}
+        num={indexNum}
         handleExit={handleExit}
       />
       <div className={styles.question}>

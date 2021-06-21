@@ -135,6 +135,7 @@ const MCQ = (props) => {
   };
 
   const submitAnswers = async (skip) => {
+    
     if (!skip && attempt) {
       var res = await answerRecordSetup();
     }
@@ -145,8 +146,16 @@ const MCQ = (props) => {
     }
   };
 
+  const submitBtnHandler = (fal, tr) => {
+    if (!attempt && value == -1) {
+      setIsOpen(true);
+    } else {
+      submitAnswers(fal, tr)
+    }
+    
+  }
   const handleNextBtn = () => {
-    console.log("Next Called...");
+    // console.log("Next Called...");
     if (!attempt && value == -1) {
       setIsOpen(true);
     }
@@ -267,7 +276,7 @@ const MCQ = (props) => {
         </button>
 
         {question_id_index === questionIds.length - 1 ? (
-          <button onClick={() => submitAnswers(false, true)}>Submit</button>
+          <button onClick={() => submitBtnHandler(false, true)}>Submit</button>
         ) : (
           <NextButton onClick={() => handleNextBtn()} attempted={true}>
             Next
