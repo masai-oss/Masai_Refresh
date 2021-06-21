@@ -1,4 +1,4 @@
-.attempt-headingCard {
+.heading__attempt__card {
   position: absolute;
   width: 239.12px;
   height: 34px;
@@ -16,7 +16,7 @@
 
   color: #333434;
 }
-.attempt-heading__dateCard {
+.heading__attempt__cardDate {
   position: absolute;
   width: 37px;
   height: 27px;
@@ -32,7 +32,7 @@
 
   color: #514f64;
 }
-.attempt-heading__correctCard {
+.heading__attempt__cardCorrect {
   position: absolute;
   width: 58px;
   height: 27px;
@@ -48,7 +48,7 @@
 
   color: #65ae91;
 }
-.attempt-heading__wrongCard {
+.heading__attempt__cardWrong {
   position: absolute;
   width: 70px;
   height: 27px;
@@ -64,7 +64,7 @@
 
   color: #d57572;
 }
-.attempt-heading__skippedCard {
+.heading__attempt__cardSkipped {
   position: absolute;
   width: 62px;
   height: 27px;

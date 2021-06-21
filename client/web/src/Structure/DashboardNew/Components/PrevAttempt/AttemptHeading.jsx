@@ -1,15 +1,15 @@
 import React from "react";
-import "../../Styles/AttemptHeading.css";
+import styles from "../../Styles/AttemptHeadingCard.module.css";
 
-const AttemptHeading = () => {
+const AttemptHeadingCard = () => {
   return (
     <div>
-      <div className="attempt-headingCard">Previous Attempt</div>
-      <div className="attempt-heading__dateCard">Date</div>
-      <div className="attempt-heading__correctCard">Correct</div>
-      <div className="attempt-heading__wrongCard">Incorrect</div>
-      <div className="attempt-heading__skippedCard">Skipped</div>
+      <div className={styles.heading__attempt__card}>Previous Attempt</div>
+      <div className={styles.heading__attempt__cardDate}>Date</div>
+      <div className={styles.heading__attempt__cardCorrect}>Correct</div>
+      <div className={styles.heading__attempt__cardWrong}>Incorrect</div>
+      <div className={styles.heading__attempt__cardSkipped}>Skipped</div>
     </div>
   );
 };
-export default AttemptHeading;
+export default AttemptHeadingCard;

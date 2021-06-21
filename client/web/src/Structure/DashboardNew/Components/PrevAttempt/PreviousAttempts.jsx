@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import AttemptHeading from "./AttemptHeading";
+import AttemptHeadingCard from "./AttemptHeading";
 import "../../Styles/PreviousAttemptCard.css";
 import SingleAttemptComponent from "../../../Results Display/Components/attempts/SingleAttemptComponent";
 import { resultAction } from "../../../Results Display/index";
@@ -17,9 +17,10 @@ const PreviousAttempts = (props) => {
   };
   let data = props.prev_attempts;
   data = data.reverse();
+
   return (
     <div>
-      <AttemptHeading />
+      <AttemptHeadingCard />
       <div className="prev-attempt--Card">
         {data.map((ele, index) =>
           index !== data.length - 1 ? (

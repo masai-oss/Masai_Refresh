@@ -2,8 +2,7 @@ import React, { useEffect } from "react";
 import styles from "../Styles/PreviousAttempts.module.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import PreviousAttempts from "../../Results Display/Components/attempts/PreviousAttempts";
-import { resultAction } from "../../Results Display/index";
+import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
 import DetailedReport from "../../Results Display/Components/detailedReport/DetailedReport";
 import { Spinner, PageNotFound } from "../../Common";
 import ResultNavabar from "../../Results Display/Components/utils/ResultNavabar";
@@ -17,9 +16,9 @@ const ViewPreviousAttempts = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
-  useEffect(() => {
-    dispatch(resultAction.getResultPrevSection(topicId));
-  }, []);
+  //   useEffect(() => {
+  //     dispatch(resultAction.getResultPrevSection(topicId));
+  //   }, []);
 
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
