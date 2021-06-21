@@ -47,35 +47,43 @@ const addQuestion = async (req, res) => {
   }
 };
 
-// Joi verification pending
 const toggleVerification = async (req, res) => {
-  const { id } = req.params;
-  const { error } = toggleVerificationValidation({ id });
-  if (error) {
-    return res.status(400).json({
-      error: true,
-      message: "Validation for id failed",
-      reason: error.details[0].message,
-    });
-  }
-
+  const { id, type } = req.params;
   try {
-    let topic = await Topic.findOne({ "questions._id": id });
-    let verified = topic.questions.find((q) => q._id == id).verified;
-    await Topic.updateOne(
-      {
-        "questions._id": id,
-      },
-      {
-        $set: {
-          "questions.$.verified": !verified,
+    let topic, verified;
+
+    if (type == "long") {
+      topic = await Practice.findOne({ "questions._id": id });
+      verified = topic.questions.find((q) => q._id == id).verified;
+
+      await Practice.updateOne(
+        {
+          "questions._id": id,
         },
-      }
-    );
+        {
+          $set: {
+            "questions.$.verified": !verified,
+          },
+        }
+      );
+    } else {
+      topic = await Topic.findOne({ "questions._id": id });
+      verified = topic.questions.find((q) => q._id == id).verified;
+      await Topic.updateOne(
+        {
+          "questions._id": id,
+        },
+        {
+          $set: {
+            "questions.$.verified": !verified,
+          },
+        }
+      );
+    }
 
     res.status(200).json({
-      error: true,
-      message: "The toggle of verification has been successful",
+      error: false,
+      message: "successful",
       data: { verified: !verified },
     });
   } catch (err) {
@@ -551,12 +559,21 @@ const getQuestionByTopic = async (req, res) => {
 };
 
 const getQuestionById = async (req, res) => {
-  const { id } = req.params;
+  const { id, type } = req.params;
   try {
-    let findedQuestion = await Topic.find(
-      { questions: { $elemMatch: { _id: id } } },
-      { "questions.$": 1, _id: 0 }
-    );
+    var findedQuestion;
+    if (type == "long") {
+      findedQuestion = await Practice.find(
+        { questions: { $elemMatch: { _id: id } } },
+        { "questions.$": 1, _id: 0 }
+      );
+    } else {
+      findedQuestion = await Topic.find(
+        { questions: { $elemMatch: { _id: id } } },
+        { "questions.$": 1, _id: 0 }
+      );
+    }
+
     if (!findedQuestion.length) {
       return res.status(400).json({
         error: true,
@@ -578,7 +595,6 @@ const getQuestionById = async (req, res) => {
   }
 };
 
-// Toggle Disable Status of a Question...
 const toggleDisabledStatus = async (req, res) => {
   const { id, type } = req.params;
   try {
