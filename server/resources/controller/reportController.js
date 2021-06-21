@@ -198,7 +198,7 @@ const solveReport = async (req, res) => {
     if (finded > 0 && modified > 0) {
       return res.status(200).json({
         error: false,
-        message: "Report solved successfully"
+        message: "Report solved successfully",
       });
     }
   } catch (err) {

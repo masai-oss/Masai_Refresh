@@ -1,7 +1,23 @@
 body {
   background-color: #f1efef;
 }
+.bookmarkNavbar {
+  height: 80px;
+  background: #2b75cd;
+  margin-bottom: -100px;
+}
+.bookmarkNavbar > div {
+  display: flex;
+  color: white;
+  align-items: center;
+  margin-left: 15%;
+  cursor: pointer;
 
+  padding-top: 15px;
+}
+.bookmarkNavbar > div > p {
+  margin-left: 10px;
+}
 .question {
   height: fit-content;
   width: 800px;
@@ -10,6 +26,7 @@ body {
   padding: 2%;
   padding-left: 3.5%;
   padding-top: 4%;
+  margin-top: 100px;
 }
 
 .answer {

@@ -14,6 +14,10 @@ import {
   POST_LIKE_SUCCESS,
   POST_LIKE_LOADING,
   POST_LIKE_FAILURE,
+  POST_REPORT_FAILURE,
+  POST_REPORT_SUCCESS,
+  POST_REPORT_LOADING,
+  POST_REPORT_COMPLETED,
 } from "./actionTypes";
 import { storageEnums } from "../../../Enums/storageEnums";
 import {
@@ -29,6 +33,7 @@ const initState = {
   practiceQuestionID: getFromStorage(storageEnums.LONG_QUESTION_IDs, []),
   question: [],
   topicId: "",
+  reportStatus: "pending",
 };
 
 const practice_topics = (state = initState, { type, payload }) => {
@@ -148,7 +153,40 @@ const practice_topics = (state = initState, { type, payload }) => {
         isError: true,
         errMessage: "Error in posting bookmarks",
       };
+    //report
 
+    case POST_REPORT_LOADING:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        errMessage: "",
+        reportStatus: "pending",
+      };
+    case POST_REPORT_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        errMessage: "",
+        reportStatus: "success",
+      };
+    case POST_REPORT_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        isError: true,
+        errMessage: "Error in posting report",
+        reportStatus: "failed",
+      };
+    case POST_REPORT_COMPLETED:
+      return {
+        ...state,
+        isLoading: false,
+        isError: false,
+        errMessage: "",
+        reportStatus: "completed",
+      };
     default:
       return state;
   }

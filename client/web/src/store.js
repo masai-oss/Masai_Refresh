@@ -7,6 +7,8 @@ import { questions } from "./Structure/Questions";
 import { resultReducer } from "./Structure/Results Display";
 import { common } from "./Structure/Common";
 import { practice_topics } from "./Structure/Practice";
+import { getPreviousAttempts } from "./Structure/DashboardNew";
+import { myBookmarks } from "./Structure/MyBookmarks";
 const reducers = {
   authentication,
   admin,
@@ -15,6 +17,8 @@ const reducers = {
   resultReducer,
   common,
   practice_topics,
+  getPreviousAttempts,
+  myBookmarks,
 };
 
 let composeEnhancers = compose;
