@@ -49,6 +49,7 @@
   background: linear-gradient(239.11deg, #1e90ff -4.11%, #2b75cd 88.83%);
   box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
   border-radius: 8px;
+  cursor: pointer;
 }
 .reportchart__testbutton_title {
   position: absolute;
