@@ -26,6 +26,11 @@ const practiceSchema = new mongoose.Schema(
           type: Boolean,
           default: false,
         },
+        disabled: {
+          type: Boolean,
+          required: true,
+          default: false,
+        },
         flag: [
           {
             status: {
