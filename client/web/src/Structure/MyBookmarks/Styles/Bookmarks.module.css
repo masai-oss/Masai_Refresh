@@ -6,7 +6,9 @@
   align-items: center;
   font-weight: bold;
   font-size: 16px;
+  cursor: pointer;
 }
+
 .bookmarks__backButton img {
   margin-right: 15px;
 }

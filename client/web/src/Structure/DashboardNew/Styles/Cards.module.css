@@ -5,6 +5,7 @@
   display: grid;
   grid-template-columns: 48% 48%;
   grid-column-gap: 4%;
+  overflow-y: scroll;
   grid-row-gap: 50px;
 }
 .modalContent {
@@ -69,9 +70,7 @@
 .startQuiz button:last-of-type {
   background-color: #edf5ff;
 }
-.startQuiz button:hover {
-  text-decoration: underline;
-}
+
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
 } */
@@ -81,17 +80,15 @@
 } */
 
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 992px) {
+/* @media only screen and (max-width: 992px) {
   .Cards {
-    /* border: 1px solid red; */
-
     padding: 30px 30px 30px 30px;
     display: grid;
     grid-template-columns: 100%;
-    /* grid-column-gap: 4%; */
+
     grid-row-gap: 50px;
   }
-}
+} */
 
 /* Large devices (laptops/desktops, 992px and up) */
 /* @media only screen and (min-width: 992px) {

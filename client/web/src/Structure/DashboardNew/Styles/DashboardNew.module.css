@@ -5,14 +5,16 @@
   display: grid;
   grid-template-columns: 20% 80%;
   background-color: white;
+  height: 100vh;
+
+  /* min-height: 100vh; */
 }
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 992px) {
+/* @media only screen and (max-width: 992px) {
   .Dashboard {
-    /* border: 1px solid blue; */
     margin: 0;
     padding: 0;
     display: grid;
     grid-template-columns: 100%;
   }
-}
+} */

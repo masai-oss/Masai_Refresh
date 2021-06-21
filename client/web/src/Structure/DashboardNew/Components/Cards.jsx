@@ -7,6 +7,9 @@ import { useDispatch, useSelector } from "react-redux";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 import { questionActions } from "../../Questions";
 import { useHistory } from "react-router";
+import { getPreviousAttempts } from "../State/action";
+import { resultAction } from "../../Results Display";
+
 const Cards = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   const [quizTitle, setQuizTitle] = React.useState({});
@@ -14,15 +17,21 @@ const Cards = () => {
   const dispatch = useDispatch();
   useEffect(() => {
     console.log("Dispatching...");
+
     dispatch(topicActions.getQuizTopics());
     console.log("Dispatching done...");
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // const isLoading = useSelector((state) => state.topics.isLoading);
   // const isError = useSelector((state) => state.topics.isError);
+
+  const previousAttempts = useSelector(
+    (state) => state.getPreviousAttempts.previousAttempts
+  );
+  const viewAllAttempts = (topic) => {
+    console.log("ViewAllAttempts: ", topic);
+  };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
-  const practiceTopicsData = useSelector((state) => state.topics);
-  console.log("Practice topics data: ", practiceTopicsData);
   console.log(quizTopicsData);
   const modalContent = (
     <div className={styles.modalContent}>
@@ -65,18 +74,20 @@ const Cards = () => {
     console.log("hello");
 
     return quizTopicsData.map((topic, index) => {
-      console.log("Last attempt : ", topic.lastAttempt);
+      // console.log("Last attempt : ", topic.lastAttempt);
       const lastAttemptPercent = topic.lastAttempt
         ? (topic.lastAttempt.correct / topic.lastAttempt.alloted) * 100
         : NaN;
-      console.log("Last Attemppt %age: ", lastAttemptPercent);
+      // console.log("Last Attemppt %age: ", lastAttemptPercent);
       const cardContent = (
         <div className={styles.startQuiz}>
           <p>
             Last Attempt (
             {isNaN(lastAttemptPercent) ? "NA" : lastAttemptPercent + "%"})
           </p>
-          <button>View All Attempts</button>
+          <button onClick={() => viewAllAttempts(topic)}>
+            View All Attempts
+          </button>
           <button
             onClick={() => {
               setIsOpen(true);

@@ -19,7 +19,8 @@ import { Practice } from "../Structure/Practice";
 import IndividualQue from "../Structure/Practice/Components/IndividualQue";
 import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
-
+import { ViewPreviousAttempts } from "../Structure/DashboardNew/Components/ViewPreviousAttempts";
+import { SingleQuestionBookmarkQuestion } from "../Structure/Practice/Components/SingleBookmarkQuestion";
 const Routes = () => {
   return (
     <>
@@ -28,6 +29,19 @@ const Routes = () => {
         <PrivateRoute exact path="/" component={Dashboard} />
         <PrivateRoute exact path="/old-dashboard" component={Topics} />
         <PrivateRoute exact path="/quiz_topics" component={DashboardNew} />
+
+        <PrivateRoute exact path="/practice_topics" component={DashboardNew} />
+        <PrivateRoute exact path="/my_bookmarks" component={DashboardNew} />
+        <PrivateRoute
+          exact
+          path="/bookmarks/:topicId"
+          component={DashboardNew}
+        />
+        <PrivateRoute
+          exact
+          path="/bookmarks/:topicID/:questionId"
+          component={SingleQuestionBookmarkQuestion}
+        />
         <PrivateRoute exact path="/quiz_questions" component={Questions} />
 
         <PrivateRoute
@@ -36,11 +50,18 @@ const Routes = () => {
           component={Results_display}
         />
         <PrivateRoute exact path="/practice_topics" component={Practice} />
+
         <PrivateRoute
           exact
           path="/practice_topics/individual_question/:topicID/:index"
           component={LongType}
         />
+        <PrivateRoute
+          exact
+          path="/previous-attempts/:topicId/:topicName"
+          component={ViewPreviousAttempts}
+        />
+
         <PrivateRoute
           exact
           path="/practice_topics/completed"
