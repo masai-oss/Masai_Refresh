@@ -8,6 +8,7 @@ const {
   getAllQuestion,
   deleteQuestion,
   toggleVerification,
+  toggleDisabledStatus,
 } = require("../controller/questionController");
 const {
   reportQuestion,
@@ -15,11 +16,6 @@ const {
   getQuestionReportedById,
   solveReport,
 } = require("../controller/reportController");
-const {
-  getDisabledQuestion,
-  getDisabledQuestionById,
-  toggleDisableStatus,
-} = require("../controller/disabledController");
 
 const { checkAdmin } = require("../utils/validation/adminValidation");
 
@@ -31,8 +27,8 @@ questionRoute.post(
   addQuestion
 );
 
-// Get question by ID
-questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
+// Get All Questions
+questionRoute.get("/all", authenticateToken, checkAdmin, getAllQuestion);
 
 // Get Question by Topic
 questionRoute.get(
@@ -42,8 +38,8 @@ questionRoute.get(
   getQuestionByTopic
 );
 
-// Get All Questions
-questionRoute.get("/all", authenticateToken, checkAdmin, getAllQuestion);
+// Get question by ID
+questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
 
 // Update question by ID
 questionRoute.put(
@@ -91,28 +87,12 @@ questionRoute.patch(
   solveReport
 );
 
-//Get All Disabled Questions
-questionRoute.get(
-  "/disabled",
-  authenticateToken,
-  checkAdmin,
-  getDisabledQuestion
-);
-
-//Get Disabled Question by an Id..
-questionRoute.get(
-  "/disabled/:id",
-  authenticateToken,
-  checkAdmin,
-  getDisabledQuestionById
-);
-
 //Toggle Disabled status of a question.
 questionRoute.patch(
-  "/disabled/:id",
+  "/toggleDisable/:type/:id",
   authenticateToken,
   checkAdmin,
-  toggleDisableStatus
+  toggleDisabledStatus
 );
 
 module.exports = questionRoute;
