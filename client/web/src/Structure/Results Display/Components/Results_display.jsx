@@ -99,11 +99,12 @@ const Results_display = () => {
   );
   console.log("Previous Attempt List-------: ", prev_attempt_list);
   let history = useHistory();
-  // console.log("from prev_attempt", prev_attempt);
-
-  // const goBackToHome = () => {
-  //       history.replace("quiz_topics");
-  //     };
+  useEffect(() => {
+    if (isError) {
+      history.push("/quiz_topics");
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
   console.log("result", result);
   const correctSol =
     result && result.filter((answer) => answer.outcome === "CORRECT").length;
