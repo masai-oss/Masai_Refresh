@@ -42,9 +42,14 @@ function ReportSuccessModal ({ question_id, customMargin, isOpen }) {
 		setDetails('');
 	};
 
-	React.useEffect(() => {
-		setOpen(isOpen);
-	}, isOpen);
+	React.useEffect(
+		() => {
+			setOpen(isOpen);
+		},
+		[
+			isOpen
+		]
+	);
 	const handleClickOpen = () => {
 		setOpen(isOpen);
 	};
