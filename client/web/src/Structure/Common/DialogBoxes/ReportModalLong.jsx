@@ -169,11 +169,13 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
           </button> */}
         </DialogActions>
       </Dialog>
-      <CustomizedSnackbars
-        success={false}
-        message={!success && errorMessage}
-        ref={snackbarBtnRef}
-      />
+      {!success && (
+        <CustomizedSnackbars
+          success={false}
+          message={!success && errorMessage}
+          ref={snackbarBtnRef}
+        />
+      )}
       <ReportSuccessModal question_id={question_id} isOpen={success} />
     </div>
   );
