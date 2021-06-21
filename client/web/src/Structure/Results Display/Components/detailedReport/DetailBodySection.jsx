@@ -1,9 +1,10 @@
 import React from "react";
 import "../../Styles/DetailBodySection.css";
 import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
-import { ReportModalLong } from "../../../Common/DialogBoxes/ReportModalLong";
+import { ReportDialogLong } from "../../../Common/DialogBoxes/ReportModalLong";
 
 const DetailBodySection = ({ ele, index }) => {
+  console.log(ele);
   return (
     <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">
@@ -49,7 +50,7 @@ const DetailBodySection = ({ ele, index }) => {
         <span className="detail-section__reportquestion">
           Report an issue with this question
         </span> */}
-        <ReportModalLong question_id={ele.question_id} statement={0} />
+        <ReportDialogLong question_id={ele.question_id} statement={0} />
       </div>
       <hr className="detail-section__hr" />
     </div>

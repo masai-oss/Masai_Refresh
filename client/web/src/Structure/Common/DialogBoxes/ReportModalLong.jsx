@@ -17,6 +17,7 @@ import {
 import ReasonEnums from "../../../Enums/ReasonEnums";
 import { useSelector } from "react-redux";
 import { CustomizedSnackbars } from "../AlertPopUps/CustomizedSnackbars";
+import { ReportSuccessModal } from "./ReportSuccessModal";
 const useStyles = makeStyles((theme) => ({
   backDrop: {
     backdropFilter: "blur(10px)",
@@ -35,6 +36,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
   let issues = Object.values(ReasonEnums);
 
   const dispatch = useDispatch();
+
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -72,7 +74,15 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
       return [...prev, index];
     });
   };
-  const handleReport = () => {};
+  const handleReport = () => {
+    let reasons = select.map((ind) => issues[ind]);
+    const payload = {
+      question_id,
+      reason: reasons,
+      des: details,
+    };
+    return dispatch(resultAction.sendReport(payload));
+  };
 
   return (
     <div>
@@ -89,7 +99,6 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
         }}
       >
         <img src={report} alt="report" />
-        {/* <div className={styles.report}>Report an issue</div> */}
         {statement !== -1 && (
           <div className={styles.report}>Report an issue</div>
         )}
@@ -162,13 +171,10 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
       </Dialog>
       <CustomizedSnackbars
         success={success}
-        message={
-          success
-            ? "The question has been successfully reported."
-            : errorMessage
-        }
+        message={!success && errorMessage}
         ref={snackbarBtnRef}
       />
+      <ReportSuccessModal question_id={question_id} isOpen={success} />
     </div>
   );
 }
