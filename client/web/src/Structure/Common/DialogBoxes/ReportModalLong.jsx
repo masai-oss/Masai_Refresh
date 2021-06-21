@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgba(0,0,30,0.4)",
   },
 }));
-function ReportDialogLong({ question_id, customMargin }) {
+function ReportDialogLong({ question_id, customMargin, statement }) {
   const classes = modalStyles();
   const classesNew = useStyles();
   const [open, setOpen] = useState(false);
@@ -89,7 +89,10 @@ function ReportDialogLong({ question_id, customMargin }) {
         }}
       >
         <img src={report} alt="report" />
-        <div className={styles.report}>Report an issue</div>
+        {/* <div className={styles.report}>Report an issue</div> */}
+        {statement !== -1 && (
+          <div className={styles.report}>Report an issue</div>
+        )}
       </div>
       <Dialog
         BackdropProps={{

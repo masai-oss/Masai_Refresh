@@ -1,6 +1,7 @@
 import React from "react";
 import "../../Styles/DetailBodySection.css";
 import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
+import { ReportModalLong } from "../../../Common/DialogBoxes/ReportModalLong";
 
 const DetailBodySection = ({ ele, index }) => {
   return (
@@ -30,7 +31,7 @@ const DetailBodySection = ({ ele, index }) => {
       </div>
       <div className="detail-section__source">Source: GeeksforGeeks.com</div>
       <div className="detail-section__reportsvgbox">
-        <svg
+        {/* <svg
           width="22"
           height="21"
           viewBox="0 0 22 21"
@@ -47,7 +48,8 @@ const DetailBodySection = ({ ele, index }) => {
         </svg>
         <span className="detail-section__reportquestion">
           Report an issue with this question
-        </span>
+        </span> */}
+        <ReportModalLong question_id={ele.question_id} statement={0} />
       </div>
       <hr className="detail-section__hr" />
     </div>
