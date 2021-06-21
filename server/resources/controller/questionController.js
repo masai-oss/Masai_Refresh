@@ -1,4 +1,6 @@
 const Topic = require("../models/Topic");
+const Practice = require("../models/Practice");
+
 const {
   questionAddValidate,
   idTopicValidation,
@@ -45,39 +47,45 @@ const addQuestion = async (req, res) => {
   }
 };
 
-// Joi verification pending
 const toggleVerification = async (req, res) => {
-  const { id } = req.params;
-  const { error } = toggleVerificationValidation({ id });
-  if (error) {
-    return res.status(400).json({
-      error: true,
-      message: "Validation for id failed",
-      reason: error.details[0].message,
-    });
-  }
-
+  const { id, type } = req.params;
   try {
-    let topic = await Topic.findOne({ "questions._id": id });
-    let verified = topic.questions.find((q) => q._id == id).verified;
-    await Topic.updateOne(
-      {
-        "questions._id": id,
-      },
-      {
-        $set: {
-          "questions.$.verified": !verified,
-        },
-      }
-    );
+    let topic, verified;
 
-    res
-      .status(200)
-      .json({
-        error: true,
-        message: "The toggle of verification has been successful",
-        data: { verified: !verified },
-      });
+    if (type == "long") {
+      topic = await Practice.findOne({ "questions._id": id });
+      verified = topic.questions.find((q) => q._id == id).verified;
+
+      await Practice.updateOne(
+        {
+          "questions._id": id,
+        },
+        {
+          $set: {
+            "questions.$.verified": !verified,
+          },
+        }
+      );
+    } else {
+      topic = await Topic.findOne({ "questions._id": id });
+      verified = topic.questions.find((q) => q._id == id).verified;
+      await Topic.updateOne(
+        {
+          "questions._id": id,
+        },
+        {
+          $set: {
+            "questions.$.verified": !verified,
+          },
+        }
+      );
+    }
+
+    res.status(200).json({
+      error: false,
+      message: "successful",
+      data: { verified: !verified },
+    });
   } catch (err) {
     res.status(400).json({ error: true, message: `${err}` });
   }
@@ -221,6 +229,9 @@ const pagination = (page, limit, questions) => {
 const getAllQuestion = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
+  const disabledFilter = req.query.disabledFilter;
+  const reportedFilter = req.query.reportedFilter;
+
   try {
     if (page < 1) {
       return res.status(400).json({
@@ -228,31 +239,163 @@ const getAllQuestion = async (req, res) => {
         message: "The Page No must be greater than 0",
       });
     }
-    let questions = await Topic.aggregate([
-      {
-        $addFields: {
-          "questions.topic": "$name",
+    var questions1, questions2;
+    if (disabledFilter != "true" && reportedFilter != "true") {
+      questions1 = await Topic.aggregate([
+        {
+          $addFields: {
+            "questions.topic": "$name",
+          },
         },
-      },
-      {
-        $group: {
-          _id: 0,
-          allQuestions: { $push: "$questions" },
+        {
+          $group: {
+            _id: 0,
+            allQuestions: { $push: "$questions" },
+          },
         },
-      },
-    ]);
-    if (!questions[0].allQuestions.length) {
+      ]);
+
+      questions2 = await Practice.aggregate([
+        {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
+          $group: {
+            _id: 0,
+            allQuestions: { $push: "$questions" },
+          },
+        },
+      ]);
+    } else if (disabledFilter == "true") {
+      questions1 = await Topic.aggregate([
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: { $eq: ["$$item.disabled", true] },
+              },
+            },
+          },
+        },
+        {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
+          $group: {
+            _id: 0,
+            allQuestions: { $push: "$questions" },
+          },
+        },
+      ]);
+
+      questions2 = await Practice.aggregate([
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: { $eq: ["$$item.disabled", true] },
+              },
+            },
+          },
+        },
+        {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
+          $group: {
+            _id: 0,
+            allQuestions: { $push: "$questions" },
+          },
+        },
+      ]);
+    } else if (reportedFilter == "true") {
+      questions1 = await Topic.aggregate([
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: {
+                  $gt: [{ $size: "$$item.flag" }, 0],
+                },
+              },
+            },
+          },
+        },
+        {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
+          $group: {
+            _id: 0,
+            allQuestions: { $push: "$questions" },
+          },
+        },
+      ]);
+
+      questions2 = await Practice.aggregate([
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: {
+                  $gt: [{ $size: "$$item.flag" }, 0],
+                },
+              },
+            },
+          },
+        },
+        {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
+          $group: {
+            _id: 0,
+            allQuestions: { $push: "$questions" },
+          },
+        },
+      ]);
+    }
+
+    let allQuestions = [];
+    if (questions1[0].allQuestions.length > 0) {
+      questions1[0].allQuestions.forEach((topicQue) => {
+        if (topicQue.length !== undefined) {
+          allQuestions.push(...topicQue);
+        }
+      });
+    }
+    if (questions2[0].allQuestions.length > 0) {
+      questions2[0].allQuestions.forEach((topicQue) => {
+        if (topicQue.length !== undefined) {
+          allQuestions.push(...topicQue);
+        }
+      });
+    }
+    if (allQuestions.length == 0) {
       return res.status(400).json({
         error: true,
         message: "No questions are present",
       });
     }
-    let allQuestions = [];
-    questions[0].allQuestions.forEach((topicQue) => {
-      if (topicQue.length !== undefined) {
-        allQuestions.push(...topicQue);
-      }
-    });
+
     let paginatedResults = pagination(page, limit, allQuestions);
     return res.status(200).json({
       error: false,
@@ -271,6 +414,8 @@ const getAllQuestion = async (req, res) => {
 const getQuestionByTopic = async (req, res) => {
   const page = parseInt(req.query.page) || 1;
   const limit = parseInt(req.query.limit) || 10;
+  const disabledFilter = req.query.disabledFilter;
+  const reportedFilter = req.query.reportedFilter;
   const { topic: name } = req.params;
   const { error } = topicValidation(req.params);
   if (error) {
@@ -287,20 +432,118 @@ const getQuestionByTopic = async (req, res) => {
         message: "The Page No must be greater than 0",
       });
     }
-    let findedQuestion = await Topic.find(
-      {
-        name: name,
-      },
-      { icon: 0, name: 0 }
-    );
-    if (!findedQuestion.length) {
+    var findedQuestion1, findedQuestion2, findedQuestion;
+    if (disabledFilter == "false" && reportedFilter == "false") {
+      findedQuestion1 = await Topic.find(
+        {
+          name: name,
+        },
+        { icon: 0, name: 0 }
+      );
+
+      findedQuestion2 = await Practice.find(
+        {
+          name: name,
+        },
+        { icon: 0, name: 0 }
+      );
+    } else if (disabledFilter == "true") {
+      findedQuestion1 = await Topic.aggregate([
+        {
+          $match: {
+            name: name,
+          },
+        },
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: { $eq: ["$$item.disabled", true] },
+              },
+            },
+          },
+        },
+      ]);
+
+      findedQuestion2 = await Practice.aggregate([
+        {
+          $match: {
+            name: name,
+          },
+        },
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: { $eq: ["$$item.disabled", true] },
+              },
+            },
+          },
+        },
+      ]);
+    } else if (reportedFilter == "true") {
+      findedQuestion1 = await Topic.aggregate([
+        {
+          $match: {
+            name: name,
+          },
+        },
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: {
+                  $gt: [{ $size: "$$item.flag" }, 0],
+                },
+              },
+            },
+          },
+        },
+      ]);
+
+      findedQuestion2 = await Practice.aggregate([
+        {
+          $match: {
+            name: name,
+          },
+        },
+        {
+          $project: {
+            questions: {
+              $filter: {
+                input: "$questions",
+                as: "item",
+                cond: {
+                  $gt: [{ $size: "$$item.flag" }, 0],
+                },
+              },
+            },
+          },
+        },
+      ]);
+    }
+
+    if (findedQuestion1.length > 0) {
+      findedQuestion = [...findedQuestion1[0].questions];
+    }
+    if (findedQuestion2.length > 0) {
+      findedQuestion = [...findedQuestion, ...findedQuestion2[0].questions];
+    }
+
+    if (findedQuestion.length == 0) {
       return res.status(400).json({
         error: true,
         message: `No Questions present in ${name}`,
       });
     }
-    const [{ questions }] = findedQuestion;
-    let paginatedResults = pagination(page, limit, questions);
+
+    let paginatedResults = pagination(page, limit, findedQuestion);
     return res.status(200).json({
       error: false,
       message: "Question found successfully",
@@ -316,12 +559,21 @@ const getQuestionByTopic = async (req, res) => {
 };
 
 const getQuestionById = async (req, res) => {
-  const { id } = req.params;
+  const { id, type } = req.params;
   try {
-    let findedQuestion = await Topic.find(
-      { questions: { $elemMatch: { _id: id } } },
-      { "questions.$": 1, _id: 0 }
-    );
+    var findedQuestion;
+    if (type == "long") {
+      findedQuestion = await Practice.find(
+        { questions: { $elemMatch: { _id: id } } },
+        { "questions.$": 1, _id: 0 }
+      );
+    } else {
+      findedQuestion = await Topic.find(
+        { questions: { $elemMatch: { _id: id } } },
+        { "questions.$": 1, _id: 0 }
+      );
+    }
+
     if (!findedQuestion.length) {
       return res.status(400).json({
         error: true,
@@ -343,6 +595,50 @@ const getQuestionById = async (req, res) => {
   }
 };
 
+const toggleDisabledStatus = async (req, res) => {
+  const { id, type } = req.params;
+  try {
+    let topic, disabled;
+
+    if (type == "long") {
+      topic = await Practice.findOne({ "questions._id": id });
+      disabled = topic.questions.find((q) => q._id == id).disabled;
+
+      await Practice.updateOne(
+        {
+          "questions._id": id,
+        },
+        {
+          $set: {
+            "questions.$.disabled": !disabled,
+          },
+        }
+      );
+    } else {
+      topic = await Topic.findOne({ "questions._id": id });
+      disabled = topic.questions.find((q) => q._id == id).disabled;
+      await Topic.updateOne(
+        {
+          "questions._id": id,
+        },
+        {
+          $set: {
+            "questions.$.disabled": !disabled,
+          },
+        }
+      );
+    }
+
+    res.status(200).json({
+      error: false,
+      message: "successful",
+      data: { disabled: !disabled },
+    });
+  } catch (err) {
+    res.status(400).json({ error: true, message: `${err}` });
+  }
+};
+
 module.exports = {
   addQuestion,
   getQuestionById,
@@ -351,4 +647,5 @@ module.exports = {
   deleteQuestion,
   getAllQuestion,
   toggleVerification,
+  toggleDisabledStatus,
 };
