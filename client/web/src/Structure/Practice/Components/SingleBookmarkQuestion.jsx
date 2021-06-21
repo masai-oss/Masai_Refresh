@@ -111,6 +111,18 @@ const SingleQuestionBookmarkQuestion = () => {
     <Spinner />
   ) : (
     <>
+      <div className={styles.bookmarkNavbar}>
+        <div>
+          <img src="/logos/WhiteLessThanIcon.svg" alt="close icon" />
+          <p
+            onClick={() => {
+              history.push(`/bookmarks/${topic_ID}`);
+            }}
+          >
+            Go Back
+          </p>
+        </div>
+      </div>
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>

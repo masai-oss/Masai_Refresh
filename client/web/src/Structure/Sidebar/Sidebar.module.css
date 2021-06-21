@@ -6,6 +6,7 @@
 }
 .navContainer ul {
   padding: 0px;
+  position: relative;
 }
 
 .navContainer ul li {
@@ -41,10 +42,21 @@
 }
 
 .navContainer > ul > li:last-child {
+  position: absolute;
+
   margin-top: 150px;
+
+  top: 300px;
+  display: flex;
+}
+.navContainer > ul > li:last-child img {
+  width: 40px;
+  height: 40px;
+  margin-right: 20px;
 }
 .navContainer > ul > li:last-child h4 {
   color: #333434;
+  width: 200px;
 }
 /* Medium devices (landscape tablets, 768px and up) */
 /* @media only screen and (max-width: 992px) {
