@@ -10,9 +10,10 @@ import {
   SEND_REPORT_LOADING,
   SEND_REPORT_SUCCESS,
   SEND_REPORT_FAILURE,
-  GET_PREVIOUS_ATTEMPTS_LIST_SUCCESS,
-  GET_PREVIOUS_ATTEMPT_RESULT_SUCCESS,
+  GET_PREVIOUS_ATTEMPTS_LIST,
+  GET_PREVIOUS_ATTEMPT_RESULT,
 } from "./actionTypes";
+
 const initState = {
   result: getFromStorage(storageEnums.PRACTICE_RESULTS, []),
   report: "",
@@ -20,9 +21,10 @@ const initState = {
   isError: false,
   isErrorReport: false,
   errorMessage: "",
-  prev_attempt: getFromStorage("PREVIOUS_ATTEMPT_LIST", []),
-  prev_attempt_result: getFromStorage("PREVIOUS_ATTEMPT_RESULT_ID", ""),
+  prev_attempt: null,
+  prev_attempt_result: "",
 };
+
 const resultReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case GET_RESULT_LOADING:
@@ -32,14 +34,12 @@ const resultReducer = (state = initState, { type, payload }) => {
         isError: false,
         errorMessage: "",
       };
-    case GET_PREVIOUS_ATTEMPTS_LIST_SUCCESS:
-      saveToStorage("PREVIOUS_ATTEMPT_LIST", payload);
+    case GET_PREVIOUS_ATTEMPTS_LIST:
       return {
         ...state,
         prev_attempt: payload,
       };
-    case GET_PREVIOUS_ATTEMPT_RESULT_SUCCESS:
-      saveToStorage("PREVIOUS_ATTEMPT_RESULT_ID", payload);
+    case GET_PREVIOUS_ATTEMPT_RESULT:
       return {
         ...state,
         prev_attempt_result: payload,
@@ -82,4 +82,5 @@ const resultReducer = (state = initState, { type, payload }) => {
       return state;
   }
 };
+
 export { resultReducer };
