@@ -1,0 +1,82 @@
+.attempt-headingCard {
+  position: absolute;
+  width: 239.12px;
+  height: 34px;
+  left: 363px;
+  top: 139px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: bold;
+  font-size: 20px;
+  line-height: 170%;
+  /* identical to box height, or 34px */
+
+  text-align: center;
+
+  color: #333434;
+}
+.attempt-heading__dateCard {
+  position: absolute;
+  width: 37px;
+  height: 27px;
+  left: 202px;
+  top: 197px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 170%;
+  /* or 27px */
+
+  color: #514f64;
+}
+.attempt-heading__correctCard {
+  position: absolute;
+  width: 58px;
+  height: 27px;
+  left: 382px;
+  top: 197px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 170%;
+  /* or 27px */
+
+  color: #65ae91;
+}
+.attempt-heading__wrongCard {
+  position: absolute;
+  width: 70px;
+  height: 27px;
+  left: 512px;
+  top: 197px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 170%;
+  /* or 27px */
+
+  color: #d57572;
+}
+.attempt-heading__skippedCard {
+  position: absolute;
+  width: 62px;
+  height: 27px;
+  left: 654px;
+  top: 197px;
+
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: 600;
+  font-size: 16px;
+  line-height: 170%;
+  /* or 27px */
+
+  color: #f3d464;
+}
