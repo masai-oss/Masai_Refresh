@@ -9,7 +9,7 @@ import BookmarkIcon from "@material-ui/icons/Bookmark";
 import AddCircleIcon from "@material-ui/icons/AddCircle";
 import CheckCircleIcon from "@material-ui/icons/CheckCircle";
 import Progress from "react-progressbar";
-
+import { ReportQuestion } from "../../Common";
 import report from "../../../Assets/report.svg";
 import ReactMarkdown from "react-markdown";
 import { SyntaxHighlight } from "../../Common/SyntaxHighlighter";
@@ -21,9 +21,20 @@ import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal"
 import QuestionProgress from "../../Common/ProgressBar";
 
 const SingleQuestionBookmarkQuestion = () => {
+  const [reportModalStatus, setReportModalStatus] =
+    React.useState("inputModalOpen");
   let params = useParams();
   let questionId = params.questionId;
   let topic_ID = params.topicID;
+  const issuesList = [
+    "Question Unclear",
+    "Insufficient Data",
+    "Explanation not clear",
+    "Others",
+  ];
+  const sendReport = (issueData) => {
+    dispatch(practiceTopicActions.postReport(question.question_id, issueData));
+  };
 
   const { question } = useSelector((state) => state.practice_topics);
   console.log("Question is :---------------- ", question);
@@ -31,7 +42,13 @@ const SingleQuestionBookmarkQuestion = () => {
   const history = useHistory();
 
   let { statement, answer, like_flag, bookmark_flag, likes } = question;
+  const { reportStatus } = useSelector((state) => state.practice_topics);
 
+  React.useEffect(() => {
+    if (reportStatus === "success") {
+      setReportModalStatus("inputModalClose");
+    }
+  }, [reportStatus]);
   React.useEffect(() => {
     dispatch(
       practiceTopicActions.nextQuestion({
@@ -101,7 +118,13 @@ const SingleQuestionBookmarkQuestion = () => {
           {answer}
         </ReactMarkdown>
         <hr className={styles.hr} />
-        <ReportDialogLong />
+        <ReportQuestion
+          issuesList={issuesList}
+          questionId={question._id}
+          sendReport={sendReport}
+          reportModalStatus={reportModalStatus}
+          setReportModalStatus={setReportModalStatus}
+        />
       </div>
 
       <div style={{ height: 100 }}></div>

@@ -15,6 +15,10 @@
   display: flex;
   justify-content: space-between;
 }
+.ReportQuestion__Header img {
+  cursor: pointer;
+}
+
 .ReportQuestion__Header p {
   font-weight: bold;
   font-size: 16px;
@@ -64,6 +68,23 @@
   outline: none;
   padding: 5px;
 }
+
+.ReportQuestion__ThankYou {
+  text-align: center;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.ReportQuestion__ThankYou p {
+  width: 60%;
+
+  margin: 10px auto;
+  font-weight: bold;
+  font-size: 16px;
+  line-height: 26.56px;
+}
 .ReportQuestionHeader__Submit {
   margin-top: 20px;
   text-align: center;
@@ -76,4 +97,8 @@
   box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
   color: white;
   height: 56px;
+}
+.submitDisabled {
+  background: #d8dee2 !important;
+  box-shadow: none !important;
 }

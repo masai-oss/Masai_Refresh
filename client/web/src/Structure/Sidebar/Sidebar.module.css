@@ -45,11 +45,11 @@
   color: #333434;
 }
 /* Medium devices (landscape tablets, 768px and up) */
-@media only screen and (max-width: 992px) {
+/* @media only screen and (max-width: 992px) {
   .Sidebar {
     display: none;
   }
-}
+} */
 
 .Sidebar__profileMenu {
   padding-left: 30px !important;
