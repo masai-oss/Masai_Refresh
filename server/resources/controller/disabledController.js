@@ -1,4 +1,24 @@
+/*
+
+
+
+NOTE : --- IN - PROGRESS......NOT IN USE.....
+
+
+
+
+*/
+
 const Topic = require("../models/Topic");
+const Practice = require("../models/Practice");
+
+const {
+  questionAddValidate,
+  idTopicValidation,
+  topicValidation,
+  statsValidate,
+  toggleVerificationValidation,
+} = require("../utils/validation/questionValidation");
 
 // Get all disabled questions...
 const getDisabledQuestion = async (req, res) => {
@@ -11,7 +31,8 @@ const getDisabledQuestion = async (req, res) => {
         message: "The Page No must be greater than 0",
       });
     }
-    let questions = await Topic.aggregate([
+
+    let questions1 = await Topic.aggregate([
       {
         $match: {
           "questions.disabled": true,
@@ -29,6 +50,27 @@ const getDisabledQuestion = async (req, res) => {
         },
       },
     ]);
+
+    let questions2 = await Practice.aggregate([
+      {
+        $match: {
+          "questions.disabled": true,
+        },
+      },
+      {
+        $addFields: {
+          "questions.topic": "$name",
+        },
+      },
+      {
+        $group: {
+          _id: 0,
+          allQuestions: { $push: "$questions" },
+        },
+      },
+    ]);
+
+    let questions = [...questions1, ...questions2];
     if (!questions[0].allQuestions.length) {
       return res.status(400).json({
         error: true,
@@ -58,12 +100,22 @@ const getDisabledQuestion = async (req, res) => {
 
 // Get disabled question by Id..
 const getDisabledQuestionById = async (req, res) => {
-  const { id } = req.params;
+  const { id, type } = req.params;
+
   try {
-    let findedQuestion = await Topic.find(
-      { questions: { $elemMatch: { _id: id } } },
-      { "questions.$": 1, _id: 0 }
-    );
+    let findedQuestion;
+    if (type === "long") {
+      findedQuestion = await Practice.find(
+        { questions: { $elemMatch: { _id: id } } },
+        { "questions.$": 1, _id: 0 }
+      );
+    } else {
+      findedQuestion = await Topic.find(
+        { questions: { $elemMatch: { _id: id } } },
+        { "questions.$": 1, _id: 0 }
+      );
+    }
+
     if (!findedQuestion.length) {
       return res.status(400).json({
         error: true,
@@ -87,23 +139,41 @@ const getDisabledQuestionById = async (req, res) => {
 
 // Toggle Disable Status of a Question...
 const toggleDisableStatus = async (req, res) => {
-  const { id } = req.params;
+  const { id, type } = req.params;
   try {
-    let topic = await Topic.findOne({ "questions._id": id });
-    let disabled = topic.questions.find((q) => q._id == id).disabled;
-    await Topic.updateOne(
-      {
-        "questions._id": id,
-      },
-      {
-        $set: {
-          "questions.$.disabled": !disabled,
+    let topic, disabled;
+
+    if (type == "long") {
+      topic = await Practice.findOne({ "questions._id": id });
+      disabled = topic.questions.find((q) => q._id == id).disabled;
+
+      await Practice.updateOne(
+        {
+          "questions._id": id,
         },
-      }
-    );
+        {
+          $set: {
+            "questions.$.disabled": !disabled,
+          },
+        }
+      );
+    } else {
+      topic = await Topic.findOne({ "questions._id": id });
+      disabled = topic.questions.find((q) => q._id == id).disabled;
+      await Topic.updateOne(
+        {
+          "questions._id": id,
+        },
+        {
+          $set: {
+            "questions.$.disabled": !disabled,
+          },
+        }
+      );
+    }
 
     res.status(200).json({
-      error: true,
+      error: false,
       message: "successful",
       data: { disabled: !disabled },
     });
