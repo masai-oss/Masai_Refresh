@@ -47,7 +47,7 @@ const Sidebar = ({ setRightSideContent }) => {
 
   return (
     <div className={styles.Sidebar}>
-      <div className={styles.logoContainer}>
+      <div className={styles.logoContainer} onClick={() => history.push("/")}>
         <img src={logo} alt="Masai Refresh" />
       </div>
       <div className={styles.navContainer}>

@@ -29,7 +29,7 @@ const Cards = () => {
     (state) => state.getPreviousAttempts.previousAttempts
   );
   const viewAllAttempts = (topic) => {
-    console.log("ViewAllAttempts: ", topic);
+    history.push(`/previous-attempts/${topic._id}/${topic.name}`);
   };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
   console.log(quizTopicsData);

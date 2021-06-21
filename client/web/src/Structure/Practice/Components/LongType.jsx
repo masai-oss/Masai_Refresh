@@ -23,6 +23,8 @@ import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProv
 import { storageEnums } from "../../../Enums/storageEnums";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import axios from "axios";
+import QuestionNav from "../../Navbar/Components/QuestionNav";
+import { practice_topics } from "../State/reducer";
 
 const LongType = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
@@ -33,15 +35,23 @@ const LongType = () => {
   let topic_ID = params.topicID;
 
   const { question } = useSelector((state) => state.practice_topics);
-  const { practiceQuestionID, isLoading } = useSelector(
+  const { practiceQuestionID, isLoading, practiceTopicsData } = useSelector(
     (state) => state.practice_topics
   );
+
+  const topic = practiceTopicsData
+    ? practiceTopicsData.find((topic) => topic._id === topic_ID)
+    : "";
+  console.log("Practice data:-------------------------", practiceTopicsData);
+
   const issuesList = [
     "Question Unclear",
     "Insufficient Data",
     "Explanation not clear",
     "Others",
   ];
+
+  console.log("Practice data:-------------------------", topic);
 
   const { reportStatus } = useSelector((state) => state.practice_topics);
 
@@ -105,11 +115,59 @@ const LongType = () => {
 
   const percentage = ((indexNum - 1) / practiceQuestionID.length) * 100;
 
+  const secondIcon = (
+    <>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21 21L3 3"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M21 3L3 21"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </>
+  );
+
+  const handleExit = () => {
+    history.push("/quiz_topics");
+  };
+
+  const logoPath = topic
+    ? `/logoForNav/${topic.name.toLowerCase()}/${topic.name.toLowerCase()}_logo.svg`
+    : "";
   return !question ? (
     <Spinner />
   ) : (
     <>
-      <QuestionProgress completed={percentage} />
+      {/* <QuestionProgress completed={percentage} /> */}
+      {topic ? (
+        <QuestionNav
+          secondIcon={secondIcon}
+          firstIcon={logoPath}
+          secondText={"Exit"}
+          firstText={topic.name}
+          progress
+          length={practiceQuestionID.length}
+          num={indexNum}
+          handleExit={handleExit}
+        />
+      ) : (
+        ""
+      )}
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>

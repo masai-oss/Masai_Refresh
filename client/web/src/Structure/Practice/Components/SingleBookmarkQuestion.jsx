@@ -19,6 +19,7 @@ import { Spinner } from "../../Common/Loader";
 import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 import { ReportSuccessModal } from "../../Common/DialogBoxes/ReportSuccessModal";
 import QuestionProgress from "../../Common/ProgressBar";
+import QuestionNav from "../../Navbar/Components/QuestionNav";
 
 const SingleQuestionBookmarkQuestion = () => {
   const [reportModalStatus, setReportModalStatus] =
@@ -57,6 +58,36 @@ const SingleQuestionBookmarkQuestion = () => {
       })
     );
   }, []);
+  const secondIcon = (
+    <>
+      <svg
+        width="24"
+        height="24"
+        viewBox="0 0 24 24"
+        fill="none"
+        xmlns="http://www.w3.org/2000/svg"
+      >
+        <path
+          d="M21 21L3 3"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+        <path
+          d="M21 3L3 21"
+          stroke="white"
+          stroke-width="2"
+          stroke-linecap="round"
+          stroke-linejoin="round"
+        />
+      </svg>
+    </>
+  );
+
+  const handleExit = () => {
+    history.push("/quiz_topics");
+  };
 
   const toggleLike = () => {
     dispatch(
@@ -75,7 +106,7 @@ const SingleQuestionBookmarkQuestion = () => {
       })
     );
   };
-
+  // const logoPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}_logo.svg`;
   return !question ? (
     <Spinner />
   ) : (
