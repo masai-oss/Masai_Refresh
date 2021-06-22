@@ -265,10 +265,10 @@ const disableQuestionsFailure = (data) => ({
 const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
   dispatch(disableQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/delete/${topic}/${id}`;
+  let url = `${QUESTION_URL}/toggleDisable/${type}/${id}`;
 
   axios({
-    method: "delete",
+    method: "patch",
     url: url,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -277,7 +277,7 @@ const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
   })
     .then((res) => {
       dispatch(disableQuestionsSuccess(res.data, id));
-      // dispatch(getQuestionsByTopicRequest(topic));
+      dispatch(getQuestionsByTopicRequest(topic));
     })
     .catch((err) => dispatch(disableQuestionsFailure(err)));
 };
@@ -386,7 +386,7 @@ const verifyQuestionProcess = ({ id, verified: crnState, type }) => async (
   const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
     method: "patch",
-    url: `${QUESTION_URL}/verify_toggle/${id}`,
+    url: `${QUESTION_URL}/toggleVerify/${type}/${id}`,
     withCredentials: true,
     headers: {
       Authorization: `Bearer ${token}`,

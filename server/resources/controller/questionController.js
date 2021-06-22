@@ -52,7 +52,7 @@ const toggleVerification = async (req, res) => {
   try {
     let topic, verified;
 
-    if (type == "long") {
+    if (type == "LONG") {
       topic = await Practice.findOne({ "questions._id": id });
       verified = topic.questions.find((q) => q._id == id).verified;
 
@@ -390,9 +390,12 @@ const getAllQuestion = async (req, res) => {
       });
     }
     if (allQuestions.length == 0) {
-      return res.status(400).json({
-        error: true,
-        message: "No questions are present",
+      return res.status(200).json({
+        error: false,
+        message: "Successfully got Questions",
+        questions: {
+          current : []
+        },
       });
     }
 
@@ -537,9 +540,12 @@ const getQuestionByTopic = async (req, res) => {
     }
 
     if (findedQuestion.length == 0) {
-      return res.status(400).json({
-        error: true,
-        message: `No Questions present in ${name}`,
+      return res.status(200).json({
+        error: false,
+        message: "Successfully got Questions",
+        questions: {
+          current : []
+        },
       });
     }
 
@@ -562,7 +568,7 @@ const getQuestionById = async (req, res) => {
   const { id, type } = req.params;
   try {
     var findedQuestion;
-    if (type == "long") {
+    if (type == "LONG") {
       findedQuestion = await Practice.find(
         { questions: { $elemMatch: { _id: id } } },
         { "questions.$": 1, _id: 0 }
@@ -600,7 +606,7 @@ const toggleDisabledStatus = async (req, res) => {
   try {
     let topic, disabled;
 
-    if (type == "long") {
+    if (type == "LONG") {
       topic = await Practice.findOne({ "questions._id": id });
       disabled = topic.questions.find((q) => q._id == id).disabled;
 

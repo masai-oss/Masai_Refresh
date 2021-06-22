@@ -17,7 +17,7 @@ import { useHistory } from "react-router-dom";
 export const AllQuestions = ({ handleDisable, topics, page, rowsPerPage, disabledFilter, reportedFilter }) => {
   const dispatch = useDispatch();
   const history = useHistory();
-  const questions = useSelector((state) => state.admin.data);
+  const data = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
   const questionDisableStatus = useSelector(
     (state) => state.admin.questionDisableStatus
@@ -61,7 +61,11 @@ export const AllQuestions = ({ handleDisable, topics, page, rowsPerPage, disable
     history
   ]);
 
-  return !isLoading && questions.questions !== undefined ? (
+  return (isLoading || !data?.questions?.current) ? (
+    <div style = {{textAlign: "center", marginTop: "20px"}}>...isLoading</div>
+  ) : (data?.questions?.current?.length === 0) ? (
+    <div style = {{textAlign: "center", marginTop: "20px"}}>No questions</div>
+  ) : (
     <Card>
       <CardContent>
         <Table>
@@ -78,14 +82,14 @@ export const AllQuestions = ({ handleDisable, topics, page, rowsPerPage, disable
             </TableRow>
           </TableHead>
           <TableBody>
-            {questions.questions.current?.map((item) => (
+            {data.questions.current?.map((item) => (
               <Row handleDisable={handleDisable} key={item._id} item={item} />
             ))}
           </TableBody>
         </Table>
         <TablePagination
           component="div"
-          count={questions.questions.totalCount}
+          count={data.questions.totalCount}
           rowsPerPage={rowsPerPage}
           page={page - 1}
           onChangePage={handleChangePage}
@@ -93,7 +97,5 @@ export const AllQuestions = ({ handleDisable, topics, page, rowsPerPage, disable
         />
       </CardContent>
     </Card>
-  ) : (
-    <div>Loading...</div>
-  );
+  )
 };

@@ -69,8 +69,10 @@ export const QuestionsByTopic = ({
     history
   ]);
 
-  return isLoading || !data?.questions?.current?.length ? (
-    <div>...isLoading</div>
+  return (isLoading || !data?.questions?.current) ? (
+    <div style = {{textAlign: "center", marginTop: "20px"}}>...isLoading</div>
+  ) : (data?.questions?.current?.length === 0) ? (
+    <div style = {{textAlign: "center", marginTop: "20px"}}>No questions</div>
   ) : (
     <>
       <Table>
