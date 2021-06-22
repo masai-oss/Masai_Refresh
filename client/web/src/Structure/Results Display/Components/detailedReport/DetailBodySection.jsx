@@ -8,7 +8,7 @@ const DetailBodySection = ({ ele, index }) => {
   return (
     <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">
-        {`Q${index + 1}. `}
+        <span>{`Q${index + 1}. `}</span>
         <SyntaxHighlight value={ele.statement} />
       </div>
       <div className="detail-section__youranswer">
