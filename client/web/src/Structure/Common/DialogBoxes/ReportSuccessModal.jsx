@@ -94,7 +94,7 @@ function ReportSuccessModal ({ question_id, customMargin, isOpen }) {
 						submitBtn={true}
 						disabled={details.length === 0 || select.length === 0}
 					>
-						<span>Go Back</span>
+						<span onClick={() => handleClose(false)}>Go Back</span>
 					</button>
 				</DialogActions>
 			</Dialog>
