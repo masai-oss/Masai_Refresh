@@ -4,7 +4,7 @@ body {
 .bookmarkNavbar {
   height: 80px;
   background: #2b75cd;
-  margin-bottom: -100px;
+  margin-bottom: -85px;
 }
 .bookmarkNavbar > div {
   display: flex;
