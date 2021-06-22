@@ -15,7 +15,7 @@ const DetailBodySection = ({ ele, index }) => {
         <p className="detail-section__highlighter">Your Answer</p>
         <p className="detail-section_myans  detail-section__style">
           {/* my answer */}
-          {`${ele.response}`}
+          {ele.response !== "skipped" ? `${ele.response}` : ""}
         </p>
       </div>
       <div className="correct-answer__report">

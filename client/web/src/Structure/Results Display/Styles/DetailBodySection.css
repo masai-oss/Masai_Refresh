@@ -13,7 +13,8 @@
 .detail-section__question > span {
   display: block;
   margin-top: 16px;
-  padding-right: 2px;
+  padding-right: 4px;
+  padding-top: 2px;
 }
 .detail-section__question ::-webkit-scrollbar {
   height: 2px;
@@ -35,7 +36,7 @@
   margin: 0;
   padding: 0;
   width: 381px;
-  height: 76px;
+  min-height: 76px;
   background: rgba(159, 159, 159, 0.06);
   border: 1.5px solid rgba(159, 159, 159, 0.6);
   box-sizing: border-box;
@@ -47,7 +48,7 @@
   margin: 0;
   padding: 0;
   width: 381px;
-  height: 76px;
+  min-height: 76px;
   background: rgba(167, 233, 175, 0.12);
   border: 1.5px solid #a7e9af;
   box-sizing: border-box;
