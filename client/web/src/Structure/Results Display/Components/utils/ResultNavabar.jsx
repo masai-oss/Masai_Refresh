@@ -9,7 +9,12 @@ const ResultNavabar = (props) => {
   return (
     <div className="resultNavbar__container">
       <div className="resultNavbar__backhome" onClick={goBackToHome}>
-        Go Back to Homepage
+        <img
+          src="/logos/GreaterThanIcon.svg"
+          className="resultNavbarsvg_greaterthan"
+          alt="back icon"
+        />
+        <span>Go Back to Homepage</span>
       </div>
       <div className="resultNavbar__topic">{props.topic}</div>
     </div>
