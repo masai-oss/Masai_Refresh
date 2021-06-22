@@ -4,7 +4,7 @@ import { useHistory } from "react-router-dom";
 const ResultNavabar = (props) => {
   let history = useHistory();
   const goBackToHome = () => {
-    history.replace("quiz_topics");
+    history.replace("/quiz_topics");
   };
   return (
     <div className="resultNavbar__container">

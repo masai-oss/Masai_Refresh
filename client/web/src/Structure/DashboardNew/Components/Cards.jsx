@@ -7,8 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 import { questionActions } from "../../Questions";
 import { useHistory } from "react-router";
-import { getPreviousAttempts } from "../State/action";
-import { resultAction } from "../../Results Display";
+import { resultAction } from "../../Results Display/index";
 
 const Cards = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
@@ -25,10 +24,8 @@ const Cards = () => {
   // const isLoading = useSelector((state) => state.topics.isLoading);
   // const isError = useSelector((state) => state.topics.isError);
 
-  const previousAttempts = useSelector(
-    (state) => state.getPreviousAttempts.previousAttempts
-  );
   const viewAllAttempts = (topic) => {
+    dispatch(resultAction.getResultPrevSection({ topicId: topic._id }));
     history.push(`/previous-attempts/${topic._id}/${topic.name}`);
   };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);

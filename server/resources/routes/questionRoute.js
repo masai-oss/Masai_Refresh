@@ -48,7 +48,7 @@ questionRoute.get(
 
 // Update question by ID
 questionRoute.put(
-  "/update/:topic/:id",
+  "/update/:topic/:type/:id",
   authenticateToken,
   checkAdmin,
   updateQuestion
