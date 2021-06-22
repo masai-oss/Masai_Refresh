@@ -83,15 +83,16 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
 
   const toggleSelect = (index) => {
     setSelect((prev) => {
-      if (prev.includes(index)) {
-        return prev.filter((el) => el !== index);
-      }
-      if (prev.length === 2) {
-        return prev;
-      }
+      // if (prev.includes(index)) {
+      // 	return prev.filter((el) => el !== index);
+      // }
+      // if (prev.length === 2) {
+      // 	return prev;
+      // }
       return [...prev, index];
     });
   };
+  console.log(select);
   const handleReport = () => {
     let reasons = select.map((ind) => issues[ind]);
     const payload = {
