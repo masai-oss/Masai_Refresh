@@ -91,8 +91,9 @@ const toggleVerification = async (req, res) => {
   }
 };
 
+// IN PROGRESS
 const updateQuestion = async (req, res) => {
-  const { topic: name, id: _id } = req.params;
+  const { topic: name, id: _id, type } = req.params;
   const questionData = req.body;
   const { stats, _id: questionId, topic, ...question } = questionData;
   const { error: statsError } = statsValidate(stats);
@@ -120,17 +121,33 @@ const updateQuestion = async (req, res) => {
     });
   }
   try {
-    let updatedQuestion = await Topic.updateOne(
-      {
-        name: name,
-        "questions._id": _id,
-      },
-      {
-        $set: {
-          "questions.$": { ...question, _id, stats },
+    let updatedQuestion;
+    if (type === "long") {
+      updatedQuestion = await Topic.updateOne(
+        {
+          name: name,
+          "questions._id": _id,
         },
-      }
-    );
+        {
+          $set: {
+            "questions.$": { ...question, _id, stats },
+          },
+        }
+      );
+    } else {
+      updatedQuestion = await Practice.updateOne(
+        {
+          name: name,
+          "questions._id": _id,
+        },
+        {
+          $set: {
+            "questions.$": { ...question, _id, stats },
+          },
+        }
+      );
+    }
+
     if (!updatedQuestion) {
       return res.status(400).json({
         error: true,
