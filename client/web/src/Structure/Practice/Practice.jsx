@@ -55,7 +55,7 @@ const Practice = () => {
 
       const cardContent = (
         <div className={styles.startQuiz}>
-          <h3>PRACTICE {item.name}</h3>
+          <h3>START PRACTICE</h3>
         </div>
       );
       return (

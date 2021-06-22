@@ -1,5 +1,11 @@
 import React, { useRef, useState } from "react";
-import { Dialog, DialogActions, DialogContent } from "@material-ui/core";
+import {
+  Dialog,
+  DialogActions,
+  DialogContent,
+  Snackbar,
+} from "@material-ui/core";
+import MuiAlert from "@material-ui/lab/Alert";
 import { resultAction, modalStyles } from "../../Results Display";
 import { useDispatch } from "react-redux";
 import { makeStyles, Theme } from "@material-ui/core";
@@ -24,10 +30,14 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: "rgba(0,0,30,0.4)",
   },
 }));
+function Alert(props) {
+  return <MuiAlert elevation={6} variant="filled" {...props} />;
+}
 function ReportDialogLong({ question_id, customMargin, statement }) {
   const classes = modalStyles();
   const classesNew = useStyles();
   const [open, setOpen] = useState(false);
+  const [isOpen, setIsOpen] = useState(false);
   const [select, setSelect] = useState([]);
   const [details, setDetails] = useState("");
   const [success, setSuccess] = useState(false);
@@ -51,29 +61,38 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
         setSuccess(true);
       } else {
         setSuccess(false);
+        setIsOpen(true);
       }
-      //snackbarBtnRef.current.click();
+      // snackbarBtnRef.current.click();
     }
     setOpen(false);
     setSelect([]);
     setDetails("");
   };
 
+  const handleCloseSnack = (event, reason) => {
+    if (reason === "clickaway") {
+      return;
+    }
+
+    setIsOpen(false);
+  };
   const handleDetailsChange = (e) => {
     setDetails(e.target.value);
   };
 
   const toggleSelect = (index) => {
     setSelect((prev) => {
-      if (prev.includes(index)) {
-        return prev.filter((el) => el !== index);
-      }
-      if (prev.length === 2) {
-        return prev;
-      }
+      // if (prev.includes(index)) {
+      // 	return prev.filter((el) => el !== index);
+      // }
+      // if (prev.length === 2) {
+      // 	return prev;
+      // }
       return [...prev, index];
     });
   };
+  console.log(select);
   const handleReport = () => {
     let reasons = select.map((ind) => issues[ind]);
     const payload = {
@@ -169,13 +188,14 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
           </button> */}
         </DialogActions>
       </Dialog>
-      {!success && (
-        <CustomizedSnackbars
-          success={false}
-          message={!success && errorMessage}
-          ref={snackbarBtnRef}
-        />
-      )}
+      <Snackbar
+        open={isOpen}
+        autoHideDuration={2000}
+        onClose={handleCloseSnack}
+      >
+        <Alert severity={"error"}>{errorMessage}</Alert>
+      </Snackbar>
+      {/* <CustomizedSnackbars success={success} message={!success && errorMessage} ref={snackbarBtnRef} /> */}
       <ReportSuccessModal question_id={question_id} isOpen={success} />
     </div>
   );

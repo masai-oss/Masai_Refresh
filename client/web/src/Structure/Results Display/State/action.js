@@ -61,40 +61,40 @@ const getResult =
         dispatch(getResultFailure(err));
       });
   };
-// const getResult =
-//   ({ topicId, attempt_id }) =>
-//   (dispatch) => {
-//     console.log("from the action function", topicId);
-//     dispatch(getResultRequest());
-//     console.log("Topic Id in Dispatch : ", topicId);
-//     const token = getFromStorage(storageEnums.TOKEN, "");
-//     axios({
-//       method: "GET",
-//       url: `http://localhost:5050/api/stats/topic_attempts_stats/${topicId}`,
-//       headers: { Authorization: `Bearer ${token}` },
-//     })
-//       .then((res) => {
-//         if (attempt_id === undefined) {
-//           attempt_id =
-//             res.data.topic_attempt_stats[
-//               res.data.topic_attempt_stats.length - 1
-//             ].attempt_id;
-//         }
-//         axios({
-//           method: "GET",
-//           url: `${RESULT_API}/result/${attempt_id}`,
-//           headers: { Authorization: `Bearer ${token}` },
-//         }).then((response) => {
-//           console.log(res.data.topic_attempt_stats);
-//           dispatch(getPreviousAttempt(attempt_id));
-//           dispatch(getPreviousAttemptsList(res.data.topic_attempt_stats));
-//           dispatch(getResultSuccess(response.data.result));
-//         });
-//       })
-//       .catch((err) => {
-//         dispatch(getResultFailure(err));
-//       });
-//   };
+const getResultPrevSection =
+  ({ topicId, attempt_id }) =>
+  (dispatch) => {
+    console.log("from the action function", topicId);
+    dispatch(getResultRequest());
+    console.log("Topic Id in Dispatch : ", topicId);
+    const token = getFromStorage(storageEnums.TOKEN, "");
+    axios({
+      method: "GET",
+      url: `http://localhost:5050/api/stats/topic_attempts_stats/${topicId}`,
+      headers: { Authorization: `Bearer ${token}` },
+    })
+      .then((res) => {
+        if (attempt_id === undefined) {
+          attempt_id =
+            res.data.topic_attempt_stats[
+              res.data.topic_attempt_stats.length - 1
+            ].attempt_id;
+        }
+        axios({
+          method: "GET",
+          url: `${RESULT_API}/result/${attempt_id}`,
+          headers: { Authorization: `Bearer ${token}` },
+        }).then((response) => {
+          console.log(res.data.topic_attempt_stats);
+          dispatch(getPreviousAttempt(attempt_id));
+          dispatch(getPreviousAttemptsList(res.data.topic_attempt_stats));
+          dispatch(getResultSuccess(response.data.result));
+        });
+      })
+      .catch((err) => {
+        dispatch(getResultFailure(err));
+      });
+  };
 //----------Report questions ------//
 const sendReportRequest = () => ({
   type: SEND_REPORT_LOADING,
@@ -132,4 +132,5 @@ const sendReport =
 export const resultAction = {
   getResult,
   sendReport,
+  getResultPrevSection,
 };
