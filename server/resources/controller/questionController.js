@@ -288,6 +288,11 @@ const getAllQuestion = async (req, res) => {
     } else if (disabledFilter == "true") {
       questions1 = await Topic.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -296,11 +301,6 @@ const getAllQuestion = async (req, res) => {
                 cond: { $eq: ["$$item.disabled", true] },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -313,6 +313,11 @@ const getAllQuestion = async (req, res) => {
 
       questions2 = await Practice.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -321,11 +326,6 @@ const getAllQuestion = async (req, res) => {
                 cond: { $eq: ["$$item.disabled", true] },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -338,6 +338,11 @@ const getAllQuestion = async (req, res) => {
     } else if (reportedFilter == "true") {
       questions1 = await Topic.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -348,11 +353,6 @@ const getAllQuestion = async (req, res) => {
                 },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -365,6 +365,11 @@ const getAllQuestion = async (req, res) => {
 
       questions2 = await Practice.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -375,11 +380,6 @@ const getAllQuestion = async (req, res) => {
                 },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
