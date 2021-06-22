@@ -1,0 +1,99 @@
+.Cards {
+  /* border: 1px solid red; */
+
+  padding: 60px 100px 60px 100px;
+  display: grid;
+  grid-template-columns: 48% 48%;
+  grid-column-gap: 4%;
+  overflow-y: scroll;
+  grid-row-gap: 50px;
+}
+.modalContent {
+  font-weight: bold;
+  font-size: 16px;
+  /* line-height: 10px; */
+  /* padding: 0 30px 0 30px; */
+  width: 350px;
+  text-align: center;
+}
+.modalContent span {
+  color: #1e90ff;
+}
+.modalContent__buttons {
+  display: grid;
+  grid-template-columns: 45% 45%;
+  justify-content: center;
+  align-content: center;
+  grid-gap: 20px;
+  padding: 5px;
+  margin-top: 30px;
+}
+.modalContent__buttons button {
+  background: none;
+  border: 2px solid #1e90ff;
+  border-radius: 5px;
+  height: 50px;
+  font-size: 20px;
+  font-weight: bold;
+  width: 100%;
+  color: #1e90ff;
+  cursor: pointer;
+}
+.modalContent__buttons button:last-of-type {
+  background-color: #1e90ff;
+  color: white;
+}
+
+.startQuiz {
+  display: grid;
+  grid-template-columns: 100%;
+  align-items: center;
+  justify-items: center;
+}
+
+.startQuiz p {
+  font-size: 16px;
+  margin-bottom: -20px;
+}
+.startQuiz button {
+  color: #1e90ff;
+  font-size: 20px;
+  font-size: 20px;
+  font-weight: bold;
+  background: none;
+  width: 80%;
+  height: 56px;
+  border: none;
+  cursor: pointer;
+}
+
+.startQuiz button:last-of-type {
+  background-color: #edf5ff;
+}
+
+/* Extra small devices (phones, 600px and down) */
+/* @media only screen and (max-width: 600px) {
+} */
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+/* @media only screen and (min-width: 600px) {
+} */
+
+/* Medium devices (landscape tablets, 768px and up) */
+/* @media only screen and (max-width: 992px) {
+  .Cards {
+    padding: 30px 30px 30px 30px;
+    display: grid;
+    grid-template-columns: 100%;
+
+    grid-row-gap: 50px;
+  }
+} */
+
+/* Large devices (laptops/desktops, 992px and up) */
+/* @media only screen and (min-width: 992px) {
+} */
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+/* @media only screen and (min-width: 1200px) {
+} */

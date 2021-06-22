@@ -5,6 +5,7 @@ import boy from "../../../Assets/vectorrr.svg";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Spinner } from "../../Common/Loader";
+
 const Completed = () => {
   const history = useHistory();
   const { isLoading } = useSelector((state) => state.practice_topics);
@@ -22,7 +23,6 @@ const Completed = () => {
         </div>
         <div className={styles.message}>You’ve completed HTML Practice</div>
         <div>
-          {" "}
           <button onClick={goToPractice} className={styles.btn}>
             Practice again
           </button>

@@ -1,0 +1,48 @@
+.nav {
+	position: fixed;
+	width: 100vw;
+	height: 80px;
+	left: 0px;
+	top: 0px;
+
+	background: #2b75cd;
+	box-shadow: 0px 6px 8px rgba(32, 87, 153, 0.3);
+
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	color: #fff;
+	z-index: 999;
+}
+.nav > img,
+.nav > div {
+	margin: 10%;
+
+	font-family: Open Sans;
+	font-style: normal;
+	font-weight: 600;
+	font-size: 20px;
+	line-height: 170%;
+	/* identical to box height, or 34px */
+
+	text-align: center;
+	letter-spacing: 0.2px;
+
+	color: #ffffff;
+
+	display: flex;
+	align-items: center;
+	cursor: pointer;
+}
+
+.progress {
+	position: fixed;
+	width: 100vw;
+	height: 8px;
+	left: 0px;
+	top: 80px;
+	background-color: #cbd5e0;
+	z-index: 999;
+
+	/* border: 7px solid #cbd5e0; */
+}

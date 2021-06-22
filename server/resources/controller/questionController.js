@@ -91,8 +91,9 @@ const toggleVerification = async (req, res) => {
   }
 };
 
+// IN PROGRESS
 const updateQuestion = async (req, res) => {
-  const { topic: name, id: _id } = req.params;
+  const { topic: name, id: _id, type } = req.params;
   const questionData = req.body;
   const { stats, _id: questionId, topic, ...question } = questionData;
   const { error: statsError } = statsValidate(stats);
@@ -120,17 +121,33 @@ const updateQuestion = async (req, res) => {
     });
   }
   try {
-    let updatedQuestion = await Topic.updateOne(
-      {
-        name: name,
-        "questions._id": _id,
-      },
-      {
-        $set: {
-          "questions.$": { ...question, _id, stats },
+    let updatedQuestion;
+    if (type === "long") {
+      updatedQuestion = await Topic.updateOne(
+        {
+          name: name,
+          "questions._id": _id,
         },
-      }
-    );
+        {
+          $set: {
+            "questions.$": { ...question, _id, stats },
+          },
+        }
+      );
+    } else {
+      updatedQuestion = await Practice.updateOne(
+        {
+          name: name,
+          "questions._id": _id,
+        },
+        {
+          $set: {
+            "questions.$": { ...question, _id, stats },
+          },
+        }
+      );
+    }
+
     if (!updatedQuestion) {
       return res.status(400).json({
         error: true,
@@ -271,6 +288,11 @@ const getAllQuestion = async (req, res) => {
     } else if (disabledFilter == "true") {
       questions1 = await Topic.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -279,11 +301,6 @@ const getAllQuestion = async (req, res) => {
                 cond: { $eq: ["$$item.disabled", true] },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -296,6 +313,11 @@ const getAllQuestion = async (req, res) => {
 
       questions2 = await Practice.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -304,11 +326,6 @@ const getAllQuestion = async (req, res) => {
                 cond: { $eq: ["$$item.disabled", true] },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -321,6 +338,11 @@ const getAllQuestion = async (req, res) => {
     } else if (reportedFilter == "true") {
       questions1 = await Topic.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -331,11 +353,6 @@ const getAllQuestion = async (req, res) => {
                 },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -348,6 +365,11 @@ const getAllQuestion = async (req, res) => {
 
       questions2 = await Practice.aggregate([
         {
+          $addFields: {
+            "questions.topic": "$name",
+          },
+        },
+        {
           $project: {
             questions: {
               $filter: {
@@ -358,11 +380,6 @@ const getAllQuestion = async (req, res) => {
                 },
               },
             },
-          },
-        },
-        {
-          $addFields: {
-            "questions.topic": "$name",
           },
         },
         {
@@ -436,7 +453,7 @@ const getQuestionByTopic = async (req, res) => {
       });
     }
     var findedQuestion1, findedQuestion2, findedQuestion;
-    if (disabledFilter == "false" && reportedFilter == "false") {
+    if (disabledFilter != "true" && reportedFilter != "true") {
       findedQuestion1 = await Topic.find(
         {
           name: name,

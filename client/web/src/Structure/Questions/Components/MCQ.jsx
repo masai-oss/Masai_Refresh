@@ -4,11 +4,7 @@ import { OptionRadio } from "./OptionRadio";
 import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { questionActions } from "../State/action";
 import ReactMarkdown from "react-markdown";
-import {
-  SyntaxHighlight,
-  QuestionNavbar,
-  ReportDialog,
-} from "../../Common";
+import { SyntaxHighlight, QuestionNavbar, ReportDialog } from "../../Common";
 import { resultAction } from "../../Results Display";
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
@@ -18,7 +14,6 @@ import {
   PrevButton,
   NextButton,
 } from "../Styles/QuestionStyles";
-
 
 const MCQ = (props) => {
   const dispatch = useDispatch();
