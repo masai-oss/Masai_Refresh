@@ -48,14 +48,12 @@ export const OptionStyles = makeStyles((theme) => ({
 		lineHeight: '100%'
 
 		/* identical to box height, or 24px */
-		// textAlign: 'center'
 	},
 	radio: {
 		width: '24px',
 		height: '24px',
 		paddingRight: '20px',
 
-		// border: '1px solid #9F9F9F',
 		boxSizing: 'border-box'
 	}
 }));
