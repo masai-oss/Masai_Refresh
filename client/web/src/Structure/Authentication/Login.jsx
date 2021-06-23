@@ -8,6 +8,7 @@ import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
 import { Spinner } from "../Common";
+import SignUp from "./Components/SignUp";
 
 const Login = () => {
   const dispatch = useDispatch();
@@ -57,6 +58,7 @@ const Login = () => {
             </Box>
           </Grid>
         </CardContent>
+        <SignUp/>
       </Card>
     </>
   );
