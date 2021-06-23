@@ -57,7 +57,6 @@ function ReportSuccessModal ({ question_id, customMargin, isOpen }) {
 
 	return (
 		<div>
-			{/* <h1 onClick={handleClickOpen}></h1> */}
 			<Dialog
 				BackdropProps={{
 					classes: {
@@ -89,7 +88,6 @@ function ReportSuccessModal ({ question_id, customMargin, isOpen }) {
 					<button
 						className={styles.submitBtn}
 						onClick={() => handleClose(true, 'here')}
-						// color="primary"
 						autoFocus
 						submitBtn={true}
 						disabled={details.length === 0 || select.length === 0}
