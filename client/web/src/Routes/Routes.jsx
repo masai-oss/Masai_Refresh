@@ -21,12 +21,17 @@ import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
 import { ViewPreviousAttempts } from "../Structure/DashboardNew/Components/ViewPreviousAttempts";
 import { SingleQuestionBookmarkQuestion } from "../Structure/Practice/Components/SingleBookmarkQuestion";
+import { SignIn } from "../Structure/Auth";
+import { SignUp } from "../Structure/Auth/Components/SignUp";
+import { OTPScreen } from "../Structure/Auth/Components/OTPScreen";
+import { ForgotPassword } from "../Structure/Auth/Components/ForgotPassword";
 const Routes = () => {
   return (
     <>
       <Switch>
         {/* all private routes here */}
         <PrivateRoute exact path="/" component={Dashboard} />
+
         <PrivateRoute exact path="/old-dashboard" component={Topics} />
         <PrivateRoute exact path="/quiz_topics" component={DashboardNew} />
 
@@ -88,6 +93,10 @@ const Routes = () => {
 
         {/* all public routes here */}
         <PublicRoute path="/login" component={Login} />
+        <PublicRoute exact path="/sign-in" component={SignIn} />
+        <PublicRoute exact path="/sign-up" component={SignUp} />
+        <PublicRoute exact path="/verify-otp" component={OTPScreen} />
+        <PublicRoute exact path="/forgot-password" component={ForgotPassword} />
         <PublicRoute>
           <PageNotFound
             errorNum="404"

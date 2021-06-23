@@ -1,0 +1,27 @@
+.Auth {
+  background: #f7f8fc;
+  height: 100vh;
+}
+.Auth__logo {
+  padding-top: 50px;
+  padding-left: 100px;
+  margin-bottom: 50px;
+}
+.Auth__logo img {
+  width: 125px;
+  height: 80px;
+}
+.Auth__content {
+  /* border: 1px solid red; */
+  display: flex;
+  justify-content: space-evenly;
+}
+.Auth__content > img {
+  width: 25%;
+  /* border: 1px solid blue; */
+}
+.Auth__content__card {
+  /* border: 1px solid green; */
+  width: 25%;
+  box-shadow: 0px 0px 60px 0px #6a687a2e;
+}
