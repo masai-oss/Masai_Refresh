@@ -55,6 +55,7 @@ const MCQ = (props) => {
 
     setIsOpen(false);
   };
+  
   const modalContent = (
     <div style={{ padding: "15px" }}>
       <h3 style={{ textAlign: "center" }}>
@@ -154,6 +155,7 @@ const MCQ = (props) => {
     }
     
   }
+
   const handleNextBtn = () => {
     if (!attempt && value == -1) {
       setIsOpen(true);
@@ -233,6 +235,7 @@ const MCQ = (props) => {
             />
           </div>
         </div>
+
         <div className={styles.container}>
           <div className="boxShadow">
             <div className={styles.questions}>
@@ -265,6 +268,7 @@ const MCQ = (props) => {
           </div>
         </div>
       </div>
+
       <div className={styles.buttons}>
         <button
           onClick={getPrevQuestion}
