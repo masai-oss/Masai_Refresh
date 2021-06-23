@@ -155,7 +155,6 @@ const MCQ = (props) => {
     
   }
   const handleNextBtn = () => {
-    // console.log("Next Called...");
     if (!attempt && value == -1) {
       setIsOpen(true);
     }

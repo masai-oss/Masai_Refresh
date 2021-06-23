@@ -38,9 +38,7 @@ const LongType = () => {
   const { practiceQuestionID, isLoading, practiceTopicsData } = useSelector(
     (state) => state.practice_topics
   );
-  // const practiceTopicsData = useSelector(
-  //   (state) => state.practiceTopicsData
-  // );
+  
   const issuesList = [
     "Question Unclear",
     "Insufficient Data",
@@ -143,17 +141,13 @@ const LongType = () => {
     history.push("/quiz_topics");
   };
 
-  // const logoPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}_logo.svg`;
   return !question ? (
     <Spinner />
   ) : (
     <>
-        {/* <QuestionProgress completed={percentage} /> */}
         <QuestionNav
         secondIcon={secondIcon}
-        // firstIcon={logoPath}
         secondText={"Exit"}
-        // firstText={topic}
         progress
         length={practiceQuestionID.length}
         num={indexNum}
