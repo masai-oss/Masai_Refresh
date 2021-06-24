@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-export const QuestionsByTopic = ({
+export const PracticeQuestionsByTopic = ({
   topic,
   handleDisable,
   topics,
@@ -52,7 +52,7 @@ export const QuestionsByTopic = ({
     params.set("disabledFilter", disabledFilter)
     params.set("reportedFilter", reportedFilter)
     history.push({ search: params.toString() });
-    dispatch(adminActions.getQuestionsByTopicRequest(topic, page, rowsPerPage, disabledFilter, reportedFilter));
+    dispatch(adminActions.getQuestionsByTopicRequest(topic, page, rowsPerPage, disabledFilter, reportedFilter, "LONG"));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
     questionAddedStatus,

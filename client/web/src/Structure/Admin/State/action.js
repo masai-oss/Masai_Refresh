@@ -103,10 +103,16 @@ const getQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsRequest = (page = 1, limit = 10) => (dispatch) => {
+const getQuestionsRequest = (page = 1, limit = 10, disabledFilter = false, reportedFilter = false, type) => (dispatch) => {
   dispatch(getQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}`;
+
+  let url;
+  if(!type){
+    url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
+  }else{
+    url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}&type=${type}`;
+  }
 
   axios({
     method: "get",
@@ -134,10 +140,17 @@ const getQuestionFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionRequest = (id) => (dispatch) => {
+const getQuestionRequest = (id, topic, type) => (dispatch) => {
   dispatch(getQuestionLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byId/${id}`;
+
+  let url
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/byId/${id}/?type=${type}`;
+  } 
+  else{
+    url = `${QUESTION_URL}/byId/${id}`;
+  }
 
   axios({
     method: "get",
@@ -196,12 +209,18 @@ const getQuestionsByTopicFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsByTopicRequest = (topic, page = 1, limit = 10) => (
+const getQuestionsByTopicRequest = (topic, page = 1, limit = 10, disabledFilter = false, reportedFilter = false, type) => (
   dispatch
 ) => {
   dispatch(getQuestionsByTopicLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}`;
+  let url
+  if(!type){
+    url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
+  }
+  else{
+    url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}&type=${type}`;
+  }
 
   axios({
     method: "get",
@@ -247,28 +266,40 @@ const addQuestionsRequest = (payload, topic) => (dispatch) => {
     .catch((err) => dispatch(addQuestionsFailure(err)));
 };
 
-const deleteQuestionsLoading = () => ({
-  type: adminConstants.DELETE_QUESTION_LOADING,
+const disableQuestionsLoading = () => ({
+  type: adminConstants.DISABLE_QUESTION_LOADING,
 });
 
-const deleteQuestionsSuccess = (payload, id) => ({
-  type: adminConstants.DELETE_QUESTION_SUCCESS,
+const disableQuestionsSuccess = (payload, id) => ({
+  type: adminConstants.DISABLE_QUESTION_SUCCESS,
   payload,
   id,
 });
 
-const deleteQuestionsFailure = (data) => ({
-  type: adminConstants.DELETE_QUESTION_FAILURE,
+const disableQuestionsFailure = (data) => ({
+  type: adminConstants.DISABLE_QUESTION_FAILURE,
   payload: data,
 });
 
-const deleteQuestionsRequest = (id, topic) => (dispatch) => {
-  dispatch(deleteQuestionsLoading());
+const disableQuestionsAdjustment = (payload) => ({
+  type: adminConstants.DISABLE_QUESTION_ADJUSTMENT,
+  payload,
+})
+
+const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
+  dispatch(disableQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/delete/${topic}/${id}`;
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/toggleDisable/${id}/?type=${type}`;
+  }
+  else{
+    url = `${QUESTION_URL}/toggleDisable/${id}`;
+  }
 
   axios({
-    method: "delete",
+    method: "patch",
     url: url,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -276,10 +307,10 @@ const deleteQuestionsRequest = (id, topic) => (dispatch) => {
     },
   })
     .then((res) => {
-      dispatch(deleteQuestionsSuccess(res.data, id));
-      dispatch(getQuestionsByTopicRequest(topic));
+      dispatch(disableQuestionsSuccess(res.data, id));
+      dispatch(disableQuestionsAdjustment(id))
     })
-    .catch((err) => dispatch(deleteQuestionsFailure(err)));
+    .catch((err) => dispatch(disableQuestionsFailure(err)));
 };
 
 const updateQuestionsLoading = () => ({
@@ -313,7 +344,6 @@ const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
   })
     .then((res) => {
       dispatch(updateQuestionsSuccess(res.data, id));
-      dispatch(getQuestionsRequest());
     })
     .catch((err) => dispatch(updateQuestionsFailure(err)));
 };
@@ -379,14 +409,23 @@ const verifyQuestionAdjustment = (payload) => ({
   payload,
 });
 
-const verifyQuestionProcess = ({ id, verified: crnState }) => async (
+const verifyQuestionProcess = ( id, type ) => async (
   dispatch
 ) => {
   dispatch(verifyQuestionRequest());
   const token = getFromStorage(storageEnums.TOKEN, "");
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/toggleVerify/${id}/?type=${type}`
+  }
+  else{
+    url = `${QUESTION_URL}/toggleVerify/${id}`
+  }
+
   const config = {
     method: "patch",
-    url: `${QUESTION_URL}/verify_toggle/${id}`,
+    url: url,
     withCredentials: true,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -395,10 +434,56 @@ const verifyQuestionProcess = ({ id, verified: crnState }) => async (
   try {
     const response = await axios(config);
     dispatch(verifyQuestionSuccess({ response, id }));
-    crnState && dispatch(verifyQuestionAdjustment(id));
+    dispatch(verifyQuestionAdjustment(id));
   } catch (error) {
     dispatch(verifyQuestionFailure(error.response));
   }
+};
+
+const solveReportLoading = () => ({
+  type: adminConstants.SOLVE_REPORT_LOADING,
+});
+
+const solveReportSuccess = (payload) => ({
+  type: adminConstants.SOLVE_REPORT_SUCCESS,
+  payload,
+});
+
+const solveReportFailure = (payload) => ({
+  type: adminConstants.SOLVE_REPORT_FAILURE,
+  payload,
+});
+
+const solveReportAdjustment = (payload) => ({
+  type: adminConstants.SOLVE_REPORT_ADJUSTMENT,
+  payload,
+})
+
+const solveReportRequest = (question_id, report_id, type) => (dispatch) => {
+  dispatch(solveReportLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/solveReport/${question_id}/${report_id}/?type=${type}`;
+  }
+  else{
+    url = `${QUESTION_URL}/solveReport/${question_id}/${report_id}`;
+  }
+
+  axios({
+    method: "patch",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      dispatch(solveReportSuccess(res.data));
+      dispatch(solveReportAdjustment(res.data.data))
+    })
+    .catch((err) => dispatch(solveReportFailure(err)));
 };
 
 export const adminActions = {
@@ -407,10 +492,11 @@ export const adminActions = {
   getQuestionsRequest,
   getTopicsRequest,
   getQuestionsByTopicRequest,
-  deleteQuestionsRequest,
+  disableQuestionsRequest,
   addQuestionsRequest,
   updateQuestionsRequest,
   getQuestionRequest,
   uploadIconProcess,
   verifyQuestionProcess,
+  solveReportRequest
 };

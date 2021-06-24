@@ -14,13 +14,13 @@ const initState = {
   errorMessage: "",
   specificTopicData: "",
   questionAddedStatus: false,
-  questionDeletionStatus: false,
+  questionDisableStatus: false,
   questionEditStatus: false,
   singleQuestion: "",
   gotQuestionData: "",
+  isDisabling: false,
   isVerifying: false,
-  verifiedQuestions: [],
-  isVerifyInvoked: false,
+  isSolvingReport: false,
 };
 
 const admin = (state = initState, { type, payload }) => {
@@ -86,7 +86,6 @@ const admin = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-        isVerifyInvoked: false,
       };
     case adminConstants.GET_QUESTION_SUCCESS:
       return {
@@ -124,27 +123,43 @@ const admin = (state = initState, { type, payload }) => {
         questionAddedStatus: false,
       };
 
-    case adminConstants.DELETE_QUESTION_LOADING:
+    case adminConstants.DISABLE_QUESTION_LOADING:
       return {
         ...state,
-        isLoading: true,
+        isDisabling: true,
       };
-    case adminConstants.DELETE_QUESTION_SUCCESS:
+    case adminConstants.DISABLE_QUESTION_SUCCESS:
       return {
         ...state,
-        isLoading: false,
+        isDisabling: false,
         errorMessage: payload,
-        questionDeletionStatus: true,
+        questionDisableStatus: true,
       };
 
-    case adminConstants.DELETE_QUESTION_FAILURE:
+    case adminConstants.DISABLE_QUESTION_FAILURE:
       return {
         ...state,
-        isLoading: false,
-        questionDeletionStatus: false,
+        questionDisableStatus: false,
         errorMessage: payload,
         isError: true,
+        isDisabling: false,
       };
+
+    case adminConstants.DISABLE_QUESTION_ADJUSTMENT:{
+      let new_current = state?.data?.questions?.current?.map((document) => {
+        if(document._id === payload){
+          document.disabled = !document.disabled
+          return document
+        }
+        else{
+          return document
+        }
+      })
+      state.data.questions.current = [...new_current]
+      return {
+        ...state
+      }
+    }
 
     case adminConstants.EDIT_QUESTION_LOADING:
       return {
@@ -225,13 +240,11 @@ const admin = (state = initState, { type, payload }) => {
     case adminConstants.VERIFY_QUESTION_REQUEST:
       return {
         ...state,
-        isVerifyInvoked: true,
         isVerifying: true,
       };
     case adminConstants.VERIFY_QUESTION_SUCCESS:
       return {
         ...state,
-        verifiedQuestions: [...state.verifiedQuestions, payload.id], // verfied question id will be added to stop addtional call
         isVerifying: false,
       };
     case adminConstants.VERIFY_QUESTION_FAILURE:
@@ -239,13 +252,63 @@ const admin = (state = initState, { type, payload }) => {
         ...state,
         isVerifying: false,
       };
-    case adminConstants.VERIFY_QUESTION_ADJUSTMENT: // if the verified question was geeting unverifed the id will be removed from array
+    case adminConstants.VERIFY_QUESTION_ADJUSTMENT:{
+      let new_current = state?.data?.questions?.current?.map((document) => {
+        if(document._id === payload){
+          document.verified = !document.verified
+          return document
+        }
+        else{
+          return document
+        }
+      })
+      state.data.questions.current = [...new_current]
+      return {
+        ...state
+      }
+    }
+
+    case adminConstants.SOLVE_REPORT_LOADING:
       return {
         ...state,
-        verifiedQuestions: state.verifiedQuestions.filter(
-          (item) => item !== payload
-        ),
+        isSolvingReport: true,
       };
+    case adminConstants.SOLVE_REPORT_SUCCESS:
+      return {
+        ...state,
+        isSolvingReport: false,
+        errorMessage: payload,
+      };
+
+    case adminConstants.SOLVE_REPORT_FAILURE:
+      return {
+        ...state,
+        isError: true,
+        isSolvingReport: false,
+        errorMessage: payload,
+      };
+
+    case adminConstants.SOLVE_REPORT_ADJUSTMENT:{
+      let {status, report_id, question_id} = payload
+      let new_current = state?.data?.questions?.current?.map((document) => {
+        if(document._id === question_id){
+          let new_flag = document.flag?.map((flag) => {
+            if(flag._id === report_id){
+              flag.status = status
+            }
+            return flag
+          })
+          document.flag = [...new_flag]
+          console.log(document)
+        }
+        return document
+      })
+      state.data.questions.current = [...new_current]
+      return {
+        ...state
+      }
+    }
+
     default:
       return state;
   }
