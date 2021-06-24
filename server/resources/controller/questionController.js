@@ -48,27 +48,27 @@ const addQuestion = async (req, res) => {
 };
 
 const toggleVerification = async (req, res) => {
-  const { id, type } = req.params;
+  const { id } = req.params;
   try {
     let topic, verified;
 
-    if (type == "long") {
-      topic = await Practice.findOne({ "questions._id": id });
-      verified = topic.questions.find((q) => q._id == id).verified;
+    // if (type == "LONG") {
+    //   topic = await Practice.findOne({ "questions._id": id }, {"questions.$" : 1});
+    //   verified = topic.questions[0].verified;
 
-      await Practice.updateOne(
-        {
-          "questions._id": id,
-        },
-        {
-          $set: {
-            "questions.$.verified": !verified,
-          },
-        }
-      );
-    } else {
-      topic = await Topic.findOne({ "questions._id": id });
-      verified = topic.questions.find((q) => q._id == id).verified;
+    //   await Practice.updateOne(
+    //     {
+    //       "questions._id": id,
+    //     },
+    //     {
+    //       $set: {
+    //         "questions.$.verified": !verified,
+    //       },
+    //     }
+    //   );
+    // } else {
+      topic = await Topic.findOne({ "questions._id": id }, {"questions.$" : 1});
+      verified = topic.questions[0].verified;
       await Topic.updateOne(
         {
           "questions._id": id,
@@ -79,7 +79,7 @@ const toggleVerification = async (req, res) => {
           },
         }
       );
-    }
+    // }
 
     res.status(200).json({
       error: false,
@@ -91,11 +91,10 @@ const toggleVerification = async (req, res) => {
   }
 };
 
-// IN PROGRESS
 const updateQuestion = async (req, res) => {
-  const { topic: name, id: _id, type } = req.params;
+  const { topic: name, id: _id  } = req.params;
   const questionData = req.body;
-  const { stats, _id: questionId, topic, ...question } = questionData;
+  const { stats, flag, verified, disabled,  ...question } = questionData;
   const { error: statsError } = statsValidate(stats);
   if (statsError) {
     return res.status(400).json({
@@ -122,7 +121,7 @@ const updateQuestion = async (req, res) => {
   }
   try {
     let updatedQuestion;
-    if (type === "long") {
+    // if (type === "long") {
       updatedQuestion = await Topic.updateOne(
         {
           name: name,
@@ -130,25 +129,25 @@ const updateQuestion = async (req, res) => {
         },
         {
           $set: {
-            "questions.$": { ...question, _id, stats },
+            "questions.$": {...questionData, _id: _id},
           },
         }
       );
-    } else {
-      updatedQuestion = await Practice.updateOne(
-        {
-          name: name,
-          "questions._id": _id,
-        },
-        {
-          $set: {
-            "questions.$": { ...question, _id, stats },
-          },
-        }
-      );
-    }
+    // } else {
+      // updatedQuestion = await Practice.updateOne(
+      //   {
+      //     name: name,
+      //     "questions._id": _id,
+      //   },
+      //   {
+      //     $set: {
+      //       "questions.$": { ...question, _id, stats },
+      //     },
+      //   }
+      // );
+    // }
 
-    if (!updatedQuestion) {
+    if (updatedQuestion.n === 0 || updateQuestion.nModified === 0) {
       return res.status(400).json({
         error: true,
         message: `${name} question unable to update`,
@@ -157,7 +156,11 @@ const updateQuestion = async (req, res) => {
     return res.status(200).json({
       error: false,
       message: `${name} question updated successfully`,
-      question: question,
+      question: {
+        topic: name,
+        _id: _id,
+        ...questionData
+      },
     });
   } catch (err) {
     return res.status(400).json({
@@ -272,19 +275,19 @@ const getAllQuestion = async (req, res) => {
         },
       ]);
 
-      questions2 = await Practice.aggregate([
-        {
-          $addFields: {
-            "questions.topic": "$name",
-          },
-        },
-        {
-          $group: {
-            _id: 0,
-            allQuestions: { $push: "$questions" },
-          },
-        },
-      ]);
+      // questions2 = await Practice.aggregate([
+      //   {
+      //     $addFields: {
+      //       "questions.topic": "$name",
+      //     },
+      //   },
+      //   {
+      //     $group: {
+      //       _id: 0,
+      //       allQuestions: { $push: "$questions" },
+      //     },
+      //   },
+      // ]);
     } else if (disabledFilter == "true") {
       questions1 = await Topic.aggregate([
         {
@@ -311,30 +314,30 @@ const getAllQuestion = async (req, res) => {
         },
       ]);
 
-      questions2 = await Practice.aggregate([
-        {
-          $addFields: {
-            "questions.topic": "$name",
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: { $eq: ["$$item.disabled", true] },
-              },
-            },
-          },
-        },
-        {
-          $group: {
-            _id: 0,
-            allQuestions: { $push: "$questions" },
-          },
-        },
-      ]);
+      // questions2 = await Practice.aggregate([
+      //   {
+      //     $addFields: {
+      //       "questions.topic": "$name",
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       questions: {
+      //         $filter: {
+      //           input: "$questions",
+      //           as: "item",
+      //           cond: { $eq: ["$$item.disabled", true] },
+      //         },
+      //       },
+      //     },
+      //   },
+      //   {
+      //     $group: {
+      //       _id: 0,
+      //       allQuestions: { $push: "$questions" },
+      //     },
+      //   },
+      // ]);
     } else if (reportedFilter == "true") {
       questions1 = await Topic.aggregate([
         {
@@ -363,32 +366,43 @@ const getAllQuestion = async (req, res) => {
         },
       ]);
 
-      questions2 = await Practice.aggregate([
-        {
-          $addFields: {
-            "questions.topic": "$name",
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: {
-                  $gt: [{ $size: "$$item.flag" }, 0],
-                },
-              },
-            },
-          },
-        },
-        {
-          $group: {
-            _id: 0,
-            allQuestions: { $push: "$questions" },
-          },
-        },
-      ]);
+      if (questions1[0].allQuestions.length > 0) {
+        questions1[0].allQuestions = questions1[0].allQuestions.map((topicQue) => {
+          if (topicQue?.length > 0) {
+            topicQue = topicQue?.filter((item) => {
+              return item?.flag?.some((flag) => flag.status.solved === false)
+            })
+          }
+          return topicQue
+        });
+      }
+
+      // questions2 = await Practice.aggregate([
+      //   {
+      //     $addFields: {
+      //       "questions.topic": "$name",
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       questions: {
+      //         $filter: {
+      //           input: "$questions",
+      //           as: "item",
+      //           cond: {
+      //             $gt: [{ $size: "$$item.flag" }, 0],
+      //           },
+      //         },
+      //       },
+      //     },
+      //   },
+      //   {
+      //     $group: {
+      //       _id: 0,
+      //       allQuestions: { $push: "$questions" },
+      //     },
+      //   },
+      // ]);
     }
 
     let allQuestions = [];
@@ -399,17 +413,21 @@ const getAllQuestion = async (req, res) => {
         }
       });
     }
-    if (questions2[0].allQuestions.length > 0) {
-      questions2[0].allQuestions.forEach((topicQue) => {
-        if (topicQue.length !== undefined) {
-          allQuestions.push(...topicQue);
-        }
-      });
-    }
+
+    // if (questions2[0].allQuestions.length > 0) {
+    //   questions2[0].allQuestions.forEach((topicQue) => {
+    //     if (topicQue.length !== undefined) {
+    //       allQuestions.push(...topicQue);
+    //     }
+    //   });
+    // }
     if (allQuestions.length == 0) {
-      return res.status(400).json({
-        error: true,
-        message: "No questions are present",
+      return res.status(200).json({
+        error: false,
+        message: "Successfully got Questions",
+        questions: {
+          current : []
+        },
       });
     }
 
@@ -458,12 +476,12 @@ const getQuestionByTopic = async (req, res) => {
         { icon: 0, name: 0 }
       );
 
-      findedQuestion2 = await Practice.find(
-        {
-          name: name,
-        },
-        { icon: 0, name: 0 }
-      );
+      // findedQuestion2 = await Practice.find(
+      //   {
+      //     name: name,
+      //   },
+      //   { icon: 0, name: 0 }
+      // );
     } else if (disabledFilter == "true") {
       findedQuestion1 = await Topic.aggregate([
         {
@@ -484,24 +502,24 @@ const getQuestionByTopic = async (req, res) => {
         },
       ]);
 
-      findedQuestion2 = await Practice.aggregate([
-        {
-          $match: {
-            name: name,
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: { $eq: ["$$item.disabled", true] },
-              },
-            },
-          },
-        },
-      ]);
+      // findedQuestion2 = await Practice.aggregate([
+      //   {
+      //     $match: {
+      //       name: name,
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       questions: {
+      //         $filter: {
+      //           input: "$questions",
+      //           as: "item",
+      //           cond: { $eq: ["$$item.disabled", true] },
+      //         },
+      //       },
+      //     },
+      //   },
+      // ]);
     } else if (reportedFilter == "true") {
       findedQuestion1 = await Topic.aggregate([
         {
@@ -524,39 +542,48 @@ const getQuestionByTopic = async (req, res) => {
         },
       ]);
 
-      findedQuestion2 = await Practice.aggregate([
-        {
-          $match: {
-            name: name,
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: {
-                  $gt: [{ $size: "$$item.flag" }, 0],
-                },
-              },
-            },
-          },
-        },
-      ]);
+      if (findedQuestion1[0].questions.length > 0) {
+        findedQuestion1[0].questions = findedQuestion1[0].questions.filter((item) => {
+          return item?.flag?.some((flag) => flag.status.solved === false)
+        })
+      }
+
+      // findedQuestion2 = await Practice.aggregate([
+      //   {
+      //     $match: {
+      //       name: name,
+      //     },
+      //   },
+      //   {
+      //     $project: {
+      //       questions: {
+      //         $filter: {
+      //           input: "$questions",
+      //           as: "item",
+      //           cond: {
+      //             $gt: [{ $size: "$$item.flag" }, 0],
+      //           },
+      //         },
+      //       },
+      //     },
+      //   },
+      // ]);
     }
 
     if (findedQuestion1.length > 0) {
       findedQuestion = [...findedQuestion1[0].questions];
     }
-    if (findedQuestion2.length > 0) {
-      findedQuestion = [...findedQuestion, ...findedQuestion2[0].questions];
-    }
+    // if (findedQuestion2.length > 0) {
+    //   findedQuestion = [...findedQuestion, ...findedQuestion2[0].questions];
+    // }
 
     if (findedQuestion.length == 0) {
-      return res.status(400).json({
-        error: true,
-        message: `No Questions present in ${name}`,
+      return res.status(200).json({
+        error: false,
+        message: "Successfully got Questions",
+        questions: {
+          current : []
+        },
       });
     }
 
@@ -576,20 +603,20 @@ const getQuestionByTopic = async (req, res) => {
 };
 
 const getQuestionById = async (req, res) => {
-  const { id, type } = req.params;
+  const { id } = req.params;
   try {
     var findedQuestion;
-    if (type == "long") {
-      findedQuestion = await Practice.find(
-        { questions: { $elemMatch: { _id: id } } },
-        { "questions.$": 1, _id: 0 }
-      );
-    } else {
+    // if (type == "LONG") {
+    //   findedQuestion = await Practice.find(
+    //     { questions: { $elemMatch: { _id: id } } },
+    //     { "questions.$": 1, _id: 0 }
+    //   );
+    // } else {
       findedQuestion = await Topic.find(
         { questions: { $elemMatch: { _id: id } } },
         { "questions.$": 1, _id: 0 }
       );
-    }
+    // }
 
     if (!findedQuestion.length) {
       return res.status(400).json({
@@ -613,27 +640,27 @@ const getQuestionById = async (req, res) => {
 };
 
 const toggleDisabledStatus = async (req, res) => {
-  const { id, type } = req.params;
+  const { id } = req.params;
   try {
     let topic, disabled;
 
-    if (type == "long") {
-      topic = await Practice.findOne({ "questions._id": id });
-      disabled = topic.questions.find((q) => q._id == id).disabled;
+    // if (type == "LONG") {
+    //   topic = await Practice.findOne({ "questions._id": id }, {"questions.$" : 1});
+    //   disabled = topic.questions[0].disabled;
 
-      await Practice.updateOne(
-        {
-          "questions._id": id,
-        },
-        {
-          $set: {
-            "questions.$.disabled": !disabled,
-          },
-        }
-      );
-    } else {
-      topic = await Topic.findOne({ "questions._id": id });
-      disabled = topic.questions.find((q) => q._id == id).disabled;
+    //   await Practice.updateOne(
+    //     {
+    //       "questions._id": id,
+    //     },
+    //     {
+    //       $set: {
+    //         "questions.$.disabled": !disabled,
+    //       },
+    //     }
+    //   );
+    // } else {
+      topic = await Topic.findOne({ "questions._id": id }, {"questions.$" : 1});
+      disabled = topic.questions[0].disabled;
       await Topic.updateOne(
         {
           "questions._id": id,
@@ -644,7 +671,7 @@ const toggleDisabledStatus = async (req, res) => {
           },
         }
       );
-    }
+    // }
 
     res.status(200).json({
       error: false,
