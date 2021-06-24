@@ -64,7 +64,6 @@ const Login = () => {
             </Box>
           </Grid>
         </CardContent>
-        <SignUp/>
       </Card>
     </>
   );
