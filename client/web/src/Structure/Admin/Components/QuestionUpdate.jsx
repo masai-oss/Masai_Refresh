@@ -7,12 +7,12 @@ import { QuestionForm } from "../index";
 export const QuestionUpdate = () => {
   const data = useSelector((state) => state.admin.singleQuestion);
   const topics = useSelector((state) => state.admin.topics);
-  const { id, topic } = useParams();
+  const { id, topic, type } = useParams();
   const dispatch = useDispatch();
 
   useEffect(() => {
     dispatch(adminActions.getTopicsRequest());
-    dispatch(adminActions.getQuestionRequest(id, topic));
+    dispatch(adminActions.getQuestionRequest(id, topic, type));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

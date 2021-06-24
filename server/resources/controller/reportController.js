@@ -1,4 +1,5 @@
 const Topics = require("../models/Topic");
+const Practice = require("../models/Practice")
 const {
   reportQuestionValidation,
   solveReportValidation,
@@ -160,6 +161,7 @@ const getQuestionReportedById = async (req, res) => {
 
 const solveReport = async (req, res) => {
   const { id: user_id } = req;
+  const type = req.query.type
   const { error } = solveReportValidation(req.body);
   if (error) {
     return res.status(400).json({
@@ -176,8 +178,9 @@ const solveReport = async (req, res) => {
       description: description,
       time: new Date().toISOString(),
     };
+    let collection = type === undefined ? "Topics" : "Practice"
     let filterQuery = { "questions._id": question_id };
-    let reportQue = await Topics.find(filterQuery, {
+    let reportQue = await eval(collection).find(filterQuery, {
       "questions.$": 1,
       _id: 0,
     }).then(async ([{ questions }]) => {
@@ -186,7 +189,7 @@ const solveReport = async (req, res) => {
         let index = flag.findIndex((indiv) => indiv._id == report_id);
         let indivFlag = `questions.$.flag.${index}.status`;
         let updateQuery = { $set: { [indivFlag]: status } };
-        return await Topics.updateOne(filterQuery, updateQuery);
+        return await eval(collection).updateOne(filterQuery, updateQuery);
       } catch (err) {
         return res.status(400).json({
           error: true,

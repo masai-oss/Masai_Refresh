@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { adminActions } from "../State/action";
-import { AllQuestions, QuestionsByTopic } from "..";
+import { AllPracticeQuestions, PracticeQuestionsByTopic } from "../";
 import {
   Button,
   Card,
@@ -18,7 +18,7 @@ import CloseIcon from '@material-ui/icons/Close';
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
 import { useParams, useLocation } from "react-router";
 
-export const Questions = () => {
+export const PracticeQuestions = () => {
   const classes = QuestionsStyles();
   const dispatch = useDispatch();
   const history = useHistory();
@@ -105,7 +105,7 @@ export const Questions = () => {
           </Box>
           <Box>
             {selected === "all" && (
-              <AllQuestions
+              <AllPracticeQuestions
                 topics={topics}
                 handleDisable={handleDisable}
                 page={page}
@@ -115,7 +115,7 @@ export const Questions = () => {
               />
             )}
             {selected !== "all" && (
-              <QuestionsByTopic
+              <PracticeQuestionsByTopic
                 topics={topics}
                 handleDisable={handleDisable}
                 topic={selected}
