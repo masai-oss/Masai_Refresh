@@ -46,8 +46,8 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
   let verified = useSelector((state) => state.admin.data?.questions?.current);
   verified = verified?.filter((question) => question._id === item._id)[0].verified
 
-  const verifyQuestion = (id ) => {
-    dispatch(adminActions.verifyQuestionProcess({ id }));
+  const verifyQuestion = (id, type) => {
+    dispatch(adminActions.verifyQuestionProcess( id, type ));
   };
 
   const handleDisableConfirm = (id, topic, type) => {
@@ -60,8 +60,15 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
   }
 
   const handleResolveReports = (report_id) => {
-    dispatch(adminActions.solveReportRequest(item._id, report_id))
+    dispatch(adminActions.solveReportRequest(item._id, report_id, item.type))
     setReportsOpen(false)
+  }
+
+  let flags = []
+  if(item.flag.length > 0){
+    flags = item.flag.filter((flag) => {
+      return flag?.status?.solved === false
+    })
   }
 
   return (
@@ -78,17 +85,17 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
       <TableCell>{topic}</TableCell>
       <TableCell>{item.type}</TableCell>
       <TableCell 
-        className={classes.id} 
+        className={classes.reports} 
         onClick = {handleReports}
       >
-        {item.flag.length}
+        {flags.length}
       </TableCell>
       <TableCell>
         <Button
           variant="contained"
           className={classes.save}
           onClick={() =>
-            history.push(`/admin/questions/edit/${topic}/${item._id}`)
+            history.push(`/admin/questions/edit/${topic}/${item.type}/${item._id}`)
           }
         >
           Edit
@@ -113,7 +120,7 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
         ) : (
           <VerifiedSwitch
             checked={verified}
-            onChange={() => verifyQuestion(item._id)}
+            onChange={() => verifyQuestion(item._id, item.type)}
             name="verified"
           />
         )}
@@ -170,7 +177,7 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
             )}
             {item.type === "LONG" && (
               <>
-                <h3>Correct Answer</h3>
+                <h3>Answer</h3>
                 {item.answer}
               </>
             )}
@@ -207,11 +214,11 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
           </Box>
           <div>
             {
-              item.flag.length === 0 
+              flags.length === 0 
               ? <div style = {{textAlign: "center", margin: "20%"}}>No reports</div>
               : <div style = {{margin: "5% 0"}}>
                 {
-                  item.flag.map((flag, i) => {
+                  flags.map((flag, i) => {
                     return(
                       <div key = {i} style = {{display: "flex", margin: "10px 0"}}>
                         <div style = {{margin: "0 10px"}}>

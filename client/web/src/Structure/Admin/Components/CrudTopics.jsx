@@ -50,14 +50,22 @@ export const CrudTopics = () => {
     setDialogInfo(dialogInfoStr);
   };
   return (
-    <>
+    <div style = {{margin: "2%"}}>
       <Button
         variant="contained"
         color="primary"
         style={{ marginBottom: 15, backgroundColor: "#6C8D9E" }}
         onClick={() => history.push("/admin/questions/all")}
       >
-        Go To Questions
+        Quiz Questions
+      </Button>
+      <Button
+        variant="contained"
+        color="primary"
+        style={{ marginBottom: 15, backgroundColor: "#6C8D9E" }}
+        onClick={() => history.push("/admin/practice_questions/all")}
+      >
+        Practice Questions
       </Button>
       <Grid
         container
@@ -83,7 +91,7 @@ export const CrudTopics = () => {
                   <Grid
                     container
                     direction="row"
-                    justify="space-between"
+                    // justify="space-between"
                     alignItems="center"
                   >
                     <Avatar
@@ -102,13 +110,13 @@ export const CrudTopics = () => {
                       }
                       className={classes.iconStyle}
                     />
-                    <div>
+                    <div style = {{margin: "0 10%"}}>
                       <Typography variant="h4" component="h2">
                         {name}
                       </Typography>
-                      <Typography variant="h6" component="h2">
+                      {/* <Typography variant="h6" component="h2">
                         Total Questions : {noOfQuestion}
-                      </Typography>
+                      </Typography> */}
                     </div>
                   </Grid>
                 </CardContent>
@@ -121,6 +129,6 @@ export const CrudTopics = () => {
           dialogInfo={dialogInfo}
         />
       </Grid>
-    </>
+    </div>
   );
 };
