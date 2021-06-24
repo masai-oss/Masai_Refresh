@@ -22,6 +22,12 @@ const QuestionForm = (props) => {
   const dispatch = useDispatch();
   const history = useHistory();
 
+  const stats = {
+    alloted: 0,
+    skipped: 0,
+    correct: 0,
+    wrong: 0,
+  }
   const questionData = {
     topic: data === undefined ? "JAVASCRIPT" : topic,
     type: data === undefined ? "MCQ" : data.type,
@@ -49,7 +55,10 @@ const QuestionForm = (props) => {
     mcqAnswer:
       data === undefined ? 0 : data.options?.findIndex((item) => item.correct),
     source: data === undefined ? "" : data.source,
-    verified: data === undefined ? "" : data.verified
+    verified: data === undefined ? false : data.verified,
+    disabled: data === undefined ? false : data.disabled,
+    flag: data === undefined ? [] : data.flag,
+    stats: data === undefined ? stats : data.stats
   };
 
   const [question, setQuestion] = useState(questionData);
@@ -90,6 +99,10 @@ const QuestionForm = (props) => {
           text: text,
           correct: question.mcqAnswer === ind,
         })),
+        verified: question.verified,
+        disabled: question.disabled,
+        flag: question.flag,
+        stats: question.stats 
       };
     } else if (question.type === "TF") {
       payload = {
@@ -98,6 +111,10 @@ const QuestionForm = (props) => {
         explanation: question.explanation,
         correct: question.tfAnswer,
         source: question.source,
+        verified: question.verified,
+        disabled: question.disabled,
+        flag: question.flag,
+        stats: question.stats 
       };
     } else {
       payload = {
@@ -106,6 +123,10 @@ const QuestionForm = (props) => {
         answer: question.shortAnswer,
         explanation: question.explanation,
         source: question.source,
+        verified: question.verified,
+        disabled: question.disabled,
+        flag: question.flag,
+        stats: question.stats 
       };
     }
     if (data === undefined) {
@@ -168,7 +189,6 @@ const QuestionForm = (props) => {
         <FormControl required>
           <TextareaAutosize
             className={classes.textAreaWidth}
-            required
             rowsMin={5}
             onChange={(e) => handleChange(e.target)}
             value={question.explanation}

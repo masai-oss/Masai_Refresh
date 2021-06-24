@@ -167,7 +167,7 @@ const solveReport = async (req, res) => {
       message: error.details[0].message,
     });
   }
-  const { id: _id } = req.params;
+  const { report_id, question_id } = req.params;
   const { description } = req.body;
   try {
     let status = {
@@ -176,14 +176,14 @@ const solveReport = async (req, res) => {
       description: description,
       time: new Date().toISOString(),
     };
-    let filterQuery = { "questions.flag": { $elemMatch: { _id: _id } } };
+    let filterQuery = { "questions._id": question_id };
     let reportQue = await Topics.find(filterQuery, {
       "questions.$": 1,
       _id: 0,
     }).then(async ([{ questions }]) => {
       try {
         let [{ flag }] = questions;
-        let index = flag.findIndex((indiv) => indiv._id == _id);
+        let index = flag.findIndex((indiv) => indiv._id == report_id);
         let indivFlag = `questions.$.flag.${index}.status`;
         let updateQuery = { $set: { [indivFlag]: status } };
         return await Topics.updateOne(filterQuery, updateQuery);
@@ -199,6 +199,11 @@ const solveReport = async (req, res) => {
       return res.status(200).json({
         error: false,
         message: "Report solved successfully",
+        data: {
+          status,
+          report_id: report_id,
+          question_id: question_id
+        }
       });
     }
   } catch (err) {

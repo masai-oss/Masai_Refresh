@@ -262,10 +262,15 @@ const disableQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
+const disableQuestionsAdjustment = (payload) => ({
+  type: adminConstants.DISABLE_QUESTION_ADJUSTMENT,
+  payload,
+})
+
+const disableQuestionsRequest = (id, topic) => (dispatch) => {
   dispatch(disableQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/toggleDisable/${type}/${id}`;
+  let url = `${QUESTION_URL}/toggleDisable/${id}`;
 
   axios({
     method: "patch",
@@ -277,7 +282,7 @@ const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
   })
     .then((res) => {
       dispatch(disableQuestionsSuccess(res.data, id));
-      dispatch(getQuestionsByTopicRequest(topic));
+      dispatch(disableQuestionsAdjustment(id))
     })
     .catch((err) => dispatch(disableQuestionsFailure(err)));
 };
@@ -313,7 +318,6 @@ const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
   })
     .then((res) => {
       dispatch(updateQuestionsSuccess(res.data, id));
-      dispatch(getQuestionsRequest());
     })
     .catch((err) => dispatch(updateQuestionsFailure(err)));
 };
@@ -379,14 +383,14 @@ const verifyQuestionAdjustment = (payload) => ({
   payload,
 });
 
-const verifyQuestionProcess = ({ id, verified: crnState, type }) => async (
+const verifyQuestionProcess = ({ id }) => async (
   dispatch
 ) => {
   dispatch(verifyQuestionRequest());
   const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
     method: "patch",
-    url: `${QUESTION_URL}/toggleVerify/${type}/${id}`,
+    url: `${QUESTION_URL}/toggleVerify/${id}`,
     withCredentials: true,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -395,10 +399,49 @@ const verifyQuestionProcess = ({ id, verified: crnState, type }) => async (
   try {
     const response = await axios(config);
     dispatch(verifyQuestionSuccess({ response, id }));
-    crnState && dispatch(verifyQuestionAdjustment(id));
+    dispatch(verifyQuestionAdjustment(id));
   } catch (error) {
     dispatch(verifyQuestionFailure(error.response));
   }
+};
+
+const solveReportLoading = () => ({
+  type: adminConstants.SOLVE_REPORT_LOADING,
+});
+
+const solveReportSuccess = (payload) => ({
+  type: adminConstants.SOLVE_REPORT_SUCCESS,
+  payload,
+});
+
+const solveReportFailure = (payload) => ({
+  type: adminConstants.SOLVE_REPORT_FAILURE,
+  payload,
+});
+
+const solveReportAdjustment = (payload) => ({
+  type: adminConstants.SOLVE_REPORT_ADJUSTMENT,
+  payload,
+})
+
+const solveReportRequest = (question_id, report_id) => (dispatch) => {
+  dispatch(solveReportLoading());
+  const token = getFromStorage(storageEnums.TOKEN, "");
+  let url = `${QUESTION_URL}/solveReport/${question_id}/${report_id}`;
+
+  axios({
+    method: "patch",
+    url: url,
+    headers: {
+      Authorization: `Bearer ${token}`,
+      "Content-Type": "application/json",
+    },
+  })
+    .then((res) => {
+      dispatch(solveReportSuccess(res.data));
+      dispatch(solveReportAdjustment(res.data.data))
+    })
+    .catch((err) => dispatch(solveReportFailure(err)));
 };
 
 export const adminActions = {
@@ -413,4 +456,5 @@ export const adminActions = {
   getQuestionRequest,
   uploadIconProcess,
   verifyQuestionProcess,
+  solveReportRequest
 };

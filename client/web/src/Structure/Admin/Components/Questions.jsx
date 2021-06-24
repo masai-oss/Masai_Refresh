@@ -10,8 +10,11 @@ import {
   Select,
   Box,
   Container,
-  Checkbox
+  Checkbox,
+  Snackbar,
+  IconButton,
 } from "@material-ui/core";
+import CloseIcon from '@material-ui/icons/Close';
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
 import { useParams, useLocation } from "react-router";
 
@@ -20,6 +23,7 @@ export const Questions = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const topics = useSelector((state) => state.admin.topics);
+  const error = useSelector((state) => state.admin.isError);
   let { topic: selected } = useParams();
   const { pathname, search } = useLocation();
   const q = new URLSearchParams(search);
@@ -27,6 +31,7 @@ export const Questions = () => {
   let rowsPerPage = Number(q.get("rowsPerPage"));
   const [reportedFilter, handleReportedFilter] = useState(false)
   const [disabledFilter, handleDisabledFilter] = useState(false)
+  const [snackbar, setSanckbar] = useState(error)
   const handleDisable = (id, topic, type) => {
     dispatch(adminActions.disableQuestionsRequest(id, topic, type));
   };
@@ -42,6 +47,10 @@ export const Questions = () => {
   const handleDisabledFilterChange = () => {
     handleDisabledFilter(!disabledFilter)
   } 
+
+  const handleSanckbar = () => {
+    setSanckbar(!snackbar)
+  }
 
   useEffect(() => {
     if (
@@ -117,6 +126,23 @@ export const Questions = () => {
               />
             )}
           </Box>
+          <Snackbar
+            anchorOrigin={{
+              vertical: 'bottom',
+              horizontal: 'left',
+            }}
+            open={snackbar}
+            autoHideDuration={6000}
+            onClose={handleSanckbar}
+            message="Something went wrong"
+            action={
+              <>
+                <IconButton size="small" aria-label="close" color="inherit" onClick={handleSanckbar}>
+                  <CloseIcon fontSize="small" />
+                </IconButton>
+              </>
+            }
+          />
         </CardContent>
       </Card>
     </Container>

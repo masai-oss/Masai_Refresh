@@ -12,11 +12,7 @@ const send_password_reset_mail = (name, email, otp) => {
     </div>`,
   }
 
-  transporter.sendMail(mailOptions, function (error, info) {
-    if (error) {
-      console.log(error)
-    }
-  })
+  return transporter.sendMail(mailOptions)
 }
 
 module.exports = {

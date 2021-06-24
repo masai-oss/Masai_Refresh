@@ -24,9 +24,6 @@ export const QuestionsByTopic = ({
   const dispatch = useDispatch();
   const data = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
-  const questionDisableStatus = useSelector(
-    (state) => state.admin.questionDisableStatus
-  );
   const questionAddedStatus = useSelector(
     (state) => state.admin.questionAddedStatus
   );
@@ -58,7 +55,6 @@ export const QuestionsByTopic = ({
     dispatch(adminActions.getQuestionsByTopicRequest(topic, page, rowsPerPage, disabledFilter, reportedFilter));
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    questionDisableStatus,
     questionAddedStatus,
     page,
     rowsPerPage,

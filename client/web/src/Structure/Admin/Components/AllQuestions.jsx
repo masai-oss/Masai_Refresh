@@ -19,9 +19,6 @@ export const AllQuestions = ({ handleDisable, topics, page, rowsPerPage, disable
   const history = useHistory();
   const data = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
-  const questionDisableStatus = useSelector(
-    (state) => state.admin.questionDisableStatus
-  );
   const questionAddedStatus = useSelector(
     (state) => state.admin.questionAddedStatus
   );
@@ -53,7 +50,6 @@ export const AllQuestions = ({ handleDisable, topics, page, rowsPerPage, disable
   }, [
     page,
     rowsPerPage,
-    questionDisableStatus,
     questionAddedStatus,
     dispatch,
     disabledFilter,
