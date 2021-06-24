@@ -71,13 +71,13 @@ const Routes = () => {
         {/* all admin routes here */}
         <AdminRoute
           exact
-          path="/admin/questions/:topic"
-          component={AdminQuestions}
+          path="/admin/questions/add"
+          component={QuestionForm}
         />
         <AdminRoute
           exact
-          path="/admin/questions/add"
-          component={QuestionForm}
+          path="/admin/questions/:topic"
+          component={AdminQuestions}
         />
         <AdminRoute
           exact

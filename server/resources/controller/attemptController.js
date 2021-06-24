@@ -32,15 +32,18 @@ const createAttempt = async (req, res) => {
         $unwind: "$questions",
       },
       {
-        $project: {
-          question_id: "$questions._id",
-          type: "$questions.type",
-          _id: 0,
-        },
+        $match: {"questions.disabled" : false}
       },
       {
         $sample: {
           size: size,
+        },
+      },
+      {
+        $project: {
+          question_id: "$questions._id",
+          type: "$questions.type",
+          _id: 0,
         },
       },
     ]);

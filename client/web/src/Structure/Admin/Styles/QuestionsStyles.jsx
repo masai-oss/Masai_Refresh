@@ -12,7 +12,7 @@ const QuestionsStyles = makeStyles((theme) =>
       backgroundColor: "#2196f3",
       color: "white",
     },
-    delete: {
+    disable: {
       backgroundColor: "#ff6b81",
       color: "white",
     },

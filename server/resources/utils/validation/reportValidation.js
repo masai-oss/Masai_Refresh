@@ -10,7 +10,7 @@ const reportQuestionValidation = (data) => {
       .min(1)
       .max(4)
       .required(),
-    description: Joi.string().min(1).max(255).required(),
+    description: Joi.string().max(255)
   })
   return schema.validate(data)
 }
@@ -25,14 +25,14 @@ const reportPracticeQuestionValidation = (data) => {
       .min(1)
       .max(4)
       .required(),
-    description: Joi.string().min(1).max(255).required(),
+    description: Joi.string().max(255),
   })
   return schema.validate(data)
 }
 
 const solveReportValidation = (data) => {
   const schema = Joi.object({
-    description: Joi.string().min(15).max(255).required(),
+    description: Joi.string(),
   })
   return schema.validate(data)
 }
