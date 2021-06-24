@@ -21,6 +21,10 @@ const QuestionsStyles = makeStyles((theme) =>
       cursor: "pointer",
       color: "#2196f3",
     },
+    reports: {
+      cursor: "pointer",
+      color: "#2196f3",
+    },
     modal: {
       display: "flex",
       padding: theme.spacing(1),

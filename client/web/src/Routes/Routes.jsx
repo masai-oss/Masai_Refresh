@@ -6,7 +6,8 @@ import { Login } from "../Structure/Authentication";
 import { Dashboard } from "../Structure/Dashboard";
 import { DashboardNew } from "../Structure/DashboardNew/DashboardNew";
 import {
-  Questions as AdminQuestions,
+  Questions as QuizQuestions,
+  PracticeQuestions,
   QuestionForm,
   QuestionUpdate,
 } from "../Structure/Admin";
@@ -76,13 +77,18 @@ const Routes = () => {
         />
         <AdminRoute
           exact
-          path="/admin/questions/:topic"
-          component={AdminQuestions}
+          path="/admin/questions/edit/:topic/:type/:id"
+          component={QuestionUpdate}
         />
         <AdminRoute
           exact
-          path="/admin/questions/edit/:topic/:id"
-          component={QuestionUpdate}
+          path="/admin/questions/:topic"
+          component={QuizQuestions}
+        />
+         <AdminRoute
+          exact
+          path="/admin/practice_questions/:topic"
+          component={PracticeQuestions}
         />
         <AdminRoute exact path="/admin/topics" component={CrudTopics} />
 

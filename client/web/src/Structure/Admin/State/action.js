@@ -103,10 +103,16 @@ const getQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsRequest = (page = 1, limit = 10, disabledFilter = false, reportedFilter = false) => (dispatch) => {
+const getQuestionsRequest = (page = 1, limit = 10, disabledFilter = false, reportedFilter = false, type) => (dispatch) => {
   dispatch(getQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
+
+  let url;
+  if(!type){
+    url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
+  }else{
+    url = `${QUESTION_URL}/all/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}&type=${type}`;
+  }
 
   axios({
     method: "get",
@@ -134,10 +140,17 @@ const getQuestionFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionRequest = (id) => (dispatch) => {
+const getQuestionRequest = (id, topic, type) => (dispatch) => {
   dispatch(getQuestionLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byId/${id}`;
+
+  let url
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/byId/${id}/?type=${type}`;
+  } 
+  else{
+    url = `${QUESTION_URL}/byId/${id}`;
+  }
 
   axios({
     method: "get",
@@ -196,12 +209,18 @@ const getQuestionsByTopicFailure = (data) => ({
   payload: data,
 });
 
-const getQuestionsByTopicRequest = (topic, page = 1, limit = 10, disabledFilter = false, reportedFilter = false) => (
+const getQuestionsByTopicRequest = (topic, page = 1, limit = 10, disabledFilter = false, reportedFilter = false, type) => (
   dispatch
 ) => {
   dispatch(getQuestionsByTopicLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
+  let url
+  if(!type){
+    url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}`;
+  }
+  else{
+    url = `${QUESTION_URL}/byTopic/${topic}/?page=${page}&limit=${limit}&disabledFilter=${disabledFilter}&reportedFilter=${reportedFilter}&type=${type}`;
+  }
 
   axios({
     method: "get",
@@ -267,10 +286,17 @@ const disableQuestionsAdjustment = (payload) => ({
   payload,
 })
 
-const disableQuestionsRequest = (id, topic) => (dispatch) => {
+const disableQuestionsRequest = (id, topic, type) => (dispatch) => {
   dispatch(disableQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/toggleDisable/${id}`;
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/toggleDisable/${id}/?type=${type}`;
+  }
+  else{
+    url = `${QUESTION_URL}/toggleDisable/${id}`;
+  }
 
   axios({
     method: "patch",
@@ -383,14 +409,23 @@ const verifyQuestionAdjustment = (payload) => ({
   payload,
 });
 
-const verifyQuestionProcess = ({ id }) => async (
+const verifyQuestionProcess = ( id, type ) => async (
   dispatch
 ) => {
   dispatch(verifyQuestionRequest());
   const token = getFromStorage(storageEnums.TOKEN, "");
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/toggleVerify/${id}/?type=${type}`
+  }
+  else{
+    url = `${QUESTION_URL}/toggleVerify/${id}`
+  }
+
   const config = {
     method: "patch",
-    url: `${QUESTION_URL}/toggleVerify/${id}`,
+    url: url,
     withCredentials: true,
     headers: {
       Authorization: `Bearer ${token}`,
@@ -424,10 +459,17 @@ const solveReportAdjustment = (payload) => ({
   payload,
 })
 
-const solveReportRequest = (question_id, report_id) => (dispatch) => {
+const solveReportRequest = (question_id, report_id, type) => (dispatch) => {
   dispatch(solveReportLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/solveReport/${question_id}/${report_id}`;
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/solveReport/${question_id}/${report_id}/?type=${type}`;
+  }
+  else{
+    url = `${QUESTION_URL}/solveReport/${question_id}/${report_id}`;
+  }
 
   axios({
     method: "patch",
