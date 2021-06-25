@@ -52,6 +52,21 @@ const shortValidataion = (data) => {
   return schema.validate(data);
 };
 
+const longValidataion = (data) => {
+  const schema = Joi.object({
+    name: Joi.string()
+      .valid(...topicValues)
+      .required(),
+    type: Joi.string().valid(question_types.LONG).required(),
+    statement: Joi.string().required(),
+    source: Joi.string().required(),
+    explanation: Joi.string(),
+    answer: Joi.string().required(),
+    likes: Joi.number()
+  });
+  return schema.validate(data);
+};
+
 const questionAddValidate = (data) => {
   let type = data.type;
   if (type === question_types.MCQ) {
@@ -60,6 +75,8 @@ const questionAddValidate = (data) => {
     return tfValidation(data);
   } else if (type === question_types.SHORT) {
     return shortValidataion(data);
+  } else if (type === question_types.LONG) {
+    return longValidataion(data)
   } else {
     const schema = Joi.object({
       type: Joi.string()

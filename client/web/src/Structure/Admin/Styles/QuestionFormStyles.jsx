@@ -33,15 +33,18 @@ const QuestionFormStyles = makeStyles((theme) =>
 		},
 		buttons: {
 			border: 'none',
-			borderRadius: '2px',
-			padding: '10px 14px',
 			color: 'white',
-			marginTop: '8px',
-			fontSize: '16px',
-			cursor: 'pointer'
+			cursor: 'pointer',
+			width:"100px",
+			height:"40px",
+			outline: "none",
+			borderRadius: "5px",
+			margin: "20px 20px 20px 0",
+			fontSize: "18px",
+			boxShadow: "3px 3px 5px #C8C8C8"
 		},
 		save: {
-			background: '#2196f3'
+			background: '#5B6AFA'
 		},
 		cancel: {
 			background: '#ff6b81'

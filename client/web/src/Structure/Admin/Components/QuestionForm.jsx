@@ -89,14 +89,15 @@ const QuestionForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload;
+    let exp = question.explanation === undefined ? "N/A" : question.explanation
 
     if (question.type === "MCQ") {
       payload = {
         type: "MCQ",
         statement: question.statement,
-        explanation: question.explanation,
+        explanation: exp,
         source: question.source,
-        options: question.options.map(({ text }, ind) => ({
+        options: question?.options?.map(({ text }, ind) => ({
           text: text,
           correct: question.mcqAnswer === ind,
         })),
@@ -109,7 +110,7 @@ const QuestionForm = (props) => {
       payload = {
         type: "TF",
         statement: question.statement,
-        explanation: question.explanation,
+        explanation: exp,
         correct: question.tfAnswer,
         source: question.source,
         verified: question.verified,
@@ -117,12 +118,12 @@ const QuestionForm = (props) => {
         flag: question.flag,
         stats: question.stats 
       };
-    } else {
+    } else if (question.type === "SHORT") {
       payload = {
-        type: "SHORT",
+        type: question.type,
         statement: question.statement,
         answer: question.shortAnswer,
-        explanation: question.explanation,
+        explanation: exp,
         source: question.source,
         verified: question.verified,
         disabled: question.disabled,
@@ -130,14 +131,32 @@ const QuestionForm = (props) => {
         stats: question.stats 
       };
     }
+    else{
+      payload = {
+        type: question.type,
+        statement: question.statement,
+        answer: question.shortAnswer,
+        explanation: exp,
+        source: question.source,
+        verified: question.verified,
+        disabled: question.disabled,
+        flag: question.flag,
+        likes: data.likes === undefined ? 0 : data.likes
+      };
+    }
     if (data === undefined) {
-      dispatch(adminActions.addQuestionsRequest(payload, question.topic));
+      dispatch(
+        adminActions.addQuestionsRequest(payload, question.topic, question.type)
+      ).then(() => {
+        history.goBack();
+      })
     } else {
       dispatch(
-        adminActions.updateQuestionsRequest(payload, data._id, question.topic)
-      );
+        adminActions.updateQuestionsRequest(payload, data._id, question.topic, question.type)
+      ).then(() => {
+        history.goBack();
+      })
     }
-    history.goBack();
   };
   return (
     <>
@@ -172,6 +191,7 @@ const QuestionForm = (props) => {
                 <option value="MCQ">MCQ</option>
                 <option value="TF">TF</option>
                 <option value="SHORT">SHORT</option>
+                <option value="LONG">LONG</option>
               </Select>
             </Box>
           </Box>
@@ -261,10 +281,9 @@ const QuestionForm = (props) => {
               </FormControl>
             </Box>
           )}
-          {question.type === "SHORT" && (
+          {(question.type === "SHORT" || question.type === "LONG") && (
             <Box className={classes.verticalStyle}>
               <FormControl required>
-                <InputLabel htmlFor="short">Answer</InputLabel>
                 <TextareaAutosize
                   className={classes.textAreaWidth}
                   required
@@ -279,7 +298,7 @@ const QuestionForm = (props) => {
             </Box>
           )}
           <button className={`${classes.save} ${classes.buttons}`} id="submitBtn">
-            {data === undefined ? "ADD" : "UPDATE"}
+            {data === undefined ? "Add" : "Update"}
           </button>
           <button
             className={`${classes.cancel} ${classes.buttons}`}

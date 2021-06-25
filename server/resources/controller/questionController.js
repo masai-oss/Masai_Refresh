@@ -320,7 +320,8 @@ const getQuestionById = async (req, res) => {
 const addQuestion = async (req, res) => {
   const { topic: name } = req.params;
   const question = req.body;
-  const { error } = questionAddValidate({ ...question, name, source: "fake" });
+  const type = req.query.type
+  const { error } = questionAddValidate({ ...question, name, source: "N/A" });
   if (error) {
     return res.status(400).json({
       error: true,
@@ -328,18 +329,20 @@ const addQuestion = async (req, res) => {
       reason: error.details[0].message,
     });
   }
+
+  let collection = type === undefined ? "Topic" : "Practice"
   try {
-    let findTopic = await Topic.find({ name: name });
+    let findTopic = await eval(collection).find({ name: name }, {name : 1});
     if (!findTopic.length) {
       return res
         .status(400)
         .json({ error: true, message: "Add topic before adding question" });
     }
-    await Topic.updateOne(
+    await eval(collection).updateOne(
       { name: name },
       {
         $push: {
-          questions: { ...question, source: "fake" },
+          questions: { ...question, source: "N/A" },
         },
       }
     );
@@ -361,13 +364,15 @@ const updateQuestion = async (req, res) => {
   const type = req.query.type
 
   const { stats, flag, verified, disabled,  ...question } = questionData;
-  const { error: statsError } = statsValidate(stats);
-  if (statsError) {
-    return res.status(400).json({
-      error: true,
-      message: "Updating question failed check Stats",
-      reason: statsError.details[0].message,
-    });
+  if(!type){
+    const { error: statsError } = statsValidate(stats);
+    if (statsError) {
+      return res.status(400).json({
+        error: true,
+        message: "Updating question failed check Stats",
+        reason: statsError.details[0].message,
+      });
+    }
   }
   const { error: idTopicError } = idTopicValidation(req.params);
   if (idTopicError) {
@@ -424,7 +429,7 @@ const updateQuestion = async (req, res) => {
   }
 };
 
-// ---------------- delete not in use (practice questions delete not included) --------------------
+// ---------------- delete not in use (deleting practice questions not included) --------------------
 const deleteQuestion = async (req, res) => {
   const { id, topic: name } = req.params;
   const { error } = idTopicValidation(req.params);

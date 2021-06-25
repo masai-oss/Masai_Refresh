@@ -248,10 +248,17 @@ const addQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const addQuestionsRequest = (payload, topic) => (dispatch) => {
+const addQuestionsRequest = (payload, topic, type) => (dispatch) => {
   dispatch(addQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/create/${topic}/`;
+
+  let url;
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/create/${topic}/?type=${type}`;
+  }
+  else{
+    url = `${QUESTION_URL}/create/${topic}/`;
+  }
 
   axios({
     method: "post",
@@ -328,12 +335,20 @@ const updateQuestionsFailure = (data) => ({
   payload: data,
 });
 
-const updateQuestionsRequest = (payload, id, topic) => (dispatch) => {
+const updateQuestionsRequest = (payload, id, topic, type) => (dispatch) => {
   dispatch(updateQuestionsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  let url = `${QUESTION_URL}/update/${topic}/${id}`;
 
-  axios({
+  let url
+  console.log(type)
+  if(type === "LONG"){
+    url = `${QUESTION_URL}/update/${topic}/${id}/?type=${type}`;
+  }
+  else{
+    url = `${QUESTION_URL}/update/${topic}/${id}`;
+  }
+
+  return axios({
     method: "PUT",
     url: url,
     data: payload,
