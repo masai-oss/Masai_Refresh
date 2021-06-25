@@ -62,7 +62,7 @@ const longValidataion = (data) => {
     source: Joi.string().required(),
     explanation: Joi.string(),
     answer: Joi.string().required(),
-    likes: Joi.number()
+    likes: Joi.number(),
   });
   return schema.validate(data);
 };
@@ -76,7 +76,7 @@ const questionAddValidate = (data) => {
   } else if (type === question_types.SHORT) {
     return shortValidataion(data);
   } else if (type === question_types.LONG) {
-    return longValidataion(data)
+    return longValidataion(data);
   } else {
     const schema = Joi.object({
       type: Joi.string()
@@ -128,5 +128,5 @@ module.exports = {
   idTopicValidation,
   topicValidation,
   statsValidate,
-  toggleVerificationValidation
+  toggleVerificationValidation,
 };

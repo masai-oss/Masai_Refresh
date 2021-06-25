@@ -6,7 +6,7 @@ const QuestionsStyles = makeStyles((theme) =>
     container: {
       backgroundColor: "#EFEFF6",
       minWidth: "100vw",
-      minHeight: "100vh"
+      minHeight: "100vh",
     },
     top: {
       display: "flex",

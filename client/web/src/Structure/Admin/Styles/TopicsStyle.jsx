@@ -13,7 +13,7 @@ export const TopicsStyle = makeStyles((theme) =>
     holder: {
       display: "flex",
       justifyContent: "space-between",
-      width: 230
+      width: 230,
     },
     inputProp: {
       display: "none",
@@ -23,8 +23,8 @@ export const TopicsStyle = makeStyles((theme) =>
       height: 100,
     },
     pictureBl: {
-      margin:15,
-      width: 35
+      margin: 15,
+      width: 35,
     },
   })
 );

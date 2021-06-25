@@ -49,9 +49,9 @@ const getAllQuestion = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const disabledFilter = req.query.disabledFilter;
   const reportedFilter = req.query.reportedFilter;
-  const type = req.query.type
+  const type = req.query.type;
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
     if (page < 1) {
       return res.status(400).json({
@@ -129,14 +129,16 @@ const getAllQuestion = async (req, res) => {
       ]);
 
       if (questions[0].allQuestions.length > 0) {
-        questions[0].allQuestions = questions[0].allQuestions.map((topicQue) => {
-          if (topicQue?.length > 0) {
-            topicQue = topicQue?.filter((item) => {
-              return item?.flag?.some((flag) => flag.status.solved === false)
-            })
+        questions[0].allQuestions = questions[0].allQuestions.map(
+          (topicQue) => {
+            if (topicQue?.length > 0) {
+              topicQue = topicQue?.filter((item) => {
+                return item?.flag?.some((flag) => flag.status.solved === false);
+              });
+            }
+            return topicQue;
           }
-          return topicQue
-        });
+        );
       }
     }
 
@@ -154,7 +156,7 @@ const getAllQuestion = async (req, res) => {
         error: false,
         message: "Successfully got Questions",
         questions: {
-          current : []
+          current: [],
         },
       });
     }
@@ -179,7 +181,7 @@ const getQuestionByTopic = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const disabledFilter = req.query.disabledFilter;
   const reportedFilter = req.query.reportedFilter;
-  const type = req.query.type
+  const type = req.query.type;
   const { topic: name } = req.params;
   const { error } = topicValidation(req.params);
   if (error) {
@@ -190,7 +192,7 @@ const getQuestionByTopic = async (req, res) => {
     });
   }
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
     if (page < 1) {
       return res.status(400).json({
@@ -250,12 +252,12 @@ const getQuestionByTopic = async (req, res) => {
 
       if (questions[0].questions.length > 0) {
         questions[0].questions = questions[0].questions.filter((item) => {
-          return item?.flag?.some((flag) => flag.status.solved === false)
-        })
+          return item?.flag?.some((flag) => flag.status.solved === false);
+        });
       }
-    }    
+    }
 
-    let allQuestions = []
+    let allQuestions = [];
     if (questions.length > 0) {
       allQuestions = [...questions[0].questions];
     }
@@ -265,7 +267,7 @@ const getQuestionByTopic = async (req, res) => {
         error: false,
         message: "Successfully got Questions",
         questions: {
-          current : []
+          current: [],
         },
       });
     }
@@ -287,9 +289,9 @@ const getQuestionByTopic = async (req, res) => {
 
 const getQuestionById = async (req, res) => {
   const { id } = req.params;
-  const type = req.query.type
+  const type = req.query.type;
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
     let findedQuestion = await eval(collection).find(
       { questions: { $elemMatch: { _id: id } } },
@@ -320,7 +322,7 @@ const getQuestionById = async (req, res) => {
 const addQuestion = async (req, res) => {
   const { topic: name } = req.params;
   const question = req.body;
-  const type = req.query.type
+  const type = req.query.type;
   const { error } = questionAddValidate({ ...question, name, source: "N/A" });
   if (error) {
     return res.status(400).json({
@@ -330,9 +332,9 @@ const addQuestion = async (req, res) => {
     });
   }
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
-    let findTopic = await eval(collection).find({ name: name }, {name : 1});
+    let findTopic = await eval(collection).find({ name: name }, { name: 1 });
     if (!findTopic.length) {
       return res
         .status(400)
@@ -359,12 +361,12 @@ const addQuestion = async (req, res) => {
 };
 
 const updateQuestion = async (req, res) => {
-  const { topic: name, id: _id  } = req.params;
+  const { topic: name, id: _id } = req.params;
   const questionData = req.body;
-  const type = req.query.type
+  const type = req.query.type;
 
-  const { stats, flag, verified, disabled,  ...question } = questionData;
-  if(!type){
+  const { stats, flag, verified, disabled, ...question } = questionData;
+  if (!type) {
     const { error: statsError } = statsValidate(stats);
     if (statsError) {
       return res.status(400).json({
@@ -391,7 +393,7 @@ const updateQuestion = async (req, res) => {
     });
   }
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
     let updatedQuestion = await eval(collection).updateOne(
       {
@@ -400,7 +402,7 @@ const updateQuestion = async (req, res) => {
       },
       {
         $set: {
-          "questions.$": {...questionData, _id: _id},
+          "questions.$": { ...questionData, _id: _id },
         },
       }
     );
@@ -417,7 +419,7 @@ const updateQuestion = async (req, res) => {
       question: {
         topic: name,
         _id: _id,
-        ...questionData
+        ...questionData,
       },
     });
   } catch (err) {
@@ -472,11 +474,14 @@ const deleteQuestion = async (req, res) => {
 
 const toggleVerification = async (req, res) => {
   const { id } = req.params;
-  const type = req.query.type
+  const type = req.query.type;
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
-    let topic = await eval(collection).findOne({ "questions._id": id }, {"questions.$" : 1});
+    let topic = await eval(collection).findOne(
+      { "questions._id": id },
+      { "questions.$": 1 }
+    );
     let verified = topic.questions[0].verified;
     await eval(collection).updateOne(
       {
@@ -488,7 +493,6 @@ const toggleVerification = async (req, res) => {
         },
       }
     );
-  
 
     res.status(200).json({
       error: false,
@@ -502,11 +506,14 @@ const toggleVerification = async (req, res) => {
 
 const toggleDisabledStatus = async (req, res) => {
   const { id } = req.params;
-  const type = req.query.type
+  const type = req.query.type;
 
-  let collection = type === undefined ? "Topic" : "Practice"
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
-    let topic = await eval(collection).findOne({ "questions._id": id }, {"questions.$" : 1});
+    let topic = await eval(collection).findOne(
+      { "questions._id": id },
+      { "questions.$": 1 }
+    );
     let disabled = topic.questions[0].disabled;
     await eval(collection).updateOne(
       {
