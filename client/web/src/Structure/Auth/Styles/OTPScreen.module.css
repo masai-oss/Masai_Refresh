@@ -42,6 +42,7 @@
 .OTPScreen > p:last-child {
   color: #2b75cd;
   font-weight: bold;
+  cursor: pointer;
 }
 .OTPScreen__buttonDisabled {
   background: #d8dee2 !important;

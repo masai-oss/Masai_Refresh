@@ -9,23 +9,54 @@ const initState = {
   isSignUp: false,
   signUpError: false,
   signUpErrorMessage: "",
+  email: "",
+  otpVerification: false,
+  userData: [],
 };
 
 const authenticationNew = (state = initState, { type, payload }) => {
   switch (type) {
-    case authConstants.SIGNUP_REQUEST:
+    // signup
+    case authConstants.USERS_SIGNUP_REQUEST:
       return state;
-    case authConstants.SIGNUP_SUCCESS:
+    case authConstants.USERS_SIGNUP_SUCCESS:
+      console.log("email", payload.data.email);
+      return {
+        ...state,
+        isSignUp: false,
+        signUpError: "",
+        email: payload.data.email,
+      };
+    case authConstants.USERS_SIGNUP_FAILURE:
       return {
         ...state,
         isSignUp: false,
         signUpError: "",
       };
-    case authConstants.SIGNUP_FAILURE:
+    // user verification
+    case authConstants.USERS_VERIFICATION_REQUEST:
+      return state;
+    case authConstants.USERS_VERIFICATION_SUCCESS:
       return {
         ...state,
-        isSignUp: false,
-        signUpError: "",
+        otpVerification: !payload.error,
+      };
+    case authConstants.USERS_VERIFICATION_FAILURE:
+      return {
+        ...state,
+      };
+
+    // signin
+    case authConstants.USERS_SIGNIN_REQUEST:
+      return state;
+    case authConstants.USERS_SIGNIN_SUCCESS:
+      return {
+        ...state,
+        userData: payload.user,
+      };
+    case authConstants.USERS_SIGNIN_FAILURE:
+      return {
+        ...state,
       };
     default:
       return state;

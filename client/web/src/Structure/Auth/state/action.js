@@ -36,6 +36,34 @@ const userVerificationFailure = (payload) => ({
   payload,
 });
 
+const userSigninRequest = () => ({
+  type: authConstants.USERS_SIGNIN_REQUEST,
+});
+
+const userSigninSuccess = (payload) => ({
+  type: authConstants.USERS_SIGNIN_SUCCESS,
+  payload,
+});
+
+const userSigninFailure = (payload) => ({
+  type: authConstants.USERS_SIGNIN_FAILURE,
+  payload,
+});
+
+const resentOTPRequest = () => ({
+  type: authConstants.RESEND_OTP_REQUEST,
+});
+
+const resentOTPSuccess = (payload) => ({
+  type: authConstants.RESEND_OTP_SUCCESS,
+  payload,
+});
+
+const resentOTPFailure = (payload) => ({
+  type: authConstants.RESEND_OTP_FAILURE,
+  payload,
+});
+
 const userSignUpProcess =
   ({ name, email, password }) =>
   async (dispatch) => {
@@ -53,11 +81,13 @@ const userSignUpProcess =
       },
     };
     return axios(config)
-      .then((res) => console.log(res))
+      .then((res) => dispatch(userSignUpSuccess(res.data)))
       .catch((err) => {
         console.log(err);
       });
   };
+
+//user verification
 
 const userVerficationProcess =
   ({ email, otp }) =>
@@ -71,7 +101,54 @@ const userVerficationProcess =
       },
       data: {
         email: email,
-        otp: otp,
+        OTP: otp,
+      },
+    };
+    return axios(config)
+      .then((res) => dispatch(userVerificationSuccess(res.data)))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+// signin
+
+const userSigninProcess =
+  ({ email, password }) =>
+  async (dispatch) => {
+    dispatch(userSigninRequest());
+    const config = {
+      method: "POST",
+      url: `${AUTH_API_URL}/signin`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: email,
+        password: password,
+      },
+    };
+    return axios(config)
+      .then((res) => dispatch(userSigninSuccess(res.data)))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+// Resend OTP
+
+const resendOtpProcess =
+  ({ email }) =>
+  async (dispatch) => {
+    dispatch(resentOTPRequest());
+    const config = {
+      method: "POST",
+      url: `${AUTH_API_URL}/email_verification/resend_otp`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: email,
       },
     };
     return axios(config)
@@ -83,4 +160,7 @@ const userVerficationProcess =
 
 export const authActions = {
   userSignUpProcess: userSignUpProcess,
+  userVerficationProcess: userVerficationProcess,
+  userSigninProcess: userSigninProcess,
+  resendOtpProcess: resendOtpProcess,
 };

@@ -4,7 +4,7 @@ import styles from "../Styles/OTPScreen.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
-const OTPScreen = () => {
+const ResendOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(6).fill(""));
   const [elements, setElements] = React.useState([]);
@@ -23,10 +23,6 @@ const OTPScreen = () => {
     if (e.keyCode === 8 && !e.target.value) {
       i - 1 >= 0 && elements[i - 1].focus();
     }
-  };
-
-  const resendOtp = () => {
-    history.push("/resend-otp");
   };
 
   const verifyOtp = (e) => {
@@ -74,12 +70,9 @@ const OTPScreen = () => {
       <button onClick={verifyOtp} className={styles.OTPScreen__buttonDisabled}>
         Verify OTP
       </button>
-      <p onClick={resendOtp} className={styles.resendOTP}>
-        Resend OTP
-      </p>
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;
 };
 
-export { OTPScreen };
+export { ResendOtp };
