@@ -6,7 +6,7 @@ import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
 const ResendOtp = () => {
   const history = useHistory();
-  const [otp, setOtp] = React.useState(new Array(6).fill(""));
+  const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
   const { email, otpVerification } = useSelector(
     (state) => state.authenticationNew
