@@ -61,10 +61,6 @@ function Navbar(props) {
     history.push("/");
   };
 
-  const goToPractice = () => {
-    history.push("/practice_topics");
-  };
-
   let isAuth = useSelector((state) => state.authentication.token);
   return (
     <>
@@ -72,22 +68,18 @@ function Navbar(props) {
       <HideOnScroll {...props}>
         <AppBar className={classes.appBar}>
           <Toolbar>
-            <div className={classes.navbarName}>
+            <div 
+              className={classes.navbarName}
+              onClick={isAuth && goHome}
+            >
               <img
                 src={MasaiLogo}
                 alt="masaiLogo"
-                onClick={isAuth && goHome}
-                style={{ cursor: "pointer" }}
               />
               <p className={classes.refresh}>refresh</p>
             </div>
-            <Button
-              onClick={goToPractice}
-              color="inherit"
-              style={{ cursor: "pointer", marginRight: 700 }}
-            >
-              Practice
-            </Button>
+            <div className={classes.navbarGrow}>
+            </div>
             {isAuth && (
               <Button color="inherit" onClick={() => setOpen(true)}>
                 Sign Out

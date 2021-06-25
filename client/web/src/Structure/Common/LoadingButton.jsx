@@ -20,7 +20,7 @@ const LoadingButton = ({
       <div className={classes.wrapper}>
         <Button
           variant="contained"
-          style={{ backgroundColor: "#6C8D9E", color: 'white' }}
+          style={{ backgroundColor: "#5B6AFA", color: 'white' }}
           className={buttonClassname}
           disabled={isLoading}
           onClick={submit === "none" ? undefined : submit}
