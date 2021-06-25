@@ -3,7 +3,6 @@ import { makeStyles, createStyles } from '@material-ui/core/styles';
 const QuestionFormStyles = makeStyles((theme) =>
 	createStyles({
 		root: {
-			backgroundColor: 'white',
 			width: '100%',
 			height: '100%',
 			display: 'flex',

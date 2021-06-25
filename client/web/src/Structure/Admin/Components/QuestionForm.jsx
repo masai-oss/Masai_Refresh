@@ -14,6 +14,7 @@ import {
 } from "@material-ui/core";
 import { QuestionFormStyles } from "../Styles/QuestionFormStyles";
 import { useHistory } from "react-router";
+import {Navbar} from '../../Navbar/index'
 
 const QuestionForm = (props) => {
   const { data, topic } = props;
@@ -139,153 +140,156 @@ const QuestionForm = (props) => {
     history.goBack();
   };
   return (
-    <div className={classes.root}>
-      <form onSubmit={handleSubmit}>
-        <Box className={classes.horizontalStyle}>
-          <Box>
-            <InputLabel htmlFor="topic">Select Topic</InputLabel>
-            <Select
-              name="topic"
-              id="topic"
-              value={question.topic}
-              onChange={(e) => handleChange(e.target)}
-            >
-              {topics?.data?.map((item) => (
-                <option key={item.name} value={item.name}>
-                  {item.name}
-                </option>
-              ))}
-            </Select>
+    <>
+      <Navbar/>
+      <div className={classes.root}>
+        <form onSubmit={handleSubmit}>
+          <Box className={classes.horizontalStyle}>
+            <Box>
+              <InputLabel htmlFor="topic">Select Topic</InputLabel>
+              <Select
+                name="topic"
+                id="topic"
+                value={question.topic}
+                onChange={(e) => handleChange(e.target)}
+              >
+                {topics?.data?.map((item) => (
+                  <option key={item.name} value={item.name}>
+                    {item.name}
+                  </option>
+                ))}
+              </Select>
+            </Box>
+
+            <Box>
+              <InputLabel htmlFor="type">Select Type</InputLabel>
+              <Select
+                name="type"
+                id="type"
+                value={question.type}
+                onChange={(e) => handleChange(e.target)}
+              >
+                <option value="MCQ">MCQ</option>
+                <option value="TF">TF</option>
+                <option value="SHORT">SHORT</option>
+              </Select>
+            </Box>
           </Box>
 
-          <Box>
-            <InputLabel htmlFor="type">Select Type</InputLabel>
-            <Select
-              name="type"
-              id="type"
-              value={question.type}
+          <FormControl required>
+            <TextareaAutosize
+              className={classes.textAreaWidth}
+              required
+              rowsMin={5}
               onChange={(e) => handleChange(e.target)}
-            >
-              <option value="MCQ">MCQ</option>
-              <option value="TF">TF</option>
-              <option value="SHORT">SHORT</option>
-            </Select>
-          </Box>
-        </Box>
+              value={question.statement}
+              id="statement"
+              name="statement"
+              placeholder="Statement"
+            />
+          </FormControl>
 
-        <FormControl required>
-          <TextareaAutosize
-            className={classes.textAreaWidth}
-            required
-            rowsMin={5}
-            onChange={(e) => handleChange(e.target)}
-            value={question.statement}
-            id="statement"
-            name="statement"
-            placeholder="Statement"
-          />
-        </FormControl>
+          <FormControl required>
+            <TextareaAutosize
+              className={classes.textAreaWidth}
+              rowsMin={5}
+              onChange={(e) => handleChange(e.target)}
+              value={question.explanation}
+              id="explanation"
+              name="explanation"
+              placeholder="Explanation"
+            />
+          </FormControl>
+          <FormControl required>
+            <TextareaAutosize
+              className={classes.textAreaWidth}
+              required
+              rowsMin={5}
+              onChange={(e) => handleChange(e.target)}
+              value={question.source}
+              id="source"
+              name="source"
+              placeholder="Source"
+            />
+          </FormControl>
+          {question.type === "MCQ" && (
+            <>
+              <Box className={classes.verticalStyle}>
+                {question?.options?.map((opt, ind) => (
+                  <FormControl required>
+                    <TextareaAutosize
+                      className={classes.textAreaWidth}
+                      required
+                      name="options"
+                      id={ind}
+                      rowsMin={5}
+                      value={opt.text}
+                      onChange={(e) => handleChange(e.target)}
+                      type="text"
+                      placeholder={`option ${ind}`}
+                      key={ind}
+                    />
+                  </FormControl>
+                ))}
 
-        <FormControl required>
-          <TextareaAutosize
-            className={classes.textAreaWidth}
-            rowsMin={5}
-            onChange={(e) => handleChange(e.target)}
-            value={question.explanation}
-            id="explanation"
-            name="explanation"
-            placeholder="Explanation"
-          />
-        </FormControl>
-        <FormControl required>
-          <TextareaAutosize
-            className={classes.textAreaWidth}
-            required
-            rowsMin={5}
-            onChange={(e) => handleChange(e.target)}
-            value={question.source}
-            id="source"
-            name="source"
-            placeholder="Source"
-          />
-        </FormControl>
-        {question.type === "MCQ" && (
-          <>
-            <Box className={classes.verticalStyle}>
-              {question?.options?.map((opt, ind) => (
                 <FormControl required>
-                  <TextareaAutosize
-                    className={classes.textAreaWidth}
-                    required
-                    name="options"
-                    id={ind}
-                    rowsMin={5}
-                    value={opt.text}
+                  Correct Answer *
+                  <RadioGroup
+                    className={classes.horizontalStyle}
                     onChange={(e) => handleChange(e.target)}
-                    type="text"
-                    placeholder={`option ${ind}`}
-                    key={ind}
-                  />
+                    value={question.mcqAnswer}
+                    name="mcqAnswer"
+                  >
+                    {question?.options?.map((opt, ind) => (
+                      <FormControlLabel value={ind} control={<Radio />} label={ind} key={ind}/>
+                    ))}
+                  </RadioGroup>
                 </FormControl>
-              ))}
-
+              </Box>
+            </>
+          )}
+          {question.type === "TF" && (
+            <Box>
               <FormControl required>
-                Correct Answer *
-                <RadioGroup
-                  className={classes.horizontalStyle}
+                <InputLabel htmlFor="tf-answer">Answer</InputLabel>
+                <Checkbox
+                  id="tf-answer"
+                  name="tfAnswer"
+                  checked={question.tfAnswer}
                   onChange={(e) => handleChange(e.target)}
-                  value={question.mcqAnswer}
-                  name="mcqAnswer"
-                >
-                  {question?.options?.map((opt, ind) => (
-                    <FormControlLabel value={ind} control={<Radio />} label={ind} key={ind}/>
-                  ))}
-                </RadioGroup>
+                />
               </FormControl>
             </Box>
-          </>
-        )}
-        {question.type === "TF" && (
-          <Box>
-            <FormControl required>
-              <InputLabel htmlFor="tf-answer">Answer</InputLabel>
-              <Checkbox
-                id="tf-answer"
-                name="tfAnswer"
-                checked={question.tfAnswer}
-                onChange={(e) => handleChange(e.target)}
-              />
-            </FormControl>
-          </Box>
-        )}
-        {question.type === "SHORT" && (
-          <Box className={classes.verticalStyle}>
-            <FormControl required>
-              <InputLabel htmlFor="short">Answer</InputLabel>
-              <TextareaAutosize
-                className={classes.textAreaWidth}
-                required
-                rowsMin={5}
-                name="shortAnswer"
-                id="short"
-                onChange={(e) => handleChange(e.target)}
-                value={question.shortAnswer}
-                placeholder="Answer"
-              />
-            </FormControl>
-          </Box>
-        )}
-        <button className={`${classes.save} ${classes.buttons}`} id="submitBtn">
-          {data === undefined ? "ADD" : "UPDATE"}
-        </button>
-        <button
-          className={`${classes.cancel} ${classes.buttons}`}
-          onClick={() => handleReset()}
-        >
-          Reset
-        </button>
-      </form>
-    </div>
+          )}
+          {question.type === "SHORT" && (
+            <Box className={classes.verticalStyle}>
+              <FormControl required>
+                <InputLabel htmlFor="short">Answer</InputLabel>
+                <TextareaAutosize
+                  className={classes.textAreaWidth}
+                  required
+                  rowsMin={5}
+                  name="shortAnswer"
+                  id="short"
+                  onChange={(e) => handleChange(e.target)}
+                  value={question.shortAnswer}
+                  placeholder="Answer"
+                />
+              </FormControl>
+            </Box>
+          )}
+          <button className={`${classes.save} ${classes.buttons}`} id="submitBtn">
+            {data === undefined ? "ADD" : "UPDATE"}
+          </button>
+          <button
+            className={`${classes.cancel} ${classes.buttons}`}
+            onClick={() => handleReset()}
+          >
+            Reset
+          </button>
+        </form>
+      </div>
+    </>
   );
 };
 

@@ -16,17 +16,17 @@ import { useSelector, useDispatch } from "react-redux";
 import ReactMarkdown from "react-markdown";
 import { QuestionsStyles } from "../Styles/QuestionsStyles";
 import { withStyles } from "@material-ui/core/styles";
-import { green, grey } from "@material-ui/core/colors";
+import { grey } from "@material-ui/core/colors";
 import { adminActions } from "../State/action";
 
 const VerifiedSwitch = withStyles({
   switchBase: {
     color: grey[300],
     "&$checked": {
-      color: green[500],
+      color: "#5B6AFA",
     },
     "&$checked + $track": {
-      backgroundColor: green[500],
+      backgroundColor: "#5B6AFA",
     },
   },
   checked: {},
