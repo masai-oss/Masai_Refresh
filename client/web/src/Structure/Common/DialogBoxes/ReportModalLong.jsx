@@ -56,7 +56,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 
 	const handleClose = async (submit) => {
 		if (submit) {
-			if (details.length === 0 || select.length === 0) {
+			if (select.length === 0) {
 				return;
 			}
 			let res = await handleReport();
@@ -104,7 +104,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 		const payload = {
 			question_id,
 			reason: reasons,
-			des: details
+			des: details === '' ? '' : details
 		};
 		return dispatch(resultAction.sendReport(payload));
 	};
@@ -168,25 +168,17 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 						color="primary"
 						autoFocus
 						submitBtn={true}
-						disabled={details.length === 0 || select.length === 0}
+						disabled={select.length === 0}
 					>
 						Submit
 					</CustomButton>
-					{/* <button
-            className={classes.submitBtn}
-            autoFocus
-            submitBtn={true}
-            disabled={details.length === 0 || select.length === 0}
-            onClick={() => handleClose(true, "here")}
-          >
-            Submit
-          </button> */}
 				</DialogActions>
 			</Dialog>
+
 			<Snackbar open={isOpen} autoHideDuration={2000} onClose={handleCloseSnack}>
 				<Alert severity={'error'}>{errorMessage}</Alert>
 			</Snackbar>
-			{/* <CustomizedSnackbars success={success} message={!success && errorMessage} ref={snackbarBtnRef} /> */}
+
 			<ReportSuccessModal question_id={question_id} isOpen={success} />
 		</div>
 	);
