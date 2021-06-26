@@ -6,20 +6,12 @@ import {
   GET_TOPICWISE_BOOKMARKS_LOADING,
   GET_TOPICWISE_BOOKMARKS_SUCCESS,
 } from "./actionTypes";
-import { storageEnums } from "../../../Enums/storageEnums";
-import {
-  getFromStorage,
-  saveToStorage,
-} from "../../../Utils/localStorageHelper";
-import {
-  GET_NEXT_QUESTION_FAILURE,
-  GET_PRACTICE_TOPICS_FAILURE,
-} from "../../Practice/State/actionTypes";
+
 const initState = {
   isLoading: false,
   isError: false,
   errMessage: "",
-  myBookmarks: [],
+  myBookmarks: null,
   topicwiseBookmarks: null,
 };
 

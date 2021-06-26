@@ -91,7 +91,7 @@ const Routes = () => {
           path="/admin/questions/:topic"
           component={QuizQuestions}
         />
-         <AdminRoute
+        <AdminRoute
           exact
           path="/admin/practice_questions/:topic"
           component={PracticeQuestions}

@@ -53,7 +53,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
 
   const handleClose = async (submit) => {
     if (submit) {
-      if (details.length === 0 || select.length === 0) {
+      if (select.length === 0) {
         return;
       }
       let res = await handleReport();
@@ -159,7 +159,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
             </TagsWrapper>
           </div>
           <div>
-            <h3 className={classes.details}>Add Details *</h3>
+            <h3 className={classes.details}>Add Details</h3>
             <CustomizedTextArea
               onChange={handleDetailsChange}
               value={details}
@@ -173,7 +173,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
             color="primary"
             autoFocus
             submitBtn={true}
-            disabled={details.length === 0 || select.length === 0}
+            disabled={select.length === 0}
           >
             Submit
           </CustomButton>
