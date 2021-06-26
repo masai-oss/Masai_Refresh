@@ -42,7 +42,7 @@ const createToken = (user) => {
 }
 
 const createOTP = () => {
-  const otp = OTPGenerator.generate(6, {
+  const otp = OTPGenerator.generate(4, {
     specialChars: false,
     upperCase: false,
     alphabets: false,

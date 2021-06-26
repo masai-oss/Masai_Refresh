@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  Grid,
-  Avatar,
-  Card,
-  CardContent,
-  Typography,
-  Button,
-} from "@material-ui/core";
+import { Avatar } from "@material-ui/core";
 import { adminActions } from "../State/action";
 import { TopicsStyle } from "../Styles/TopicsStyle";
 import { IconManipulationDialog } from "./IconManipulationModal";
 import { Spinner, PageNotFound } from "../../Common";
 import { useHistory } from "react-router";
+import styles from "../Styles/CrudTopics.module.css";
+import { Navbar } from "../../Navbar/index";
 
 const UPLOADED_ICONS_URL = process.env.REACT_APP_UPLOADED_ICONS_URL;
 export const CrudTopics = () => {
@@ -50,85 +45,52 @@ export const CrudTopics = () => {
     setDialogInfo(dialogInfoStr);
   };
   return (
-    <div style = {{margin: "2%"}}>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ marginBottom: 15, backgroundColor: "#6C8D9E" }}
-        onClick={() => history.push("/admin/questions/all")}
-      >
-        Quiz Questions
-      </Button>
-      <Button
-        variant="contained"
-        color="primary"
-        style={{ marginBottom: 15, backgroundColor: "#6C8D9E" }}
-        onClick={() => history.push("/admin/practice_questions/all")}
-      >
-        Practice Questions
-      </Button>
-      <Grid
-        container
-        direction="row"
-        justify="center"
-        alignItems="center"
-        spacing={3}
-      >
+    <div className={styles.container}>
+      <Navbar />
+      <button onClick={() => history.push("/admin/questions/all")}>Quiz</button>
+      <button onClick={() => history.push("/admin/practice_questions/all")}>
+        Practice
+      </button>
+      <div className={styles.cardContainer}>
         {isLoading ? (
           <Spinner />
         ) : isError ? (
           <PageNotFound
-            errorNum="400"
-            message="Something went wrong"
-            des=" Brace Yourself till we get the error fixed"
+            errorNum='400'
+            message='Something went wrong'
+            des=' Brace Yourself till we get the error fixed'
           />
         ) : (
           topicsData &&
-          topicsData?.map(({ name, noOfQuestion, icon, _id }, index) => (
-            <Grid item xs={12} sm={10} md={6} lg={4} xl={3} key={index}>
-              <Card>
-                <CardContent>
-                  <Grid
-                    container
-                    direction="row"
-                    // justify="space-between"
-                    alignItems="center"
-                  >
-                    <Avatar
-                      alt={name}
-                      src={
-                        (icon =
-                          icon !== undefined &&
-                          (icon.includes(".png") ||
-                            icon.includes(".jpeg") ||
-                            icon.includes(".svg"))
-                            ? modIcon(icon)
-                            : icon)
-                      }
-                      onClick={() =>
-                        handleClickOpen({ icon: icon, name: name, id: _id })
-                      }
-                      className={classes.iconStyle}
-                    />
-                    <div style = {{margin: "0 10%"}}>
-                      <Typography variant="h4" component="h2">
-                        {name}
-                      </Typography>
-                      {/* <Typography variant="h6" component="h2">
-                        Total Questions : {noOfQuestion}
-                      </Typography> */}
-                    </div>
-                  </Grid>
-                </CardContent>
-              </Card>
-            </Grid>
-          ))
+          topicsData?.map(({ name, noOfQuestion, icon, _id }, index) => {
+            return (
+              <div className={styles.card} key={index}>
+                <Avatar
+                  className={classes.iconStyle}
+                  alt={name}
+                  src={
+                    (icon =
+                      icon !== undefined &&
+                      (icon.includes(".png") ||
+                        icon.includes(".jpeg") ||
+                        icon.includes(".svg"))
+                        ? modIcon(icon)
+                        : icon)
+                  }
+                  onClick={() =>
+                    handleClickOpen({ icon: icon, name: name, id: _id })
+                  }
+                />
+                <div className={styles.cardName}>{name}</div>
+              </div>
+            );
+          })
         )}
-        <IconManipulationDialog
-          handleClose={handleClose}
-          dialogInfo={dialogInfo}
-        />
-      </Grid>
+      </div>
+      <IconManipulationDialog
+        handleClose={handleClose}
+        dialogInfo={dialogInfo}
+      />
     </div>
   );
 };

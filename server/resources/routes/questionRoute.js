@@ -39,12 +39,7 @@ questionRoute.get(
 );
 
 // Get question by ID
-questionRoute.get(
-  "/byId/:id",
-  authenticateToken,
-  checkAdmin,
-  getQuestionById
-);
+questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
 
 // Update question by ID
 questionRoute.put(
