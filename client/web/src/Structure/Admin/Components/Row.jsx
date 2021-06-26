@@ -35,40 +35,41 @@ const VerifiedSwitch = withStyles({
 
 const Row = ({ item, handleDisable, topic = item.topic }) => {
   let shortSource = item.source.split(".");
-  const dispatch = useDispatch()
+  const dispatch = useDispatch();
   const history = useHistory();
   const classes = QuestionsStyles();
   const [open, setOpen] = useState(false);
-  const [reportsOpen, setReportsOpen] = useState(false)
+  const [reportsOpen, setReportsOpen] = useState(false);
   const [disableOpen, setDisableOpen] = useState(false);
   const isVerifying = useSelector((state) => state.admin.isVerifying);
   const isDisabling = useSelector((state) => state.admin.isDisabling);
   let verified = useSelector((state) => state.admin.data?.questions?.current);
-  verified = verified?.filter((question) => question._id === item._id)[0].verified
+  verified = verified?.filter((question) => question._id === item._id)[0]
+    .verified;
 
   const verifyQuestion = (id, type) => {
-    dispatch(adminActions.verifyQuestionProcess( id, type ));
+    dispatch(adminActions.verifyQuestionProcess(id, type));
   };
 
   const handleDisableConfirm = (id, topic, type) => {
-    setDisableOpen(false)
-    handleDisable(id, topic, type)
-  }
+    setDisableOpen(false);
+    handleDisable(id, topic, type);
+  };
 
   const handleReports = () => {
-    setReportsOpen(true)
-  }
+    setReportsOpen(true);
+  };
 
   const handleResolveReports = (report_id) => {
-    dispatch(adminActions.solveReportRequest(item._id, report_id, item.type))
-    setReportsOpen(false)
-  }
+    dispatch(adminActions.solveReportRequest(item._id, report_id, item.type));
+    setReportsOpen(false);
+  };
 
-  let flags = []
-  if(item.flag.length > 0){
+  let flags = [];
+  if (item.flag.length > 0) {
     flags = item.flag.filter((flag) => {
-      return flag?.status?.solved === false
-    })
+      return flag?.status?.solved === false;
+    });
   }
 
   return (
@@ -84,35 +85,36 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
       </TableCell>
       <TableCell>{topic}</TableCell>
       <TableCell>{item.type}</TableCell>
-      <TableCell 
-        className={classes.reports} 
-        onClick = {handleReports}
-      >
+      <TableCell className={classes.reports} onClick={handleReports}>
         {flags.length}
       </TableCell>
       <TableCell>
         <Button
-          variant="contained"
+          variant='contained'
           className={classes.save}
           onClick={() =>
-            history.push(`/admin/questions/edit/${topic}/${item.type}/${item._id}`)
+            history.push(
+              `/admin/questions/edit/${topic}/${item.type}/${item._id}`
+            )
           }
         >
           Edit
         </Button>
       </TableCell>
       <TableCell>
-        {
-          isDisabling ? (
-            <IsLoading />
-          ) : <Button
-            variant="contained"
+        {isDisabling ? (
+          <IsLoading />
+        ) : (
+          <Button
+            variant='contained'
             className={classes.disable}
             onClick={() => setDisableOpen(true)}
           >
-            {(item.disabled === undefined || item.disabled === false) ? "Disable" : "Enable"}
+            {item.disabled === undefined || item.disabled === false
+              ? "Disable"
+              : "Enable"}
           </Button>
-        }
+        )}
       </TableCell>
       <TableCell>
         {isVerifying ? (
@@ -121,7 +123,7 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
           <VerifiedSwitch
             checked={verified}
             onChange={() => verifyQuestion(item._id, item.type)}
-            name="verified"
+            name='verified'
           />
         )}
       </TableCell>
@@ -183,7 +185,7 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
             )}
           </pre>
           <Button
-            variant="text"
+            variant='text'
             style={{ position: "absolute", top: "10px", right: "10px" }}
             onClick={() => setOpen(false)}
           >
@@ -192,17 +194,23 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
         </Box>
       </Modal>
       <Dialog open={disableOpen} onClose={() => setDisableOpen(false)}>
-        <DialogTitle>{`Are you sure you wanna ${(item.disabled === undefined || item.disabled === false) ? "Disable" : "Enable"}?`}</DialogTitle>
+        <DialogTitle>{`Are you sure you wanna ${
+          item.disabled === undefined || item.disabled === false
+            ? "Disable"
+            : "Enable"
+        }?`}</DialogTitle>
         <DialogActions>
-          <Button onClick={() => setDisableOpen(false)} color="primary">
+          <Button onClick={() => setDisableOpen(false)} color='primary'>
             Cancel
           </Button>
           <Button
             onClick={() => handleDisableConfirm(item._id, topic, item.type)}
-            color="primary"
+            color='primary'
             autoFocus
           >
-            {(item.disabled === undefined || item.disabled === false) ? "Disable" : "Enable"}
+            {item.disabled === undefined || item.disabled === false
+              ? "Disable"
+              : "Enable"}
           </Button>
         </DialogActions>
       </Dialog>
@@ -213,38 +221,36 @@ const Row = ({ item, handleDisable, topic = item.topic }) => {
             <TopicChip topicDisplay={topic} />
           </Box>
           <div>
-            {
-              flags.length === 0 
-              ? <div style = {{textAlign: "center", margin: "20%"}}>No reports</div>
-              : <div style = {{margin: "5% 0"}}>
-                {
-                  flags.map((flag, i) => {
-                    return(
-                      <div key = {i} style = {{display: "flex", margin: "10px 0"}}>
-                        <div style = {{margin: "0 10px"}}>
-                          {flag._id}  
-                        </div>
-                        <div style = {{margin: "0 10px", width: "30%"}}>
-                          {flag.reason.join(", ")}
-                        </div>
-                        <div style = {{margin: "0 10px", width: "30%"}}>
-                          {flag.description}
-                        </div>
-                        <div style = {{margin: "0 10px"}}>
-                          {flag.time}
-                        </div>
-                        <div style = {{margin: "0 10px"}}>
-                          <button onClick = {() => handleResolveReports(flag._id)}>Resolve report</button>
-                        </div>
-                      </div>
-                    )
-                  })
-                }
+            {flags.length === 0 ? (
+              <div style={{ textAlign: "center", margin: "20%" }}>
+                No reports
               </div>
-            }
+            ) : (
+              <div style={{ margin: "5% 0" }}>
+                {flags.map((flag, i) => {
+                  return (
+                    <div key={i} style={{ display: "flex", margin: "10px 0" }}>
+                      <div style={{ margin: "0 10px" }}>{flag._id}</div>
+                      <div style={{ margin: "0 10px", width: "30%" }}>
+                        {flag.reason.join(", ")}
+                      </div>
+                      <div style={{ margin: "0 10px", width: "30%" }}>
+                        {flag.description}
+                      </div>
+                      <div style={{ margin: "0 10px" }}>{flag.time}</div>
+                      <div style={{ margin: "0 10px" }}>
+                        <button onClick={() => handleResolveReports(flag._id)}>
+                          Resolve report
+                        </button>
+                      </div>
+                    </div>
+                  );
+                })}
+              </div>
+            )}
           </div>
           <Button
-            variant="text"
+            variant='text'
             style={{ position: "absolute", top: "10px", right: "10px" }}
             onClick={() => setReportsOpen(false)}
           >

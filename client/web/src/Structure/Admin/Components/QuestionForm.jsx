@@ -14,7 +14,7 @@ import {
 } from "@material-ui/core";
 import { QuestionFormStyles } from "../Styles/QuestionFormStyles";
 import { useHistory } from "react-router";
-import {Navbar} from '../../Navbar/index'
+import { Navbar } from "../../Navbar/index";
 
 const QuestionForm = (props) => {
   const { data, topic } = props;
@@ -28,7 +28,7 @@ const QuestionForm = (props) => {
     skipped: 0,
     correct: 0,
     wrong: 0,
-  }
+  };
   const questionData = {
     topic: data === undefined ? "JAVASCRIPT" : topic,
     type: data === undefined ? "MCQ" : data.type,
@@ -59,7 +59,7 @@ const QuestionForm = (props) => {
     verified: data === undefined ? false : data.verified,
     disabled: data === undefined ? false : data.disabled,
     flag: data === undefined ? [] : data.flag,
-    stats: data === undefined ? stats : data.stats
+    stats: data === undefined ? stats : data.stats,
   };
 
   const [question, setQuestion] = useState(questionData);
@@ -89,67 +89,90 @@ const QuestionForm = (props) => {
   const handleSubmit = (e) => {
     e.preventDefault();
     let payload;
+    let exp = question.explanation === undefined ? "N/A" : question.explanation;
 
     if (question.type === "MCQ") {
       payload = {
         type: "MCQ",
         statement: question.statement,
-        explanation: question.explanation,
+        explanation: exp,
         source: question.source,
-        options: question.options.map(({ text }, ind) => ({
+        options: question?.options?.map(({ text }, ind) => ({
           text: text,
           correct: question.mcqAnswer === ind,
         })),
         verified: question.verified,
         disabled: question.disabled,
         flag: question.flag,
-        stats: question.stats 
+        stats: question.stats,
       };
     } else if (question.type === "TF") {
       payload = {
         type: "TF",
         statement: question.statement,
-        explanation: question.explanation,
+        explanation: exp,
         correct: question.tfAnswer,
         source: question.source,
         verified: question.verified,
         disabled: question.disabled,
         flag: question.flag,
-        stats: question.stats 
+        stats: question.stats,
       };
-    } else {
+    } else if (question.type === "SHORT") {
       payload = {
-        type: "SHORT",
+        type: question.type,
         statement: question.statement,
         answer: question.shortAnswer,
-        explanation: question.explanation,
+        explanation: exp,
         source: question.source,
         verified: question.verified,
         disabled: question.disabled,
         flag: question.flag,
-        stats: question.stats 
+        stats: question.stats,
+      };
+    } else {
+      payload = {
+        type: question.type,
+        statement: question.statement,
+        answer: question.shortAnswer,
+        explanation: exp,
+        source: question.source,
+        verified: question.verified,
+        disabled: question.disabled,
+        flag: question.flag,
+        likes: data.likes === undefined ? 0 : data.likes,
       };
     }
     if (data === undefined) {
-      dispatch(adminActions.addQuestionsRequest(payload, question.topic));
+      dispatch(
+        adminActions.addQuestionsRequest(payload, question.topic, question.type)
+      ).then(() => {
+        history.goBack();
+      });
     } else {
       dispatch(
-        adminActions.updateQuestionsRequest(payload, data._id, question.topic)
-      );
+        adminActions.updateQuestionsRequest(
+          payload,
+          data._id,
+          question.topic,
+          question.type
+        )
+      ).then(() => {
+        history.goBack();
+      });
     }
-    history.goBack();
   };
   return (
     <>
-      <Navbar/>
+      <Navbar />
       <div className={classes.root}>
         <form onSubmit={handleSubmit}>
           <Box className={classes.horizontalStyle}>
             <Box>
-              <InputLabel htmlFor="topic">Select Topic</InputLabel>
+              <InputLabel htmlFor='topic'>Select Topic</InputLabel>
               <Select
-                name="topic"
-                id="topic"
+                name='topic'
+                id='topic'
                 value={question.topic}
                 onChange={(e) => handleChange(e.target)}
               >
@@ -162,16 +185,17 @@ const QuestionForm = (props) => {
             </Box>
 
             <Box>
-              <InputLabel htmlFor="type">Select Type</InputLabel>
+              <InputLabel htmlFor='type'>Select Type</InputLabel>
               <Select
-                name="type"
-                id="type"
+                name='type'
+                id='type'
                 value={question.type}
                 onChange={(e) => handleChange(e.target)}
               >
-                <option value="MCQ">MCQ</option>
-                <option value="TF">TF</option>
-                <option value="SHORT">SHORT</option>
+                <option value='MCQ'>MCQ</option>
+                <option value='TF'>TF</option>
+                <option value='SHORT'>SHORT</option>
+                <option value='LONG'>LONG</option>
               </Select>
             </Box>
           </Box>
@@ -183,9 +207,9 @@ const QuestionForm = (props) => {
               rowsMin={5}
               onChange={(e) => handleChange(e.target)}
               value={question.statement}
-              id="statement"
-              name="statement"
-              placeholder="Statement"
+              id='statement'
+              name='statement'
+              placeholder='Statement'
             />
           </FormControl>
 
@@ -195,9 +219,9 @@ const QuestionForm = (props) => {
               rowsMin={5}
               onChange={(e) => handleChange(e.target)}
               value={question.explanation}
-              id="explanation"
-              name="explanation"
-              placeholder="Explanation"
+              id='explanation'
+              name='explanation'
+              placeholder='Explanation'
             />
           </FormControl>
           <FormControl required>
@@ -207,9 +231,9 @@ const QuestionForm = (props) => {
               rowsMin={5}
               onChange={(e) => handleChange(e.target)}
               value={question.source}
-              id="source"
-              name="source"
-              placeholder="Source"
+              id='source'
+              name='source'
+              placeholder='Source'
             />
           </FormControl>
           {question.type === "MCQ" && (
@@ -220,12 +244,12 @@ const QuestionForm = (props) => {
                     <TextareaAutosize
                       className={classes.textAreaWidth}
                       required
-                      name="options"
+                      name='options'
                       id={ind}
                       rowsMin={5}
                       value={opt.text}
                       onChange={(e) => handleChange(e.target)}
-                      type="text"
+                      type='text'
                       placeholder={`option ${ind}`}
                       key={ind}
                     />
@@ -238,10 +262,15 @@ const QuestionForm = (props) => {
                     className={classes.horizontalStyle}
                     onChange={(e) => handleChange(e.target)}
                     value={question.mcqAnswer}
-                    name="mcqAnswer"
+                    name='mcqAnswer'
                   >
                     {question?.options?.map((opt, ind) => (
-                      <FormControlLabel value={ind} control={<Radio />} label={ind} key={ind}/>
+                      <FormControlLabel
+                        value={ind}
+                        control={<Radio />}
+                        label={ind}
+                        key={ind}
+                      />
                     ))}
                   </RadioGroup>
                 </FormControl>
@@ -251,35 +280,37 @@ const QuestionForm = (props) => {
           {question.type === "TF" && (
             <Box>
               <FormControl required>
-                <InputLabel htmlFor="tf-answer">Answer</InputLabel>
+                <InputLabel htmlFor='tf-answer'>Answer</InputLabel>
                 <Checkbox
-                  id="tf-answer"
-                  name="tfAnswer"
+                  id='tf-answer'
+                  name='tfAnswer'
                   checked={question.tfAnswer}
                   onChange={(e) => handleChange(e.target)}
                 />
               </FormControl>
             </Box>
           )}
-          {question.type === "SHORT" && (
+          {(question.type === "SHORT" || question.type === "LONG") && (
             <Box className={classes.verticalStyle}>
               <FormControl required>
-                <InputLabel htmlFor="short">Answer</InputLabel>
                 <TextareaAutosize
                   className={classes.textAreaWidth}
                   required
                   rowsMin={5}
-                  name="shortAnswer"
-                  id="short"
+                  name='shortAnswer'
+                  id='short'
                   onChange={(e) => handleChange(e.target)}
                   value={question.shortAnswer}
-                  placeholder="Answer"
+                  placeholder='Answer'
                 />
               </FormControl>
             </Box>
           )}
-          <button className={`${classes.save} ${classes.buttons}`} id="submitBtn">
-            {data === undefined ? "ADD" : "UPDATE"}
+          <button
+            className={`${classes.save} ${classes.buttons}`}
+            id='submitBtn'
+          >
+            {data === undefined ? "Add" : "Update"}
           </button>
           <button
             className={`${classes.cancel} ${classes.buttons}`}

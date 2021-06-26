@@ -145,20 +145,19 @@ const admin = (state = initState, { type, payload }) => {
         isDisabling: false,
       };
 
-    case adminConstants.DISABLE_QUESTION_ADJUSTMENT:{
+    case adminConstants.DISABLE_QUESTION_ADJUSTMENT: {
       let new_current = state?.data?.questions?.current?.map((document) => {
-        if(document._id === payload){
-          document.disabled = !document.disabled
-          return document
+        if (document._id === payload) {
+          document.disabled = !document.disabled;
+          return document;
+        } else {
+          return document;
         }
-        else{
-          return document
-        }
-      })
-      state.data.questions.current = [...new_current]
+      });
+      state.data.questions.current = [...new_current];
       return {
-        ...state
-      }
+        ...state,
+      };
     }
 
     case adminConstants.EDIT_QUESTION_LOADING:
@@ -252,20 +251,19 @@ const admin = (state = initState, { type, payload }) => {
         ...state,
         isVerifying: false,
       };
-    case adminConstants.VERIFY_QUESTION_ADJUSTMENT:{
+    case adminConstants.VERIFY_QUESTION_ADJUSTMENT: {
       let new_current = state?.data?.questions?.current?.map((document) => {
-        if(document._id === payload){
-          document.verified = !document.verified
-          return document
+        if (document._id === payload) {
+          document.verified = !document.verified;
+          return document;
+        } else {
+          return document;
         }
-        else{
-          return document
-        }
-      })
-      state.data.questions.current = [...new_current]
+      });
+      state.data.questions.current = [...new_current];
       return {
-        ...state
-      }
+        ...state,
+      };
     }
 
     case adminConstants.SOLVE_REPORT_LOADING:
@@ -288,25 +286,25 @@ const admin = (state = initState, { type, payload }) => {
         errorMessage: payload,
       };
 
-    case adminConstants.SOLVE_REPORT_ADJUSTMENT:{
-      let {status, report_id, question_id} = payload
+    case adminConstants.SOLVE_REPORT_ADJUSTMENT: {
+      let { status, report_id, question_id } = payload;
       let new_current = state?.data?.questions?.current?.map((document) => {
-        if(document._id === question_id){
+        if (document._id === question_id) {
           let new_flag = document.flag?.map((flag) => {
-            if(flag._id === report_id){
-              flag.status = status
+            if (flag._id === report_id) {
+              flag.status = status;
             }
-            return flag
-          })
-          document.flag = [...new_flag]
-          console.log(document)
+            return flag;
+          });
+          document.flag = [...new_flag];
+          console.log(document);
         }
-        return document
-      })
-      state.data.questions.current = [...new_current]
+        return document;
+      });
+      state.data.questions.current = [...new_current];
       return {
-        ...state
-      }
+        ...state,
+      };
     }
 
     default:

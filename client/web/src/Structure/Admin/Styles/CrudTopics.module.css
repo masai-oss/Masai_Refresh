@@ -1,32 +1,32 @@
-.container{
+.container {
   min-height: 100vh;
   min-width: 100vw;
   padding: 2%;
-  background-color: #EFEFF6;
+  background-color: #efeff6;
 }
 
-.container > button{
-  width:100px;
-  height:40px;
+.container > button {
+  width: 100px;
+  height: 40px;
   border: none;
   outline: none;
   border-radius: 5px;
   margin: 0 20px 20px 20px;
   font-size: 18px;
   font-weight: 500;
-  background-color: #5B6AFA;
+  background-color: #5b6afa;
   color: white;
-  box-shadow: 3px 3px 5px #C8C8C8;
+  box-shadow: 3px 3px 5px #c8c8c8;
 }
 
-.cardContainer{
+.cardContainer {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
 }
 
-.card{
-  width:330px;
+.card {
+  width: 330px;
   height: 150px;
   background-color: white;
   border: 1px solid #e6e6e6;
@@ -40,17 +40,17 @@
   margin: 20px 10px;
 }
 
-.cardName{
+.cardName {
   font-size: 25px;
   font-weight: 500;
   margin: 0 30px 0 0;
 }
 
-.cardIcon{
-  height:100px;
-  width:100px;
+.cardIcon {
+  height: 100px;
+  width: 100px;
   object-fit: cover;
   margin: 0 0 0 15px;
   border-radius: 8px;
-  border: 1px solid  #e6e6e6;
+  border: 1px solid #e6e6e6;
 }
