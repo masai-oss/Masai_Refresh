@@ -7,9 +7,12 @@ import { useDispatch } from "react-redux";
 const ForgotPassword = () => {
   const [email, setEmail] = React.useState("");
   const dispatch = useDispatch();
-  const resendOtp = () => {
-    const data = { email: email };
-    console.log(email);
+  const history = useHistory();
+  const resetPassword = () => {
+    // const data = { email: email };
+    // console.log(email);
+    // dispatch(authActions.forgetPasswordProcess(data));
+    history.push("/recover-password");
   };
   let cardContent = (
     <div className={styles.ForgotPassword}>
@@ -20,7 +23,7 @@ const ForgotPassword = () => {
         placeholder="Email"
       />
 
-      <button>Send OTP</button>
+      <button onClick={resetPassword}>Send OTP</button>
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

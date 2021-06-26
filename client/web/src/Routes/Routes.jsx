@@ -27,6 +27,9 @@ import { SignUp } from "../Structure/Auth/Components/SignUp";
 import { OTPScreen } from "../Structure/Auth/Components/OTPScreen";
 import { ResendOtp } from "../Structure/Auth/Components/ResendOtp";
 import { ForgotPassword } from "../Structure/Auth/Components/ForgotPassword";
+import { RecoverPasswordOtp } from "../Structure/Auth/Components/RecoverPasswordOtp";
+import { CreateNewPassword } from "../Structure/Auth/Components/CreateNewPassword";
+
 
 const Routes = () => {
   return (
@@ -105,15 +108,24 @@ const Routes = () => {
         <PublicRoute exact path="/sign-up" component={SignUp} />
         <PublicRoute exact path="/verify-otp" component={OTPScreen} />
         <PublicRoute exact path="/resend-otp" component={ResendOtp} />
+        <PublicRoute
+          exact
+          path="/recover-password"
+          component={RecoverPasswordOtp}
+        />
 
         <PublicRoute exact path="/forgot-password" component={ForgotPassword} />
+        <PublicRoute
+          exact
+          path="/create-new-password"
+          component={CreateNewPassword}
+        />
         <PublicRoute>
           <PageNotFound
             errorNum="404"
             message="Page Not Found"
             des="Sorry but the page you are looking for does not exist"
           />
-          
         </PublicRoute>
       </Switch>
     </>

@@ -31,7 +31,8 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isSignUp: false,
-        signUpError: "",
+        signUpError: true,
+        signUpErrorMessage:payload
       };
     // user verification
     case authConstants.USERS_VERIFICATION_REQUEST:

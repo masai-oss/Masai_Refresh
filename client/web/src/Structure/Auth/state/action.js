@@ -64,6 +64,20 @@ const resentOTPFailure = (payload) => ({
   payload,
 });
 
+const forgetPasswordRequest = () => ({
+  type: authConstants.FORGET_PASSWORD_REQUEST,
+});
+
+const forgetPasswordSuccess = (payload) => ({
+  type: authConstants.FORGET_PASSWORD_SUCCESS,
+  payload,
+});
+
+const forgetPasswordFailure = (payload) => ({
+  type: authConstants.FORGET_PASSWORD_FAILURE,
+  payload,
+});
+
 const userSignUpProcess =
   ({ name, email, password }) =>
   async (dispatch) => {
@@ -83,7 +97,8 @@ const userSignUpProcess =
     return axios(config)
       .then((res) => dispatch(userSignUpSuccess(res.data)))
       .catch((err) => {
-        console.log(err);
+        console.log(err.message, "err");
+        dispatch(userSignUpFailure(err.message));
       });
   };
 
@@ -152,7 +167,30 @@ const resendOtpProcess =
       },
     };
     return axios(config)
-      .then((res) => console.log(res))
+      .then((res) => dispatch(resentOTPSuccess(res)))
+      .catch((err) => {
+        console.log(err);
+      });
+  };
+
+//FORGET PASSWORD
+
+const forgetPasswordProcess =
+  ({ email }) =>
+  async (dispatch) => {
+    dispatch(resentOTPRequest());
+    const config = {
+      method: "POST",
+      url: `${AUTH_API_URL}/password_resst/send_otp`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: email,
+      },
+    };
+    return axios(config)
+      .then((res) => dispatch(res))
       .catch((err) => {
         console.log(err);
       });
@@ -163,4 +201,5 @@ export const authActions = {
   userVerficationProcess: userVerficationProcess,
   userSigninProcess: userSigninProcess,
   resendOtpProcess: resendOtpProcess,
+  forgetPasswordProcess: forgetPasswordProcess,
 };

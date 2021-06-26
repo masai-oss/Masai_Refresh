@@ -4,7 +4,7 @@ import styles from "../Styles/OTPScreen.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
-const OTPScreen = () => {
+const RecoverPasswordOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
@@ -25,22 +25,8 @@ const OTPScreen = () => {
     }
   };
 
-  const resendOtp = () => {
-    history.push("/resend-otp");
-    const data = {
-      email: email,
-    };
-    dispatch(authActions.resendOtpProcess(data));
-  };
-
   const verifyOtp = (e) => {
-    console.log(otp.join(""));
-    const otpType = otp.join("");
-    const data = {
-      otp: otpType,
-      email: email,
-    };
-    dispatch(authActions.userVerficationProcess(data));
+    history.push("/create-new-password");
   };
   const renderOTPBoxes = () => {
     return (
@@ -74,12 +60,9 @@ const OTPScreen = () => {
       <button onClick={verifyOtp} className={styles.OTPScreen__buttonDisabled}>
         Verify OTP
       </button>
-      <p onClick={resendOtp} className={styles.resendOTP}>
-        Resend OTP
-      </p>
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;
 };
 
-export { OTPScreen };
+export { RecoverPasswordOtp };

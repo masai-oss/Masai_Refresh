@@ -52,10 +52,7 @@ const SignUp = () => {
         />
         <button onClick={sendOtp}>Sign Up</button>
       </div>
-      <div className={styles.SignUp__footer}>
-        <p onClick={() => history.push("/forgot-password")}>Forgot Password?</p>
-        <p onClick={() => history.push("/sign-in")}>Sign In</p>
-      </div>
+      <div className={styles.SignUp__footer}></div>
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;
