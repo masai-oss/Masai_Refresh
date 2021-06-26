@@ -2,6 +2,7 @@ import React from "react";
 import "../../Styles/DetailBodySection.css";
 import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
 import { ReportDialogLong } from "../../../Common/DialogBoxes/ReportModalLong";
+import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
 
 const DetailBodySection = ({ ele, index }) => {
   console.log(ele);
@@ -9,7 +10,7 @@ const DetailBodySection = ({ ele, index }) => {
     <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">
         <span>{`Q${index + 1}. `}</span>
-        <SyntaxHighlight value={ele.statement} />
+        <SyntaxHighlight value={ele.statement} style={a11yLight} />
       </div>
       <div className="detail-section__youranswer">
         <p className="detail-section__highlighter">Your Answer</p>

@@ -38,6 +38,9 @@
 .resultNavbarsvg_greaterthan {
   filter: brightness(0) invert(1);
 }
+.resultNavbarsvg_greaterthan {
+  transform: rotateY(90);
+}
 .resultNavbar__topic {
   position: absolute;
   width: 59px;

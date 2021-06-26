@@ -14,7 +14,7 @@
   display: block;
   margin-top: 16px;
   padding-right: 4px;
-  padding-top: 2px;
+  padding-top: 8px;
 }
 .detail-section__question ::-webkit-scrollbar {
   height: 2px;
