@@ -65,6 +65,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
       }
       // snackbarBtnRef.current.click();
     }
+
     setOpen(false);
     setSelect([]);
     setDetails("");

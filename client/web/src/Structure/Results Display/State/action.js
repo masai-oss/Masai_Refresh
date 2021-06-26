@@ -112,15 +112,22 @@ const sendReport =
   async (dispatch) => {
     dispatch(sendReportRequest);
     const token = getFromStorage(storageEnums.TOKEN, "");
+
     try {
       const res = await axios({
         method: "PATCH",
         url: `${REPORT_API}/report/${question_id}`,
         headers: { Authorization: `Bearer ${token}` },
-        data: {
-          reason: reason,
-          description: des,
-        },
+
+        data:
+          des !== "" && des
+            ? {
+                reason: reason,
+                description: des,
+              }
+            : {
+                reason: reason,
+              },
       });
       dispatch(sendReportSuccess(res));
       return { output: true };
