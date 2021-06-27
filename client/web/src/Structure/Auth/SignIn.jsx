@@ -37,6 +37,7 @@ const SignIn = () => {
     dispatch(authActions.userSigninProcess(data));
   };
   React.useEffect(() => {
+    console.log("----------------Inside useeffect----------------", isSignIn);
     isSignIn && history.push("/");
   }, [isSignIn]);
 

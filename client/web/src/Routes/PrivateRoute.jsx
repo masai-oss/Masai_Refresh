@@ -1,11 +1,12 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { IsAdmin } from "../Structure/Common";
-import { useSelector } from "react-redux"
+import { useSelector } from "react-redux";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  let isAuth = useSelector((state) => state.authentication.token);
+  let isAuth = useSelector((state) => state.authenticationNew.token);
   const isAdmin = IsAdmin();
+  console.log("Is Auth in PrivateRoute:-----------------------------");
   return (
     <Route
       {...rest}
