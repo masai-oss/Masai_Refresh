@@ -5,13 +5,17 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
-const OTPScreen = () => {
+const RecoverPasswordOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  let { email, otpVerification, isLoading, ErrorMessage, userVerif } =
-    useSelector((state) => state.authenticationNew);
+  const { email, otpVerification, isLoading } = useSelector(
+    (state) => state.authenticationNew
+  );
   const dispatch = useDispatch();
+  if (isLoading) {
+    return <Spinner />;
+  }
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
@@ -25,37 +29,10 @@ const OTPScreen = () => {
     }
   };
 
-  const resendOtp = () => {
-    history.push("/resend-otp");
-    const data = {
-      email: email,
-    };
-    dispatch(authActions.resendOtpProcess(data));
-  };
-
   const verifyOtp = (e) => {
-    const otpType = otp.join("");
-    const data = {
-      otp: otpType,
-      email: email,
-    };
-    dispatch(authActions.userVerficationProcess(data));
+    dispatch(authActions.storeOtp(otp.join("")));
+    history.push("/create-new-password");
   };
-  console.log(ErrorMessage);
-  React.useEffect(() => {
-    userVerif && history.push("/sign-in");
-  }, [userVerif]);
-
-  React.useEffect(() => {
-    setTimeout(() => {
-      setOtp(new Array(4).fill(""));
-    }, 1500);
-  }, [ErrorMessage]);
-
-  if (isLoading) {
-    return <Spinner />;
-  }
-
   const renderOTPBoxes = () => {
     return (
       <>
@@ -96,13 +73,9 @@ const OTPScreen = () => {
       >
         Verify OTP
       </button>
-      <p onClick={resendOtp} className={styles.resendOTP}>
-        Resend OTP
-      </p>
-      <div style={{ color: "red" }}>{ErrorMessage}</div>
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;
 };
 
-export { OTPScreen };
+export { RecoverPasswordOtp };

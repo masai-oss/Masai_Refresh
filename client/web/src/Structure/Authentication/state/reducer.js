@@ -15,6 +15,9 @@ const initState = {
   email: getFromStorage(storageEnums.EMAIL, ""),
   profilePic: getFromStorage(storageEnums.PROFILEPIC, ""),
   logoutError: "",
+  isSignUp: false,
+  signUpError: false,
+  signUpErrorMessage: "",
 };
 
 const authentication = (state = initState, { type, payload }) => {
@@ -67,6 +70,21 @@ const authentication = (state = initState, { type, payload }) => {
         isLoggingIn: false,
         loginError: "",
         logoutError: "",
+      };
+
+    case authConstants.SIGNUP_REQUEST:
+      return state;
+    case authConstants.SIGNUP_SUCCESS:
+      return {
+        ...state,
+        isSignUp: false,
+        signUpError: "",
+      };
+    case authConstants.SIGNUP_FAILURE:
+      return {
+        ...state,
+        isSignUp: false,
+        signUpError: "",
       };
     default:
       return state;

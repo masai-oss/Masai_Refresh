@@ -23,6 +23,20 @@ const userLoginFailure = (payload) => ({
   payload,
 });
 
+const userSignUpRequest = () => ({
+  type: authConstants.USERS_SIGNUP_REQUEST,
+});
+
+const userSignUpSuccess = (payload) => ({
+  type: authConstants.USERS_SIGNUP_SUCCESS,
+  payload,
+});
+
+const userSignUpFailure = (payload) => ({
+  type: authConstants.USERS_SIGNUP_FAILURE,
+  payload,
+});
+
 const logoutRequest = () => ({
   type: authConstants.LOGOUT_REQUEST,
 });
