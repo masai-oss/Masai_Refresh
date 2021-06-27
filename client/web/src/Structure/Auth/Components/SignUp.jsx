@@ -2,8 +2,9 @@ import React from "react";
 import { AuthTemplate } from "./AuthTemplate";
 import styles from "../Styles/SignUp.module.css";
 import { history, useHistory } from "react-router-dom";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../state/action";
+import { Spinner } from "../../Common/Loader";
 const initData = {
   name: "",
   email: "",
@@ -13,18 +14,26 @@ const initData = {
 const SignUp = () => {
   const dispatch = useDispatch();
   const [userData, setUserData] = React.useState(initData);
+  const { isLoading, ErrorMessage, isSignUp } = useSelector(
+    (state) => state.authenticationNew
+  );
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
-  const sendOtp = (e) => {
-    e.preventDefault();
-    console.log(userData);
-    history.push("/verify-otp");
+  const sendOtp = () => {
     dispatch(authActions.userSignUpProcess(userData));
   };
+
+  React.useEffect(() => {
+    isSignUp && history.push("/verify-otp");
+  }, [isSignUp]);
+
   const { name, email, password } = userData;
   const history = useHistory();
+  if (isLoading) {
+    return <Spinner />;
+  }
   let cardContent = (
     <div className={styles.SignUp}>
       <p className={styles.SignUp__header}>Sign Up</p>
@@ -52,7 +61,9 @@ const SignUp = () => {
         />
         <button onClick={sendOtp}>Sign Up</button>
       </div>
-      <div className={styles.SignUp__footer}></div>
+      <div className={styles.SignUp__footer}>
+        {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
+      </div>
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

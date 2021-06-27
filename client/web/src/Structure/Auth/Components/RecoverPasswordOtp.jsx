@@ -57,7 +57,14 @@ const RecoverPasswordOtp = () => {
         Please enter the OTP sent to <span>{email}</span>
       </p>
       {renderOTPBoxes()}
-      <button onClick={verifyOtp} className={styles.OTPScreen__buttonDisabled}>
+      <button
+        onClick={verifyOtp}
+        className={
+          otp.join("").length < 4
+            ? styles.OTPScreen__buttonDisabled
+            : styles.OTPScreen__buttonEnabled
+        }
+      >
         Verify OTP
       </button>
     </div>

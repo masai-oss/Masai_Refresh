@@ -78,6 +78,22 @@ const forgetPasswordFailure = (payload) => ({
   payload,
 });
 
+// reset password 
+
+const resetPasswordRequest = () => ({
+  type: authConstants.RESET_PASSWORD_REQUEST,
+});
+
+const resetPasswordSuccess = (payload) => ({
+  type: authConstants.RESET_PASSWORD_SUCCESS,
+  payload,
+});
+
+const resetPasswordFailure = (payload) => ({
+  type: authConstants.RESET_PASSWORD_FAILURE,
+  payload,
+});
+
 const userSignUpProcess =
   ({ name, email, password }) =>
   async (dispatch) => {
@@ -97,8 +113,8 @@ const userSignUpProcess =
     return axios(config)
       .then((res) => dispatch(userSignUpSuccess(res.data)))
       .catch((err) => {
-        console.log(err.message, "err");
-        dispatch(userSignUpFailure(err.message));
+        console.log(err.response, "err");
+        dispatch(userSignUpFailure(err.response.data));
       });
   };
 
@@ -122,7 +138,8 @@ const userVerficationProcess =
     return axios(config)
       .then((res) => dispatch(userVerificationSuccess(res.data)))
       .catch((err) => {
-        console.log(err);
+        dispatch(userVerificationFailure(err.response.data));
+        console.log(err.response);
       });
   };
 
@@ -143,11 +160,20 @@ const userSigninProcess =
         password: password,
       },
     };
-    return axios(config)
-      .then((res) => dispatch(userSigninSuccess(res.data)))
-      .catch((err) => {
-        console.log(err);
-      });
+
+    try {
+      const res = await axios(config);
+      const { user, token } = res.data
+      const { name, email, profilePic, _id } = user
+      saveToStorage(storageEnums.USER_ID, _id)
+      saveToStorage(storageEnums.TOKEN, token)
+      saveToStorage(storageEnums.NAME, name);
+      saveToStorage(storageEnums.EMAIL, email);
+      saveToStorage(storageEnums.PROFILEPIC, profilePic);
+      return dispatch(userSigninSuccess(res.data));
+    } catch (err) {
+      return dispatch(userSigninFailure(err.response));
+    }
   };
 
 // Resend OTP
@@ -178,7 +204,7 @@ const resendOtpProcess =
 const forgetPasswordProcess =
   ({ email }) =>
   async (dispatch) => {
-    dispatch(resentOTPRequest());
+    dispatch(forgetPasswordRequest());
     const config = {
       method: "POST",
       url: `${AUTH_API_URL}/password_resst/send_otp`,
@@ -190,11 +216,38 @@ const forgetPasswordProcess =
       },
     };
     return axios(config)
-      .then((res) => dispatch(res))
+      .then((res) => dispatch(forgetPasswordSuccess(res.status)))
       .catch((err) => {
-        console.log(err);
+        dispatch(forgetPasswordFailure(err.response.data));
+        console.log("errrrrrrrr", err.response.data);
       });
-  };
+    };
+  
+    //RESET PASSWORD
+
+    const resetetPasswordProcess =
+  ({ email,password,otp }) =>
+  async (dispatch) => {
+    dispatch(resetPasswordRequest());
+    const config = {
+      method: "POST",
+      url: `${AUTH_API_URL}/password_reset`,
+      headers: {
+        "Content-Type": "application/json",
+      },
+      data: {
+        email: email,
+        new_password: password,
+        OTP:otp
+      },
+    };
+    return axios(config)
+      .then((res) => console.log(res))
+      .catch((err) => {
+        dispatch(resetPasswordFailure(err.response.data));
+        console.log("errrrrrrrr", err.response.data);
+      });
+    };
 
 export const authActions = {
   userSignUpProcess: userSignUpProcess,
@@ -202,4 +255,5 @@ export const authActions = {
   userSigninProcess: userSigninProcess,
   resendOtpProcess: resendOtpProcess,
   forgetPasswordProcess: forgetPasswordProcess,
+  resetetPasswordProcess: resetetPasswordProcess,
 };
