@@ -9,9 +9,8 @@ const OTPScreen = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  let { email, otpVerification, isLoading, ErrorMessage } = useSelector(
-    (state) => state.authenticationNew
-  );
+  let { email, otpVerification, isLoading, ErrorMessage, userVerif } =
+    useSelector((state) => state.authenticationNew);
   const dispatch = useDispatch();
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -44,8 +43,8 @@ const OTPScreen = () => {
   };
   console.log(ErrorMessage);
   React.useEffect(() => {
-    otpVerification && history.push("/sign-in");
-  }, [otpVerification]);
+    userVerif && history.push("/sign-in");
+  }, [userVerif]);
 
   React.useEffect(() => {
     setTimeout(() => {
@@ -87,6 +86,7 @@ const OTPScreen = () => {
       </p>
       {renderOTPBoxes()}
       <button
+        disabled={otp.join("").length === 4 ? false : true}
         onClick={verifyOtp}
         className={
           otp.join("").length < 4

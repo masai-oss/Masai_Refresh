@@ -177,7 +177,7 @@ const userSigninProcess =
       saveToStorage(storageEnums.PROFILEPIC, profilePic);
       return dispatch(userSigninSuccess(res.data));
     } catch (err) {
-      return dispatch(userSigninFailure(err.response));
+      return dispatch(userSigninFailure(err.response.data));
     }
   };
 

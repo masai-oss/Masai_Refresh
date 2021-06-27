@@ -9,13 +9,12 @@ const CreateNewPassword = () => {
   const [password, setPassword] = React.useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const { email, otp, passwordRecovered, isLoading } = useSelector(
-    (state) => state.authenticationNew
-  );
+  const { email, otp, passwordRecovered, isLoading, ErrorMessage } =
+    useSelector((state) => state.authenticationNew);
   React.useEffect(() => {
     passwordRecovered && history.push("/sign-in");
   }, [passwordRecovered]);
-  
+
   console.log("email:", email);
   if (isLoading) {
     return <Spinner />;
@@ -38,6 +37,7 @@ const CreateNewPassword = () => {
         placeholder="New Password"
       />
       <button onClick={newPassword}>Change Password</button>
+      {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

@@ -371,7 +371,7 @@ const sendPasswordResetOTP = async (req, res) => {
 
   // check for email in body
   if (!email) {
-    return res.statu(400).json({
+    return res.status(400).json({
       error: true,
       message: "Send the user email",
     })

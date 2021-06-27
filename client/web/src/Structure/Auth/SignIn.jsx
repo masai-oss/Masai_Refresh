@@ -19,9 +19,10 @@ const SignIn = () => {
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
   console.log("isAuth:", isAuth);
 
-  const { isLoading, isSignIn } = useSelector(
+  const { isLoading, isSignIn, ErrorMessage } = useSelector(
     (state) => state.authenticationNew
   );
+  console.log("ErrorMessage:", ErrorMessage);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -36,7 +37,7 @@ const SignIn = () => {
     dispatch(authActions.userSigninProcess(data));
   };
   React.useEffect(() => {
-    isSignIn && history.push('/')
+    isSignIn && history.push("/");
   }, [isSignIn]);
 
   if (isLoading) {
@@ -63,6 +64,7 @@ const SignIn = () => {
         />
         <button onClick={handleSignIn}>Sign In</button>
       </div>
+      {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
       <div className={styles.SignIn__footer}>
         <p onClick={() => history.push("/forgot-password")}>Forgot Password?</p>
         <p onClick={() => history.push("/sign-up")}>Sign Up</p>

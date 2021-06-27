@@ -17,6 +17,7 @@ const initState = {
   otp: "",
   passwordRecovered: false,
   token: "",
+  userVerif: false,
 };
 
 const authenticationNew = (state = initState, { type, payload }) => {
@@ -54,21 +55,21 @@ const authenticationNew = (state = initState, { type, payload }) => {
         ...state,
         isLoading: true,
         ErrorMessage: "",
-        isSignUp: false,
+        userVerif: false,
       };
     case authConstants.USERS_VERIFICATION_SUCCESS:
       return {
         ...state,
-        otpVerification: !payload.error,
         isLoading: false,
         ErrorMessage: "",
+        userVerif: true,
       };
     case authConstants.USERS_VERIFICATION_FAILURE:
       return {
         ...state,
         isLoading: false,
         ErrorMessage: payload.message,
-        otpVerification: !payload.error,
+        userVerif: false,
       };
 
     // signin

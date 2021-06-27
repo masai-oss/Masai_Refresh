@@ -8,9 +8,7 @@ const ResendOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  const { email, otpVerification } = useSelector(
-    (state) => state.authenticationNew
-  );
+  const { email, userVerif } = useSelector((state) => state.authenticationNew);
   const dispatch = useDispatch();
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -37,7 +35,7 @@ const ResendOtp = () => {
   const renderOTPBoxes = () => {
     return (
       <>
-        {otpVerification ? (
+        {userVerif ? (
           <Redirect to="/sign-in" />
         ) : (
           <div className={styles.OTPScreen__Boxes}>
@@ -68,6 +66,7 @@ const ResendOtp = () => {
       </p>
       {renderOTPBoxes()}
       <button
+        disabled={otp.join("").length === 4 ? false : true}
         onClick={verifyOtp}
         className={
           otp.join("").length < 4

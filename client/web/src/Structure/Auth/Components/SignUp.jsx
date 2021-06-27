@@ -34,6 +34,7 @@ const SignUp = () => {
   if (isLoading) {
     return <Spinner />;
   }
+
   let cardContent = (
     <div className={styles.SignUp}>
       <p className={styles.SignUp__header}>Sign Up</p>

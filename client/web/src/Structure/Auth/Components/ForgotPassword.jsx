@@ -14,9 +14,7 @@ const ForgotPassword = () => {
   );
   const resetPassword = () => {
     const data = { email: email };
-    console.log(email);
     dispatch(authActions.forgetPasswordProcess(data));
-    history.push("/recover-password");
   };
   React.useEffect(() => {
     otpVerification && history.push("/recover-password");
@@ -36,6 +34,7 @@ const ForgotPassword = () => {
       />
 
       <button onClick={resetPassword}>Send OTP</button>
+      {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

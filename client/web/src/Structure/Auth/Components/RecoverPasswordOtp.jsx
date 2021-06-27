@@ -63,6 +63,7 @@ const RecoverPasswordOtp = () => {
       </p>
       {renderOTPBoxes()}
       <button
+        disabled={otp.join("").length === 4 ? false : true}
         onClick={verifyOtp}
         className={
           otp.join("").length < 4
