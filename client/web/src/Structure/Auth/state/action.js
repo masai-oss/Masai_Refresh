@@ -78,7 +78,7 @@ const forgetPasswordFailure = (payload) => ({
   payload,
 });
 
-// reset password 
+// reset password
 
 const resetPasswordRequest = () => ({
   type: authConstants.RESET_PASSWORD_REQUEST,
@@ -91,6 +91,11 @@ const resetPasswordSuccess = (payload) => ({
 
 const resetPasswordFailure = (payload) => ({
   type: authConstants.RESET_PASSWORD_FAILURE,
+  payload,
+});
+
+const storeOtp = (payload) => ({
+  type: authConstants.STORE_OTP,
   payload,
 });
 
@@ -163,10 +168,10 @@ const userSigninProcess =
 
     try {
       const res = await axios(config);
-      const { user, token } = res.data
-      const { name, email, profilePic, _id } = user
-      saveToStorage(storageEnums.USER_ID, _id)
-      saveToStorage(storageEnums.TOKEN, token)
+      const { user, token } = res.data;
+      const { name, email, profilePic, _id } = user;
+      saveToStorage(storageEnums.USER_ID, _id);
+      saveToStorage(storageEnums.TOKEN, token);
       saveToStorage(storageEnums.NAME, name);
       saveToStorage(storageEnums.EMAIL, email);
       saveToStorage(storageEnums.PROFILEPIC, profilePic);
@@ -216,17 +221,19 @@ const forgetPasswordProcess =
       },
     };
     return axios(config)
-      .then((res) => dispatch(forgetPasswordSuccess(res.status)))
+      .then((res) =>
+        dispatch(forgetPasswordSuccess({ status: res.status, email: email }))
+      )
       .catch((err) => {
         dispatch(forgetPasswordFailure(err.response.data));
         console.log("errrrrrrrr", err.response.data);
       });
-    };
-  
-    //RESET PASSWORD
+  };
 
-    const resetetPasswordProcess =
-  ({ email,password,otp }) =>
+//RESET PASSWORD
+
+const resetPasswordProcess =
+  ({ email, password, otp }) =>
   async (dispatch) => {
     dispatch(resetPasswordRequest());
     const config = {
@@ -238,16 +245,16 @@ const forgetPasswordProcess =
       data: {
         email: email,
         new_password: password,
-        OTP:otp
+        OTP: otp,
       },
     };
     return axios(config)
-      .then((res) => console.log(res))
+      .then((res) => dispatch(resetPasswordSuccess(res.data)))
       .catch((err) => {
         dispatch(resetPasswordFailure(err.response.data));
         console.log("errrrrrrrr", err.response.data);
       });
-    };
+  };
 
 export const authActions = {
   userSignUpProcess: userSignUpProcess,
@@ -255,5 +262,6 @@ export const authActions = {
   userSigninProcess: userSigninProcess,
   resendOtpProcess: resendOtpProcess,
   forgetPasswordProcess: forgetPasswordProcess,
-  resetetPasswordProcess: resetetPasswordProcess,
+  resetPasswordProcess: resetPasswordProcess,
+  storeOtp: storeOtp,
 };

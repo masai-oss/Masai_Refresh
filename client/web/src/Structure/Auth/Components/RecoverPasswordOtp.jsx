@@ -4,14 +4,18 @@ import styles from "../Styles/OTPScreen.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
+import { Spinner } from "../../Common/Loader";
 const RecoverPasswordOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  const { email, otpVerification } = useSelector(
+  const { email, otpVerification, isLoading } = useSelector(
     (state) => state.authenticationNew
   );
   const dispatch = useDispatch();
+  if (isLoading) {
+    return <Spinner />;
+  }
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
@@ -26,6 +30,7 @@ const RecoverPasswordOtp = () => {
   };
 
   const verifyOtp = (e) => {
+    dispatch(authActions.storeOtp(otp.join("")));
     history.push("/create-new-password");
   };
   const renderOTPBoxes = () => {

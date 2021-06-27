@@ -7,12 +7,16 @@ LogRocket.init("zpsfu7/refresh-localhost");
 
 const initState = {
   isSignUp: false,
+  isSignIn: false,
   isLoading: false,
   signUpError: false,
   ErrorMessage: "",
   email: "",
   otpVerification: false,
   userData: [],
+  otp: "",
+  passwordRecovered: false,
+  token: "",
 };
 
 const authenticationNew = (state = initState, { type, payload }) => {
@@ -69,15 +73,28 @@ const authenticationNew = (state = initState, { type, payload }) => {
 
     // signin
     case authConstants.USERS_SIGNIN_REQUEST:
-      return state;
+      return {
+        ...state,
+        isLoading: true,
+        ErrorMessage: "",
+        isSignIn: false,
+        token: "",
+      };
     case authConstants.USERS_SIGNIN_SUCCESS:
       return {
         ...state,
+        isLoading: false,
         userData: payload.user,
+        ErrorMessage: "",
+        isSignIn: true,
+        token: payload.token,
       };
     case authConstants.USERS_SIGNIN_FAILURE:
       return {
         ...state,
+        isLoading: false,
+        ErrorMessage: payload.message,
+        isSignIn: false,
       };
 
     //forget password
@@ -92,8 +109,9 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        otpVerification: payload == 200 ? true : false,
+        otpVerification: payload.status == 200 ? true : false,
         ErrorMessage: "",
+        email: payload.email,
       };
     case authConstants.FORGET_PASSWORD_FAILURE:
       return {
@@ -101,6 +119,36 @@ const authenticationNew = (state = initState, { type, payload }) => {
         isLoading: false,
         ErrorMessage: payload.message,
         otpVerification: !payload.error,
+      };
+    //store OTP
+
+    case authConstants.STORE_OTP:
+      return {
+        ...state,
+        otp: payload,
+      };
+
+    // reset password
+    case authConstants.RESET_PASSWORD_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        ErrorMessage: "",
+        passwordRecovered: false,
+      };
+    case authConstants.RESET_PASSWORD_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        passwordRecovered: true,
+        ErrorMessage: "",
+      };
+    case authConstants.RESET_PASSWORD_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        ErrorMessage: payload.message,
+        passwordRecovered: !payload.error,
       };
     default:
       return state;

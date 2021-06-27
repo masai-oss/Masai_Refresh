@@ -1,9 +1,12 @@
 import React from "react";
 import { AuthTemplate } from "./Components/AuthTemplate";
 import styles from "./Styles/SignIn.module.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "./state/action";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import { Spinner } from "../Common";
+import { getFromStorage } from "../../Utils/localStorageHelper";
+import { storageEnums } from "../../Enums/storageEnums";
 const initData = {
   email: "",
   password: "",
@@ -11,7 +14,14 @@ const initData = {
 const SignIn = () => {
   const [userData, setUserData] = React.useState(initData);
   const { email, password } = userData;
+  const history = useHistory();
   const dispatch = useDispatch();
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
+  console.log("isAuth:", isAuth);
+
+  const { isLoading, isSignIn } = useSelector(
+    (state) => state.authenticationNew
+  );
 
   const handleChange = (e) => {
     const { name, value } = e.target;
@@ -25,7 +35,13 @@ const SignIn = () => {
     };
     dispatch(authActions.userSigninProcess(data));
   };
-  const history = useHistory();
+  React.useEffect(() => {
+    isSignIn && history.push('/')
+  }, [isSignIn]);
+
+  if (isLoading) {
+    return <Spinner />;
+  }
 
   const cardContent = (
     <div className={styles.SignIn}>
