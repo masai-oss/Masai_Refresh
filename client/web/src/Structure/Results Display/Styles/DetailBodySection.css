@@ -74,7 +74,6 @@
   margin: 0;
   padding: 0;
   width: 397px;
-  min-height: 48px;
   font-size: 14px;
   line-height: 170%;
   color: #333434;
@@ -83,7 +82,6 @@
 .detail-section__source {
   margin: 0;
   padding: 0;
-  width: 167px;
   height: 20px;
   font-family: Open Sans;
   font-style: normal;
@@ -93,6 +91,7 @@
   letter-spacing: 0.3px;
   color: #9f9f9f;
   margin: 0 32px 16px;
+  cursor: pointer;
 }
 .detail-section__highlighter {
   margin: 0;
@@ -110,7 +109,7 @@
   line-height: 170%;
   color: #333434;
 }
-.detail-section__reportquestion {
+/* .detail-section__reportquestion {
   margin: 0;
   padding: 0;
   font-family: Open Sans;
@@ -127,13 +126,13 @@
 .detail-section__reportquestion:hover {
   text-decoration: underline;
   text-decoration-color: #6c8d9e;
-}
+} */
 .detail-section__reportsvgbox {
   margin: 0;
   padding: 0;
   display: flex;
   align-items: center;
-  margin: 0 0 34px 32px;
+  margin: -10px 0 34px 32px;
 }
 .detail-section__hr {
   border: 1.5px solid #e5e5e5;

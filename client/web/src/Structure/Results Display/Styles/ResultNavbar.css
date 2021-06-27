@@ -32,22 +32,22 @@
   align-items: center;
 }
 .resultNavbar__backhome > img {
-  margin-right: 7px;
+  margin-right: 10px;
   color: #ffffff;
 }
 .resultNavbarsvg_greaterthan {
   filter: brightness(0) invert(1);
 }
 .resultNavbarsvg_greaterthan {
-  transform: rotateY(90);
+  transform: rotate(180deg);
 }
 .resultNavbar__topic {
   position: absolute;
-  width: 59px;
   height: 30px;
   left: 1216px;
   top: 24px;
-
+  display: flex;
+  justify-content: space-between;
   font-family: Open Sans;
   font-style: normal;
   font-weight: 600;
