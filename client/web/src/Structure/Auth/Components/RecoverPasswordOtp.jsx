@@ -2,16 +2,14 @@ import React from "react";
 import { AuthTemplate } from "./AuthTemplate";
 import styles from "../Styles/OTPScreen.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
 const RecoverPasswordOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  const { email, otpVerification, isLoading } = useSelector(
-    (state) => state.authenticationNew
-  );
+  const { email, isLoading } = useSelector((state) => state.authenticationNew);
   const dispatch = useDispatch();
   if (isLoading) {
     return <Spinner />;

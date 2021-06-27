@@ -21,14 +21,12 @@ async function dumpData(filter, update) {
         new: true,
       },
       (err, doc) => {
-        if (err) return console.log(`Error ${err}`);
-        console.log(doc);
+        if (err) return;
+
         db.close();
       }
     );
-  } catch (err) {
-    console.log(`Error ${err}`);
-  }
+  } catch (err) {}
 }
 
 function createNewTopicDocument(language, data) {
@@ -39,7 +37,7 @@ function createNewTopicDocument(language, data) {
   });
   doc.save((err, doc) => {
     if (err) return console.error(err);
-    console.log(`Success ${language}`);
+
     db.close();
   });
 }

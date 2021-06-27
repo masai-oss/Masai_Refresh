@@ -5,7 +5,6 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
 const ResendOtp = () => {
-  const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
   const { email, userVerif } = useSelector((state) => state.authenticationNew);

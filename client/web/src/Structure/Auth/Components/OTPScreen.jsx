@@ -2,15 +2,16 @@ import React from "react";
 import { AuthTemplate } from "./AuthTemplate";
 import styles from "../Styles/OTPScreen.module.css";
 import { useSelector, useDispatch } from "react-redux";
-import { useHistory, Redirect } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
 const OTPScreen = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  let { email, otpVerification, isLoading, ErrorMessage, userVerif } =
-    useSelector((state) => state.authenticationNew);
+  let { email, isLoading, ErrorMessage, userVerif } = useSelector(
+    (state) => state.authenticationNew
+  );
   const dispatch = useDispatch();
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;

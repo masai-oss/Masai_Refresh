@@ -1,7 +1,7 @@
 import React from "react";
 import { AuthTemplate } from "./AuthTemplate";
 import styles from "../Styles/SignUp.module.css";
-import { history, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
