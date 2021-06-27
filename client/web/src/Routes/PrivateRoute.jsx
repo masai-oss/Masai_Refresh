@@ -4,7 +4,7 @@ import { IsAdmin } from "../Structure/Common";
 import { useSelector } from "react-redux"
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
-  let isAuth = useSelector((state) => state.authenticationNew.token);
+  let isAuth = useSelector((state) => state.authentication.token);
   const isAdmin = IsAdmin();
   return (
     <Route
