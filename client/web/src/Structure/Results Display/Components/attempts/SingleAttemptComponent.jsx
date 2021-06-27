@@ -11,7 +11,6 @@ const SingleAttemptComponent = ({
       ? "singleattempt__container select-attempt__container"
       : "singleattempt__container";
   if (attempt_id === select) {
-    console.log("this is from singleAttempt");
   }
 
   return (

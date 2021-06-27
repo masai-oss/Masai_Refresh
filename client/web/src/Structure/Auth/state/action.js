@@ -118,7 +118,6 @@ const userSignUpProcess =
     return axios(config)
       .then((res) => dispatch(userSignUpSuccess(res.data)))
       .catch((err) => {
-        console.log(err.response, "err");
         dispatch(userSignUpFailure(err.response.data));
       });
   };
@@ -144,7 +143,6 @@ const userVerficationProcess =
       .then((res) => dispatch(userVerificationSuccess(res.data)))
       .catch((err) => {
         dispatch(userVerificationFailure(err.response.data));
-        console.log(err.response);
       });
   };
 
@@ -199,9 +197,7 @@ const resendOtpProcess =
     };
     return axios(config)
       .then((res) => dispatch(resentOTPSuccess(res)))
-      .catch((err) => {
-        console.log(err);
-      });
+      .catch((err) => {});
   };
 
 //FORGET PASSWORD
@@ -226,7 +222,6 @@ const forgetPasswordProcess =
       )
       .catch((err) => {
         dispatch(forgetPasswordFailure(err.response.data));
-        console.log("errrrrrrrr", err.response.data);
       });
   };
 
@@ -252,7 +247,6 @@ const resetPasswordProcess =
       .then((res) => dispatch(resetPasswordSuccess(res.data)))
       .catch((err) => {
         dispatch(resetPasswordFailure(err.response.data));
-        console.log("errrrrrrrr", err.response.data);
       });
   };
 

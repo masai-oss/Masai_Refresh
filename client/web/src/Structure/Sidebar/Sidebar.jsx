@@ -15,22 +15,19 @@ const ZOHO_LOGOUT_URL = process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
 const Sidebar = ({ setRightSideContent }) => {
   const [displayProfileMenu, setDisplayProfileMenu] = React.useState(false);
 
-  console.log("Current active Url --------------: ", window.location.pathname);
   const history = useHistory();
   const dispatch = useDispatch();
   const crnAuth = CrnAuth();
   const logout = () => {
-    console.log("Google");
     window.open(GOOGLE_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
   const zohoLogout = () => {
-    console.log("Zoho");
     window.open(ZOHO_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
   // const handleListItemClick = (id, e) => {
-  //   console.log(e.currentTarget);
+  //
   //   setRightSideContent(id);
   //   setCurrentActiveTab(id);
   // };

@@ -24,7 +24,6 @@ const ResendOtp = () => {
   };
 
   const verifyOtp = (e) => {
-    console.log(otp.join(""));
     const otpType = otp.join("");
     const data = {
       otp: otpType,

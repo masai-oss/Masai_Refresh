@@ -10,7 +10,6 @@ const PreviousAttempts = (props) => {
   );
   let dispatch = useDispatch();
   const clickHandler = (id) => {
-    console.log("Id: ", id);
     dispatch(
       resultAction.getResult({ attempt_id: id, topicId: props.topicID })
     );
@@ -60,7 +59,7 @@ export { PreviousAttempts };
 // let dispatch = useDispatch();
 //   let topicId = params.topicId;
 //   let topicName = params.topicName;
-//   console.log("Topic id : ", topicId);
+//
 //   useEffect(() => {
 //     dispatch(getPreviousAttempts(topicId));
 //   }, []);
@@ -70,4 +69,4 @@ export { PreviousAttempts };
 //   );
 // let params = useParams();
 
-//   console.log("Previous attempts are : ", previousAttempts, topicName, topicId);
+//

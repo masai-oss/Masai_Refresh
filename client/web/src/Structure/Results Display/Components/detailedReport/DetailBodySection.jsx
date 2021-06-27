@@ -4,7 +4,6 @@ import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
 import { ReportDialogLong } from "../../../Common/DialogBoxes/ReportModalLong";
 
 const DetailBodySection = ({ ele, index }) => {
-  console.log(ele);
   return (
     <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">

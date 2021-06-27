@@ -1,6 +1,6 @@
 import React from "react";
-import styles from "../Styles/AuthTemplate.module.css";
 import logo from "../../../Assets/logo.svg";
+import styles from "../Styles/AuthTemplate.module.css";
 const AuthTemplate = ({ cardContent }) => {
   return (
     <div className={styles.Auth}>

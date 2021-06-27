@@ -6,16 +6,14 @@ import { useHistory } from "react-router-dom";
 import { Spinner } from "../../Common/Loader";
 const Bookmarks = ({ topicId }) => {
   const history = useHistory();
-  console.log("Topic Id: ", topicId);
+
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getTopicWiseBookmarks(topicId));
   }, []);
   const { topicwiseBookmarks } = useSelector((state) => state.myBookmarks);
-  console.log("Topic wise bookmarks:", topicwiseBookmarks);
 
   const showQuestion = (questionId) => {
-    console.log("Question id: ", questionId);
     history.push(`/bookmarks/${topicId}/${questionId}`);
   };
 

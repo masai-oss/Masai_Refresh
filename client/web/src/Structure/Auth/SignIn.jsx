@@ -17,19 +17,16 @@ const SignIn = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
-  console.log("isAuth:", isAuth);
 
   const { isLoading, isSignIn, ErrorMessage } = useSelector(
     (state) => state.authenticationNew
   );
-  console.log("ErrorMessage:", ErrorMessage);
 
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
   };
   const handleSignIn = () => {
-    console.log(userData);
     const data = {
       email: email,
       password: password,
@@ -37,7 +34,6 @@ const SignIn = () => {
     dispatch(authActions.userSigninProcess(data));
   };
   React.useEffect(() => {
-    console.log("----------------Inside useeffect----------------", isSignIn);
     isSignIn && history.push("/");
   }, [isSignIn]);
 

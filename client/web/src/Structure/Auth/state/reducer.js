@@ -30,7 +30,6 @@ const authenticationNew = (state = initState, { type, payload }) => {
         isLoading: true,
       };
     case authConstants.USERS_SIGNUP_SUCCESS:
-      console.log("email", payload.data.email);
       return {
         ...state,
         isLoading: false,
@@ -40,7 +39,6 @@ const authenticationNew = (state = initState, { type, payload }) => {
         ErrorMessage: "",
       };
     case authConstants.USERS_SIGNUP_FAILURE:
-      console.log(payload);
       return {
         ...state,
         isLoading: false,

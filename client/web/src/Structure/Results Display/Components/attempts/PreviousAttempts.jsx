@@ -7,13 +7,11 @@ import "../../Styles/PreviousAttempts.css";
 import { resultAction } from "../../index";
 
 const PreviousAttempts = (props) => {
-  console.log("My Props are: ", props);
   const prev_attempt_id = useSelector(
     (state) => state.resultReducer.prev_attempt_result
   );
   let dispatch = useDispatch();
   const clickHandler = (id) => {
-    console.log("Id: ", id);
     dispatch(
       resultAction.getResult({ attempt_id: id, topicId: props.topicID })
     );

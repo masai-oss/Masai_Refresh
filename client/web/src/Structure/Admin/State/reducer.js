@@ -297,7 +297,6 @@ const admin = (state = initState, { type, payload }) => {
             return flag;
           });
           document.flag = [...new_flag];
-          console.log(document);
         }
         return document;
       });

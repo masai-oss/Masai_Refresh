@@ -16,7 +16,7 @@ const DashboardNew = () => {
   const renderRightSideContent = () => {
     if (window.location.pathname.includes("/bookmarks")) {
       let topicId = params.topicId;
-      console.log("Topic id in dashboard : ", topicId);
+
       return <Bookmarks topicId={topicId} />;
     }
     switch (window.location.pathname) {

@@ -41,7 +41,7 @@ const OTPScreen = () => {
     };
     dispatch(authActions.userVerficationProcess(data));
   };
-  console.log(ErrorMessage);
+
   React.useEffect(() => {
     userVerif && history.push("/sign-in");
   }, [userVerif]);

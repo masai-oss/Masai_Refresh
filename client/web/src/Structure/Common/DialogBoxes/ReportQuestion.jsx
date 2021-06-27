@@ -19,7 +19,6 @@ const ReportQuestion = ({
   });
 
   React.useEffect(() => {
-    console.log("Issue data changed---------------");
     if (
       issueData.options.length > 0
       // issueData.description.length > 0 &&
@@ -39,7 +38,7 @@ const ReportQuestion = ({
   }
   const renderIssues = () => {
     return issuesList.map((issue, index) => {
-      // console.log("Rendering: ", issueData.options);
+      //
       return (
         <p
           key={index}
@@ -57,12 +56,12 @@ const ReportQuestion = ({
   };
   const checkReportData = () => {
     if (issueData.options.length === 0) {
-      // console.log(issueData);
+      //
       setSubmitButtonEnable(false);
       return;
     }
     // else if (issueData.description === "") {
-    //   // console.log(issueData);
+    //   //
     //   alert("Description cannot be empty!");
     //   setSubmitButtonEnable(false);
     //   return;
@@ -150,7 +149,7 @@ const ReportQuestion = ({
 
   const toggleOption = (option) => {
     let updatedOptions = [...issueData.options];
-    // console.log("Before Updaing: ", issueData.options, option, updatedOptions);
+    //
     if (issueData.options.includes(option)) {
       updatedOptions = updatedOptions.filter(
         (singleOption) => singleOption !== option
@@ -159,10 +158,10 @@ const ReportQuestion = ({
       updatedOptions = [...issueData.options, option];
     }
     setIssueData({ ...issueData, options: [...updatedOptions] });
-    // console.log("After Updating: ", issueData.options, option, updatedOptions);
+    //
   };
 
-  // console.log("My Issue data us : ------------", issueData);
+  //
 
   return (
     <div>

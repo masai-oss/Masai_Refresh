@@ -15,10 +15,8 @@ const Cards = () => {
   const history = useHistory();
   const dispatch = useDispatch();
   useEffect(() => {
-    console.log("Dispatching...");
-
     dispatch(topicActions.getQuizTopics());
-    console.log("Dispatching done...");
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
   // const isLoading = useSelector((state) => state.topics.isLoading);
@@ -29,7 +27,7 @@ const Cards = () => {
     history.push(`/previous-attempts/${topic._id}/${topic.name}`);
   };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
-  console.log(quizTopicsData);
+
   const modalContent = (
     <div className={styles.modalContent}>
       <p>
@@ -52,12 +50,12 @@ const Cards = () => {
     );
     if (res.output) {
       let state = res.state;
-      console.log("Questions data : ", state);
+
       let { attempt_id, submission_id } = state;
       let question_id = state.questions[0];
       let payload = { attempt_id, submission_id, question_id };
       await dispatch(questionActions.getQuizQuestion(payload));
-      console.log("Topic id Cards: ", quizTitle, quizTitle._id);
+
       history.replace(
         `/quiz_questions?attempt_id=${attempt_id}&submission_id=${submission_id}&question_id=${question_id}&topic=${quizTitle.name}&topicId=${quizTitle._id}`
       );
@@ -68,14 +66,12 @@ const Cards = () => {
   };
 
   const renderTopicCards = () => {
-    console.log("hello");
-
     return quizTopicsData.map((topic, index) => {
-      // console.log("Last attempt : ", topic.lastAttempt);
+      //
       const lastAttemptPercent = topic.lastAttempt
         ? (topic.lastAttempt.correct / topic.lastAttempt.alloted) * 100
         : NaN;
-      // console.log("Last Attemppt %age: ", lastAttemptPercent);
+      //
       const cardContent = (
         <div className={styles.startQuiz}>
           <p>

@@ -5,7 +5,7 @@ import { storageEnums } from "../../Enums/storageEnums";
 
 const Dashboard = () => {
   let token = getFromStorage(storageEnums.TOKEN, "");
-  console.log("Token:--------------- ", token);
+
   return (
     <>{token ? <Redirect to="/quiz_topics" /> : <Redirect to="/login" />}</>
   );

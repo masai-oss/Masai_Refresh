@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import styles from "../Styles/PreviousAttempts.module.css";
-import { useParams, useHistory } from "react-router-dom";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
+import { useParams } from "react-router-dom";
+import { PageNotFound, Spinner } from "../../Common";
 import DetailedReport from "../../Results Display/Components/detailedReport/DetailedReport";
-import { Spinner, PageNotFound } from "../../Common";
 import ResultNavabar from "../../Results Display/Components/utils/ResultNavabar";
+import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
 
 const ViewPreviousAttempts = () => {
   let params = useParams();
@@ -24,12 +23,6 @@ const ViewPreviousAttempts = () => {
     (state) => state.resultReducer.prev_attempt
   );
 
-  console.log(
-    "Previous attempts are : ",
-    prev_attempt_list,
-    topicName,
-    topicId
-  );
   //   return (
   //     <div>
   //       <PreviousAttempts

@@ -17,7 +17,7 @@ import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
 import { PageNotFound } from "../Structure/Common/PageNotFound";
 import { Practice } from "../Structure/Practice";
-import IndividualQue from "../Structure/Practice/Components/IndividualQue";
+
 import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
 import { ViewPreviousAttempts } from "../Structure/DashboardNew/Components/ViewPreviousAttempts";

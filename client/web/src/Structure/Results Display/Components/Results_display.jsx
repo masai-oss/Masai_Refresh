@@ -93,11 +93,10 @@ const Results_display = () => {
   let search = window.location.search;
   const topicId = getParam("topicId", undefined, search);
 
-  console.log("Topic Id-----------------: ", topicId);
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
   );
-  console.log("Previous Attempt List-------: ", prev_attempt_list);
+
   let history = useHistory();
   useEffect(() => {
     if (isError) {
@@ -105,7 +104,7 @@ const Results_display = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("result", result);
+
   const correctSol =
     result && result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =

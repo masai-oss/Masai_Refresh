@@ -15,7 +15,6 @@ const CreateNewPassword = () => {
     passwordRecovered && history.push("/sign-in");
   }, [passwordRecovered]);
 
-  console.log("email:", email);
   if (isLoading) {
     return <Spinner />;
   }

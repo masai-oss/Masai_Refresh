@@ -6,7 +6,6 @@ import { useSelector } from "react-redux";
 const PrivateRoute = ({ component: Component, ...rest }) => {
   let isAuth = useSelector((state) => state.authenticationNew.token);
   const isAdmin = IsAdmin();
-  console.log("Is Auth in PrivateRoute:-----------------------------");
   return (
     <Route
       {...rest}

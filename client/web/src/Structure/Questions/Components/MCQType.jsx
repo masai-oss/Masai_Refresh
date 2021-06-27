@@ -20,7 +20,7 @@ import { BlurModal } from "../../Common/DialogBoxes/BlurModal";
 import { BlurModalContext } from "../../../ContextProviders/BlurModalContextProvider";
 import QuestionNav from "../../Navbar/Components/QuestionNav";
 import { LoadingButtonStyle } from "../../Common/Styles/LoadingButtonStyles";
-import {ReportDialogLong} from "../../Common/DialogBoxes/ReportModalLong"
+import { ReportDialogLong } from "../../Common/DialogBoxes/ReportModalLong";
 
 const MCQ = (props) => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
@@ -30,8 +30,7 @@ const MCQ = (props) => {
   const location = useLocation();
 
   const { attempt_id, submission_id, question_id, topic, topicId } = props;
-  console.log("Topic id mcq: ", topicId);
-  console.log();
+
   const { questionIds, question } = useSelector(
     (state) => state.questions,
     shallowEqual
@@ -135,13 +134,12 @@ const MCQ = (props) => {
   };
 
   const submitAnswers = async (skip) => {
-    
     if (!skip && attempt) {
       var res = await answerRecordSetup();
     }
     if (!(!skip && attempt) || res.output) {
       await dispatch(resultAction.getResult({ attempt_id, topicId }));
-      console.log("Topic id mcq: ", topicId);
+
       history.replace(`/results_display?topicId=${topicId}`);
     }
   };
@@ -150,12 +148,11 @@ const MCQ = (props) => {
     if (!attempt && value == -1) {
       setIsOpen(true);
     } else {
-      submitAnswers(fal, tr)
+      submitAnswers(fal, tr);
     }
-    
-  }
+  };
   const handleNextBtn = () => {
-    // console.log("Next Called...");
+    //
     if (!attempt && value == -1) {
       setIsOpen(true);
     }
@@ -270,7 +267,11 @@ const MCQ = (props) => {
         <button
           onClick={getPrevQuestion}
           first_question={question_id_index <= 0}
-          style={question_id_index <= 0 ? {border:'2px solid #999999', color:'#666666'} : null}
+          style={
+            question_id_index <= 0
+              ? { border: "2px solid #999999", color: "#666666" }
+              : null
+          }
         >
           Back
         </button>
