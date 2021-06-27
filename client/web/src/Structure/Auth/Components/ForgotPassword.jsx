@@ -27,10 +27,6 @@ const ForgotPassword = () => {
   let cardContent = (
     <div className={styles.ForgotPassword}>
       <p>Please enter your email to recover password</p>
-<<<<<<< HEAD
-      <input type="text" placeholder="Email" />
-      <button>Send OTP</button>
-=======
       <input
         type="text"
         onChange={(e) => setEmail(e.target.value)}
@@ -39,7 +35,6 @@ const ForgotPassword = () => {
 
       <button onClick={resetPassword}>Send OTP</button>
       {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
->>>>>>> 952d0edc196b19fb3cfc803e006e354883efc858
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;
