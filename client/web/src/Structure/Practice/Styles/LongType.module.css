@@ -18,6 +18,9 @@ body {
 .bookmarkNavbar > div > p {
   margin-left: 10px;
 }
+.Longtype__bookmarkicon {
+  cursor: pointer;
+}
 .question {
   height: fit-content;
   width: 800px;

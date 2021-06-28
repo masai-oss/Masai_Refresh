@@ -10,9 +10,6 @@ const SingleAttemptComponent = ({
     attempt_id === select
       ? "singleattempt__container select-attempt__container"
       : "singleattempt__container";
-  if (attempt_id === select) {
-    console.log("this is from singleAttempt");
-  }
 
   return (
     <div className={classes} onClick={() => onClickDiv(attempt_id)}>

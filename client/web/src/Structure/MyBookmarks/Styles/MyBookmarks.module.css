@@ -4,6 +4,9 @@
   padding: 50px 50px 0px 50px;
   font-weight: bold;
 }
+.MyBookmarks__header p {
+  color: #333434;
+}
 .MyBookmarks__content {
   padding: 20px 50px 60px 50px;
   display: grid;
@@ -19,6 +22,7 @@
 }
 .cardContent h3 {
   font-size: 20px;
+  color: #333434;
 }
 .cardContent button {
   background-color: #edf5ff;

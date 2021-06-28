@@ -21,9 +21,9 @@ const ReportQuestion = ({
   React.useEffect(() => {
     console.log("Issue data changed---------------");
     if (
-      issueData.options.length > 0 &&
-      issueData.description.length > 0 &&
-      issueData.description.length < 255
+      issueData.options.length > 0
+      // issueData.description.length > 0 &&
+      // issueData.description.length < 255
     ) {
       setSubmitButtonEnable(true);
     } else {
@@ -56,16 +56,18 @@ const ReportQuestion = ({
     });
   };
   const checkReportData = () => {
-    if (issueData.options.length == 0) {
+    if (issueData.options.length === 0) {
       // console.log(issueData);
       setSubmitButtonEnable(false);
       return;
-    } else if (issueData.description === "") {
-      // console.log(issueData);
-      alert("Description cannot be empty!");
-      setSubmitButtonEnable(false);
-      return;
-    } else {
+    }
+    // else if (issueData.description === "") {
+    //   // console.log(issueData);
+    //   alert("Description cannot be empty!");
+    //   setSubmitButtonEnable(false);
+    //   return;
+    // }
+    else {
       setSubmitButtonEnable(true);
       setIssueData({
         options: [],

@@ -6,6 +6,7 @@
   grid-template-columns: 20% 80%;
   background-color: white;
   height: 100vh;
+  background: #f6f8fb;
 
   /* min-height: 100vh; */
 }

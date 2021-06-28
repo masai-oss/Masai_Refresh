@@ -259,10 +259,15 @@ const postReport = (question_id, issueData) => async (dispatch) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    data: {
-      reason: [...issueData.options],
-      description: issueData.description,
-    },
+    data:
+      issueData.description && issueData.description !== ""
+        ? {
+            reason: [...issueData.options],
+            description: issueData.description,
+          }
+        : {
+            reason: [...issueData.options],
+          },
   };
   return axios(config)
     .then(async (res) => {

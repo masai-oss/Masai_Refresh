@@ -29,6 +29,10 @@
   background-image: url("../../../Assets/emoji.png");
   background-size: cover;
 }
+.notfound > h2 {
+  word-spacing: 6px;
+  line-height: 170%;
+}
 
 .notfound .notfound404:before {
   content: "";

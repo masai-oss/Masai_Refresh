@@ -13,14 +13,9 @@ const GOOGLE_LOGOUT_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 const ZOHO_LOGOUT_URL = process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
 
 const Sidebar = ({ setRightSideContent }) => {
-  const [toggle, setToggle] = React.useState(false);
   const [displayProfileMenu, setDisplayProfileMenu] = React.useState(false);
-  const [currentActiveTab, setCurrentActiveTab] = React.useState(
-    window.location.pathname
-  );
-  console.log("Current active Tab --------------: ", currentActiveTab);
+
   console.log("Current active Url --------------: ", window.location.pathname);
-  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
   const history = useHistory();
   const dispatch = useDispatch();
   const crnAuth = CrnAuth();
@@ -42,7 +37,6 @@ const Sidebar = ({ setRightSideContent }) => {
   const signOutModalContent = <div>Sign Out</div>;
   const handleProfileClick = () => {
     setDisplayProfileMenu(!displayProfileMenu);
-    setCurrentActiveTab("Profile");
   };
 
   return (
@@ -54,6 +48,7 @@ const Sidebar = ({ setRightSideContent }) => {
         <ul>
           <li
             onClick={(e) => {
+              setDisplayProfileMenu(false);
               history.push("/quiz_topics");
             }}
             className={
@@ -83,6 +78,7 @@ const Sidebar = ({ setRightSideContent }) => {
           </li>
           <li
             onClick={(e) => {
+              setDisplayProfileMenu(false);
               history.push("/practice_topics");
             }}
             className={
@@ -113,7 +109,8 @@ const Sidebar = ({ setRightSideContent }) => {
           <li
             onClick={(e) => handleProfileClick(e)}
             className={
-              window.location.pathname.includes("/user_profile")
+              window.location.pathname.includes("/my_bookmarks") ||
+              window.location.pathname.includes("/bookmarks")
                 ? styles.selected__list_item
                 : ""
             }
@@ -122,14 +119,16 @@ const Sidebar = ({ setRightSideContent }) => {
               src="/logos/ProfileIcon.svg"
               alt="Profile"
               className={
-                window.location.pathname.includes("/user_profile")
+                window.location.pathname.includes("/my_bookmarks") ||
+                window.location.pathname.includes("/bookmarks")
                   ? styles.svg__selected
                   : ""
               }
             />
             <h4
               className={
-                window.location.pathname.includes("/user_profile")
+                window.location.pathname.includes("/my_bookmarks") ||
+                window.location.pathname.includes("/bookmarks")
                   ? styles.selected
                   : ""
               }
@@ -175,7 +174,10 @@ const Sidebar = ({ setRightSideContent }) => {
           ) : (
             ""
           )}
-          <li onClick={crnAuth === "google" ? logout : zohoLogout}>
+          <li
+            onClick={crnAuth === "google" ? logout : zohoLogout}
+            className={styles.signOutButton}
+          >
             <img src="/logos/SignOutIcon.svg" alt="SignOut" />
             <h4>Sign Out</h4>
           </li>
