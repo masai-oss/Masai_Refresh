@@ -32,7 +32,7 @@ const DetailBodySection = ({ ele, index }) => {
       </div>
       <h4 className="detailed-report__h4">Explanation</h4>
       <div className="detailed-report__explain  detail-section__style">
-        {ele.explanation}
+        {ele.explanation !== "" ? `${ele.explanation}` : "N/A"}
       </div>
       <div
         className="detail-section__source"
