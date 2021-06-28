@@ -25,7 +25,7 @@ const Cards = () => {
   // const isError = useSelector((state) => state.topics.isError);
 
   const viewAllAttempts = (topic) => {
-    dispatch(resultAction.getResultPrevSection({ topicId: topic._id }));
+    // dispatch(resultAction.getResultPrevSection({ topicId: topic._id }));
     history.push(`/previous-attempts/${topic._id}/${topic.name}`);
   };
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);

@@ -1,12 +1,15 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { useParams } from "react-router-dom";
-import { useSelector } from "react-redux";
+import { useSelector, useDispatch } from "react-redux";
 import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
 import DetailedReport from "../../Results Display/Components/detailedReport/DetailedReport";
 import { Spinner, PageNotFound } from "../../Common";
 import ResultNavabar from "../../Results Display/Components/utils/ResultNavabar";
+import { PrevAttemptNotFound } from "./PrevAttempt/PrevAttemptNotFound";
+import { resultAction } from "../../Results Display/index";
 
 const ViewPreviousAttempts = () => {
+  let dispatch = useDispatch();
   let params = useParams();
   let topicId = params.topicId;
   let topicName = params.topicName;
@@ -14,18 +17,18 @@ const ViewPreviousAttempts = () => {
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const topicLocal = useSelector((state) => state.questions.topic);
-
+  console.log("previous Attempts", topicLocal);
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
   );
+  useEffect(() => {
+    dispatch(resultAction.getResultPrevSection({ topicId: topicId }));
+  }, []);
   return isLoading ? (
     <Spinner />
   ) : isError ? (
-    <PageNotFound
-      errorNum="400"
-      message="There were no Previous Attempts for this topic"
-    />
-  ) : topicLocal === topicName ? (
+    <PrevAttemptNotFound />
+  ) : (
     result && (
       <div>
         <ResultNavabar topic={topicName} />
@@ -38,11 +41,6 @@ const ViewPreviousAttempts = () => {
         {result && <DetailedReport result={result} />}
       </div>
     )
-  ) : (
-    <PageNotFound
-      errorNum="400"
-      message="There were no Previous Attempts for this topic"
-    />
   );
 };
 
