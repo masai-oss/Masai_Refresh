@@ -10,7 +10,6 @@ const App = () => {
   useGA();
   return (
     <div>
-      {/* <Navbar isAdmin={isAdmin} /> */}
       <PageWrapper>
         <Routes />
       </PageWrapper>
