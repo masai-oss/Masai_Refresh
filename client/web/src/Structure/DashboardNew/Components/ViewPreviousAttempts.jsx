@@ -1,14 +1,9 @@
-<<<<<<< HEAD
-import React from "react";
+import React, { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 import { PageNotFound, Spinner } from "../../Common";
 
-=======
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-import { useSelector, useDispatch } from "react-redux";
->>>>>>> css_modifications_275
+import { useDispatch } from "react-redux";
 import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
 import DetailedReport from "../../Results Display/Components/detailedReport/DetailedReport";
 import ResultNavabar from "../../Results Display/Components/utils/ResultNavabar";
@@ -48,14 +43,6 @@ const ViewPreviousAttempts = () => {
         {result && <DetailedReport result={result} />}
       </div>
     )
-<<<<<<< HEAD
-  ) : (
-    <PageNotFound
-      // errorNum="400"
-      message="There were no Previous Attempts for this topic"
-    />
-=======
->>>>>>> css_modifications_275
   );
 };
 
