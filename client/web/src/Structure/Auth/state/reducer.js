@@ -18,6 +18,7 @@ const initState = {
   passwordRecovered: false,
   token: "",
   userVerif: false,
+  logoutError: "",
 };
 
 const authenticationNew = (state = initState, { type, payload }) => {
@@ -148,6 +149,24 @@ const authenticationNew = (state = initState, { type, payload }) => {
         isLoading: false,
         ErrorMessage: payload.message,
         passwordRecovered: !payload.error,
+      };
+
+    // logout
+    case authConstants.LOGOUT_REQUEST:
+      return state;
+    case authConstants.LOGOUT_SUCCESS:
+      return {
+        ...state,
+        isSignIn: false,
+        ErrorMessage: "",
+        logoutError: "",
+      };
+    case authConstants.LOGOUT_FAILURE:
+      return {
+        ...state,
+        isSignIn: false,
+        ErrorMessage: "",
+        logoutError: "",
       };
     default:
       return state;

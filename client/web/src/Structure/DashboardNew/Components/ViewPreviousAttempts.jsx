@@ -23,7 +23,7 @@ const ViewPreviousAttempts = () => {
     <Spinner />
   ) : isError ? (
     <PageNotFound
-      errorNum="400"
+      // errorNum="400"
       message="There were no Previous Attempts for this topic"
     />
   ) : topicLocal === topicName ? (
@@ -41,7 +41,7 @@ const ViewPreviousAttempts = () => {
     )
   ) : (
     <PageNotFound
-      errorNum="400"
+      // errorNum="400"
       message="There were no Previous Attempts for this topic"
     />
   );

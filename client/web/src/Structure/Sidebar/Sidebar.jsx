@@ -3,7 +3,7 @@ import styles from "./Sidebar.module.css";
 import logo from "../../Assets/logo.svg";
 import { BlurModalContext } from "../../ContextProviders/BlurModalContextProvider";
 import { BlurModal } from "../Common/DialogBoxes/BlurModal";
-import { authActions } from "../Authentication";
+import { authActions } from "../Auth/state/action";
 import { CustomDialog, CrnAuth } from "../Common";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
@@ -11,6 +11,7 @@ import { useDispatch } from "react-redux";
 
 const GOOGLE_LOGOUT_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 const ZOHO_LOGOUT_URL = process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
+const LOGOUT_URL = process.env.REACT_APP_AUTH_LOGOUT_URL;
 
 const Sidebar = ({ setRightSideContent }) => {
   const [displayProfileMenu, setDisplayProfileMenu] = React.useState(false);
@@ -24,6 +25,11 @@ const Sidebar = ({ setRightSideContent }) => {
   };
   const zohoLogout = () => {
     window.open(ZOHO_LOGOUT_URL, "_self");
+    dispatch(authActions.logoutProcess());
+  };
+
+  const logout_user = () => {
+    window.open(LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
   // const handleListItemClick = (id, e) => {
@@ -172,7 +178,8 @@ const Sidebar = ({ setRightSideContent }) => {
             ""
           )}
           <li
-            onClick={crnAuth === "google" ? logout : zohoLogout}
+            // onClick={crnAuth === "google" ? logout : zohoLogout}
+            onClick={logout_user}
             className={styles.signOutButton}
           >
             <img src="/logos/SignOutIcon.svg" alt="SignOut" />

@@ -250,6 +250,40 @@ const resetPasswordProcess =
       });
   };
 
+// logout
+
+const logoutRequest = () => ({
+  type: authConstants.LOGOUT_REQUEST,
+});
+
+const logoutSuccess = () => ({
+  type: authConstants.LOGOUT_SUCCESS,
+});
+
+const logoutFailure = () => ({
+  type: authConstants.LOGOUT_FAILURE,
+});
+
+const logoutProcess = () => async (dispatch) => {
+  dispatch(logoutRequest());
+  try {
+    return dispatch(logoutSuccess());
+  } catch (err) {
+    return dispatch(logoutFailure());
+  } finally {
+    removeFromStorage(storageEnums.USER_ID);
+    removeFromStorage(storageEnums.TOKEN);
+    removeFromStorage(storageEnums.NAME);
+    removeFromStorage(storageEnums.EMAIL);
+    removeFromStorage(storageEnums.PROFILEPIC);
+    removeFromStorage(storageEnums.ATTEMPT_ID);
+    removeFromStorage(storageEnums.PRACTICE_RESULTS);
+    removeFromStorage(storageEnums.QUESTION_PRACTICE);
+    removeFromStorage(storageEnums.ALL_QUESTIONS_IDS);
+    removeFromStorage(storageEnums.SUBMISSION_ID);
+  }
+};
+
 export const authActions = {
   userSignUpProcess: userSignUpProcess,
   userVerficationProcess: userVerficationProcess,
@@ -258,4 +292,5 @@ export const authActions = {
   forgetPasswordProcess: forgetPasswordProcess,
   resetPasswordProcess: resetPasswordProcess,
   storeOtp: storeOtp,
+  logoutProcess: logoutProcess,
 };

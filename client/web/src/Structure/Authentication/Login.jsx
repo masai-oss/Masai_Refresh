@@ -13,7 +13,7 @@ import { useHistory } from "react-router";
 const Login = () => {
   const history = useHistory();
   const dispatch = useDispatch();
-  const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
+  const isLoggingIn = useSelector((state) => state.authenticationNew.isSignIn);
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
   useEffect(() => {
     dispatch(authActions.userLoginProcess());

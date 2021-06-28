@@ -102,7 +102,8 @@ const Routes = () => {
         <AdminRoute exact path="/admin/topics" component={CrudTopics} />
 
         {/* all public routes here */}
-        <PublicRoute path="/login" component={Login} />
+        <PublicRoute path="/login" component={SignIn} />
+
         <PublicRoute exact path="/sign-in" component={SignIn} />
         <PublicRoute exact path="/sign-up" component={SignUp} />
         <PublicRoute exact path="/verify-otp" component={OTPScreen} />
