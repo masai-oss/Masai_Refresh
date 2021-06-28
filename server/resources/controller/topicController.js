@@ -1,4 +1,5 @@
 const Topic = require("../models/Topic");
+const Practice = require("../models/Practice");
 const TopicsEnum = require("../utils/enums/TopicsEnum");
 const {
   addTopicValidation,
@@ -15,6 +16,30 @@ const getAllTopics = async (req, res) => {
       },
       { $unset: "questions" },
     ]).exec();
+
+    let practiceResult = await Practice.aggregate([
+      {
+        $addFields: {
+          noOfQuestion: { $size: "$questions" },
+        },
+      },
+      { $unset: "questions" },
+    ]).exec();
+
+    result = result.map((document) => {
+      let obj = practiceResult.find((item) => {
+        return item.name === document.name;
+      });
+      if (!obj) {
+        return document;
+      }
+      document = {
+        ...document,
+        noOfQuestion: document.noOfQuestion + obj.noOfQuestion,
+      };
+      return document;
+    });
+
     res.status(200).json({ error: false, data: result });
   } catch (err) {
     res.status(400).json({ error: true, message: `${err}` });
@@ -29,12 +54,10 @@ const getTopicById = async (req, res) => {
   try {
     let result = await Topic.findById(id).exec();
     if (!result) {
-      return res
-        .status(404)
-        .json({
-          error: true,
-          message: "Topic with the given ID does not exist",
-        });
+      return res.status(404).json({
+        error: true,
+        message: "Topic with the given ID does not exist",
+      });
     }
     res.status(200).json({ error: false, data: result });
   } catch (err) {
@@ -135,7 +158,6 @@ const deleteTopic = async (req, res) => {
     .status(400)
     .json({ error: true, message: "The API is currently not in use" });
 };
-
 
 module.exports = {
   getAllTopics,
