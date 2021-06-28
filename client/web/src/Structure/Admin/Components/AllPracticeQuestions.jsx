@@ -9,11 +9,12 @@ import {
   TableCell,
   TableBody,
   TablePagination,
+  Card,
+  CardContent,
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-export const QuestionsByTopic = ({
-  topic,
+export const AllPracticeQuestions = ({
   handleDisable,
   topics,
   page,
@@ -22,12 +23,12 @@ export const QuestionsByTopic = ({
   reportedFilter,
 }) => {
   const dispatch = useDispatch();
+  const history = useHistory();
   const data = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
   const questionAddedStatus = useSelector(
     (state) => state.admin.questionAddedStatus
   );
-  const history = useHistory();
 
   const handleChangePage = (event, newPage) => {
     const params = new URLSearchParams();
@@ -53,20 +54,18 @@ export const QuestionsByTopic = ({
     params.set("reportedFilter", reportedFilter);
     history.push({ search: params.toString() });
     dispatch(
-      adminActions.getQuestionsByTopicRequest(
-        topic,
+      adminActions.getQuestionsRequest(
         page,
         rowsPerPage,
         disabledFilter,
-        reportedFilter
+        reportedFilter,
+        "LONG"
       )
     );
-    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    questionAddedStatus,
     page,
     rowsPerPage,
-    topic,
+    questionAddedStatus,
     dispatch,
     disabledFilter,
     reportedFilter,
@@ -78,40 +77,36 @@ export const QuestionsByTopic = ({
   ) : data?.questions?.current?.length === 0 ? (
     <div style={{ textAlign: "center", marginTop: "20px" }}>No questions</div>
   ) : (
-    <>
-      <Table>
-        <TableHead>
-          <TableRow>
-            <TableCell>Id</TableCell>
-            <TableCell>Source</TableCell>
-            <TableCell>Topic</TableCell>
-            <TableCell>Type</TableCell>
-            <TableCell>Reports</TableCell>
-            <TableCell>Edit</TableCell>
-            <TableCell>Disable</TableCell>
-            <TableCell>Verified</TableCell>
-          </TableRow>
-        </TableHead>
-        <TableBody>
-          {data?.questions?.current?.length &&
-            data?.questions?.current?.map((item) => (
-              <Row
-                handleDisable={handleDisable}
-                key={item._id}
-                item={item}
-                topic={topic}
-              />
+    <Card>
+      <CardContent>
+        <Table>
+          <TableHead>
+            <TableRow>
+              <TableCell>Id</TableCell>
+              <TableCell>Source</TableCell>
+              <TableCell>Topic</TableCell>
+              <TableCell>Type</TableCell>
+              <TableCell>Reports</TableCell>
+              <TableCell>Edit</TableCell>
+              <TableCell>Disable</TableCell>
+              <TableCell>Verified</TableCell>
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {data.questions.current?.map((item) => (
+              <Row handleDisable={handleDisable} key={item._id} item={item} />
             ))}
-        </TableBody>
-      </Table>
-      <TablePagination
-        component='div'
-        count={data?.questions?.totalCount}
-        rowsPerPage={rowsPerPage}
-        page={page - 1}
-        onChangePage={handleChangePage}
-        onChangeRowsPerPage={handleChangeRowsPerPage}
-      />
-    </>
+          </TableBody>
+        </Table>
+        <TablePagination
+          component='div'
+          count={data.questions.totalCount}
+          rowsPerPage={rowsPerPage}
+          page={page - 1}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </CardContent>
+    </Card>
   );
 };

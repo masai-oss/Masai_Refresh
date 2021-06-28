@@ -4,10 +4,14 @@ import { makeStyles } from "@material-ui/core/styles";
 const NavbarStyles = makeStyles((theme) => ({
 
   appBar: {
-    backgroundColor: "#6C8D9E",
+    backgroundColor: "#0E0C28",
   },
 
   navbarName: {
+    cursor: "pointer"
+  },
+
+  navbarGrow: {
     flexGrow: 1,
   },
 
@@ -27,7 +31,8 @@ const NavbarStyles = makeStyles((theme) => ({
     fontSize: "18px",
     color: "white",
     fontFamily: "Bokor",
-    margin: 0,
+    marginTop: -7,
+    marginBottom: 4
   },
 
   signout: {

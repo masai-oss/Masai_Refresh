@@ -12,7 +12,7 @@ import {
 } from "@material-ui/core";
 import { useHistory } from "react-router-dom";
 
-export const QuestionsByTopic = ({
+export const PracticeQuestionsByTopic = ({
   topic,
   handleDisable,
   topics,
@@ -58,7 +58,8 @@ export const QuestionsByTopic = ({
         page,
         rowsPerPage,
         disabledFilter,
-        reportedFilter
+        reportedFilter,
+        "LONG"
       )
     );
     // eslint-disable-next-line react-hooks/exhaustive-deps

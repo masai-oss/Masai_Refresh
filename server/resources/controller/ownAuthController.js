@@ -42,7 +42,7 @@ const createToken = (user) => {
 }
 
 const createOTP = () => {
-  const otp = OTPGenerator.generate(6, {
+  const otp = OTPGenerator.generate(4, {
     specialChars: false,
     upperCase: false,
     alphabets: false,
@@ -73,10 +73,11 @@ const signupUser = async (req, res) => {
   }
 
   // limit to specific domain
-  const admin_domain = process.env.ADMIN_CONTROL_EMAIL.trim()
-  const user_domain = process.env.USER_CONTROL_EMAIL.trim()
+  const allowed_domain1 = process.env.ADMIN_CONTROL_EMAIL.trim()
+  const allowed_domain2 = process.env.USER_CONTROL_EMAIL.trim()
+  const admin_users = process.env.ALLOWED_ADMIN_USERS.split(" ")
   let domain = email.trim().split("@")[1]
-  if (domain !== admin_domain && domain !== user_domain) {
+  if (domain !== allowed_domain1 && domain !== allowed_domain2) {
     return res.status(400).json({
       error: true,
       message: "Invalid domain",
@@ -96,7 +97,7 @@ const signupUser = async (req, res) => {
     }
 
     // assign roles based on domain
-    let role = domain === admin_domain ? "admin" : "user"
+    let role = admin_users.includes(email) === true ? "admin" : "user"
     const to_add = {
       name,
       email,
@@ -122,6 +123,9 @@ const signupUser = async (req, res) => {
     return res.status(200).json({
       error: false,
       message: "Registration Successful",
+      data: {
+        email : email
+      }
     })
   } catch (error) {
     return res.status(500).json({
