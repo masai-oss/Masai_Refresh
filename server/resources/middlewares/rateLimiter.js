@@ -12,7 +12,7 @@ const signupAndSigninRouteLimiter = rateLimit({
 const passwordAndOtpRouteLimiter = rateLimit({
   // 5mins
   windowMs: 5 * 60 * 1000,
-  max: 5,
+  max: 6,
   message: {
     error: true,
     message: "Too many attempts. Please after sometime.",

@@ -1,6 +1,6 @@
-const mongoose = require("mongoose")
-const Schema = mongoose.Schema
-const bcrypt = require("bcryptjs")
+const mongoose = require("mongoose");
+const Schema = mongoose.Schema;
+const bcrypt = require("bcryptjs");
 
 const userSchema = new Schema(
   {
@@ -19,6 +19,10 @@ const userSchema = new Schema(
     },
     password: {
       type: String,
+    },
+    password_reset_status: {
+      type: Boolean,
+      default: false,
     },
     profilePic: String,
     oauth: [
@@ -39,41 +43,41 @@ const userSchema = new Schema(
   {
     versionKey: false,
   }
-)
+);
 
 // before saving hash password
 userSchema.pre("save", function (next) {
   // check if user changed password
   if (!this.isModified("password")) {
-    return next()
+    return next();
   }
 
   // if changed
   bcrypt.hash(this.password, 10, (error, hashed) => {
     if (error) {
-      return next(error)
+      return next(error);
     } else {
-      this.password = hashed
-      return next()
+      this.password = hashed;
+      return next();
     }
-  })
-})
+  });
+});
 
 // add method to schema that can be used check password match
 userSchema.methods.password_checker = function (password) {
   // get password from user document
-  const hashed_password = this.password
+  const hashed_password = this.password;
 
   // check if matches
   return new Promise((resolve, reject) => {
     bcrypt.compare(password, hashed_password, (error, same) => {
       if (error) {
-        return reject(error)
+        return reject(error);
       } else {
-        return resolve(same)
+        return resolve(same);
       }
-    })
-  })
-}
+    });
+  });
+};
 
-module.exports = mongoose.model("users", userSchema)
+module.exports = mongoose.model("users", userSchema);
