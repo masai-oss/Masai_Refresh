@@ -21,7 +21,7 @@ const {
   resetPasswordFormValidation,
 } = require("../utils/validation/resetPasswordFormValidation");
 
-const createToken = (user) => {
+const createToken = (user, expiry = "710h") => {
   // encryption key
   const SECRET_KEY_TO_ACCESS = process.env.SECRET_KEY_TO_ACCESS;
 
@@ -32,13 +32,27 @@ const createToken = (user) => {
   const user_data = {
     email: user.email,
     id: user._id,
-    isAdmin: isAdmin,
+    admin: isAdmin,
   };
   const token = jwt.sign(user_data, SECRET_KEY_TO_ACCESS, {
-    expiresIn: "710h",
+    expiresIn: expiry,
   });
 
   return token;
+};
+
+const decryptToken = (token) => {
+  const SECRET_KEY_TO_ACCESS = process.env.SECRET_KEY_TO_ACCESS;
+
+  return new Promise((resolve, reject) => {
+    jwt.verify(token, SECRET_KEY_TO_ACCESS, (error, payload) => {
+      if (error) {
+        return reject(error);
+      } else {
+        return resolve(payload);
+      }
+    });
+  });
 };
 
 const createOTP = () => {
@@ -261,22 +275,23 @@ const resendEmailVerficationOTP = async (req, res) => {
     const user_id = user._id;
     const name = user.name;
 
-    // check for previous OTP, if any
-    const token = await Token.findOne({ user_id: user_id }).lean().exec();
-
-    // if already exists delete that
-    if (token) {
-      await Token.deleteOne({ _id: token._id });
-    }
-
     // create OTP
     const OTP = createOTP();
     // store generated otp in token model
     const token_data = {
       user_id: user._id,
       token: String(OTP),
+      createdAt: Date.now(),
     };
-    await Token.create(token_data);
+
+    // check for previous OTP, if any update else update previous
+    await Token.updateOne(
+      { user_id: user_id },
+      { ...token_data },
+      { upsert: true }
+    )
+      .lean()
+      .exec();
 
     // send verification mail
     await send_email_verification_mail(name, email, OTP);
@@ -347,11 +362,7 @@ const signinUser = async (req, res) => {
     }
 
     // generate token for the user
-    let data_to_encrypt = {
-      ...user,
-      admin: user.role === "admin" ? true : false,
-    };
-    const token = createToken(data_to_encrypt);
+    const token = createToken(user);
 
     // form data to be sent as response
     const user_data = {
@@ -388,7 +399,7 @@ const sendPasswordResetOTP = async (req, res) => {
 
   try {
     // get the user
-    const user = await User.findOne({ email: email }).lean().exec();
+    const user = await User.findOne({ email: email }).exec();
 
     // if no such user
     if (!user) {
@@ -410,25 +421,29 @@ const sendPasswordResetOTP = async (req, res) => {
     const user_id = user._id;
     const name = user.name;
 
-    // check for previous OTP, if any
-    const token = await Token.findOne({ user_id: user_id }).lean().exec();
-
-    // if already exists delete that
-    if (token) {
-      await Token.deleteOne({ _id: token._id });
-    }
-
     // create OTP
     const OTP = createOTP();
     // store generated otp in token model
     const token_data = {
       user_id: user._id,
       token: String(OTP),
+      createdAt: Date.now(),
     };
-    await Token.create(token_data);
+
+    // check for previous OTP, if any update else update previous
+    await Token.updateOne(
+      { user_id: user_id },
+      { ...token_data },
+      { upsert: true }
+    )
+      .lean()
+      .exec();
 
     // send verification mail
     await send_password_reset_mail(name, email, OTP);
+
+    user.password_reset_status = true;
+    await user.save();
 
     return res.status(200).json({
       error: false,
@@ -443,22 +458,20 @@ const sendPasswordResetOTP = async (req, res) => {
   }
 };
 
-const passwordReset = async (req, res) => {
-  // validate form
-  const { error } = resetPasswordFormValidation(req.body);
-  if (error) {
+const passwordResetOTPVerification = async (req, res) => {
+  let { email, OTP } = req.body;
+
+  // check for OTP and email in request
+  if (!email || !OTP) {
     return res.status(400).json({
       error: true,
-      message: error.details[0].message,
+      message: "Send both email and otp",
     });
   }
 
-  let { email, new_password, OTP } = req.body;
-  new_password = new_password.trim();
-
   try {
-    // get user (removed lean as for the usage of methods in mongo object)
-    const user = await User.findOne({ email: email }).exec();
+    // get user
+    const user = await User.findOne({ email: email }).lean().exec();
 
     // if no user
     if (!user) {
@@ -499,12 +512,78 @@ const passwordReset = async (req, res) => {
       });
     }
 
-    // if Otp matches update new password in user collection
-    user.password = new_password;
-    await user.save();
+    const temporary_pass = createToken(user, "300000");
 
     // after reset delete the token/otp
     await Token.deleteOne({ _id: token._id });
+
+    return res.status(200).json({
+      error: false,
+      data: {
+        message: "OTP verified successfully",
+        temporary_pass,
+      },
+    });
+  } catch (error) {
+    return res.status(500).json({
+      error: true,
+      message: "Something went wrong",
+      reason: `${error}`,
+    });
+  }
+};
+
+const passwordReset = async (req, res) => {
+  // validate form
+  const { error } = resetPasswordFormValidation(req.body);
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: error.details[0].message,
+    });
+  }
+
+  let { new_password, pass } = req.body;
+  new_password = new_password.trim();
+
+  try {
+    // decrypt pass to get email
+    let decrypted_data;
+    try {
+      decrypted_data = await decryptToken(pass);
+    } catch (error) {
+      // if not valid send error
+      return res.status(400).json({
+        error: true,
+        message: "Invalid pass or pass expired",
+      });
+    }
+    const { email } = decrypted_data;
+
+    // get user (removed lean as for the usage of methods in mongo object)
+    const user = await User.findOne({ email: email }).exec();
+
+    // if no user
+    if (!user) {
+      return res.status(400).json({
+        error: true,
+        message: "Invalid Email",
+      });
+    }
+
+    // if already reset for a particular request
+    if (!user.password_reset_status) {
+      return res.status(400).json({
+        error: true,
+        message:
+          "Already reset or password reset reuqest hasn't been initiated",
+      });
+    }
+
+    // if Otp matches update new password in user collection
+    user.password = new_password;
+    user.password_reset_status = false;
+    await user.save();
 
     return res.status(200).json({
       error: false,
@@ -525,5 +604,6 @@ module.exports = {
   resendEmailVerficationOTP,
   signinUser,
   sendPasswordResetOTP,
+  passwordResetOTPVerification,
   passwordReset,
 };
