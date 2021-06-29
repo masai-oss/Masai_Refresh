@@ -5,18 +5,26 @@ import { useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
+import { ErrorMessageText } from "./ErrorMessageText";
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
 const initData = {
-  name: "",
-  email: "",
-  password: "",
+  name: "Nitansh Rastogi",
+  email: "nitanshofficial@gmail.com",
+  password: "12345678",
 };
 
 const SignUp = () => {
   const dispatch = useDispatch();
   const [userData, setUserData] = React.useState(initData);
-  const { isLoading, ErrorMessage, isSignUp } = useSelector(
+  const { isLoading, errorMessageSignUp, isSignUp } = useSelector(
     (state) => state.authenticationNew
   );
+
+  console.log(isLoading, isSignUp, errorMessageSignUp);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -24,13 +32,14 @@ const SignUp = () => {
   const sendOtp = () => {
     dispatch(authActions.userSignUpProcess(userData));
   };
-
+  const history = useHistory();
   React.useEffect(() => {
+    saveToStorage(storageEnums.SIGN_UP_EMAIL, userData.email);
     isSignUp && history.push("/verify-otp");
   }, [isSignUp]);
 
   const { name, email, password } = userData;
-  const history = useHistory();
+
   if (isLoading) {
     return <Spinner />;
   }
@@ -63,8 +72,13 @@ const SignUp = () => {
         <button onClick={sendOtp}>Sign Up</button>
       </div>
       <div className={styles.SignUp__footer}>
-        {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
+        <p onClick={() => history.push("/forgot-password")}>Forgot Password?</p>
+        <p onClick={() => history.push("/sign-in")}>Sign In</p>
       </div>
+      {errorMessageSignUp !== "" && errorMessageSignUp && (
+        <ErrorMessageText message={errorMessageSignUp} />
+      )}
+      {/* {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>} */}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

@@ -5,13 +5,17 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
+import { ErrorMessageText } from "./ErrorMessageText";
 const CreateNewPassword = () => {
   const [password, setPassword] = React.useState("");
+  const [confirmPassword, setconfirmPassword] = React.useState("");
+  const [passwordError, setPasswordError] = React.useState("");
   const history = useHistory();
   const dispatch = useDispatch();
-  const { email, otp, passwordRecovered, isLoading, ErrorMessage } =
+  let { email, otp, passwordRecovered, isLoading, errorMessageResetPassword } =
     useSelector((state) => state.authenticationNew);
   React.useEffect(() => {
+    setPasswordError("");
     passwordRecovered && history.push("/sign-in");
   }, [passwordRecovered]);
 
@@ -20,6 +24,13 @@ const CreateNewPassword = () => {
   }
 
   const newPassword = () => {
+    if (password !== confirmPassword) {
+      setPasswordError("Password does not match!");
+      console.log("passowrd does nto match");
+      errorMessageResetPassword = "";
+      return;
+    }
+    setPasswordError("");
     const data = {
       email: email,
       otp: otp,
@@ -35,8 +46,16 @@ const CreateNewPassword = () => {
         type="password"
         placeholder="New Password"
       />
+      <input
+        onChange={(e) => setconfirmPassword(e.target.value)}
+        type="password"
+        placeholder="Confirm Password"
+      />
       <button onClick={newPassword}>Change Password</button>
-      {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
+      {passwordError !== "" && <ErrorMessageText message={passwordError} />}
+      {errorMessageResetPassword !== "" && errorMessageResetPassword && (
+        <ErrorMessageText message={errorMessageResetPassword} />
+      )}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

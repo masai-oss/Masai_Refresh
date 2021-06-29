@@ -7,18 +7,39 @@ LogRocket.init("zpsfu7/refresh-localhost");
 
 const initState = {
   isSignUp: false,
-  isSignIn: false,
-  isLoading: false,
   signUpError: false,
-  ErrorMessage: "",
   email: "",
-  otpVerification: false,
+
+  userVerif: false,
+
+  isSignIn: false,
+  token: "",
   userData: [],
+
+  isLoading: false,
+
+  otpVerification: false,
+
+  resendOtp: "",
   otp: "",
   passwordRecovered: false,
-  token: "",
-  userVerif: false,
+
   logoutError: "",
+
+  resetPassOtpVerif: false,
+  resetPassTemp: "",
+
+  errorMessageSignUp: "",
+  errorMessageUserVerification: "",
+  errorMessageResendUserVerification: "",
+
+  errorMessageUserSignIn: "",
+
+  errorMessageForgetPassword: "",
+  errorMessageResetPasswordOtp: "",
+  errorMessageResetPassword: "",
+
+  errorMessageLogout: "",
 };
 
 const authenticationNew = (state = initState, { type, payload }) => {
@@ -29,15 +50,17 @@ const authenticationNew = (state = initState, { type, payload }) => {
         ...state,
         isSignUp: false,
         isLoading: true,
+        errorMessageSignUp: "",
       };
     case authConstants.USERS_SIGNUP_SUCCESS:
+      console.log("Reducer: ", payload);
       return {
         ...state,
         isLoading: false,
         isSignUp: true,
         signUpError: false,
         email: payload.data.email,
-        ErrorMessage: "",
+        errorMessageSignUp: "",
       };
     case authConstants.USERS_SIGNUP_FAILURE:
       return {
@@ -45,7 +68,7 @@ const authenticationNew = (state = initState, { type, payload }) => {
         isLoading: false,
         isSignUp: false,
         signUpError: payload.error,
-        ErrorMessage: payload.message,
+        errorMessageSignUp: payload.message,
       };
 
     // user verification
@@ -53,22 +76,72 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-        ErrorMessage: "",
+        errorMessageUserVerification: "",
         userVerif: false,
       };
     case authConstants.USERS_VERIFICATION_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        ErrorMessage: "",
+        errorMessageUserVerification: "",
         userVerif: true,
       };
     case authConstants.USERS_VERIFICATION_FAILURE:
       return {
         ...state,
         isLoading: false,
-        ErrorMessage: payload.message,
+
+        errorMessageUserVerification: payload.message,
         userVerif: false,
+      };
+
+    // resend user verification otp
+    case authConstants.RESEND_OTP_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        errorMessageResendUserVerification: "",
+        resendOtp: false,
+      };
+    case authConstants.RESEND_OTP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessageResendUserVerification: "",
+        resendOtp: true,
+      };
+    case authConstants.RESEND_OTP_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessageResendUserVerification: payload.message,
+        resendOtp: false,
+      };
+
+    // reset password otp
+    case authConstants.RESET_PASSWORD_OTP_REQUEST:
+      return {
+        ...state,
+        isLoading: true,
+        resetPassOtpVerif: false,
+        resetPassTemp: "",
+        errorMessageResetPasswordOtp: "",
+      };
+    case authConstants.RESET_PASSWORD_OTP_SUCCESS:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessageResetPasswordOtp: "",
+        resetPassOtpVerif: true,
+        resetPassTemp: payload.temporary_pass,
+      };
+    case authConstants.RESET_PASSWORD_OTP_FAILURE:
+      return {
+        ...state,
+        isLoading: false,
+        errorMessageResetPasswordOtp: payload.message,
+        resetPassOtpVerif: false,
+        resetPassTemp: "",
       };
 
     // signin
@@ -76,16 +149,17 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-        ErrorMessage: "",
         isSignIn: false,
         token: "",
+        errorMessageUserSignIn: "",
       };
     case authConstants.USERS_SIGNIN_SUCCESS:
+      console.log("[reducer] ", payload);
       return {
         ...state,
         isLoading: false,
         userData: payload.user,
-        ErrorMessage: "",
+        errorMessageUserSignIn: "",
         isSignIn: true,
         token: payload.token,
       };
@@ -93,7 +167,8 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: false,
-        ErrorMessage: payload.message,
+
+        errorMessageUserSignIn: payload.message,
         isSignIn: false,
       };
 
@@ -102,22 +177,22 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-        ErrorMessage: "",
+        errorMessageForgetPassword: "",
         otpVerification: false,
       };
     case authConstants.FORGET_PASSWORD_SUCCESS:
       return {
         ...state,
         isLoading: false,
-        otpVerification: payload.status == 200 ? true : false,
-        ErrorMessage: "",
+        otpVerification: payload.status == 200 && !payload.error ? true : false,
+        errorMessageForgetPassword: "",
         email: payload.email,
       };
     case authConstants.FORGET_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,
-        ErrorMessage: payload.message,
+        errorMessageForgetPassword: payload.message,
         otpVerification: !payload.error,
       };
     //store OTP
@@ -133,7 +208,7 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isLoading: true,
-        ErrorMessage: "",
+        errorMessageResetPassword: "",
         passwordRecovered: false,
       };
     case authConstants.RESET_PASSWORD_SUCCESS:
@@ -141,13 +216,13 @@ const authenticationNew = (state = initState, { type, payload }) => {
         ...state,
         isLoading: false,
         passwordRecovered: true,
-        ErrorMessage: "",
+        errorMessageResetPassword: "",
       };
     case authConstants.RESET_PASSWORD_FAILURE:
       return {
         ...state,
         isLoading: false,
-        ErrorMessage: payload.message,
+        errorMessageResetPassword: payload.message,
         passwordRecovered: !payload.error,
       };
 
@@ -158,15 +233,20 @@ const authenticationNew = (state = initState, { type, payload }) => {
       return {
         ...state,
         isSignIn: false,
-        ErrorMessage: "",
         logoutError: "",
+        errorMessageLogout: "",
       };
     case authConstants.LOGOUT_FAILURE:
       return {
         ...state,
         isSignIn: false,
-        ErrorMessage: "",
-        logoutError: "",
+        errorMessageLogout: "",
+      };
+
+    case authConstants.CHANGE_THIS_STATE:
+      return {
+        ...state,
+        [payload.stateKey]: payload.stateValue,
       };
     default:
       return state;

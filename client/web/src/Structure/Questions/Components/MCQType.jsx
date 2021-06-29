@@ -269,7 +269,10 @@ const MCQ = (props) => {
           first_question={question_id_index <= 0}
           style={
             question_id_index <= 0
-              ? { border: "2px solid #999999", color: "#666666" }
+              ? {
+                  border: "2px solid #999999",
+                  color: "#666666",
+                }
               : null
           }
         >

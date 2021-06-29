@@ -39,7 +39,10 @@
   font-size: 14px;
   background: linear-gradient(239.11deg, #1e90ff -4.11%, #2b75cd 88.83%);
 }
-.OTPScreen > p:last-child {
+.OTPScreen > p:first-of-type {
+  color: #0c1929;
+}
+.OTPScreen > p:last-of-type {
   color: #2b75cd;
   font-weight: bold;
   cursor: pointer;

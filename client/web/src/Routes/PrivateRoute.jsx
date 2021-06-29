@@ -7,9 +7,11 @@ import { storageEnums } from "../Enums/storageEnums";
 
 const PrivateRoute = ({ component: Component, ...rest }) => {
   // let isAuth = useSelector((state) => state.authenticationNew.token);
+  const isAdmin = IsAdmin();
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
   console.log("isAuth here: -----------", isAuth);
-  const isAdmin = IsAdmin();
+  console.log("isAdmin here: -----------", isAdmin);
+
   return (
     <Route
       {...rest}

@@ -5,19 +5,29 @@ import { useHistory } from "react-router-dom";
 import { authActions } from "../state/action";
 import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Common";
+import { ErrorMessageText } from "./ErrorMessageText";
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
 const ForgotPassword = () => {
   const [email, setEmail] = React.useState("");
   const dispatch = useDispatch();
   const history = useHistory();
-  let { otpVerification, isLoading, ErrorMessage } = useSelector(
+  let { otpVerification, isLoading, errorMessageForgetPassword } = useSelector(
     (state) => state.authenticationNew
   );
   const resetPassword = () => {
     const data = { email: email };
     dispatch(authActions.forgetPasswordProcess(data));
   };
+
   React.useEffect(() => {
-    otpVerification && history.push("/recover-password");
+    saveToStorage(storageEnums.RECOVERY_EMAIL, email);
+    if (otpVerification) {
+      history.push("/recover-password");
+    }
   }, [otpVerification]);
 
   if (isLoading) {
@@ -34,7 +44,9 @@ const ForgotPassword = () => {
       />
 
       <button onClick={resetPassword}>Send OTP</button>
-      {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
+      {errorMessageForgetPassword !== "" && errorMessageForgetPassword && (
+        <ErrorMessageText message={errorMessageForgetPassword} />
+      )}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

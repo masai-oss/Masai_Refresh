@@ -108,6 +108,7 @@ const Routes = () => {
         <PublicRoute exact path="/sign-up" component={SignUp} />
         <PublicRoute exact path="/verify-otp" component={OTPScreen} />
         <PublicRoute exact path="/resend-otp" component={ResendOtp} />
+
         <PublicRoute
           exact
           path="/recover-password"

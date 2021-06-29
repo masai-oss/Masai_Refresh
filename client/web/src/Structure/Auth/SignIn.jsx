@@ -7,9 +7,10 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../Common";
 import { getFromStorage } from "../../Utils/localStorageHelper";
 import { storageEnums } from "../../Enums/storageEnums";
+import { ErrorMessageText } from "./Components/ErrorMessageText";
 const initData = {
-  email: "",
-  password: "",
+  email: "nitanshofficial@gmail.com",
+  password: "12345678",
 };
 const SignIn = () => {
   const [userData, setUserData] = React.useState(initData);
@@ -18,7 +19,7 @@ const SignIn = () => {
   const dispatch = useDispatch();
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
 
-  const { isLoading, isSignIn, ErrorMessage } = useSelector(
+  const { isLoading, isSignIn, errorMessageUserSignIn } = useSelector(
     (state) => state.authenticationNew
   );
 
@@ -61,7 +62,9 @@ const SignIn = () => {
         />
         <button onClick={handleSignIn}>Sign In</button>
       </div>
-      {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>}
+      {errorMessageUserSignIn !== "" && errorMessageUserSignIn && (
+        <ErrorMessageText message={errorMessageUserSignIn} />
+      )}
       <div className={styles.SignIn__footer}>
         <p onClick={() => history.push("/forgot-password")}>Forgot Password?</p>
         <p onClick={() => history.push("/sign-up")}>Sign Up</p>

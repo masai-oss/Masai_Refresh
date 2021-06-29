@@ -5,11 +5,45 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
+import { storageEnums } from "../../../Enums/storageEnums";
+import { ErrorMessageText } from "./ErrorMessageText";
+import { SuccessMessageText } from "./SuccessMessageText";
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
 const RecoverPasswordOtp = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  const { email, isLoading } = useSelector((state) => state.authenticationNew);
+  const {
+    email,
+    isLoading,
+    resetPassOtpVerif,
+    resetPassTemp,
+    errorMessageResetPasswordOtp,
+    otpVerification,
+    errorMessageForgetPassword,
+  } = useSelector((state) => state.authenticationNew);
+  const [showResendSuccess, setShowResendSuccess] = React.useState(false);
+  React.useEffect(() => {
+    if (resetPassOtpVerif && resetPassTemp) {
+      saveToStorage(storageEnums.TEMP_PASS, resetPassTemp);
+
+      history.push("/create-new-password");
+    }
+  }, [resetPassOtpVerif]);
+  const resendOtp = () => {
+    const data = { email: recoveryEmail };
+    setOtp(new Array(4).fill(""));
+    dispatch(authActions.forgetPasswordProcess(data));
+  };
+
+  React.useEffect(() => {
+    otpVerification && setShowResendSuccess(true);
+  }, [otpVerification]);
+
   const dispatch = useDispatch();
   if (isLoading) {
     return <Spinner />;
@@ -28,9 +62,18 @@ const RecoverPasswordOtp = () => {
   };
 
   const verifyOtp = (e) => {
-    dispatch(authActions.storeOtp(otp.join("")));
-    history.push("/create-new-password");
+    dispatch(
+      authActions.resetPasswordOtpProcess({
+        email: recoveryEmail,
+        otp: otp.join(""),
+      })
+    );
   };
+  const recoveryEmail = getFromStorage(
+    storageEnums.RECOVERY_EMAIL,
+    "email not found"
+  );
+
   const renderOTPBoxes = () => {
     return (
       <>
@@ -57,7 +100,7 @@ const RecoverPasswordOtp = () => {
   let cardContent = (
     <div className={styles.OTPScreen}>
       <p>
-        Please enter the OTP sent to <span>{email}</span>
+        Please enter the OTP sent to <span>{recoveryEmail}</span>
       </p>
       {renderOTPBoxes()}
       <button
@@ -71,6 +114,21 @@ const RecoverPasswordOtp = () => {
       >
         Verify OTP
       </button>
+      <p onClick={resendOtp} className={styles.resendOTP}>
+        Resend OTP
+      </p>
+      {showResendSuccess ? (
+        <SuccessMessageText message="Resend OTP Successfully!" />
+      ) : (
+        ""
+      )}
+
+      {errorMessageForgetPassword !== "" && errorMessageForgetPassword && (
+        <ErrorMessageText message={errorMessageForgetPassword} />
+      )}
+      {errorMessageResetPasswordOtp !== "" && errorMessageResetPasswordOtp && (
+        <ErrorMessageText message={errorMessageResetPasswordOtp} />
+      )}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;

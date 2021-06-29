@@ -4,10 +4,17 @@ import styles from "../Styles/OTPScreen.module.css";
 import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
 const ResendOtp = () => {
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  const { email, userVerif } = useSelector((state) => state.authenticationNew);
+  const { email, resendOtp, errorMessageResendUserVerification, userVerif } =
+    useSelector((state) => state.authenticationNew);
   const dispatch = useDispatch();
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
@@ -16,6 +23,10 @@ const ResendOtp = () => {
       element.nextSibling.focus();
     }
   };
+  const signUpEmail = getFromStorage(
+    storageEnums.SIGN_UP_EMAIL,
+    "email not found"
+  );
   const handleBackSpace = (e, i) => {
     if (e.keyCode === 8 && !e.target.value) {
       i - 1 >= 0 && elements[i - 1].focus();
@@ -26,7 +37,7 @@ const ResendOtp = () => {
     const otpType = otp.join("");
     const data = {
       otp: otpType,
-      email: email,
+      email: signUpEmail,
     };
     dispatch(authActions.userVerficationProcess(data));
   };
@@ -60,7 +71,7 @@ const ResendOtp = () => {
   let cardContent = (
     <div className={styles.OTPScreen}>
       <p>
-        Please enter the OTP sent to <span>{email}</span>
+        Please enter the OTP sent to <span>{signUpEmail}</span>
       </p>
       {renderOTPBoxes()}
       <button

@@ -5,14 +5,28 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
+import { ErrorMessageText } from "./ErrorMessageText";
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { SuccessMessageText } from "./SuccessMessageText";
 const OTPScreen = () => {
   const history = useHistory();
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
-  let { email, isLoading, ErrorMessage, userVerif } = useSelector(
-    (state) => state.authenticationNew
-  );
+  let {
+    email,
+    isLoading,
+    errorMessageUserVerification,
+    userVerif,
+    resendOtp,
+    errorMessageResendUserVerification,
+  } = useSelector((state) => state.authenticationNew);
   const dispatch = useDispatch();
+  const [showResendSuccess, setShowResendSuccess] = React.useState(false);
   const handleChange = (element, index) => {
     if (isNaN(element.value)) return false;
     setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
@@ -25,20 +39,23 @@ const OTPScreen = () => {
       i - 1 >= 0 && elements[i - 1].focus();
     }
   };
-
-  const resendOtp = () => {
-    history.push("/resend-otp");
+  const signUpEmail = getFromStorage(
+    storageEnums.SIGN_UP_EMAIL,
+    "email not found"
+  );
+  const resendVerifOtp = () => {
     const data = {
-      email: email,
+      email: signUpEmail,
     };
     dispatch(authActions.resendOtpProcess(data));
+    // history.push("/resend-otp");
   };
 
   const verifyOtp = (e) => {
     const otpType = otp.join("");
     const data = {
       otp: otpType,
-      email: email,
+      email: signUpEmail,
     };
     dispatch(authActions.userVerficationProcess(data));
   };
@@ -48,10 +65,13 @@ const OTPScreen = () => {
   }, [userVerif]);
 
   React.useEffect(() => {
-    setTimeout(() => {
-      setOtp(new Array(4).fill(""));
-    }, 1500);
-  }, [ErrorMessage]);
+    resendOtp && setShowResendSuccess(true);
+  }, [resendOtp]);
+  // React.useEffect(() => {
+  //   setTimeout(() => {
+  //     setOtp(new Array(4).fill(""));
+  //   }, 1500);
+  // }, [ErrorMessage]);
 
   if (isLoading) {
     return <Spinner />;
@@ -83,7 +103,7 @@ const OTPScreen = () => {
   let cardContent = (
     <div className={styles.OTPScreen}>
       <p>
-        Please enter the OTP sent to <span>{email}</span>
+        Please enter the OTP sent to <span>{signUpEmail}</span>
       </p>
       {renderOTPBoxes()}
       <button
@@ -97,10 +117,22 @@ const OTPScreen = () => {
       >
         Verify OTP
       </button>
-      <p onClick={resendOtp} className={styles.resendOTP}>
+      <p onClick={resendVerifOtp} className={styles.resendOTP}>
         Resend OTP
       </p>
-      <div style={{ color: "red" }}>{ErrorMessage}</div>
+      {showResendSuccess ? (
+        <SuccessMessageText message="OTP Sent Successfully!" />
+      ) : (
+        ""
+      )}
+
+      {errorMessageResendUserVerification !== "" &&
+        errorMessageResendUserVerification && (
+          <ErrorMessageText message={errorMessageResendUserVerification} />
+        )}
+      {errorMessageUserVerification !== "" && errorMessageUserVerification && (
+        <ErrorMessageText message={errorMessageUserVerification} />
+      )}
     </div>
   );
   return <AuthTemplate cardContent={cardContent} />;
