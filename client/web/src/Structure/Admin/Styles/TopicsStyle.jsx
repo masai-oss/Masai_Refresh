@@ -6,8 +6,7 @@ export const TopicsStyle = makeStyles((theme) =>
       width: 100,
       height: 100,
       borderRadius: 8,
-      border: "1px solid #e6e6e6",
-      objectFit: "cover",
+      objectFit: "contain",
       margin: "0 0 0 15px",
     },
     holder: {
@@ -21,6 +20,8 @@ export const TopicsStyle = makeStyles((theme) =>
     showIcon: {
       width: 100,
       height: 100,
+      borderRadius: 8,
+      objectFit: "contain"
     },
     pictureBl: {
       margin: 15,
