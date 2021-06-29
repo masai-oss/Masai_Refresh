@@ -76,8 +76,9 @@ const signupUser = async (req, res) => {
   const allowed_domain1 = process.env.ADMIN_CONTROL_EMAIL.trim()
   const allowed_domain2 = process.env.USER_CONTROL_EMAIL.trim()
   const admin_users = process.env.ALLOWED_ADMIN_USERS.split(" ")
+  const test_user = process.env.TEST_USERS.split(" ")
   let domain = email.trim().split("@")[1]
-  if (domain !== allowed_domain1 && domain !== allowed_domain2) {
+  if (domain !== allowed_domain1 && domain !== allowed_domain2 && (!test_user.includes(email))) {
     return res.status(400).json({
       error: true,
       message: "Invalid domain",
@@ -342,7 +343,11 @@ const signinUser = async (req, res) => {
     }
 
     // generate token for the user
-    const token = createToken(user)
+    let data_to_encrypt = {
+      ...user,
+      admin: user.role === "admin" ? true : false
+    }
+    const token = createToken(data_to_encrypt)
 
     // form data to be sent as response
     const user_data = {
