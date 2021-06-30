@@ -8,6 +8,7 @@ import { Spinner } from "../../Common/Loader";
 import { storageEnums } from "../../../Enums/storageEnums";
 import { ErrorMessageText } from "./ErrorMessageText";
 import { SuccessMessageText } from "./SuccessMessageText";
+import OtpInput from "react-otp-input";
 import {
   saveToStorage,
   removeFromStorage,
@@ -15,7 +16,7 @@ import {
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 const RecoverPasswordOtp = () => {
   const history = useHistory();
-  const [otp, setOtp] = React.useState(new Array(4).fill(""));
+  const [otp, setOtp] = React.useState("");
   const [elements, setElements] = React.useState([]);
   const {
     email,
@@ -36,7 +37,7 @@ const RecoverPasswordOtp = () => {
   }, [resetPassOtpVerif]);
   const resendOtp = () => {
     const data = { email: recoveryEmail };
-    setOtp(new Array(4).fill(""));
+    setOtp("");
     dispatch(authActions.forgetPasswordProcess(data));
   };
 
@@ -48,24 +49,13 @@ const RecoverPasswordOtp = () => {
   if (isLoading) {
     return <Spinner />;
   }
-  const handleChange = (element, index) => {
-    if (isNaN(element.value)) return false;
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-    if (element.nextSibling) {
-      element.nextSibling.focus();
-    }
-  };
-  const handleBackSpace = (e, i) => {
-    if (e.keyCode === 8 && !e.target.value) {
-      i - 1 >= 0 && elements[i - 1].focus();
-    }
-  };
 
+  const handleChange = (otp) => setOtp(otp);
   const verifyOtp = (e) => {
     dispatch(
       authActions.resetPasswordOtpProcess({
         email: recoveryEmail,
-        otp: otp.join(""),
+        otp: otp,
       })
     );
   };
@@ -78,21 +68,16 @@ const RecoverPasswordOtp = () => {
     return (
       <>
         <div className={styles.OTPScreen__Boxes}>
-          {otp.map((data, index) => {
-            return (
-              <input
-                type="text"
-                name="otp"
-                maxLength="1"
-                key={index}
-                value={data}
-                onChange={(e) => handleChange(e.target, index)}
-                onFocus={(e) => e.target.select()}
-                onKeyDown={(e) => handleBackSpace(e, index)}
-                ref={(n) => (elements[index] = n)}
-              />
-            );
-          })}
+          <OtpInput
+            value={otp}
+            onChange={handleChange}
+            numInputs={4}
+            inputStyle={{
+              width: "100%",
+              border: "1px solid #ced1d4",
+              borderRadius: "4px",
+            }}
+          />
         </div>
       </>
     );
@@ -104,10 +89,10 @@ const RecoverPasswordOtp = () => {
       </p>
       {renderOTPBoxes()}
       <button
-        disabled={otp.join("").length === 4 ? false : true}
+        disabled={otp.length === 4 ? false : true}
         onClick={verifyOtp}
         className={
-          otp.join("").length < 4
+          otp.length < 4
             ? styles.OTPScreen__buttonDisabled
             : styles.OTPScreen__buttonEnabled
         }

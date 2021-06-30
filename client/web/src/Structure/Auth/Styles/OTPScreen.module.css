@@ -9,23 +9,29 @@
 .OTPScreen > p:first-child span {
   font-weight: bold;
 }
-.OTPScreen__Boxes {
+.OTPScreen__Boxes > div {
   padding: 10px;
   margin: 10px;
   display: grid;
   grid-template-columns: repeat(4, 25%);
   justify-items: center;
   margin-top: 50px;
+
+  grid-column-gap: 20px;
 }
-.OTPScreen__Boxes > input {
+.OTPScreen__Boxes > div > div {
+  /* border: 1px solid #ced1d4; */
+  /* border-radius: 4px; */
   width: 48px;
   height: 48px;
-  border: 1px solid #ced1d4;
-  border-radius: 4px;
-  outline: none;
-  text-align: center;
+}
+.OTPScreen__Boxes > div > div input {
+  width: 48px;
+  height: 48px;
+
   font-weight: bold;
   font-size: 20px;
+  text-align: center;
 }
 .OTPScreen > button {
   margin: 15px auto;
