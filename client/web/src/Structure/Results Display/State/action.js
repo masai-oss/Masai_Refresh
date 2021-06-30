@@ -13,6 +13,8 @@ import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
 const RESULT_API = process.env.REACT_APP_ATTEMPT_URL;
 const REPORT_API = process.env.REACT_APP_ADMIN_QUESTION_API_URL;
+
+const STATS_API = process.env.REACT_APP_STATS_URL;
 const getResultRequest = () => ({
   type: GET_RESULT_LOADING,
 });
@@ -48,7 +50,7 @@ const getResult =
       .then((res) => {
         axios({
           method: "GET",
-          url: `http://localhost:5050/api/stats/topic_attempts_stats/${topicId}`,
+          url: `${STATS_API}/topic_attempts_stats/${topicId}`,
           headers: { Authorization: `Bearer ${token}` },
         }).then((response) => {
           dispatch(getPreviousAttemptsList(response.data.topic_attempt_stats));
@@ -67,7 +69,7 @@ const getResultPrevSection =
     const token = getFromStorage(storageEnums.TOKEN, "");
     axios({
       method: "GET",
-      url: `http://localhost:5050/api/stats/topic_attempts_stats/${topicId}`,
+      url: `${STATS_API}/topic_attempts_stats/${topicId}`,
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((res) => {

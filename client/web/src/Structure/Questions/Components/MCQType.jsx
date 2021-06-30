@@ -272,6 +272,7 @@ const MCQ = (props) => {
               ? {
                   border: "2px solid #999999",
                   color: "#666666",
+                  display: "none",
                 }
               : null
           }
