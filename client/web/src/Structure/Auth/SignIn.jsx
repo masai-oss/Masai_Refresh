@@ -9,8 +9,8 @@ import { getFromStorage } from "../../Utils/localStorageHelper";
 import { storageEnums } from "../../Enums/storageEnums";
 import { ErrorMessageText } from "./Components/ErrorMessageText";
 const initData = {
-  email: "nitanshofficial@gmail.com",
-  password: "12345678",
+  email: "",
+  password: "",
 };
 const SignIn = () => {
   const [userData, setUserData] = React.useState(initData);
