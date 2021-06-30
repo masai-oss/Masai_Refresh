@@ -42,7 +42,9 @@ mongoose.connect(
   },
   (err) => {
     if (err) {
+      console.log(`Error : ${err}`);
     } else {
+      console.log("The Database is connected");
     }
   }
 );
@@ -92,4 +94,6 @@ app.use("/api/stats", statsRoute);
 app.use("/api/user_profile", userProfileRoute);
 app.use("/api/scraper", scraperRoute);
 
-app.listen(PORT, () => {});
+app.listen(PORT, () => {
+  console.log(`Server is listening at ${PORT}`);
+});
