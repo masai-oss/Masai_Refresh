@@ -8,7 +8,7 @@ const DetailBodySection = ({ ele, index }) => {
   const handleClickSource = () => {
     window.open(`${ele.source}`, "_blank");
   };
-  console.log(ele);
+
   return (
     <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">

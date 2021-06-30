@@ -118,7 +118,7 @@ const RecoverPasswordOtp = () => {
         Resend OTP
       </p>
       {showResendSuccess ? (
-        <SuccessMessageText message="Resend OTP Successfully!" />
+        <SuccessMessageText message="OTP Sent Successfully!" />
       ) : (
         ""
       )}

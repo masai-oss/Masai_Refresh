@@ -19,7 +19,7 @@ const ViewPreviousAttempts = () => {
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
   const topicLocal = useSelector((state) => state.questions.topic);
-  console.log("previous Attempts", topicLocal);
+
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
   );

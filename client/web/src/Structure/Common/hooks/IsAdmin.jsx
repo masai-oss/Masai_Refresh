@@ -8,7 +8,7 @@ const IsAdmin = () => {
     return false;
   }
   const { admin: isAdmin } = jwt_decode(token);
-  console.log("Value to admin is: ", isAdmin);
+
   return isAdmin;
 };
 

@@ -25,7 +25,7 @@ const getTopicsFailure = (payload) => ({
 const getQuizTopics = () => async (dispatch) => {
   dispatch(getTopicsLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
-  console.log("[Topic action] Token ", token);
+
   try {
     const res = await axios.get(`${TOPIC_API_URL}/summary`, {
       headers: {

@@ -9,7 +9,6 @@ const PrivateRoute = ({ component: Component, ...rest }) => {
   // let isAuth = useSelector((state) => state.authenticationNew.token);
   const isAdmin = IsAdmin();
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
-  console.log("isAdmin here: -----------", isAdmin);
 
   return (
     <Route

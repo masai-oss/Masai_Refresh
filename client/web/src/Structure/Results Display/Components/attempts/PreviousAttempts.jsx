@@ -28,7 +28,7 @@ const PreviousAttempts = (props) => {
         {data &&
           data.map((ele, index) =>
             index !== data.length - 1 ? (
-              <div>
+              <div key={index}>
                 <SingleAttemptComponent
                   ele={ele}
                   select={prev_attempt_id}
@@ -44,7 +44,7 @@ const PreviousAttempts = (props) => {
                 />
               </div>
             ) : (
-              <div>
+              <div key={index}>
                 <SingleAttemptComponent
                   ele={ele}
                   select={prev_attempt_id}

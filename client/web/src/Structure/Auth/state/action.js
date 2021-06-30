@@ -292,7 +292,6 @@ const resetPasswordProcess =
     };
     return axios(config)
       .then((res) => {
-        console.log("[action] : ", res);
         dispatch(resetPasswordSuccess(res.data));
       })
       .catch((err) => {

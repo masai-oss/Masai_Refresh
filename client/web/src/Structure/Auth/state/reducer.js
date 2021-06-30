@@ -53,7 +53,6 @@ const authenticationNew = (state = initState, { type, payload }) => {
         errorMessageSignUp: "",
       };
     case authConstants.USERS_SIGNUP_SUCCESS:
-      console.log("Reducer: ", payload);
       return {
         ...state,
         isLoading: false,
@@ -154,7 +153,6 @@ const authenticationNew = (state = initState, { type, payload }) => {
         errorMessageUserSignIn: "",
       };
     case authConstants.USERS_SIGNIN_SUCCESS:
-      console.log("[reducer] ", payload);
       return {
         ...state,
         isLoading: false,

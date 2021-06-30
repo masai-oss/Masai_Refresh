@@ -24,7 +24,6 @@ const SignUp = () => {
     (state) => state.authenticationNew
   );
 
-  console.log(isLoading, isSignUp, errorMessageSignUp);
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });

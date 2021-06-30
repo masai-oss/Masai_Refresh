@@ -26,7 +26,7 @@ const CreateNewPassword = () => {
   const newPassword = () => {
     if (password !== confirmPassword) {
       setPasswordError("Password does not match!");
-      console.log("passowrd does nto match");
+
       errorMessageResetPassword = "";
       return;
     }
