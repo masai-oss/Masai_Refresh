@@ -7,6 +7,7 @@ import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
 import { ErrorMessageText } from "./ErrorMessageText";
 import { storageEnums } from "../../../Enums/storageEnums";
+import OtpInput from "react-otp-input";
 import {
   saveToStorage,
   removeFromStorage,
@@ -15,7 +16,9 @@ import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { SuccessMessageText } from "./SuccessMessageText";
 const OTPScreen = () => {
   const history = useHistory();
-  const [otp, setOtp] = React.useState(new Array(4).fill(""));
+  // const [otp, setOtp] = React.useState(new Array(4).fill(""));
+  const [otp, setOtp] = React.useState("");
+
   const [elements, setElements] = React.useState([]);
   let {
     email,
@@ -27,18 +30,19 @@ const OTPScreen = () => {
   } = useSelector((state) => state.authenticationNew);
   const dispatch = useDispatch();
   const [showResendSuccess, setShowResendSuccess] = React.useState(false);
-  const handleChange = (element, index) => {
-    if (isNaN(element.value)) return false;
-    setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
-    if (element.nextSibling) {
-      element.nextSibling.focus();
-    }
-  };
-  const handleBackSpace = (e, i) => {
-    if (e.keyCode === 8 && !e.target.value) {
-      i - 1 >= 0 && elements[i - 1].focus();
-    }
-  };
+  // const handleChange = (element, index) => {
+  //   if (isNaN(element.value)) return false;
+  //   setOtp([...otp.map((d, idx) => (idx === index ? element.value : d))]);
+  //   if (element.nextSibling) {
+  //     element.nextSibling.focus();
+  //   }
+  // };
+  const handleChange = (otp) => setOtp(otp);
+  // const handleBackSpace = (e, i) => {
+  //   if (e.keyCode === 8 && !e.target.value) {
+  //     i - 1 >= 0 && elements[i - 1].focus();
+  //   }
+  // };
   const signUpEmail = getFromStorage(
     storageEnums.SIGN_UP_EMAIL,
     "email not found"
@@ -52,7 +56,7 @@ const OTPScreen = () => {
   };
 
   const verifyOtp = (e) => {
-    const otpType = otp.join("");
+    const otpType = otp;
     const data = {
       otp: otpType,
       email: signUpEmail,
@@ -81,6 +85,19 @@ const OTPScreen = () => {
     return (
       <>
         <div className={styles.OTPScreen__Boxes}>
+          <OtpInput
+            value={otp}
+            onChange={handleChange}
+            numInputs={4}
+            inputStyle={{
+              width: "100%",
+              border: "1px solid #ced1d4",
+              borderRadius: "4px",
+            }}
+          />
+        </div>
+
+        {/* <div className={styles.OTPScreen__Boxes}>
           {otp.map((data, index) => {
             return (
               <input
@@ -96,7 +113,7 @@ const OTPScreen = () => {
               />
             );
           })}
-        </div>
+        </div> */}
       </>
     );
   };
@@ -107,10 +124,14 @@ const OTPScreen = () => {
       </p>
       {renderOTPBoxes()}
       <button
-        disabled={otp.join("").length === 4 ? false : true}
+        // disabled={otp.join("").length === 4 ? false : true}
+        disabled={otp.length === 4 ? false : true}
         onClick={verifyOtp}
         className={
-          otp.join("").length < 4
+          // otp.join("").length < 4
+          //   ? styles.OTPScreen__buttonDisabled
+          //   : styles.OTPScreen__buttonEnabled
+          otp.length < 4
             ? styles.OTPScreen__buttonDisabled
             : styles.OTPScreen__buttonEnabled
         }
