@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar } from "@material-ui/core";
 import { adminActions } from "../State/action";
 import { TopicsStyle } from "../Styles/TopicsStyle";
 import { IconManipulationDialog } from "./IconManipulationModal";
@@ -71,9 +70,10 @@ export const CrudTopics = () => {
                   src={
                     (icon =
                       icon !== undefined &&
-                      (icon.includes(".png") ||
+                      ( icon.includes(".png") ||
                         icon.includes(".jpeg") ||
-                        icon.includes(".svg"))
+                        icon.includes(".svg") ||
+                        icon === " " )
                         ? `/logos/${name.toLowerCase()}/${name.toLowerCase()}_logo.svg`
                         : icon)
                   }
@@ -83,7 +83,9 @@ export const CrudTopics = () => {
                 />
                 <div className={styles.cardName}>
                   <span className={styles.cardNameTitle}>{name}</span>
-                  <span className={styles.cardNameQuestions}>{noOfQuestion} Questions</span>
+                  <span className={styles.cardNameQuestions}>
+                    {noOfQuestion} Questions
+                  </span>
                 </div>
               </div>
             );
