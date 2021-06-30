@@ -41,7 +41,35 @@ const SignIn = () => {
   if (isLoading) {
     return <Spinner />;
   }
+  const resendVerifOtp = () => {
+    const data = {
+      email: userData.email,
+    };
+    dispatch(authActions.resendOtpProcess(data));
+    history.push("/verify-otp");
+  };
 
+  const renderErrorMessage = () => {
+    if (
+      errorMessageUserSignIn.toLowerCase() ===
+      "User email hasn't been verified".toLowerCase()
+    ) {
+      return (
+        <div>
+          <ErrorMessageText message={errorMessageUserSignIn} />
+          <button
+            onClick={resendVerifOtp}
+            className={styles.Signin__verifyNowButton}
+          >
+            Click to Verify email with OTP
+          </button>
+        </div>
+      );
+    }
+    if (errorMessageUserSignIn !== "" && errorMessageUserSignIn) {
+      return <ErrorMessageText message={errorMessageUserSignIn} />;
+    }
+  };
   const cardContent = (
     <div className={styles.SignIn}>
       <p className={styles.SignIn__header}>Sign In</p>
@@ -62,9 +90,8 @@ const SignIn = () => {
         />
         <button onClick={handleSignIn}>Sign In</button>
       </div>
-      {errorMessageUserSignIn !== "" && errorMessageUserSignIn && (
-        <ErrorMessageText message={errorMessageUserSignIn} />
-      )}
+      {renderErrorMessage()}
+
       <div className={styles.SignIn__footer}>
         <p onClick={() => history.push("/forgot-password")}>Forgot Password?</p>
         <p onClick={() => history.push("/sign-up")}>Sign Up</p>
