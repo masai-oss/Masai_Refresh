@@ -1,10 +1,13 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { IsAdmin } from "../Structure/Common";
-import { useSelector } from "react-redux";
+import { getFromStorage } from "../Utils/localStorageHelper";
+import { storageEnums } from "../Enums/storageEnums";
+// import { useSelector } from "react-redux";
 
 const AdminRoute = ({ component: Component, ...rest }) => {
-  let isAuth = useSelector((state) => state.authenticationNew.token);
+  // let isAuth = useSelector((state) => state.authenticationNew.token);
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   const isAdmin = IsAdmin();
   return (
     <Route
@@ -14,7 +17,7 @@ const AdminRoute = ({ component: Component, ...rest }) => {
           isAdmin ? (
             <Component {...props} />
           ) : (
-            <Redirect to="/quiz_topics" />
+            <Redirect to='/quiz_topics' />
           )
         ) : (
           <Redirect
