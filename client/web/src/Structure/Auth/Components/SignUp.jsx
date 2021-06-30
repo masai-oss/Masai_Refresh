@@ -12,9 +12,9 @@ import {
   removeFromStorage,
 } from "../../../Utils/localStorageHelper";
 const initData = {
-  name: "Nitansh Rastogi",
-  email: "nitanshofficial@gmail.com",
-  password: "12345678",
+  name: "",
+  email: "",
+  password: "",
 };
 
 const SignUp = () => {
