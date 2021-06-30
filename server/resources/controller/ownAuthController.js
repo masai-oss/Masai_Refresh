@@ -576,7 +576,7 @@ const passwordReset = async (req, res) => {
       return res.status(400).json({
         error: true,
         message:
-          "Already reset or password reset reuqest hasn't been initiated",
+          "Already reset or password reset request hasn't been initiated",
       });
     }
 
