@@ -26,8 +26,14 @@ import axios from "axios";
 import QuestionNav from "../../Navbar/Components/QuestionNav";
 import { practice_topics } from "../State/reducer";
 
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
+
 const LongType = () => {
   const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  const [navTopic, setNavTopic] = React.useState("");
   const [reportModalStatus, setReportModalStatus] =
     React.useState("inputModalOpen");
   let params = useParams();
@@ -43,6 +49,13 @@ const LongType = () => {
     ? practiceTopicsData.find((topic) => topic._id === topic_ID)
     : "";
 
+  React.useEffect(() => {
+    if (topic && topic !== "") {
+      saveToStorage(storageEnums.LONG_TYPE_NAV_TOPIC, topic.name);
+    }
+  }, [topic]);
+
+  console.log("Topic is :", topic);
   const issuesList = [
     "Question Unclear",
     "Insufficient Data",
@@ -143,20 +156,26 @@ const LongType = () => {
     history.push("/quiz_topics");
   };
 
-  const logoPath = topic
-    ? `/logoForNav/${topic.name.toLowerCase()}/${topic.name.toLowerCase()}_logo.svg`
+  const logoPath = getFromStorage(storageEnums.LONG_TYPE_NAV_TOPIC, "")
+    ? `/logoForNav/${getFromStorage(
+        storageEnums.LONG_TYPE_NAV_TOPIC,
+        ""
+      ).toLowerCase()}/${getFromStorage(
+        storageEnums.LONG_TYPE_NAV_TOPIC,
+        ""
+      ).toLowerCase()}_logo.svg`
     : "";
   return !question ? (
     <Spinner />
   ) : (
     <>
       {/* <QuestionProgress completed={percentage} /> */}
-      {topic ? (
+      {getFromStorage(storageEnums.LONG_TYPE_NAV_TOPIC, "") ? (
         <QuestionNav
           secondIcon={secondIcon}
           firstIcon={logoPath}
           secondText={"Exit"}
-          firstText={topic.name}
+          firstText={getFromStorage(storageEnums.LONG_TYPE_NAV_TOPIC, "")}
           progress
           length={practiceQuestionID.length}
           num={indexNum}
@@ -165,70 +184,72 @@ const LongType = () => {
       ) : (
         ""
       )}
-      <div className={styles.question}>
-        <p className={styles.queFont}>{statement}</p>
-        <div className={styles.icons}>
-          {bookmark_flag ? (
-            <img
-              src="/logos/BookmarkAfter.svg"
-              alt="after bookmark icon"
-              onClick={toggleBookmark}
-              className={styles.Longtype__bookmarkicon}
-            />
-          ) : (
-            <img
-              src="/logos/BookmarkBefore.svg"
-              alt="before bookmark icon"
-              onClick={toggleBookmark}
-              className={styles.Longtype__bookmarkicon}
-            />
-          )}
-          <div className={styles.likesDiv}>
-            {like_flag ? (
-              <FavoriteIcon
-                onClick={toggleLike}
-                className={styles.filledHeart}
-              ></FavoriteIcon>
+      <div className={styles.longTypeParent}>
+        <div className={styles.question}>
+          <p className={styles.queFont}>{statement}</p>
+          <div className={styles.icons}>
+            {bookmark_flag ? (
+              <img
+                src="/logos/BookmarkAfter.svg"
+                alt="after bookmark icon"
+                onClick={toggleBookmark}
+                className={styles.Longtype__bookmarkicon}
+              />
             ) : (
-              <FavoriteBorderOutlined
-                onClick={toggleLike}
-                className={styles.heart}
-              ></FavoriteBorderOutlined>
+              <img
+                src="/logos/BookmarkBefore.svg"
+                alt="before bookmark icon"
+                onClick={toggleBookmark}
+                className={styles.Longtype__bookmarkicon}
+              />
             )}
-            <div className={styles.likes}>{likes}</div>
+            <div className={styles.likesDiv}>
+              {like_flag ? (
+                <FavoriteIcon
+                  onClick={toggleLike}
+                  className={styles.filledHeart}
+                ></FavoriteIcon>
+              ) : (
+                <FavoriteBorderOutlined
+                  onClick={toggleLike}
+                  className={styles.heart}
+                ></FavoriteBorderOutlined>
+              )}
+              <div className={styles.likes}>{likes}</div>
+            </div>
           </div>
         </div>
-      </div>
-      <div className={styles.answer}>
-        <ReactMarkdown
-          className={styles.answerFont}
-          renderers={{ code: SyntaxHighlight }}
-        >
-          {answer}
-        </ReactMarkdown>
-        <hr className={styles.hr} />
-        <ReportQuestion
-          issuesList={issuesList}
-          questionId={question._id}
-          sendReport={sendReport}
-          reportModalStatus={reportModalStatus}
-          setReportModalStatus={setReportModalStatus}
-        />
-      </div>
-      <div className={styles.nextBtn}>
-        <button
-          disabled={indexNum == 1 ? true : false}
-          onClick={() => getQuestion(indexNum - 1)}
-          className={indexNum == 1 ? styles.disabledBtn : styles.btn}
-        >
-          Back
-        </button>
-        <button
-          onClick={() => getQuestion(indexNum + 1)}
-          className={styles.btn}
-        >
-          Next
-        </button>
+        <div className={styles.answer}>
+          <ReactMarkdown
+            className={styles.answerFont}
+            renderers={{ code: SyntaxHighlight }}
+          >
+            {answer}
+          </ReactMarkdown>
+          <hr className={styles.hr} />
+          <ReportQuestion
+            issuesList={issuesList}
+            questionId={question._id}
+            sendReport={sendReport}
+            reportModalStatus={reportModalStatus}
+            setReportModalStatus={setReportModalStatus}
+          />
+        </div>
+        <div className={styles.nextBtn}>
+          <button
+            disabled={indexNum == 1 ? true : false}
+            onClick={() => getQuestion(indexNum - 1)}
+            className={indexNum == 1 ? styles.disabledBtn : styles.btn}
+          >
+            Back
+          </button>
+          <button
+            onClick={() => getQuestion(indexNum + 1)}
+            className={styles.btn}
+          >
+            Next
+          </button>
+        </div>
       </div>
       <div style={{ height: 100 }}></div>
     </>

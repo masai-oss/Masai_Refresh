@@ -15,6 +15,7 @@ const storageEnums = Object.freeze({
   RECOVERY_EMAIL: "RECOVERY_EMAIL",
   SIGN_UP_EMAIL: "SIGN_UP_EMAIL",
   TEMP_PASS: "TEMP_PASS",
+  LONG_TYPE_NAV_TOPIC: "LONG_TYPE_NAV_TOPIC",
 });
 
 export { storageEnums };
