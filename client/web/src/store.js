@@ -9,8 +9,10 @@ import { common } from "./Structure/Common";
 import { practice_topics } from "./Structure/Practice";
 import { getPreviousAttempts } from "./Structure/DashboardNew";
 import { myBookmarks } from "./Structure/MyBookmarks";
+import { authenticationNew } from "./Structure/Auth/state/reducer";
 const reducers = {
   authentication,
+  authenticationNew,
   admin,
   topics,
   questions,

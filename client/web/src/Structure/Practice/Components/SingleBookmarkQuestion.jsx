@@ -38,7 +38,7 @@ const SingleQuestionBookmarkQuestion = () => {
   };
 
   const { question } = useSelector((state) => state.practice_topics);
-  console.log("Question is :---------------- ", question);
+
   const dispatch = useDispatch();
   const history = useHistory();
 

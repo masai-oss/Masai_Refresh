@@ -21,7 +21,6 @@ const MyBookmarks = ({ setRightSideContent }) => {
         }, 0)
       : 0;
   const renderMyBookmarks = () => {
-    console.log("My bookmarks are: ", myBookmarks);
     if (myBookmarks == null) {
       return <Spinner />;
     } else if (myBookmarks.length === 0) {

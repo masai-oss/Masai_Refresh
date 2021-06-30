@@ -1,12 +1,10 @@
 import React from "react";
 import { Route, Redirect } from "react-router-dom";
-import { IsAdmin } from '../Structure/Common'
+import { IsAdmin } from "../Structure/Common";
 import { useSelector } from "react-redux";
 
-
-
 const AdminRoute = ({ component: Component, ...rest }) => {
-  let isAuth = useSelector((state) => state.authentication.token);
+  let isAuth = useSelector((state) => state.authenticationNew.token);
   const isAdmin = IsAdmin();
   return (
     <Route
@@ -21,7 +19,8 @@ const AdminRoute = ({ component: Component, ...rest }) => {
         ) : (
           <Redirect
             to={{
-              pathname: "/login",
+              // pathname: "/login",
+              pathname: "/sign-in",
               state: { from: props.location },
             }}
           />

@@ -19,7 +19,6 @@ const Questions = () => {
   const question_id = getParam("question_id", undefined, search);
   const topic = getParam("topic", undefined, search);
   const topicId = getParam("topicId", undefined, search);
-  console.log("Topic id Questions: ", topicId);
 
   let props = {
     attempt_id,

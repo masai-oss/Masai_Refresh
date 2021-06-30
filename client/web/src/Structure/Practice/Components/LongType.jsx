@@ -42,7 +42,6 @@ const LongType = () => {
   const topic = practiceTopicsData
     ? practiceTopicsData.find((topic) => topic._id === topic_ID)
     : "";
-  console.log("Practice data:-------------------------", practiceTopicsData);
 
   const issuesList = [
     "Question Unclear",
@@ -51,8 +50,6 @@ const LongType = () => {
     "Others",
   ];
 
-  console.log("Practice data:-------------------------", topic);
-
   const { reportStatus } = useSelector((state) => state.practice_topics);
 
   React.useEffect(() => {
@@ -60,7 +57,7 @@ const LongType = () => {
       setReportModalStatus("inputModalClose");
     }
   }, [reportStatus]);
-  console.log("report success: ", reportStatus);
+
   const dispatch = useDispatch();
   const history = useHistory();
 

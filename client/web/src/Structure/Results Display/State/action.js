@@ -36,9 +36,8 @@ const getPreviousAttempt = (payload) => ({
 const getResult =
   ({ attempt_id, topicId }) =>
   (dispatch) => {
-    console.log("from the action function", topicId);
     dispatch(getResultRequest());
-    console.log("Topic Id in Dispatch : ", topicId);
+
     dispatch(getPreviousAttempt(attempt_id));
     const token = getFromStorage(storageEnums.TOKEN, "");
     axios({
@@ -52,7 +51,6 @@ const getResult =
           url: `http://localhost:5050/api/stats/topic_attempts_stats/${topicId}`,
           headers: { Authorization: `Bearer ${token}` },
         }).then((response) => {
-          console.log(response.data.topic_attempt_stats);
           dispatch(getPreviousAttemptsList(response.data.topic_attempt_stats));
           dispatch(getResultSuccess(res.data.result));
         });
@@ -64,9 +62,8 @@ const getResult =
 const getResultPrevSection =
   ({ topicId, attempt_id }) =>
   (dispatch) => {
-    console.log("from the action function", topicId);
     dispatch(getResultRequest());
-    console.log("Topic Id in Dispatch : ", topicId);
+
     const token = getFromStorage(storageEnums.TOKEN, "");
     axios({
       method: "GET",
@@ -85,7 +82,6 @@ const getResultPrevSection =
           url: `${RESULT_API}/result/${attempt_id}`,
           headers: { Authorization: `Bearer ${token}` },
         }).then((response) => {
-          console.log(res.data.topic_attempt_stats);
           dispatch(getPreviousAttempt(attempt_id));
           dispatch(getPreviousAttemptsList(res.data.topic_attempt_stats));
           dispatch(getResultSuccess(response.data.result));

@@ -51,7 +51,6 @@ const myBookmarks = (state = initState, { type, payload }) => {
         topicwiseBookmarks: null,
       };
     case GET_TOPICWISE_BOOKMARKS_SUCCESS:
-      console.log("");
       return {
         ...state,
         isLoading: false,

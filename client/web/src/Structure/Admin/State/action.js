@@ -351,7 +351,7 @@ const updateQuestionsRequest = (payload, id, topic, type) => (dispatch) => {
   const token = getFromStorage(storageEnums.TOKEN, "");
 
   let url;
-  console.log(type);
+
   if (type === "LONG") {
     url = `${QUESTION_URL}/update/${topic}/${id}/?type=${type}`;
   } else {

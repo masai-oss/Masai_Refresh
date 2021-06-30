@@ -57,7 +57,7 @@ const QuizPracticeSwitch = ({ quiz, practice }) => {
   const [proficiencyModalData, setProficiencyModalData] =
     useState(proficienyModal);
   const quizTopicsData = useSelector((state) => state.topics.quizTopicsData);
-  console.log(quizTopicsData);
+
   const practiceTopicsData = useSelector(
     (state) => state.topics.practiceTopicsData
   );

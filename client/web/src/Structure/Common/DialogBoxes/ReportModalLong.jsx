@@ -93,7 +93,7 @@ function ReportDialogLong({ question_id, customMargin, statement }) {
       return [...prev, index];
     });
   };
-  console.log(select);
+
   const handleReport = () => {
     let reasons = select.map((ind) => issues[ind]);
     const payload = {
