@@ -123,8 +123,6 @@ const Sidebar = ({ setRightSideContent }) => {
             </h4>
           </li>
           <li
-            onClick={(e) => handleProfileClick(e)}
-            onMouseOver={() => setMouseOnProfileBookmark(true)}
             className={
               window.location.pathname.includes("/my_bookmarks") ||
               window.location.pathname.includes("/bookmarks")
@@ -143,6 +141,8 @@ const Sidebar = ({ setRightSideContent }) => {
               }
             />
             <h4
+              onMouseOver={() => setMouseOnProfileBookmark(true)}
+              onClick={() => setMouseOnProfileBookmark(false)}
               className={
                 window.location.pathname.includes("/my_bookmarks") ||
                 window.location.pathname.includes("/bookmarks")
