@@ -8,12 +8,29 @@ const DetailBodySection = ({ ele, index }) => {
   const handleClickSource = () => {
     window.open(`${ele.source}`, "_blank");
   };
-
+  const cleanText = (text) => {
+    let cleanedText = "";
+    for (let i = 0; i < text.length; ) {
+      if (text.charCodeAt(i) == 10 && text.charCodeAt(i + 1) == 10) {
+        cleanedText += text[i] + text[i + 1] + "\t";
+        i += 2;
+      } else if (text.charCodeAt(i) == 10) {
+        cleanedText += text[i] + "\t";
+        i++;
+      } else {
+        cleanedText += text[i];
+        i++;
+      }
+    }
+    console.log(text);
+    console.log(cleanedText);
+    return cleanedText;
+  };
   return (
     <div className="detail-bodysection__container">
       <div className="detailBodySectionNew">
         <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
-          {`${`Q${index + 1}. ` + ele.statement}`}
+          {`${`Q${index + 1}. ` + cleanText(ele.statement)}`}
         </ReactMarkdown>
         {/* <SyntaxHighlight value={ele.statement} style={a11yLight} /> */}
       </div>
