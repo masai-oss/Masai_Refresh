@@ -3,24 +3,23 @@ import styles from "../Styles/Bookmarks.module.css";
 import { getTopicWiseBookmarks } from "../State/action";
 import { useDispatch, useSelector } from "react-redux";
 import { useHistory } from "react-router-dom";
+import { Spinner } from "../../Common/Loader";
 const Bookmarks = ({ topicId }) => {
   const history = useHistory();
-  console.log("Topic Id: ", topicId);
+
   const dispatch = useDispatch();
   React.useEffect(() => {
     dispatch(getTopicWiseBookmarks(topicId));
   }, []);
   const { topicwiseBookmarks } = useSelector((state) => state.myBookmarks);
-  console.log("Topic wise bookmarks:", topicwiseBookmarks);
 
   const showQuestion = (questionId) => {
-    console.log("Question id: ", questionId);
     history.push(`/bookmarks/${topicId}/${questionId}`);
   };
 
   const renderBookmarks = () => {
     if (!topicwiseBookmarks) {
-      return "";
+      return <Spinner />;
     }
     return topicwiseBookmarks.bookmark_details.map((singleBookmark, index) => {
       const { statement } = singleBookmark;
@@ -64,7 +63,7 @@ const Bookmarks = ({ topicId }) => {
       <div className={styles.bookmarks__bookmarksList}>{renderBookmarks()}</div>
     </div>
   ) : (
-    "Loading..."
+    <Spinner />
   );
 };
 

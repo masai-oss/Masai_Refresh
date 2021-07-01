@@ -82,22 +82,19 @@ import ResultNavabar from "./utils/ResultNavabar";
 import ReportChart from "./chart/ReportChart";
 import PreviousAttempts from "./attempts/PreviousAttempts";
 import DetailedReport from "./detailedReport/DetailedReport";
-import { Spinner, PageNotFound, QuestionNavbar } from "../../Common";
+import { Spinner, PageNotFound } from "../../Common";
 
 const Results_display = () => {
   const result = useSelector((state) => state.resultReducer.result);
   const isError = useSelector((state) => state.resultReducer.isError);
   const isLoading = useSelector((state) => state.resultReducer.isLoading);
-  const question = useSelector((state) => state.questions.question);
   const topic = useSelector((state) => state.questions.topic);
   let search = window.location.search;
   const topicId = getParam("topicId", undefined, search);
 
-  console.log("Topic Id-----------------: ", topicId);
   const prev_attempt_list = useSelector(
     (state) => state.resultReducer.prev_attempt
   );
-  console.log("Previous Attempt List-------: ", prev_attempt_list);
   let history = useHistory();
   useEffect(() => {
     if (isError) {
@@ -105,7 +102,6 @@ const Results_display = () => {
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-  console.log("result", result);
   const correctSol =
     result && result.filter((answer) => answer.outcome === "CORRECT").length;
   const wrongSol =

@@ -3,7 +3,7 @@ import styles from "./Sidebar.module.css";
 import logo from "../../Assets/logo.svg";
 import { BlurModalContext } from "../../ContextProviders/BlurModalContextProvider";
 import { BlurModal } from "../Common/DialogBoxes/BlurModal";
-import { authActions } from "../Authentication";
+import { authActions } from "../Auth/state/action";
 import { CustomDialog, CrnAuth } from "../Common";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
@@ -11,38 +11,51 @@ import { useDispatch } from "react-redux";
 
 const GOOGLE_LOGOUT_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 const ZOHO_LOGOUT_URL = process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
+const LOGOUT_URL = process.env.REACT_APP_AUTH_LOGOUT_URL;
 
 const Sidebar = ({ setRightSideContent }) => {
-  const [toggle, setToggle] = React.useState(false);
   const [displayProfileMenu, setDisplayProfileMenu] = React.useState(false);
-  const [currentActiveTab, setCurrentActiveTab] = React.useState(
-    window.location.pathname
-  );
-  console.log("Current active Tab --------------: ", currentActiveTab);
-  console.log("Current active Url --------------: ", window.location.pathname);
-  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  const [mouseOnProfileBookmark, setMouseOnProfileBookmark] =
+    React.useState(false);
+
+  const [urlOnProfileBookmark, setUrlOnProfileBookmark] = React.useState(false);
+
   const history = useHistory();
   const dispatch = useDispatch();
   const crnAuth = CrnAuth();
   const logout = () => {
-    console.log("Google");
     window.open(GOOGLE_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
   const zohoLogout = () => {
-    console.log("Zoho");
     window.open(ZOHO_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
+
+  React.useEffect(() => {
+    if (
+      window.location.pathname == "/my_bookmarks" ||
+      window.location.pathname.includes("/bookmarks")
+    ) {
+      setUrlOnProfileBookmark(true);
+    } else {
+      setUrlOnProfileBookmark(false);
+    }
+  }, [window.location.pathname]);
+
+  const logout_user = () => {
+    window.open(LOGOUT_URL, "_self");
+    dispatch(authActions.logoutProcess());
+  };
   // const handleListItemClick = (id, e) => {
-  //   console.log(e.currentTarget);
+  //
   //   setRightSideContent(id);
   //   setCurrentActiveTab(id);
   // };
+
   const signOutModalContent = <div>Sign Out</div>;
   const handleProfileClick = () => {
     setDisplayProfileMenu(!displayProfileMenu);
-    setCurrentActiveTab("Profile");
   };
 
   return (
@@ -54,6 +67,7 @@ const Sidebar = ({ setRightSideContent }) => {
         <ul>
           <li
             onClick={(e) => {
+              setDisplayProfileMenu(false);
               history.push("/quiz_topics");
             }}
             className={
@@ -83,6 +97,7 @@ const Sidebar = ({ setRightSideContent }) => {
           </li>
           <li
             onClick={(e) => {
+              setDisplayProfileMenu(false);
               history.push("/practice_topics");
             }}
             className={
@@ -110,72 +125,90 @@ const Sidebar = ({ setRightSideContent }) => {
               Practice
             </h4>
           </li>
-          <li
-            onClick={(e) => handleProfileClick(e)}
-            className={
-              window.location.pathname.includes("/user_profile")
-                ? styles.selected__list_item
-                : ""
-            }
+
+          <div
+            className={styles.Sidebar__profileParent}
+            onMouseOver={() => {
+              setMouseOnProfileBookmark(true);
+            }}
+            onMouseLeave={() => {
+              setMouseOnProfileBookmark(false);
+            }}
           >
-            <img
-              src="/logos/ProfileIcon.svg"
-              alt="Profile"
+            <li
               className={
-                window.location.pathname.includes("/user_profile")
-                  ? styles.svg__selected
-                  : ""
-              }
-            />
-            <h4
-              className={
-                window.location.pathname.includes("/user_profile")
-                  ? styles.selected
+                window.location.pathname.includes("/my_bookmarks") ||
+                window.location.pathname.includes("/bookmarks")
+                  ? styles.selected__list_item
                   : ""
               }
             >
-              Profile
-            </h4>
-          </li>
-          {displayProfileMenu ? (
-            <ul className={styles.Sidebar__profileMenu}>
-              <li
-                onClick={(e) => {
-                  history.push("/my_bookmarks");
-                }}
+              <img
+                src="/logos/ProfileIcon.svg"
+                alt="Profile"
                 className={
                   window.location.pathname.includes("/my_bookmarks") ||
                   window.location.pathname.includes("/bookmarks")
-                    ? styles.selected__list_item
+                    ? styles.svg__selected
+                    : ""
+                }
+              />
+              <h4
+                onClick={() => setMouseOnProfileBookmark(false)}
+                className={
+                  window.location.pathname.includes("/my_bookmarks") ||
+                  window.location.pathname.includes("/bookmarks")
+                    ? styles.selected
                     : ""
                 }
               >
-                <img
-                  src="/logos/BookmarkIcon.svg"
-                  alt="MyBookmarks"
+                Profile
+              </h4>
+            </li>
+            {mouseOnProfileBookmark || urlOnProfileBookmark ? (
+              <ul className={styles.Sidebar__profileMenu}>
+                <li
+                  onClick={(e) => {
+                    history.push("/my_bookmarks");
+                  }}
                   className={
                     window.location.pathname.includes("/my_bookmarks") ||
                     window.location.pathname.includes("/bookmarks")
-                      ? styles.svg__selected
-                      : ""
-                  }
-                />
-                <h4
-                  className={
-                    window.location.pathname.includes("/my_bookmarks") ||
-                    window.location.pathname.includes("/bookmarks")
-                      ? styles.selected
+                      ? styles.selected__list_item
                       : ""
                   }
                 >
-                  My Bookmarks
-                </h4>
-              </li>
-            </ul>
-          ) : (
-            ""
-          )}
-          <li onClick={crnAuth === "google" ? logout : zohoLogout}>
+                  <img
+                    src="/logos/BookmarkIcon.svg"
+                    alt="MyBookmarks"
+                    className={
+                      window.location.pathname.includes("/my_bookmarks") ||
+                      window.location.pathname.includes("/bookmarks")
+                        ? styles.svg__selected
+                        : ""
+                    }
+                  />
+                  <h4
+                    className={
+                      window.location.pathname.includes("/my_bookmarks") ||
+                      window.location.pathname.includes("/bookmarks")
+                        ? styles.selected
+                        : ""
+                    }
+                  >
+                    My Bookmarks
+                  </h4>
+                </li>
+              </ul>
+            ) : (
+              ""
+            )}
+          </div>
+          <li
+            // onClick={crnAuth === "google" ? logout : zohoLogout}
+            onClick={logout_user}
+            className={styles.signOutButton}
+          >
             <img src="/logos/SignOutIcon.svg" alt="SignOut" />
             <h4>Sign Out</h4>
           </li>

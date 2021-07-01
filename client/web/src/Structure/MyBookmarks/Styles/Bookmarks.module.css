@@ -1,5 +1,9 @@
 .bookmarks {
   padding: 20px;
+  overflow-y: scroll;
+}
+.bookmarks * {
+  color: #333434;
 }
 .bookmarks__backButton {
   display: flex;
@@ -19,6 +23,9 @@
   font-size: 20px;
   margin-bottom: 30px;
 }
+.bookmarks__bookmarkCount p {
+  color: #333434;
+}
 .bookmarks__bookmarkCount img {
   margin-right: 15px;
 }
@@ -34,6 +41,7 @@
   font-weight: bold;
   justify-content: space-between;
   cursor: pointer;
+  border-radius: 6px;
 }
 .bookmarks__bookmarksList {
   display: grid;

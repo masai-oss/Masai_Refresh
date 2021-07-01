@@ -39,16 +39,11 @@ questionRoute.get(
 );
 
 // Get question by ID
-questionRoute.get(
-  "/byId/:type/:id",
-  authenticateToken,
-  checkAdmin,
-  getQuestionById
-);
+questionRoute.get("/byId/:id", authenticateToken, checkAdmin, getQuestionById);
 
 // Update question by ID
 questionRoute.put(
-  "/update/:topic/:type/:id",
+  "/update/:topic/:id",
   authenticateToken,
   checkAdmin,
   updateQuestion
@@ -64,7 +59,7 @@ questionRoute.delete(
 
 // Verify question by ID
 questionRoute.patch(
-  "/toggleVerify/:type/:id",
+  "/toggleVerify/:id",
   authenticateToken,
   checkAdmin,
   toggleVerification
@@ -86,7 +81,7 @@ questionRoute.get(
 
 // Solve the report raised by user
 questionRoute.patch(
-  "/solveReport/:id",
+  "/solveReport/:question_id/:report_id",
   authenticateToken,
   checkAdmin,
   solveReport
@@ -94,7 +89,7 @@ questionRoute.patch(
 
 //Toggle Disabled status of a question.
 questionRoute.patch(
-  "/toggleDisable/:type/:id",
+  "/toggleDisable/:id",
   authenticateToken,
   checkAdmin,
   toggleDisabledStatus

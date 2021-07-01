@@ -85,7 +85,7 @@ function ReportSuccessModal ({ question_id, customMargin, isOpen }) {
 					<div>We will ensure the problem is </div>
 					<div>resolved</div>
 				</DialogContent>
-				<DialogActions>
+				<DialogActions className={styles.dialogActions}>
 					<button
 						className={styles.submitBtn}
 						onClick={() => handleClose(true, 'here')}

@@ -1,9 +1,10 @@
 .Practice {
-  padding: 60px 100px 60px 100px;
+  padding: 60px 30px 60px 30px;
   display: grid;
   grid-template-columns: 48% 48%;
   grid-column-gap: 4%;
   grid-row-gap: 50px;
+  overflow-y: scroll;
 }
 .modalContent {
   font-weight: bold;
@@ -15,6 +16,9 @@
 }
 .modalContent span {
   color: #1e90ff;
+}
+.Cards__lastChild {
+  margin-top: 20px;
 }
 .modalContent__buttons {
   display: grid;

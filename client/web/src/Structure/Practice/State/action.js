@@ -250,7 +250,6 @@ const postReportCompleted = () => ({
 });
 
 const postReport = (question_id, issueData) => async (dispatch) => {
-  console.log("Inside action post report:", `${REPORT_API_URL}/${question_id}`);
   dispatch(postReportLoading());
   const token = getFromStorage(storageEnums.TOKEN, "");
   const config = {
@@ -259,14 +258,18 @@ const postReport = (question_id, issueData) => async (dispatch) => {
     headers: {
       Authorization: `Bearer ${token}`,
     },
-    data: {
-      reason: [...issueData.options],
-      description: issueData.description,
-    },
+    data:
+      issueData.description && issueData.description !== ""
+        ? {
+            reason: [...issueData.options],
+            description: issueData.description,
+          }
+        : {
+            reason: [...issueData.options],
+          },
   };
   return axios(config)
     .then(async (res) => {
-      console.log("SUCCESS-------------------IN ACTION", res);
       await dispatch(postReportSuccess());
     })
     .catch((err) => {

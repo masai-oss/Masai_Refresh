@@ -14,17 +14,16 @@ import { useHistory } from "react-router-dom";
 
 export const QuestionsByTopic = ({
   topic,
-  handleDelete,
+  handleDisable,
   topics,
   page,
   rowsPerPage,
+  disabledFilter,
+  reportedFilter,
 }) => {
   const dispatch = useDispatch();
   const data = useSelector((state) => state.admin.data);
   const isLoading = useSelector((state) => state.admin.isLoading);
-  const questionDeletionStatus = useSelector(
-    (state) => state.admin.questionDeletionStatus
-  );
   const questionAddedStatus = useSelector(
     (state) => state.admin.questionAddedStatus
   );
@@ -34,6 +33,8 @@ export const QuestionsByTopic = ({
     const params = new URLSearchParams();
     params.append("page", newPage + 1);
     params.append("rowsPerPage", rowsPerPage);
+    params.append("disabledFilter", disabledFilter);
+    params.append("reportedFilter", reportedFilter);
     history.push({ search: params.toString() });
   };
 
@@ -41,25 +42,41 @@ export const QuestionsByTopic = ({
     const params = new URLSearchParams();
     params.append("page", page);
     params.append("rowsPerPage", event.target.value);
+    params.append("disabledFilter", disabledFilter);
+    params.append("reportedFilter", reportedFilter);
     history.push({ search: params.toString() });
   };
 
   useEffect(() => {
-    dispatch(adminActions.getQuestionsByTopicRequest(topic, page, rowsPerPage));
+    const params = new URLSearchParams(window.location.search);
+    params.set("disabledFilter", disabledFilter);
+    params.set("reportedFilter", reportedFilter);
+    history.push({ search: params.toString() });
+    dispatch(
+      adminActions.getQuestionsByTopicRequest(
+        topic,
+        page,
+        rowsPerPage,
+        disabledFilter,
+        reportedFilter
+      )
+    );
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [
-    questionDeletionStatus,
     questionAddedStatus,
     page,
     rowsPerPage,
-    questionDeletionStatus,
-    questionAddedStatus,
     topic,
     dispatch,
+    disabledFilter,
+    reportedFilter,
+    history,
   ]);
 
-  return isLoading || !data?.questions?.current?.length ? (
-    <div>...isLoading</div>
+  return isLoading || !data?.questions?.current ? (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>...isLoading</div>
+  ) : data?.questions?.current?.length === 0 ? (
+    <div style={{ textAlign: "center", marginTop: "20px" }}>No questions</div>
   ) : (
     <>
       <Table>
@@ -69,8 +86,9 @@ export const QuestionsByTopic = ({
             <TableCell>Source</TableCell>
             <TableCell>Topic</TableCell>
             <TableCell>Type</TableCell>
+            <TableCell>Reports</TableCell>
             <TableCell>Edit</TableCell>
-            <TableCell>Delete</TableCell>
+            <TableCell>Disable</TableCell>
             <TableCell>Verified</TableCell>
           </TableRow>
         </TableHead>
@@ -78,7 +96,7 @@ export const QuestionsByTopic = ({
           {data?.questions?.current?.length &&
             data?.questions?.current?.map((item) => (
               <Row
-                handleDelete={handleDelete}
+                handleDisable={handleDisable}
                 key={item._id}
                 item={item}
                 topic={topic}
@@ -87,7 +105,7 @@ export const QuestionsByTopic = ({
         </TableBody>
       </Table>
       <TablePagination
-        component="div"
+        component='div'
         count={data?.questions?.totalCount}
         rowsPerPage={rowsPerPage}
         page={page - 1}

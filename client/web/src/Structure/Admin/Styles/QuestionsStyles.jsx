@@ -3,23 +3,32 @@ import { makeStyles, createStyles } from "@material-ui/core/styles";
 const QuestionsStyles = makeStyles((theme) =>
   createStyles({
     root: {},
+    container: {
+      backgroundColor: "#EFEFF6",
+      minWidth: "100vw",
+      minHeight: "100vh",
+    },
     top: {
       display: "flex",
       justifyContent: "space-between",
       alignItems: "center",
     },
     save: {
-      backgroundColor: "#2196f3",
+      backgroundColor: "#5B6AFA",
       color: "white",
     },
-    delete: {
+    disable: {
       backgroundColor: "#ff6b81",
       color: "white",
     },
     id: {
       textDecoration: "underline",
       cursor: "pointer",
-      color: "#2196f3",
+      color: "#5B6AFA",
+    },
+    reports: {
+      cursor: "pointer",
+      color: "#5B6AFA",
     },
     modal: {
       display: "flex",

@@ -37,7 +37,6 @@ const getBookmarksCount = () => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
-        console.log("All Bookmarks: ", response);
         dispatch(getBookmarksCountSuccess(response.data.data));
       })
       .catch((err) => {
@@ -60,7 +59,6 @@ const getTopicWiseBookmarksFailure = () => ({
 });
 
 const getTopicWiseBookmarks = (id) => {
-  console.log("Action Getting topic bookmarks: ", id);
   return async (dispatch) => {
     dispatch(getTopicWiseBookmarksRequest());
     const token = getFromStorage(storageEnums.TOKEN, "");
@@ -73,7 +71,6 @@ const getTopicWiseBookmarks = (id) => {
       },
     })
       .then((response) => {
-        console.log("All Topicwise Bookmarks: ", response.data.data);
         dispatch(getTopicWiseBookmarksSuccess(response.data.data));
       })
       .catch((err) => {

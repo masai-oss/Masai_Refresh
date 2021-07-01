@@ -5,7 +5,12 @@ import boy from "../../../Assets/vectorrr.svg";
 import { useHistory } from "react-router-dom";
 import { useSelector } from "react-redux";
 import { Spinner } from "../../Common/Loader";
-
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
+import {
+  saveToStorage,
+  removeFromStorage,
+} from "../../../Utils/localStorageHelper";
 const Completed = () => {
   const history = useHistory();
   const { isLoading } = useSelector((state) => state.practice_topics);
@@ -21,7 +26,10 @@ const Completed = () => {
         <div className={styles.stars}>
           <img src={star} alt="star" />
         </div>
-        <div className={styles.message}>You’ve completed HTML Practice</div>
+        <div className={styles.message}>
+          You’ve completed{" "}
+          {getFromStorage(storageEnums.LONG_TYPE_NAV_TOPIC, "")} Practice
+        </div>
         <div>
           <button onClick={goToPractice} className={styles.btn}>
             Practice again

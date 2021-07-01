@@ -8,10 +8,12 @@ import { GoogleLogin } from "./Components/GoogleLogin";
 import { ZohoLogin } from "./Components/ZohoLogin";
 import { Grid, Card, CardContent, Box } from "@material-ui/core";
 import { Spinner } from "../Common";
-
+import { SignIn } from "../Auth/SignIn";
+import { useHistory } from "react-router";
 const Login = () => {
+  const history = useHistory();
   const dispatch = useDispatch();
-  const isLoggingIn = useSelector((state) => state.authentication.isLoggingIn);
+  const isLoggingIn = useSelector((state) => state.authenticationNew.isSignIn);
   let isAuth = getFromStorage(storageEnums.TOKEN, "");
   useEffect(() => {
     dispatch(authActions.userLoginProcess());
@@ -54,6 +56,11 @@ const Login = () => {
             </Box>
             <Box m={2}>
               <ZohoLogin />
+            </Box>
+            <Box m={2}>
+              <button onClick={() => history.push("/sign-in")}>
+                New Sign In
+              </button>
             </Box>
           </Grid>
         </CardContent>

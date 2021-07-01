@@ -9,205 +9,6 @@ const {
   toggleVerificationValidation,
 } = require("../utils/validation/questionValidation");
 
-const addQuestion = async (req, res) => {
-  const { topic: name } = req.params;
-  const question = req.body;
-  const { error } = questionAddValidate({ ...question, name, source: "fake" });
-  if (error) {
-    return res.status(400).json({
-      error: true,
-      message: "Adding question failed",
-      reason: error.details[0].message,
-    });
-  }
-  try {
-    let findTopic = await Topic.find({ name: name });
-    if (!findTopic.length) {
-      return res
-        .status(400)
-        .json({ error: true, message: "Add topic before adding question" });
-    }
-    await Topic.updateOne(
-      { name: name },
-      {
-        $push: {
-          questions: { ...question, source: "fake" },
-        },
-      }
-    );
-    return res
-      .status(200)
-      .json({ error: false, message: "Question added Successfully" });
-  } catch (err) {
-    return res.status(400).json({
-      error: true,
-      message: "Something Went Wrong",
-      reason: `${err}`,
-    });
-  }
-};
-
-const toggleVerification = async (req, res) => {
-  const { id, type } = req.params;
-  try {
-    let topic, verified;
-
-    if (type == "long") {
-      topic = await Practice.findOne({ "questions._id": id });
-      verified = topic.questions.find((q) => q._id == id).verified;
-
-      await Practice.updateOne(
-        {
-          "questions._id": id,
-        },
-        {
-          $set: {
-            "questions.$.verified": !verified,
-          },
-        }
-      );
-    } else {
-      topic = await Topic.findOne({ "questions._id": id });
-      verified = topic.questions.find((q) => q._id == id).verified;
-      await Topic.updateOne(
-        {
-          "questions._id": id,
-        },
-        {
-          $set: {
-            "questions.$.verified": !verified,
-          },
-        }
-      );
-    }
-
-    res.status(200).json({
-      error: false,
-      message: "successful",
-      data: { verified: !verified },
-    });
-  } catch (err) {
-    res.status(400).json({ error: true, message: `${err}` });
-  }
-};
-
-// IN PROGRESS
-const updateQuestion = async (req, res) => {
-  const { topic: name, id: _id, type } = req.params;
-  const questionData = req.body;
-  const { stats, _id: questionId, topic, ...question } = questionData;
-  const { error: statsError } = statsValidate(stats);
-  if (statsError) {
-    return res.status(400).json({
-      error: true,
-      message: "Updating question failed check Stats",
-      reason: statsError.details[0].message,
-    });
-  }
-  const { error: idTopicError } = idTopicValidation(req.params);
-  if (idTopicError) {
-    return res.status(400).json({
-      error: true,
-      message: "Updating question failed check id and topic",
-      reason: idTopicError.details[0].message,
-    });
-  }
-  const { error: questionError } = questionAddValidate({ ...question, name });
-  if (questionError) {
-    return res.status(400).json({
-      error: true,
-      message: "Updating question failed check question",
-      reason: questionError.details[0].message,
-    });
-  }
-  try {
-    let updatedQuestion;
-    if (type === "long") {
-      updatedQuestion = await Topic.updateOne(
-        {
-          name: name,
-          "questions._id": _id,
-        },
-        {
-          $set: {
-            "questions.$": { ...question, _id, stats },
-          },
-        }
-      );
-    } else {
-      updatedQuestion = await Practice.updateOne(
-        {
-          name: name,
-          "questions._id": _id,
-        },
-        {
-          $set: {
-            "questions.$": { ...question, _id, stats },
-          },
-        }
-      );
-    }
-
-    if (!updatedQuestion) {
-      return res.status(400).json({
-        error: true,
-        message: `${name} question unable to update`,
-      });
-    }
-    return res.status(200).json({
-      error: false,
-      message: `${name} question updated successfully`,
-      question: question,
-    });
-  } catch (err) {
-    return res.status(400).json({
-      error: true,
-      message: "Something Went Wrong",
-      reason: `${err}`,
-    });
-  }
-};
-
-const deleteQuestion = async (req, res) => {
-  const { id, topic: name } = req.params;
-  const { error } = idTopicValidation(req.params);
-  if (error) {
-    return res.status(400).json({
-      error: true,
-      message: "Deleting question failed",
-      reason: error.details[0].message,
-    });
-  }
-  try {
-    let deleteQuestion = await Topic.updateOne(
-      {
-        name: name,
-      },
-      {
-        $pull: {
-          questions: { _id: id },
-        },
-      }
-    );
-    if (!deleteQuestion) {
-      return res.status(400).json({
-        error: true,
-        message: `${name} question unable to delete`,
-      });
-    }
-    return res.status(200).json({
-      error: false,
-      message: `${name} question deleted successfully`,
-    });
-  } catch (err) {
-    return res.status(400).json({
-      error: true,
-      message: "Something Went Wrong",
-      reason: `${err}`,
-    });
-  }
-};
-
 const pagination = (page, limit, questions) => {
   const startIndex = (page - 1) * limit;
   const endIndex = page * limit;
@@ -248,7 +49,9 @@ const getAllQuestion = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const disabledFilter = req.query.disabledFilter;
   const reportedFilter = req.query.reportedFilter;
+  const type = req.query.type;
 
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
     if (page < 1) {
       return res.status(400).json({
@@ -256,23 +59,10 @@ const getAllQuestion = async (req, res) => {
         message: "The Page No must be greater than 0",
       });
     }
-    var questions1, questions2;
-    if (disabledFilter != "true" && reportedFilter != "true") {
-      questions1 = await Topic.aggregate([
-        {
-          $addFields: {
-            "questions.topic": "$name",
-          },
-        },
-        {
-          $group: {
-            _id: 0,
-            allQuestions: { $push: "$questions" },
-          },
-        },
-      ]);
 
-      questions2 = await Practice.aggregate([
+    let questions;
+    if (disabledFilter != "true" && reportedFilter != "true") {
+      questions = await eval(collection).aggregate([
         {
           $addFields: {
             "questions.topic": "$name",
@@ -286,32 +76,7 @@ const getAllQuestion = async (req, res) => {
         },
       ]);
     } else if (disabledFilter == "true") {
-      questions1 = await Topic.aggregate([
-        {
-          $addFields: {
-            "questions.topic": "$name",
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: { $eq: ["$$item.disabled", true] },
-              },
-            },
-          },
-        },
-        {
-          $group: {
-            _id: 0,
-            allQuestions: { $push: "$questions" },
-          },
-        },
-      ]);
-
-      questions2 = await Practice.aggregate([
+      questions = await eval(collection).aggregate([
         {
           $addFields: {
             "questions.topic": "$name",
@@ -336,7 +101,7 @@ const getAllQuestion = async (req, res) => {
         },
       ]);
     } else if (reportedFilter == "true") {
-      questions1 = await Topic.aggregate([
+      questions = await eval(collection).aggregate([
         {
           $addFields: {
             "questions.topic": "$name",
@@ -363,53 +128,36 @@ const getAllQuestion = async (req, res) => {
         },
       ]);
 
-      questions2 = await Practice.aggregate([
-        {
-          $addFields: {
-            "questions.topic": "$name",
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: {
-                  $gt: [{ $size: "$$item.flag" }, 0],
-                },
-              },
-            },
-          },
-        },
-        {
-          $group: {
-            _id: 0,
-            allQuestions: { $push: "$questions" },
-          },
-        },
-      ]);
+      if (questions[0].allQuestions.length > 0) {
+        questions[0].allQuestions = questions[0].allQuestions.map(
+          (topicQue) => {
+            if (topicQue?.length > 0) {
+              topicQue = topicQue?.filter((item) => {
+                return item?.flag?.some((flag) => flag.status.solved === false);
+              });
+            }
+            return topicQue;
+          }
+        );
+      }
     }
 
     let allQuestions = [];
-    if (questions1[0].allQuestions.length > 0) {
-      questions1[0].allQuestions.forEach((topicQue) => {
+    if (questions[0].allQuestions.length > 0) {
+      questions[0].allQuestions.forEach((topicQue) => {
         if (topicQue.length !== undefined) {
           allQuestions.push(...topicQue);
         }
       });
     }
-    if (questions2[0].allQuestions.length > 0) {
-      questions2[0].allQuestions.forEach((topicQue) => {
-        if (topicQue.length !== undefined) {
-          allQuestions.push(...topicQue);
-        }
-      });
-    }
+
     if (allQuestions.length == 0) {
-      return res.status(400).json({
-        error: true,
-        message: "No questions are present",
+      return res.status(200).json({
+        error: false,
+        message: "Successfully got Questions",
+        questions: {
+          current: [],
+        },
       });
     }
 
@@ -433,6 +181,7 @@ const getQuestionByTopic = async (req, res) => {
   const limit = parseInt(req.query.limit) || 10;
   const disabledFilter = req.query.disabledFilter;
   const reportedFilter = req.query.reportedFilter;
+  const type = req.query.type;
   const { topic: name } = req.params;
   const { error } = topicValidation(req.params);
   if (error) {
@@ -442,6 +191,8 @@ const getQuestionByTopic = async (req, res) => {
       reason: error.details[0].message,
     });
   }
+
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
     if (page < 1) {
       return res.status(400).json({
@@ -449,42 +200,17 @@ const getQuestionByTopic = async (req, res) => {
         message: "The Page No must be greater than 0",
       });
     }
-    var findedQuestion1, findedQuestion2, findedQuestion;
-    if (disabledFilter != "true" && reportedFilter != "true") {
-      findedQuestion1 = await Topic.find(
-        {
-          name: name,
-        },
-        { icon: 0, name: 0 }
-      );
 
-      findedQuestion2 = await Practice.find(
+    let questions;
+    if (disabledFilter != "true" && reportedFilter != "true") {
+      questions = await eval(collection).find(
         {
           name: name,
         },
         { icon: 0, name: 0 }
       );
     } else if (disabledFilter == "true") {
-      findedQuestion1 = await Topic.aggregate([
-        {
-          $match: {
-            name: name,
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: { $eq: ["$$item.disabled", true] },
-              },
-            },
-          },
-        },
-      ]);
-
-      findedQuestion2 = await Practice.aggregate([
+      questions = await eval(collection).aggregate([
         {
           $match: {
             name: name,
@@ -503,7 +229,7 @@ const getQuestionByTopic = async (req, res) => {
         },
       ]);
     } else if (reportedFilter == "true") {
-      findedQuestion1 = await Topic.aggregate([
+      questions = await eval(collection).aggregate([
         {
           $match: {
             name: name,
@@ -524,43 +250,29 @@ const getQuestionByTopic = async (req, res) => {
         },
       ]);
 
-      findedQuestion2 = await Practice.aggregate([
-        {
-          $match: {
-            name: name,
-          },
-        },
-        {
-          $project: {
-            questions: {
-              $filter: {
-                input: "$questions",
-                as: "item",
-                cond: {
-                  $gt: [{ $size: "$$item.flag" }, 0],
-                },
-              },
-            },
-          },
-        },
-      ]);
+      if (questions[0].questions.length > 0) {
+        questions[0].questions = questions[0].questions.filter((item) => {
+          return item?.flag?.some((flag) => flag.status.solved === false);
+        });
+      }
     }
 
-    if (findedQuestion1.length > 0) {
-      findedQuestion = [...findedQuestion1[0].questions];
-    }
-    if (findedQuestion2.length > 0) {
-      findedQuestion = [...findedQuestion, ...findedQuestion2[0].questions];
+    let allQuestions = [];
+    if (questions.length > 0) {
+      allQuestions = [...questions[0].questions];
     }
 
-    if (findedQuestion.length == 0) {
-      return res.status(400).json({
-        error: true,
-        message: `No Questions present in ${name}`,
+    if (allQuestions.length == 0) {
+      return res.status(200).json({
+        error: false,
+        message: "Successfully got Questions",
+        questions: {
+          current: [],
+        },
       });
     }
 
-    let paginatedResults = pagination(page, limit, findedQuestion);
+    let paginatedResults = pagination(page, limit, allQuestions);
     return res.status(200).json({
       error: false,
       message: "Question found successfully",
@@ -576,20 +288,15 @@ const getQuestionByTopic = async (req, res) => {
 };
 
 const getQuestionById = async (req, res) => {
-  const { id, type } = req.params;
+  const { id } = req.params;
+  const type = req.query.type;
+
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
-    var findedQuestion;
-    if (type == "long") {
-      findedQuestion = await Practice.find(
-        { questions: { $elemMatch: { _id: id } } },
-        { "questions.$": 1, _id: 0 }
-      );
-    } else {
-      findedQuestion = await Topic.find(
-        { questions: { $elemMatch: { _id: id } } },
-        { "questions.$": 1, _id: 0 }
-      );
-    }
+    let findedQuestion = await eval(collection).find(
+      { questions: { $elemMatch: { _id: id } } },
+      { "questions.$": 1, _id: 0 }
+    );
 
     if (!findedQuestion.length) {
       return res.status(400).json({
@@ -612,39 +319,212 @@ const getQuestionById = async (req, res) => {
   }
 };
 
-const toggleDisabledStatus = async (req, res) => {
-  const { id, type } = req.params;
+const addQuestion = async (req, res) => {
+  const { topic: name } = req.params;
+  const question = req.body;
+  const type = req.query.type;
+  const { error } = questionAddValidate({ ...question, name, source: "N/A" });
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: "Adding question failed",
+      reason: error.details[0].message,
+    });
+  }
+
+  let collection = type === undefined ? "Topic" : "Practice";
   try {
-    let topic, disabled;
-
-    if (type == "long") {
-      topic = await Practice.findOne({ "questions._id": id });
-      disabled = topic.questions.find((q) => q._id == id).disabled;
-
-      await Practice.updateOne(
-        {
-          "questions._id": id,
-        },
-        {
-          $set: {
-            "questions.$.disabled": !disabled,
-          },
-        }
-      );
-    } else {
-      topic = await Topic.findOne({ "questions._id": id });
-      disabled = topic.questions.find((q) => q._id == id).disabled;
-      await Topic.updateOne(
-        {
-          "questions._id": id,
-        },
-        {
-          $set: {
-            "questions.$.disabled": !disabled,
-          },
-        }
-      );
+    let findTopic = await eval(collection).find({ name: name }, { name: 1 });
+    if (!findTopic.length) {
+      return res
+        .status(400)
+        .json({ error: true, message: "Add topic before adding question" });
     }
+    await eval(collection).updateOne(
+      { name: name },
+      {
+        $push: {
+          questions: { ...question, source: "N/A" },
+        },
+      }
+    );
+    return res
+      .status(200)
+      .json({ error: false, message: "Question added Successfully" });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: "Something Went Wrong",
+      reason: `${err}`,
+    });
+  }
+};
+
+const updateQuestion = async (req, res) => {
+  const { topic: name, id: _id } = req.params;
+  const questionData = req.body;
+  const type = req.query.type;
+
+  const { stats, flag, verified, disabled, ...question } = questionData;
+  if (!type) {
+    const { error: statsError } = statsValidate(stats);
+    if (statsError) {
+      return res.status(400).json({
+        error: true,
+        message: "Updating question failed check Stats",
+        reason: statsError.details[0].message,
+      });
+    }
+  }
+  const { error: idTopicError } = idTopicValidation(req.params);
+  if (idTopicError) {
+    return res.status(400).json({
+      error: true,
+      message: "Updating question failed check id and topic",
+      reason: idTopicError.details[0].message,
+    });
+  }
+  const { error: questionError } = questionAddValidate({ ...question, name });
+  if (questionError) {
+    return res.status(400).json({
+      error: true,
+      message: "Updating question failed check question",
+      reason: questionError.details[0].message,
+    });
+  }
+
+  let collection = type === undefined ? "Topic" : "Practice";
+  try {
+    let updatedQuestion = await eval(collection).updateOne(
+      {
+        name: name,
+        "questions._id": _id,
+      },
+      {
+        $set: {
+          "questions.$": { ...questionData, _id: _id },
+        },
+      }
+    );
+
+    if (updatedQuestion.n === 0 || updateQuestion.nModified === 0) {
+      return res.status(400).json({
+        error: true,
+        message: `${name} question unable to update`,
+      });
+    }
+    return res.status(200).json({
+      error: false,
+      message: `${name} question updated successfully`,
+      question: {
+        topic: name,
+        _id: _id,
+        ...questionData,
+      },
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: "Something Went Wrong",
+      reason: `${err}`,
+    });
+  }
+};
+
+// ---------------- delete not in use (deleting practice questions not included) --------------------
+const deleteQuestion = async (req, res) => {
+  const { id, topic: name } = req.params;
+  const { error } = idTopicValidation(req.params);
+  if (error) {
+    return res.status(400).json({
+      error: true,
+      message: "Deleting question failed",
+      reason: error.details[0].message,
+    });
+  }
+  try {
+    let deleteQuestion = await Topic.updateOne(
+      {
+        name: name,
+      },
+      {
+        $pull: {
+          questions: { _id: id },
+        },
+      }
+    );
+    if (!deleteQuestion) {
+      return res.status(400).json({
+        error: true,
+        message: `${name} question unable to delete`,
+      });
+    }
+    return res.status(200).json({
+      error: false,
+      message: `${name} question deleted successfully`,
+    });
+  } catch (err) {
+    return res.status(400).json({
+      error: true,
+      message: "Something Went Wrong",
+      reason: `${err}`,
+    });
+  }
+};
+
+const toggleVerification = async (req, res) => {
+  const { id } = req.params;
+  const type = req.query.type;
+
+  let collection = type === undefined ? "Topic" : "Practice";
+  try {
+    let topic = await eval(collection).findOne(
+      { "questions._id": id },
+      { "questions.$": 1 }
+    );
+    let verified = topic.questions[0].verified;
+    await eval(collection).updateOne(
+      {
+        "questions._id": id,
+      },
+      {
+        $set: {
+          "questions.$.verified": !verified,
+        },
+      }
+    );
+
+    res.status(200).json({
+      error: false,
+      message: "successful",
+      data: { verified: !verified },
+    });
+  } catch (err) {
+    res.status(400).json({ error: true, message: `${err}` });
+  }
+};
+
+const toggleDisabledStatus = async (req, res) => {
+  const { id } = req.params;
+  const type = req.query.type;
+
+  let collection = type === undefined ? "Topic" : "Practice";
+  try {
+    let topic = await eval(collection).findOne(
+      { "questions._id": id },
+      { "questions.$": 1 }
+    );
+    let disabled = topic.questions[0].disabled;
+    await eval(collection).updateOne(
+      {
+        "questions._id": id,
+      },
+      {
+        $set: {
+          "questions.$.disabled": !disabled,
+        },
+      }
+    );
 
     res.status(200).json({
       error: false,
