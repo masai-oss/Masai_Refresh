@@ -130,7 +130,12 @@ const MCQ = (props) => {
       }
     }
   };
-
+  React.useEffect(() => {
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener("popstate", function (event) {
+      window.history.pushState(null, document.title, window.location.href);
+    });
+  }, []);
   const answerRecordSetup = async () => {
     let payload = {
       attempt_id,
