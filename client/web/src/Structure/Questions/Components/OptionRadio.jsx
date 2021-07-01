@@ -23,7 +23,7 @@ const OptionRadio = ({ id, value, handleColor, active, optionMaxLength }) => {
 					p={1}
 					borderRadius={2}
 					className={active === id ? classes.active : classes.main}
-					style={optionMaxLength >= +40 ? { width: '720px' } : { width: '350px' }}
+					style={optionMaxLength >= +35 ? { width: '730px' } : { width: '350px' }}
 					onClick={() => handleColor(id)}
 				>
 					<FormControlLabel
