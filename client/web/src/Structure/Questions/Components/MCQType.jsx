@@ -9,6 +9,7 @@ import { resultAction } from "../../Results Display";
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
+
 import {
   QuestionStyles,
   PrevButton,
@@ -233,6 +234,7 @@ const MCQ = (props) => {
   const textPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}.svg`;
 
   const handleExit = () => {
+    dispatch(resultAction.getResultPrevSection({ topicId, attempt_id }));
     history.push("/quiz_topics");
   };
   return question ? (
