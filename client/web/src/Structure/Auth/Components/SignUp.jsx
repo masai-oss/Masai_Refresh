@@ -7,6 +7,9 @@ import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
 import { ErrorMessageText } from "./ErrorMessageText";
 import { storageEnums } from "../../../Enums/storageEnums";
+import { Redirect } from "react-router-dom";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+
 import {
   saveToStorage,
   removeFromStorage,
@@ -23,7 +26,7 @@ const SignUp = () => {
   const { isLoading, errorMessageSignUp, isSignUp } = useSelector(
     (state) => state.authenticationNew
   );
-
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   const handleChange = (e) => {
     const { name, value } = e.target;
     setUserData({ ...userData, [name]: value });
@@ -80,7 +83,11 @@ const SignUp = () => {
       {/* {ErrorMessage && <div style={{ color: "red" }}>{ErrorMessage}</div>} */}
     </div>
   );
-  return <AuthTemplate cardContent={cardContent} />;
+  return isAuth ? (
+    <Redirect push to="/" />
+  ) : (
+    <AuthTemplate cardContent={cardContent} />
+  );
 };
 
 export { SignUp };

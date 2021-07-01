@@ -5,12 +5,15 @@ import { useSelector, useDispatch } from "react-redux";
 import { useHistory, Redirect } from "react-router-dom";
 import { authActions } from "../state/action";
 import { storageEnums } from "../../../Enums/storageEnums";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+
 import {
   saveToStorage,
   removeFromStorage,
 } from "../../../Utils/localStorageHelper";
-import { getFromStorage } from "../../../Utils/localStorageHelper";
+
 const ResendOtp = () => {
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [elements, setElements] = React.useState([]);
   const { email, resendOtp, errorMessageResendUserVerification, userVerif } =
@@ -87,7 +90,11 @@ const ResendOtp = () => {
       </button>
     </div>
   );
-  return <AuthTemplate cardContent={cardContent} />;
+  return isAuth ? (
+    <Redirect push to="/" />
+  ) : (
+    <AuthTemplate cardContent={cardContent} />
+  );
 };
 
 export { ResendOtp };

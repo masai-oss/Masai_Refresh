@@ -9,12 +9,14 @@ import { storageEnums } from "../../../Enums/storageEnums";
 import { ErrorMessageText } from "./ErrorMessageText";
 import { SuccessMessageText } from "./SuccessMessageText";
 import OtpInput from "react-otp-input";
+import { Redirect } from "react-router-dom";
 import {
   saveToStorage,
   removeFromStorage,
 } from "../../../Utils/localStorageHelper";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 const RecoverPasswordOtp = () => {
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   const history = useHistory();
   const [otp, setOtp] = React.useState("");
   const [elements, setElements] = React.useState([]);
@@ -116,7 +118,11 @@ const RecoverPasswordOtp = () => {
       )}
     </div>
   );
-  return <AuthTemplate cardContent={cardContent} />;
+  return isAuth ? (
+    <Redirect push to="/" />
+  ) : (
+    <AuthTemplate cardContent={cardContent} />
+  );
 };
 
 export { RecoverPasswordOtp };
