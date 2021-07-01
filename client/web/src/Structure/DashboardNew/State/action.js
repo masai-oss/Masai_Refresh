@@ -31,7 +31,6 @@ const getPreviousAttempts = (topicId) => {
       headers: { Authorization: `Bearer ${token}` },
     })
       .then((response) => {
-        console.log("PrevAttempts in action: ", response);
         dispatch(getPreviousAttemptsSuccess(response.data.topic_attempt_stats));
       })
       .catch((err) => {

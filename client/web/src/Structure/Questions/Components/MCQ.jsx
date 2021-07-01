@@ -9,6 +9,7 @@ import { resultAction } from "../../Results Display";
 import { useHistory, useLocation } from "react-router";
 import { Redirect } from "react-router-dom";
 import { QuestionWrapper } from "../Styles/MCQ_styles";
+import styles from "../Styles/MCQ.module.css";
 import {
   QuestionStyles,
   PrevButton,
@@ -138,6 +139,7 @@ const MCQ = (props) => {
                   justify="flex-start"
                   alignItems="flex-start"
                   container
+                  className={styles.optionsGrid}
                 >
                   {options.map((option, index) => (
                     <OptionRadio

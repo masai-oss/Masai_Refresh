@@ -68,6 +68,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 			}
 			// snackbarBtnRef.current.click();
 		}
+
 		setOpen(false);
 		setSelect([]);
 		setDetails('');
@@ -98,7 +99,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 			];
 		});
 	};
-	console.log(select);
+
 	const handleReport = () => {
 		let reasons = select.map((ind) => issues[ind]);
 		const payload = {
@@ -157,7 +158,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 						</TagsWrapper>
 					</div>
 					<div>
-						<h3 className={classes.details}>Add Details *</h3>
+						<h3 className={classes.details}>Add Details</h3>
 						<CustomizedTextArea onChange={handleDetailsChange} value={details} />
 					</div>
 				</DialogContent>
@@ -168,7 +169,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 						color="primary"
 						autoFocus
 						submitBtn={true}
-						disabled={details.length === 0 || select.length === 0}
+						disabled={select.length === 0}
 					>
 						Submit
 					</CustomButton>

@@ -18,31 +18,8 @@ body {
 .bookmarkNavbar > div > p {
   margin-left: 10px;
 }
-.question {
-  height: fit-content;
-  width: 800px;
-  background-color: #edf5ff;
-  margin: auto;
-  padding: 2%;
-  padding-left: 3.5%;
-  padding-top: 4%;
-  margin-top: 85px;
-}
-
-.answer {
-  height: fit-content;
-  width: 800px;
-  background-color: #ffffff;
-  margin: auto;
-  padding: 2%;
-  padding-left: 3.5%;
-  font-family: Open Sans;
-  font-style: normal;
-  font-weight: normal;
-  font-size: 14px;
-  line-height: 170%;
-
-  color: #333434;
+.Longtype__bookmarkicon {
+  cursor: pointer;
 }
 
 .queFont {
@@ -144,7 +121,7 @@ body {
 .btn {
   width: 180px;
   height: 56px;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   cursor: pointer;
   background: linear-gradient(239.11deg, #1e90ff -4.11%, #2b75cd 88.83%);
   box-shadow: 0px 12px 16px -10px rgba(30, 144, 255, 0.6);
@@ -156,13 +133,13 @@ body {
   font-size: 18px;
   line-height: 170%;
   text-align: center;
-  margin-left: 30px;
+  /* margin-left: 30px; */
   color: #ffffff;
 }
 
 .disabledBtn {
-  margin-left: 30px;
-  margin-top: 20px;
+  /* margin-left: 30px;
+  margin-top: 20px; */
   cursor: pointer;
   width: 180px;
   height: 56px;
@@ -180,11 +157,6 @@ body {
   color: #cecece;
 }
 
-.nextBtn {
-  display: flex;
-  margin-left: 22%;
-}
-
 .filledBookmark {
   color: #2b75cd;
 }
@@ -193,4 +165,46 @@ body {
   display: flex;
   align-items: center;
   cursor: pointer;
+}
+
+.longTypeParent {
+}
+.longTypeParent > * {
+  width: 50%;
+}
+.question {
+  height: fit-content;
+  /* width: 800px; */
+  background-color: #edf5ff;
+  margin: auto;
+  padding: 2%;
+  padding-left: 3.5%;
+  padding-top: 4%;
+  margin-top: 85px;
+}
+
+.answer {
+  height: fit-content;
+  /* width: 800px; */
+  background-color: #ffffff;
+  margin: auto;
+  padding: 2%;
+  padding-left: 3.5%;
+  font-family: Open Sans;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 14px;
+  line-height: 170%;
+
+  color: #333434;
+}
+.nextBtn {
+  /* display: flex; */
+  /* margin-left: 22%; */
+
+  margin: auto;
+  margin-top: 30px;
+}
+.nextBtn button {
+  margin-right: 30px;
 }

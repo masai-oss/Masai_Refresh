@@ -38,7 +38,7 @@ const SingleQuestionBookmarkQuestion = () => {
   };
 
   const { question } = useSelector((state) => state.practice_topics);
-  console.log("Question is :---------------- ", question);
+
   const dispatch = useDispatch();
   const history = useHistory();
 
@@ -127,15 +127,19 @@ const SingleQuestionBookmarkQuestion = () => {
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>
           {bookmark_flag ? (
-            <BookmarkIcon
-              className={styles.filledBookmark}
+            <img
+              src="/logos/BookmarkAfter.svg"
+              alt="after bookmark icon"
               onClick={toggleBookmark}
-            ></BookmarkIcon>
+              className={styles.Longtype__bookmarkicon}
+            />
           ) : (
-            <BookmarkBorderIcon
-              className={styles.bookmark}
+            <img
+              src="/logos/BookmarkBefore.svg"
+              alt="before bookmark icon"
               onClick={toggleBookmark}
-            ></BookmarkBorderIcon>
+              className={styles.Longtype__bookmarkicon}
+            />
           )}
           <div className={styles.likesDiv}>
             {like_flag ? (

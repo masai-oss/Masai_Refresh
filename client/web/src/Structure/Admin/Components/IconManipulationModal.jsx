@@ -122,7 +122,7 @@ const IconManipulationDialog = ({
         <DialogContent>
           <div className={classess.holder}>
             {icon.preview ? (
-              <Avatar
+              <img
                 className={classess.showIcon}
                 alt={name}
                 src={icon.previewFile}

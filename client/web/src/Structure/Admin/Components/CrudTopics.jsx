@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Avatar } from "@material-ui/core";
 import { adminActions } from "../State/action";
 import { TopicsStyle } from "../Styles/TopicsStyle";
 import { IconManipulationDialog } from "./IconManipulationModal";
@@ -65,23 +64,29 @@ export const CrudTopics = () => {
           topicsData?.map(({ name, noOfQuestion, icon, _id }, index) => {
             return (
               <div className={styles.card} key={index}>
-                <Avatar
+                <img
                   className={classes.iconStyle}
                   alt={name}
                   src={
                     (icon =
                       icon !== undefined &&
-                      (icon.includes(".png") ||
+                      ( icon.includes(".png") ||
                         icon.includes(".jpeg") ||
-                        icon.includes(".svg"))
-                        ? modIcon(icon)
+                        icon.includes(".svg") ||
+                        icon === " " )
+                        ? `/logos/${name.toLowerCase()}/${name.toLowerCase()}_logo.svg`
                         : icon)
                   }
                   onClick={() =>
                     handleClickOpen({ icon: icon, name: name, id: _id })
                   }
                 />
-                <div className={styles.cardName}>{name}</div>
+                <div className={styles.cardName}>
+                  <span className={styles.cardNameTitle}>{name}</span>
+                  <span className={styles.cardNameQuestions}>
+                    {noOfQuestion} Questions
+                  </span>
+                </div>
               </div>
             );
           })

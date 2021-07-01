@@ -16,7 +16,10 @@ const PageNotFound = ({ errorNum, message, des }) => {
         <div className={styles.notfound}>
           <div className={styles.notfound404}></div>
           <h1>{errorNum}</h1>
-          <h2>Oops! {message}</h2>
+          <h2>
+            Oops!
+            <br /> {message}
+          </h2>
           <p>{des}</p>
           <Button onClick={goToHome}>Go To Home Page</Button>{" "}
         </div>

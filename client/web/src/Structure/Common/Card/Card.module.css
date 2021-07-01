@@ -3,9 +3,10 @@
     rgba(0, 0, 0, 0.05) 0px 4px 6px -2px;
   display: grid;
   grid-template-columns: 40% 60%;
-  height: 25vh;
+  height: 240px;
   border-radius: 10px;
   cursor: pointer;
+  background-color: white;
 }
 
 .svgLogo {
@@ -18,6 +19,6 @@
 }
 .svgLogo img {
   display: block;
-  margin: auto;
+  margin: -30px auto;
   padding: 0px 0px 0px 0px;
 }

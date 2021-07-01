@@ -1,7 +1,7 @@
 .Cards {
   /* border: 1px solid red; */
 
-  padding: 60px 100px 60px 100px;
+  padding: 60px 30px 60px 30px;
   display: grid;
   grid-template-columns: 48% 48%;
   grid-column-gap: 4%;
@@ -45,15 +45,13 @@
 }
 
 .startQuiz {
-  display: grid;
-  grid-template-columns: 100%;
-  align-items: center;
-  justify-items: center;
+  text-align: center;
+  position: relative;
 }
-
-.startQuiz p {
-  font-size: 16px;
-  margin-bottom: -20px;
+.startQuiz p:first-of-type {
+  margin-top: 16%;
+  margin-bottom: 5px;
+  color: #1a2e37;
 }
 .startQuiz button {
   color: #1e90ff;
@@ -65,12 +63,22 @@
   height: 56px;
   border: none;
   cursor: pointer;
+  padding: none;
+  margin: none;
 }
 
-.startQuiz button:last-of-type {
+.startQuiz > button:last-child {
   background-color: #edf5ff;
+  position: absolute;
+  top: 65%;
+  left: 10%;
 }
-
+.Cards__lastChild {
+  margin-top: 20px;
+}
+.startQuiz * {
+  /* border: 1px solid red !important; */
+}
 /* Extra small devices (phones, 600px and down) */
 /* @media only screen and (max-width: 600px) {
 } */

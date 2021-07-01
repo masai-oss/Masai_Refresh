@@ -3,7 +3,7 @@ import styles from "./Sidebar.module.css";
 import logo from "../../Assets/logo.svg";
 import { BlurModalContext } from "../../ContextProviders/BlurModalContextProvider";
 import { BlurModal } from "../Common/DialogBoxes/BlurModal";
-import { authActions } from "../Authentication";
+import { authActions } from "../Auth/state/action";
 import { CustomDialog, CrnAuth } from "../Common";
 import { useHistory } from "react-router";
 import { useSelector } from "react-redux";
@@ -11,38 +11,48 @@ import { useDispatch } from "react-redux";
 
 const GOOGLE_LOGOUT_URL = process.env.REACT_APP_AUTH_GOOGLE_LOGOUT_URL;
 const ZOHO_LOGOUT_URL = process.env.REACT_APP_AUTH_ZOHO_LOGOUT_URL;
+const LOGOUT_URL = process.env.REACT_APP_AUTH_LOGOUT_URL;
 
 const Sidebar = ({ setRightSideContent }) => {
-  const [toggle, setToggle] = React.useState(false);
   const [displayProfileMenu, setDisplayProfileMenu] = React.useState(false);
-  const [currentActiveTab, setCurrentActiveTab] = React.useState(
-    window.location.pathname
-  );
-  console.log("Current active Tab --------------: ", currentActiveTab);
-  console.log("Current active Url --------------: ", window.location.pathname);
-  const { isOpen, setIsOpen } = React.useContext(BlurModalContext);
+  const [mouseOnProfileBookmark, setMouseOnProfileBookmark] =
+    React.useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const crnAuth = CrnAuth();
   const logout = () => {
-    console.log("Google");
     window.open(GOOGLE_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
   const zohoLogout = () => {
-    console.log("Zoho");
     window.open(ZOHO_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
+  React.useEffect(() => {
+    if (
+      window.location.pathname == "/my_bookmarks" ||
+      window.location.pathname.includes("/bookmarks")
+    ) {
+      console.log("This is bookmark related page");
+      setMouseOnProfileBookmark(true);
+    } else {
+      console.log("This is other page");
+      setMouseOnProfileBookmark(false);
+    }
+  }, [window.location.pathname]);
+
+  const logout_user = () => {
+    window.open(LOGOUT_URL, "_self");
+    dispatch(authActions.logoutProcess());
+  };
   // const handleListItemClick = (id, e) => {
-  //   console.log(e.currentTarget);
+  //
   //   setRightSideContent(id);
   //   setCurrentActiveTab(id);
   // };
   const signOutModalContent = <div>Sign Out</div>;
   const handleProfileClick = () => {
     setDisplayProfileMenu(!displayProfileMenu);
-    setCurrentActiveTab("Profile");
   };
 
   return (
@@ -54,6 +64,7 @@ const Sidebar = ({ setRightSideContent }) => {
         <ul>
           <li
             onClick={(e) => {
+              setDisplayProfileMenu(false);
               history.push("/quiz_topics");
             }}
             className={
@@ -83,6 +94,7 @@ const Sidebar = ({ setRightSideContent }) => {
           </li>
           <li
             onClick={(e) => {
+              setDisplayProfileMenu(false);
               history.push("/practice_topics");
             }}
             className={
@@ -112,8 +124,10 @@ const Sidebar = ({ setRightSideContent }) => {
           </li>
           <li
             onClick={(e) => handleProfileClick(e)}
+            onMouseOver={() => setMouseOnProfileBookmark(true)}
             className={
-              window.location.pathname.includes("/user_profile")
+              window.location.pathname.includes("/my_bookmarks") ||
+              window.location.pathname.includes("/bookmarks")
                 ? styles.selected__list_item
                 : ""
             }
@@ -122,14 +136,16 @@ const Sidebar = ({ setRightSideContent }) => {
               src="/logos/ProfileIcon.svg"
               alt="Profile"
               className={
-                window.location.pathname.includes("/user_profile")
+                window.location.pathname.includes("/my_bookmarks") ||
+                window.location.pathname.includes("/bookmarks")
                   ? styles.svg__selected
                   : ""
               }
             />
             <h4
               className={
-                window.location.pathname.includes("/user_profile")
+                window.location.pathname.includes("/my_bookmarks") ||
+                window.location.pathname.includes("/bookmarks")
                   ? styles.selected
                   : ""
               }
@@ -137,12 +153,13 @@ const Sidebar = ({ setRightSideContent }) => {
               Profile
             </h4>
           </li>
-          {displayProfileMenu ? (
+          {mouseOnProfileBookmark ? (
             <ul className={styles.Sidebar__profileMenu}>
               <li
                 onClick={(e) => {
                   history.push("/my_bookmarks");
                 }}
+                onMouseOver={() => setMouseOnProfileBookmark(true)}
                 className={
                   window.location.pathname.includes("/my_bookmarks") ||
                   window.location.pathname.includes("/bookmarks")
@@ -175,7 +192,11 @@ const Sidebar = ({ setRightSideContent }) => {
           ) : (
             ""
           )}
-          <li onClick={crnAuth === "google" ? logout : zohoLogout}>
+          <li
+            // onClick={crnAuth === "google" ? logout : zohoLogout}
+            onClick={logout_user}
+            className={styles.signOutButton}
+          >
             <img src="/logos/SignOutIcon.svg" alt="SignOut" />
             <h4>Sign Out</h4>
           </li>

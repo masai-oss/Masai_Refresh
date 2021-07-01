@@ -12,7 +12,7 @@ const useGA = () => {
     if(user_id !== ""){
       ReactGA.initialize(track_id, {
         gaOptions: {
-          userId: user_id+"a2b1"
+          userId: user_id
         }
       })
       ReactGA.set({ 

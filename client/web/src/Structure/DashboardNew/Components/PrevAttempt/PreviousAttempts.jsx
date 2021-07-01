@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import AttemptHeadingCard from "./AttemptHeading";
 import "../../Styles/PreviousAttemptCard.css";
@@ -10,7 +10,6 @@ const PreviousAttempts = (props) => {
   );
   let dispatch = useDispatch();
   const clickHandler = (id) => {
-    console.log("Id: ", id);
     dispatch(
       resultAction.getResult({ attempt_id: id, topicId: props.topicID })
     );
@@ -56,18 +55,3 @@ const PreviousAttempts = (props) => {
 };
 
 export { PreviousAttempts };
-
-// let dispatch = useDispatch();
-//   let topicId = params.topicId;
-//   let topicName = params.topicName;
-//   console.log("Topic id : ", topicId);
-//   useEffect(() => {
-//     dispatch(getPreviousAttempts(topicId));
-//   }, []);
-
-//   const { previousAttempts } = useSelector(
-//     (state) => state.getPreviousAttempts
-//   );
-// let params = useParams();
-
-//   console.log("Previous attempts are : ", previousAttempts, topicName, topicId);

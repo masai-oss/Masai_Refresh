@@ -17,17 +17,26 @@ import { Questions } from "../Structure/Questions";
 import { Results_display } from "../Structure/Results Display";
 import { PageNotFound } from "../Structure/Common/PageNotFound";
 import { Practice } from "../Structure/Practice";
-import IndividualQue from "../Structure/Practice/Components/IndividualQue";
+
 import LongType from "../Structure/Practice/Components/LongType";
 import Completed from "../Structure/Practice/Components/Completed";
 import { ViewPreviousAttempts } from "../Structure/DashboardNew/Components/ViewPreviousAttempts";
 import { SingleQuestionBookmarkQuestion } from "../Structure/Practice/Components/SingleBookmarkQuestion";
+import { SignIn } from "../Structure/Auth";
+import { SignUp } from "../Structure/Auth/Components/SignUp";
+import { OTPScreen } from "../Structure/Auth/Components/OTPScreen";
+import { ResendOtp } from "../Structure/Auth/Components/ResendOtp";
+import { ForgotPassword } from "../Structure/Auth/Components/ForgotPassword";
+import { RecoverPasswordOtp } from "../Structure/Auth/Components/RecoverPasswordOtp";
+import { CreateNewPassword } from "../Structure/Auth/Components/CreateNewPassword";
+
 const Routes = () => {
   return (
     <>
       <Switch>
         {/* all private routes here */}
         <PrivateRoute exact path="/" component={Dashboard} />
+
         <PrivateRoute exact path="/old-dashboard" component={Topics} />
         <PrivateRoute exact path="/quiz_topics" component={DashboardNew} />
 
@@ -85,7 +94,7 @@ const Routes = () => {
           path="/admin/questions/:topic"
           component={QuizQuestions}
         />
-         <AdminRoute
+        <AdminRoute
           exact
           path="/admin/practice_questions/:topic"
           component={PracticeQuestions}
@@ -93,7 +102,25 @@ const Routes = () => {
         <AdminRoute exact path="/admin/topics" component={CrudTopics} />
 
         {/* all public routes here */}
-        <PublicRoute path="/login" component={Login} />
+        <PublicRoute path="/login" component={SignIn} />
+
+        <PublicRoute exact path="/sign-in" component={SignIn} />
+        <PublicRoute exact path="/sign-up" component={SignUp} />
+        <PublicRoute exact path="/verify-otp" component={OTPScreen} />
+        <PublicRoute exact path="/resend-otp" component={ResendOtp} />
+
+        <PublicRoute
+          exact
+          path="/recover-password"
+          component={RecoverPasswordOtp}
+        />
+
+        <PublicRoute exact path="/forgot-password" component={ForgotPassword} />
+        <PublicRoute
+          exact
+          path="/create-new-password"
+          component={CreateNewPassword}
+        />
         <PublicRoute>
           <PageNotFound
             errorNum="404"

@@ -1,14 +1,22 @@
 .Sidebar {
-  box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+  box-shadow: 4px 0px 16px 0px #101e7314;
+  background-color: white;
 }
 .navContainer {
-  margin-top: 80px;
+  /* margin-top: 80px; */
+  height: 78%;
 }
 .navContainer ul {
   padding: 0px;
   position: relative;
-}
+  flex-direction: column;
+  display: flex;
 
+  height: 100%;
+  margin: 0px;
+}
+.navContainer ul > li {
+}
 .navContainer ul li {
   display: grid;
   grid-template-columns: 25% 75%;
@@ -16,42 +24,46 @@
   padding: 0px 20px;
   align-items: center;
   cursor: pointer;
+  padding-left: 35px;
 }
 .navContainer ul li h4 {
   font-size: 20px;
   color: #9f9f9f;
 }
 .navContainer ul li:hover {
-  background-color: #edf5ff;
   border-left: 4px solid #1e90ff;
 }
 .navContainer ul li:hover h4 {
   color: #1e90ff;
 }
+.navContainer ul li:hover img {
+  filter: invert(62%) sepia(73%) saturate(5324%) hue-rotate(191deg)
+    brightness(99%) contrast(104%);
+}
 .navContainer ul li img {
-  width: 50%;
   cursor: pointer;
+  width: 24px;
+  height: 24px;
+  margin-left: 20px;
 }
 .logoContainer {
   text-align: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   cursor: pointer;
+
+  height: 20%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
 }
 .logoContainer img {
-  width: 120px;
+  max-width: 120px;
+  margin: auto;
 }
 
-.navContainer > ul > li:last-child {
-  position: absolute;
-
-  margin-top: 150px;
-
-  top: 300px;
-  display: flex;
-}
 .navContainer > ul > li:last-child img {
-  width: 40px;
-  height: 40px;
+  width: 24px;
+  height: 24px;
   margin-right: 20px;
 }
 .navContainer > ul > li:last-child h4 {
@@ -68,14 +80,28 @@
 .Sidebar__profileMenu {
   padding-left: 30px !important;
 }
-.selected__list_item {
-  /* background-color: #edf5ff; */
-  /* border-left: 4px solid #1e90ff; */
-}
+
 .selected {
   color: #1e90ff !important;
 }
 .svg__selected {
-  filter: invert(35%) sepia(94%) saturate(963%) hue-rotate(186deg)
-    brightness(110%) contrast(101%);
+  filter: invert(62%) sepia(73%) saturate(5324%) hue-rotate(191deg)
+    brightness(99%) contrast(104%);
+}
+.signOutButton {
+  /* position: absolute;
+  margin-top: 150px;
+  top: 300px; */
+  margin-top: auto;
+  display: flex;
+}
+.signOutButton:hover {
+  border-left: 4px solid #df4759 !important;
+}
+.signOutButton:hover h4 {
+  color: #df4759 !important;
+}
+.signOutButton:hover img {
+  filter: invert(41%) sepia(48%) saturate(5302%) hue-rotate(330deg)
+    brightness(95%) contrast(83%) !important;
 }
