@@ -207,7 +207,7 @@ const MCQ = (props) => {
     </>
   );
 
-  const optionMaxChar = options?.find(option => option.text.length > +40)
+  const optionMaxChar = options?.find(option => option.text.length > +30)
 
   const optionMaxLength = optionMaxChar !== undefined ? optionMaxChar.text.length : 30
 
