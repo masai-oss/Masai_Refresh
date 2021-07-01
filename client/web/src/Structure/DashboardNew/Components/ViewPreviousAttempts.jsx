@@ -2,8 +2,10 @@ import React, { useEffect } from "react";
 import styles from "../Styles/PreviousAttempts.module.css";
 import { useParams, useHistory } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
-import { getPreviousAttempts } from "../State/action";
-import PreviousAttempts from "../../Results Display/Components/attempts/PreviousAttempts";
+import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
+import DetailedReport from "../../Results Display/Components/detailedReport/DetailedReport";
+import { Spinner, PageNotFound } from "../../Common";
+import ResultNavabar from "../../Results Display/Components/utils/ResultNavabar";
 
 const ViewPreviousAttempts = () => {
   let params = useParams();
@@ -11,23 +13,48 @@ const ViewPreviousAttempts = () => {
   let topicId = params.topicId;
   let topicName = params.topicName;
   console.log("Topic id : ", topicId);
-  useEffect(() => {
-    dispatch(getPreviousAttempts(topicId));
-  }, []);
+  const result = useSelector((state) => state.resultReducer.result);
+  const isError = useSelector((state) => state.resultReducer.isError);
+  const isLoading = useSelector((state) => state.resultReducer.isLoading);
+  //   useEffect(() => {
+  //     dispatch(resultAction.getResultPrevSection(topicId));
+  //   }, []);
 
-  const { previousAttempts } = useSelector(
-    (state) => state.getPreviousAttempts
+  const prev_attempt_list = useSelector(
+    (state) => state.resultReducer.prev_attempt
   );
 
-  console.log("Previous attempts are : ", previousAttempts, topicName, topicId);
-  return (
-    <div className={styles.PreviousAttempts}>
-      <PreviousAttempts
-        topicID={topicId}
-        prev_attempts={previousAttempts}
-        className="abcd"
-      />
-    </div>
+  console.log(
+    "Previous attempts are : ",
+    prev_attempt_list,
+    topicName,
+    topicId
+  );
+  //   return (
+  //     <div>
+  //       <PreviousAttempts
+  //             prev_attempts={prev_attempt_list}
+  //             topicID={topicId}
+  //           />
+  //     </div>
+  //   );
+  return isLoading ? (
+    <Spinner />
+  ) : isError ? (
+    <PageNotFound errorNum="400" message="Something went wrong" />
+  ) : (
+    result && (
+      <div>
+        <ResultNavabar topic={topicName} />
+        {prev_attempt_list && (
+          <PreviousAttempts
+            prev_attempts={prev_attempt_list}
+            topicID={topicId}
+          />
+        )}
+        {result && <DetailedReport result={result} />}
+      </div>
+    )
   );
 };
 

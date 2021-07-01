@@ -104,7 +104,7 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 		const payload = {
 			question_id,
 			reason: reasons,
-			des: details === '' ? '' : details
+			des: details
 		};
 		return dispatch(resultAction.sendReport(payload));
 	};
@@ -168,17 +168,25 @@ function ReportDialogLong ({ question_id, customMargin, statement }) {
 						color="primary"
 						autoFocus
 						submitBtn={true}
-						disabled={select.length === 0}
+						disabled={details.length === 0 || select.length === 0}
 					>
 						Submit
 					</CustomButton>
+					{/* <button
+            className={classes.submitBtn}
+            autoFocus
+            submitBtn={true}
+            disabled={details.length === 0 || select.length === 0}
+            onClick={() => handleClose(true, "here")}
+          >
+            Submit
+          </button> */}
 				</DialogActions>
 			</Dialog>
-
 			<Snackbar open={isOpen} autoHideDuration={2000} onClose={handleCloseSnack}>
 				<Alert severity={'error'}>{errorMessage}</Alert>
 			</Snackbar>
-
+			{/* <CustomizedSnackbars success={success} message={!success && errorMessage} ref={snackbarBtnRef} /> */}
 			<ReportSuccessModal question_id={question_id} isOpen={success} />
 		</div>
 	);

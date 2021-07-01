@@ -69,6 +69,9 @@ const createPracticeAttempt = async (req, res) => {
         $unwind: "$questions",
       },
       {
+        $match: {"questions.disabled" : false}
+      },
+      {
         // randomly select required no. of question
         $sample: { size: size },
       },

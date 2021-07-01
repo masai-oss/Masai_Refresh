@@ -38,7 +38,12 @@ const LongType = () => {
   const { practiceQuestionID, isLoading, practiceTopicsData } = useSelector(
     (state) => state.practice_topics
   );
-  
+
+  const topic = practiceTopicsData
+    ? practiceTopicsData.find((topic) => topic._id === topic_ID)
+    : "";
+  // console.log("Practice data:-------------------------", practiceTopicsData);
+
   const issuesList = [
     "Question Unclear",
     "Insufficient Data",
@@ -46,7 +51,7 @@ const LongType = () => {
     "Others",
   ];
 
-  console.log(practiceTopicsData.name)
+  // console.log("Practice data:-------------------------", topic);
 
   const { reportStatus } = useSelector((state) => state.practice_topics);
 
@@ -141,18 +146,28 @@ const LongType = () => {
     history.push("/quiz_topics");
   };
 
+  const logoPath = topic
+    ? `/logoForNav/${topic.name.toLowerCase()}/${topic.name.toLowerCase()}_logo.svg`
+    : "";
   return !question ? (
     <Spinner />
   ) : (
     <>
+      {/* <QuestionProgress completed={percentage} /> */}
+      {topic ? (
         <QuestionNav
-        secondIcon={secondIcon}
-        secondText={"Exit"}
-        progress
-        length={practiceQuestionID.length}
-        num={indexNum}
-        handleExit={handleExit}
-      />
+          secondIcon={secondIcon}
+          firstIcon={logoPath}
+          secondText={"Exit"}
+          firstText={topic.name}
+          progress
+          length={practiceQuestionID.length}
+          num={indexNum}
+          handleExit={handleExit}
+        />
+      ) : (
+        ""
+      )}
       <div className={styles.question}>
         <p className={styles.queFont}>{statement}</p>
         <div className={styles.icons}>

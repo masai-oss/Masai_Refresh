@@ -4,6 +4,7 @@ import { topicActions } from "./State/action";
 import { Grid } from "@material-ui/core";
 import { QuizPracticeSwitch } from "./Components/TopicWrapper";
 import { Spinner, PageNotFound } from "../Common";
+import { Navbar } from "../Navbar/index";
 
 const Topics = () => {
   const dispatch = useDispatch();
@@ -15,19 +16,22 @@ const Topics = () => {
   const isError = useSelector((state) => state.topics.isError);
 
   return (
-    <Grid container justify="center">
-      {isLoading ? (
-        <Spinner />
-      ) : isError ? (
-        <PageNotFound
-          errorNum="400"
-          message="Something went wrong"
-          des=" Brace Yourself till we get the error fixed"
-        />
-      ) : (
-        <QuizPracticeSwitch />
-      )}
-    </Grid>
+    <>
+      <Navbar />
+      <Grid container justify='center'>
+        {isLoading ? (
+          <Spinner />
+        ) : isError ? (
+          <PageNotFound
+            errorNum='400'
+            message='Something went wrong'
+            des=' Brace Yourself till we get the error fixed'
+          />
+        ) : (
+          <QuizPracticeSwitch />
+        )}
+      </Grid>
+    </>
   );
 };
 

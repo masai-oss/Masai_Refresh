@@ -1,19 +1,21 @@
 import React from "react";
 import "../../Styles/DetailBodySection.css";
 import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
+import { ReportDialogLong } from "../../../Common/DialogBoxes/ReportModalLong";
 
 const DetailBodySection = ({ ele, index }) => {
+  console.log(ele);
   return (
     <div className="detail-bodysection__container">
       <div className="detail-section__question detail-section__style">
-        {`Q${index + 1}. `}
+        <span>{`Q${index + 1}. `}</span>
         <SyntaxHighlight value={ele.statement} />
       </div>
       <div className="detail-section__youranswer">
         <p className="detail-section__highlighter">Your Answer</p>
         <p className="detail-section_myans  detail-section__style">
           {/* my answer */}
-          {`${ele.response}`}
+          {ele.response !== "skipped" ? `${ele.response}` : ""}
         </p>
       </div>
       <div className="correct-answer__report">
@@ -30,7 +32,7 @@ const DetailBodySection = ({ ele, index }) => {
       </div>
       <div className="detail-section__source">Source: GeeksforGeeks.com</div>
       <div className="detail-section__reportsvgbox">
-        <svg
+        {/* <svg
           width="22"
           height="21"
           viewBox="0 0 22 21"
@@ -47,7 +49,8 @@ const DetailBodySection = ({ ele, index }) => {
         </svg>
         <span className="detail-section__reportquestion">
           Report an issue with this question
-        </span>
+        </span> */}
+        <ReportDialogLong question_id={ele.question_id} statement={0} />
       </div>
       <hr className="detail-section__hr" />
     </div>
