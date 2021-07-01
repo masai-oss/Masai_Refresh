@@ -60,6 +60,10 @@ button {
   display: flex;
   flex-wrap: wrap;
 }
+.optionBox p {
+  word-break: break-word;
+}
+
 .radio {
   font-family: Open Sans;
   font-style: normal;

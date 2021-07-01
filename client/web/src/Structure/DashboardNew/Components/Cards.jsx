@@ -104,7 +104,17 @@ const Cards = () => {
   return (
     <div className={styles.Cards}>
       {quizTopicsData ? renderTopicCards() : <h1>Loading...</h1>}
-      <div className={styles.Cards__lastChild}></div>
+      {quizTopicsData && quizTopicsData.length % 2 == 0 ? (
+        <>
+          <div className={styles.Cards__lastChild}></div>
+        </>
+      ) : (
+        <>
+          <div className={styles.Cards__lastChild}></div>
+          <div className={styles.Cards__lastChild}></div>
+        </>
+      )}
+
       <BlurModal
         isOpen={isOpen}
         setIsOpen={setIsOpen}

@@ -8,6 +8,7 @@ const DetailBodySection = ({ ele, index }) => {
   const handleClickSource = () => {
     window.open(`${ele.source}`, "_blank");
   };
+
   const cleanText = (text) => {
     let cleanedText = "";
     for (let i = 0; i < text.length; ) {
