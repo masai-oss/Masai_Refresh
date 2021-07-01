@@ -8,6 +8,7 @@ const useStyles = makeStyles((theme) => ({
     zIndex: 45,
     width: "100vw",
     height: "100vh",
+    backgroundColor: "#f6f8fb"
   },
   align: {
     position: "absolute",

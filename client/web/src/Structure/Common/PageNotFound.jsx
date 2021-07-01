@@ -1,9 +1,9 @@
 import React from "react";
 import { useHistory } from "react-router-dom";
 import styles from "./Styles/pageNotFound.module.css";
-import { Button } from "../Results Display";
+import image from "../../Assets/emoji.png";
 
-const PageNotFound = ({ errorNum, message, des }) => {
+const PageNotFound = ({ errorNum = "", message = "Page not found", des }) => {
   let history = useHistory();
 
   const goToHome = () => {
@@ -11,20 +11,23 @@ const PageNotFound = ({ errorNum, message, des }) => {
     history.push(history.location.pathname);
   };
   return (
-    <>
-      <div className={styles.main}>
-        <div className={styles.notfound}>
-          <div className={styles.notfound404}></div>
-          <h1>{errorNum}</h1>
-          <h2>
-            Oops!
-            <br /> {message}
-          </h2>
-          <p>{des}</p>
-          <Button onClick={goToHome}>Go To Home Page</Button>{" "}
+    <div className={styles.outer_container}>
+      <div className={styles.container}>
+        <div className={styles.not_found}>
+          <img className={styles.not_found_image} src={image} alt='Emoji' />
+          <div className={styles.not_found_text}>
+            <h2>
+              Oops! {" "} {errorNum}
+              <br />
+              {message}
+            </h2>
+          </div>
         </div>
+        <button className={styles.back_button} onClick={goToHome}>
+          Go To Home Page
+        </button>
       </div>
-    </>
+    </div>
   );
 };
 
