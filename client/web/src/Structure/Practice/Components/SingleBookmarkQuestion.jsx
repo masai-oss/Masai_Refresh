@@ -123,57 +123,58 @@ const SingleQuestionBookmarkQuestion = () => {
           </p>
         </div>
       </div>
-      <div className={styles.question}>
-        <p className={styles.queFont}>{statement}</p>
-        <div className={styles.icons}>
-          {bookmark_flag ? (
-            <img
-              src="/logos/BookmarkAfter.svg"
-              alt="after bookmark icon"
-              onClick={toggleBookmark}
-              className={styles.Longtype__bookmarkicon}
-            />
-          ) : (
-            <img
-              src="/logos/BookmarkBefore.svg"
-              alt="before bookmark icon"
-              onClick={toggleBookmark}
-              className={styles.Longtype__bookmarkicon}
-            />
-          )}
-          <div className={styles.likesDiv}>
-            {like_flag ? (
-              <FavoriteIcon
-                onClick={toggleLike}
-                className={styles.filledHeart}
-              ></FavoriteIcon>
+      <div className={styles.longTypeParent}>
+        <div className={styles.question}>
+          <p className={styles.queFont}>{statement}</p>
+          <div className={styles.icons}>
+            {bookmark_flag ? (
+              <img
+                src="/logos/BookmarkAfter.svg"
+                alt="after bookmark icon"
+                onClick={toggleBookmark}
+                className={styles.Longtype__bookmarkicon}
+              />
             ) : (
-              <FavoriteBorderOutlined
-                onClick={toggleLike}
-                className={styles.heart}
-              ></FavoriteBorderOutlined>
+              <img
+                src="/logos/BookmarkBefore.svg"
+                alt="before bookmark icon"
+                onClick={toggleBookmark}
+                className={styles.Longtype__bookmarkicon}
+              />
             )}
-            <div className={styles.likes}>{likes}</div>
+            <div className={styles.likesDiv}>
+              {like_flag ? (
+                <FavoriteIcon
+                  onClick={toggleLike}
+                  className={styles.filledHeart}
+                ></FavoriteIcon>
+              ) : (
+                <FavoriteBorderOutlined
+                  onClick={toggleLike}
+                  className={styles.heart}
+                ></FavoriteBorderOutlined>
+              )}
+              <div className={styles.likes}>{likes}</div>
+            </div>
           </div>
         </div>
+        <div className={styles.answer}>
+          <ReactMarkdown
+            className={styles.answerFont}
+            renderers={{ code: SyntaxHighlight }}
+          >
+            {answer}
+          </ReactMarkdown>
+          <hr className={styles.hr} />
+          <ReportQuestion
+            issuesList={issuesList}
+            questionId={question._id}
+            sendReport={sendReport}
+            reportModalStatus={reportModalStatus}
+            setReportModalStatus={setReportModalStatus}
+          />
+        </div>
       </div>
-      <div className={styles.answer}>
-        <ReactMarkdown
-          className={styles.answerFont}
-          renderers={{ code: SyntaxHighlight }}
-        >
-          {answer}
-        </ReactMarkdown>
-        <hr className={styles.hr} />
-        <ReportQuestion
-          issuesList={issuesList}
-          questionId={question._id}
-          sendReport={sendReport}
-          reportModalStatus={reportModalStatus}
-          setReportModalStatus={setReportModalStatus}
-        />
-      </div>
-
       <div style={{ height: 100 }}></div>
     </>
   );

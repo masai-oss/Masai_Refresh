@@ -1,5 +1,6 @@
 .bookmarks {
   padding: 20px;
+  overflow-y: scroll;
 }
 .bookmarks * {
   color: #333434;

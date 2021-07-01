@@ -105,3 +105,5 @@
   filter: invert(41%) sepia(48%) saturate(5302%) hue-rotate(330deg)
     brightness(95%) contrast(83%) !important;
 }
+.Sidebar__profileParent {
+}

@@ -72,17 +72,30 @@ const Practice = () => {
     });
   };
   return (
-    <div className={styles.Practice}>
-      {renderPracticeCards()}
-      <BlurModal
-        isOpen={isOpen}
-        setIsOpen={setIsOpen}
-        modalContent={modalContent}
-      />
-      {/* <div key={item._id} className={styles.card}>
+    <>
+      <div className={styles.Practice}>
+        {renderPracticeCards()}
+        {practiceTopicsData && practiceTopicsData.length % 2 == 0 ? (
+          <>
+            <div className={styles.Cards__lastChild}></div>{" "}
+          </>
+        ) : (
+          <>
+            <div className={styles.Cards__lastChild}></div>{" "}
+            <div className={styles.Cards__lastChild}></div>
+          </>
+        )}
+
+        <BlurModal
+          isOpen={isOpen}
+          setIsOpen={setIsOpen}
+          modalContent={modalContent}
+        />
+        {/* <div key={item._id} className={styles.card}>
         <PracticeTopicCard data={item} title={item.name} />
       </div> */}
-    </div>
+      </div>
+    </>
   );
 };
 

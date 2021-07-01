@@ -36,6 +36,13 @@ const MCQ = (props) => {
     shallowEqual
   );
   const { type, statement, options, selected } = question;
+
+  const maxLengthString = options
+    ? options.find((option) => {
+        return option.text.length >= 40;
+      })
+    : null;
+
   const [value, setValue] = useState(selected === undefined ? -1 : selected);
   const [attempt, setAttempt] = useState(false);
 
@@ -54,6 +61,7 @@ const MCQ = (props) => {
 
     setIsOpen(false);
   };
+
   const modalContent = (
     <div style={{ padding: "15px" }}>
       <h3 style={{ textAlign: "center" }}>
@@ -199,6 +207,29 @@ const MCQ = (props) => {
     </>
   );
 
+  const optionMaxChar = options?.find((option) => option.text.length > +30);
+  const cleanText = (text) => {
+    let cleanedText = "";
+    for (let i = 0; i < text.length; ) {
+      if (text.charCodeAt(i) == 10 && text.charCodeAt(i + 1) == 10) {
+        cleanedText += text[i] + text[i + 1] + "\t";
+        i += 2;
+      } else if (text.charCodeAt(i) == 10) {
+        cleanedText += text[i] + "\t";
+        i++;
+      } else {
+        cleanedText += text[i];
+        i++;
+      }
+    }
+    console.log(text);
+    console.log(cleanedText);
+    return cleanedText;
+  };
+
+  const optionMaxLength =
+    optionMaxChar !== undefined ? optionMaxChar.text.length : 30;
+
   const logoPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}_logo.svg`;
   const textPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}.svg`;
 
@@ -231,11 +262,13 @@ const MCQ = (props) => {
             />
           </div>
         </div>
+
         <div className={styles.container}>
           <div className="boxShadow">
             <div className={styles.questions}>
               <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
-                {`${statement}`}
+                {/* {`${statement}`} */}
+                {cleanText(statement)}
               </ReactMarkdown>
             </div>
             <form className={styles.options}>
@@ -250,7 +283,12 @@ const MCQ = (props) => {
                     {options.map((option, index) => (
                       <OptionRadio
                         id={Number(index + 1)}
-                        value={<ReactMarkdown>{option.text}</ReactMarkdown>}
+                        optionMaxLength={optionMaxLength}
+                        value={
+                          <ReactMarkdown>
+                            {cleanText(option.text)}
+                          </ReactMarkdown>
+                        }
                         key={index}
                         active={active}
                         handleColor={handleColor}
@@ -263,6 +301,7 @@ const MCQ = (props) => {
           </div>
         </div>
       </div>
+
       <div className={styles.buttons}>
         <button
           onClick={getPrevQuestion}

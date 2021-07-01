@@ -3,6 +3,7 @@ import { Grid, Box, Radio, FormControlLabel, StylesProvider } from '@material-ui
 import { OptionStyles } from '../Styles/OptionStyles';
 
 import { MuiThemeProvider, createMuiTheme } from '@material-ui/core/styles';
+import ReactMarkdown from 'react-markdown';
 const theme = createMuiTheme({
 	palette: {
 		secondary: {
@@ -11,7 +12,7 @@ const theme = createMuiTheme({
 	}
 });
 
-const OptionRadio = ({ id, value, handleColor, active }) => {
+const OptionRadio = ({ id, value, handleColor, active, optionMaxLength }) => {
 	const classes = OptionStyles();
 
 	return (
@@ -22,6 +23,7 @@ const OptionRadio = ({ id, value, handleColor, active }) => {
 					p={1}
 					borderRadius={2}
 					className={active === id ? classes.active : classes.main}
+					style={optionMaxLength >= +35 ? { width: '730px' } : { width: '350px' }}
 					onClick={() => handleColor(id)}
 				>
 					<FormControlLabel

@@ -10,21 +10,24 @@ const SingleAttemptComponent = ({
     attempt_id === select
       ? "singleattempt__container select-attempt__container"
       : "singleattempt__container";
+  let view = correct + incorrect + skipped > 0 ? true : false;
 
   return (
-    <div className={classes} onClick={() => onClickDiv(attempt_id)}>
-      <div className="singleattempt__container-date">{date.slice(0, 10)}</div>
-      <div className="singleattempt__container-correct singleattempt_typography">
-        {correct}
+    view && (
+      <div className={classes} onClick={() => onClickDiv(attempt_id)}>
+        <div className="singleattempt__container-date">{date.slice(0, 10)}</div>
+        <div className="singleattempt__container-correct singleattempt_typography">
+          {correct}
+        </div>
+        <div className="singleattempt__container-wrong singleattempt_typography">
+          {incorrect}
+        </div>
+        <div className="singleattempt__container-skipped singleattempt_typography">
+          {" "}
+          {skipped}
+        </div>
       </div>
-      <div className="singleattempt__container-wrong singleattempt_typography">
-        {incorrect}
-      </div>
-      <div className="singleattempt__container-skipped singleattempt_typography">
-        {" "}
-        {skipped}
-      </div>
-    </div>
+    )
   );
 };
 
