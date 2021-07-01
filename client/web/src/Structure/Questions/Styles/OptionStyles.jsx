@@ -2,7 +2,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 export const OptionStyles = makeStyles((theme) => ({
 	main: {
-		// width: '350px',
+		// minWidth: '350px',
 		minHeight: '56px',
 		paddingLeft: '25px',
 		paddingTop: 0,
@@ -22,7 +22,7 @@ export const OptionStyles = makeStyles((theme) => ({
 		}
 	},
 	active: {
-		// width: '350px',
+		// minWidth: '350px',
 		minHeight: '56px',
 		paddingLeft: '25px',
 		paddingTop: 0,
