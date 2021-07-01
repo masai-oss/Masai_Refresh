@@ -10,6 +10,14 @@
   overflow-x: hidden;
   display: flex;
 }
+.detailBodySectionNew {
+  display: grid;
+  grid-template-columns: auto;
+  padding: 20px;
+}
+.detailBodySectionNew p {
+  line-height: 30px;
+}
 .detail-section__question > span {
   display: block;
   margin-top: 16px;

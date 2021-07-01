@@ -36,6 +36,13 @@ const MCQ = (props) => {
     shallowEqual
   );
   const { type, statement, options, selected } = question;
+
+  const maxLengthString = options
+    ? options.find((option) => {
+        return option.text.length >= 40;
+      })
+    : null;
+  console.log("Max length string: ", maxLengthString, options);
   const [value, setValue] = useState(selected === undefined ? -1 : selected);
   const [attempt, setAttempt] = useState(false);
 
@@ -54,7 +61,7 @@ const MCQ = (props) => {
 
     setIsOpen(false);
   };
-  
+
   const modalContent = (
     <div style={{ padding: "15px" }}>
       <h3 style={{ textAlign: "center" }}>

@@ -3,7 +3,7 @@ import "../../Styles/DetailBodySection.css";
 import { SyntaxHighlight } from "../../../Common/SyntaxHighlighter";
 import { ReportDialogLong } from "../../../Common/DialogBoxes/ReportModalLong";
 import { a11yLight } from "react-syntax-highlighter/dist/esm/styles/hljs";
-
+import ReactMarkdown from "react-markdown";
 const DetailBodySection = ({ ele, index }) => {
   const handleClickSource = () => {
     window.open(`${ele.source}`, "_blank");
@@ -11,9 +11,11 @@ const DetailBodySection = ({ ele, index }) => {
 
   return (
     <div className="detail-bodysection__container">
-      <div className="detail-section__question detail-section__style">
-        <span>{`Q${index + 1}. `}</span>
-        <SyntaxHighlight value={ele.statement} style={a11yLight} />
+      <div className="detailBodySectionNew">
+        <ReactMarkdown renderers={{ code: SyntaxHighlight }}>
+          {`${`Q${index + 1}. ` + ele.statement}`}
+        </ReactMarkdown>
+        {/* <SyntaxHighlight value={ele.statement} style={a11yLight} /> */}
       </div>
       <div className="detail-section__youranswer">
         <p className="detail-section__highlighter">Your Answer</p>
