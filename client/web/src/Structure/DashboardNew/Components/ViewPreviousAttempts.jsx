@@ -7,7 +7,6 @@ import { useDispatch } from "react-redux";
 import { PreviousAttempts } from "./PrevAttempt/PreviousAttempts";
 import DetailedReport from "../../Results Display/Components/detailedReport/DetailedReport";
 import ResultNavabar from "../../Results Display/Components/utils/ResultNavabar";
-import { PrevAttemptNotFound } from "./PrevAttempt/PrevAttemptNotFound";
 import { resultAction } from "../../Results Display/index";
 
 const ViewPreviousAttempts = () => {
@@ -29,7 +28,7 @@ const ViewPreviousAttempts = () => {
   return isLoading ? (
     <Spinner />
   ) : isError ? (
-    <PrevAttemptNotFound />
+    <PageNotFound message={"No previous attempts"} />
   ) : (
     result && (
       <div>
