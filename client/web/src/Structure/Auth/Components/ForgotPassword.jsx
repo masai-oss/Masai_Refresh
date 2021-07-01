@@ -7,11 +7,14 @@ import { useDispatch, useSelector } from "react-redux";
 import { Spinner } from "../../Common";
 import { ErrorMessageText } from "./ErrorMessageText";
 import { storageEnums } from "../../../Enums/storageEnums";
+import { Redirect } from "react-router-dom";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
 import {
   saveToStorage,
   removeFromStorage,
 } from "../../../Utils/localStorageHelper";
 const ForgotPassword = () => {
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   const [email, setEmail] = React.useState("");
   const dispatch = useDispatch();
   const history = useHistory();
@@ -49,7 +52,11 @@ const ForgotPassword = () => {
       )}
     </div>
   );
-  return <AuthTemplate cardContent={cardContent} />;
+  return isAuth ? (
+    <Redirect push to="/" />
+  ) : (
+    <AuthTemplate cardContent={cardContent} />
+  );
 };
 
 export { ForgotPassword };

@@ -8,6 +8,7 @@ import { Spinner } from "../../Common/Loader";
 import { ErrorMessageText } from "./ErrorMessageText";
 import { storageEnums } from "../../../Enums/storageEnums";
 import OtpInput from "react-otp-input";
+import { Redirect } from "react-router-dom";
 import {
   saveToStorage,
   removeFromStorage,
@@ -15,6 +16,7 @@ import {
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { SuccessMessageText } from "./SuccessMessageText";
 const OTPScreen = () => {
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
   const history = useHistory();
   // const [otp, setOtp] = React.useState(new Array(4).fill(""));
   const [otp, setOtp] = React.useState("");
@@ -156,7 +158,11 @@ const OTPScreen = () => {
       )}
     </div>
   );
-  return <AuthTemplate cardContent={cardContent} />;
+  return isAuth ? (
+    <Redirect push to="/" />
+  ) : (
+    <AuthTemplate cardContent={cardContent} />
+  );
 };
 
 export { OTPScreen };

@@ -16,7 +16,27 @@ const PreviousAttempts = (props) => {
   };
   let data = props.prev_attempts;
   data = data.reverse();
-
+  // window.onload = function () {
+  //   if (
+  //     !window.location.hash &&
+  //     data.length == 1 &&
+  //     data[0].correct == 0 &&
+  //     data[0].incorrect == 0 &&
+  //     data[0].skipped == 0
+  //   ) {
+  //     window.location = window.location + "#loaded";
+  //     window.location.reload();
+  //   }
+  // };
+  // console.log("Data: --------------", data);
+  // if (
+  //   data.length == 1 &&
+  //   data[0].correct == 0 &&
+  //   data[0].incorrect == 0 &&
+  //   data[0].skipped == 0
+  // ) {
+  //   window.location.reload();
+  // }
   return (
     <div>
       <AttemptHeadingCard />

@@ -1,15 +1,19 @@
 import React from "react";
 import { AuthTemplate } from "./AuthTemplate";
 import styles from "../Styles/CreateNewPassword.module.css";
-import { useHistory } from "react-router-dom";
+import { useHistory, Redirect } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import { authActions } from "../state/action";
 import { Spinner } from "../../Common/Loader";
 import { ErrorMessageText } from "./ErrorMessageText";
+import { getFromStorage } from "../../../Utils/localStorageHelper";
+import { storageEnums } from "../../../Enums/storageEnums";
 const CreateNewPassword = () => {
   const [password, setPassword] = React.useState("");
   const [confirmPassword, setconfirmPassword] = React.useState("");
   const [passwordError, setPasswordError] = React.useState("");
+  let isAuth = getFromStorage(storageEnums.TOKEN, "");
+
   const history = useHistory();
   const dispatch = useDispatch();
   let { email, otp, passwordRecovered, isLoading, errorMessageResetPassword } =
@@ -58,7 +62,11 @@ const CreateNewPassword = () => {
       )}
     </div>
   );
-  return <AuthTemplate cardContent={cardContent} />;
+  return isAuth ? (
+    <Redirect push to="/" />
+  ) : (
+    <AuthTemplate cardContent={cardContent} />
+  );
 };
 
 export { CreateNewPassword };

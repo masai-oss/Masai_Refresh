@@ -23,8 +23,7 @@ const DetailBodySection = ({ ele, index }) => {
         i++;
       }
     }
-    console.log(text);
-    console.log(cleanedText);
+
     return cleanedText;
   };
   return (
