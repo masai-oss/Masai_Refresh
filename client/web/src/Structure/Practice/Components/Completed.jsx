@@ -7,6 +7,7 @@ import { useSelector } from "react-redux";
 import { Spinner } from "../../Common/Loader";
 import { getFromStorage } from "../../../Utils/localStorageHelper";
 import { storageEnums } from "../../../Enums/storageEnums";
+
 import {
   saveToStorage,
   removeFromStorage,
@@ -18,8 +19,15 @@ const Completed = () => {
   const goToPractice = () => {
     history.push("/practice_topics");
   };
+  React.useEffect(() => {
+    window.history.pushState(null, document.title, window.location.href);
+    window.addEventListener("popstate", function (event) {
+      window.history.pushState(null, document.title, window.location.href);
+    });
+  }, []);
   let name = getFromStorage(storageEnums.LONG_TYPE_NAV_TOPIC, "");
   const logoPath = `/logos/${name.toLowerCase()}/${name.toLowerCase()}_logo.svg`;
+
   return isLoading ? (
     <Spinner />
   ) : (
