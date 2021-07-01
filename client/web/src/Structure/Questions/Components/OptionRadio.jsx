@@ -12,10 +12,8 @@ const theme = createMuiTheme({
 	}
 });
 
-const OptionRadio = ({ id, value, handleColor, active, length }) => {
+const OptionRadio = ({ id, value, handleColor, active, optionMaxLength }) => {
 	const classes = OptionStyles();
-
-	console.log(value, length.length, 'value-----------------');
 
 	return (
 		<MuiThemeProvider theme={theme}>
@@ -25,14 +23,14 @@ const OptionRadio = ({ id, value, handleColor, active, length }) => {
 					p={1}
 					borderRadius={2}
 					className={active === id ? classes.active : classes.main}
-					style={length.length >= +40 ? { width: '720px' } : { width: '350px' }}
+					style={optionMaxLength >= +40 ? { width: '720px' } : { width: '350px' }}
 					onClick={() => handleColor(id)}
 				>
 					<FormControlLabel
 						className={classes.label}
 						value={id}
 						control={<Radio color="secondary" className={classes.radio} />}
-						label={<ReactMarkdown>{length}</ReactMarkdown>}
+						label={value}
 					/>
 				</Box>
 			</div>

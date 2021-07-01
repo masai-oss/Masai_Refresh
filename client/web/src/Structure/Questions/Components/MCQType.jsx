@@ -207,6 +207,13 @@ const MCQ = (props) => {
     </>
   );
 
+  const optionMaxChar = options?.find(option => option.text.length > +40)
+
+  const optionMaxLength = optionMaxChar !== undefined ? optionMaxChar.text.length : 30
+
+  
+  console.log("optionLength-----------", optionMaxLength)
+
   const logoPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}_logo.svg`;
   const textPath = `/logoForNav/${topic.toLowerCase()}/${topic.toLowerCase()}.svg`;
 
@@ -259,7 +266,7 @@ const MCQ = (props) => {
                     {options.map((option, index) => (
                       <OptionRadio
                         id={Number(index + 1)}
-                        length={option.text}
+                        optionMaxLength={optionMaxLength}
                         value={<ReactMarkdown>{option.text}</ReactMarkdown>}
                         key={index}
                         active={active}
