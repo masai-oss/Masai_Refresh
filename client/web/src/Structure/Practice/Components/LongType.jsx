@@ -55,7 +55,6 @@ const LongType = () => {
     }
   }, [topic]);
 
-  console.log("Topic is :", topic);
   const issuesList = [
     "Question Unclear",
     "Insufficient Data",

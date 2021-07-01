@@ -222,8 +222,7 @@ const MCQ = (props) => {
         i++;
       }
     }
-    console.log(text);
-    console.log(cleanedText);
+
     return cleanedText;
   };
 
