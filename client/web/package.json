@@ -40,6 +40,7 @@
     "react-highlight": "^0.12.0",
     "react-loader-spinner": "^4.0.0",
     "react-markdown": "^5.0.3",
+    "react-otp-input": "^2.4.0",
     "react-progressbar": "^15.4.1",
     "react-redux": "^7.2.3",
     "react-router-dom": "^5.2.0",
@@ -52,8 +53,7 @@
     "remark-gfm": "^1.0.0",
     "styled-components": "^5.2.1",
     "uuid": "^8.3.2",
-    "web-vitals": "^1.1.0",
-    "react-otp-input": "^2.4.0"
+    "web-vitals": "^1.1.0"
   },
   "scripts": {
     "start": "react-scripts start",
