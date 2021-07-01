@@ -151,16 +151,9 @@ const MCQ = (props) => {
     } else {
       submitAnswers(fal, tr);
     }
-<<<<<<< HEAD
-    
-  }
-
-  const handleNextBtn = () => {
-=======
   };
   const handleNextBtn = () => {
     //
->>>>>>> 390ae7560e7f32c754fa06e645a27d5514e5d912
     if (!attempt && value == -1) {
       setIsOpen(true);
     }
@@ -259,6 +252,7 @@ const MCQ = (props) => {
                     {options.map((option, index) => (
                       <OptionRadio
                         id={Number(index + 1)}
+                        length={option.text}
                         value={<ReactMarkdown>{option.text}</ReactMarkdown>}
                         key={index}
                         active={active}

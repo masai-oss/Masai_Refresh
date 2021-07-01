@@ -48,10 +48,6 @@ const LongType = () => {
   const topic = practiceTopicsData
     ? practiceTopicsData.find((topic) => topic._id === topic_ID)
     : "";
-<<<<<<< HEAD
-  // console.log("Practice data:-------------------------", practiceTopicsData);
-=======
->>>>>>> 390ae7560e7f32c754fa06e645a27d5514e5d912
 
   React.useEffect(() => {
     if (topic && topic !== "") {
@@ -67,11 +63,6 @@ const LongType = () => {
     "Others",
   ];
 
-<<<<<<< HEAD
-  // console.log("Practice data:-------------------------", topic);
-
-=======
->>>>>>> 390ae7560e7f32c754fa06e645a27d5514e5d912
   const { reportStatus } = useSelector((state) => state.practice_topics);
 
   React.useEffect(() => {
