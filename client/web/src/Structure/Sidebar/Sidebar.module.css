@@ -3,13 +3,20 @@
   background-color: white;
 }
 .navContainer {
-  margin-top: 80px;
+  /* margin-top: 80px; */
+  height: 78%;
 }
 .navContainer ul {
   padding: 0px;
   position: relative;
-}
+  flex-direction: column;
+  display: flex;
 
+  height: 100%;
+  margin: 0px;
+}
+.navContainer ul > li {
+}
 .navContainer ul li {
   display: grid;
   grid-template-columns: 25% 75%;
@@ -17,7 +24,6 @@
   padding: 0px 20px;
   align-items: center;
   cursor: pointer;
-
   padding-left: 35px;
 }
 .navContainer ul li h4 {
@@ -38,24 +44,23 @@
   cursor: pointer;
   width: 24px;
   height: 24px;
+  margin-left: 20px;
 }
 .logoContainer {
   text-align: center;
-  margin-top: 20px;
+  /* margin-top: 20px; */
   cursor: pointer;
+
+  height: 20%;
+  display: grid;
+  justify-items: center;
+  align-items: center;
 }
 .logoContainer img {
-  width: 120px;
+  max-width: 120px;
+  margin: auto;
 }
 
-.navContainer > ul > li:last-child {
-  position: absolute;
-
-  margin-top: 150px;
-
-  top: 300px;
-  display: flex;
-}
 .navContainer > ul > li:last-child img {
   width: 24px;
   height: 24px;
@@ -83,7 +88,13 @@
   filter: invert(62%) sepia(73%) saturate(5324%) hue-rotate(191deg)
     brightness(99%) contrast(104%);
 }
-
+.signOutButton {
+  /* position: absolute;
+  margin-top: 150px;
+  top: 300px; */
+  margin-top: auto;
+  display: flex;
+}
 .signOutButton:hover {
   border-left: 4px solid #df4759 !important;
 }

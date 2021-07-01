@@ -15,7 +15,8 @@ const LOGOUT_URL = process.env.REACT_APP_AUTH_LOGOUT_URL;
 
 const Sidebar = ({ setRightSideContent }) => {
   const [displayProfileMenu, setDisplayProfileMenu] = React.useState(false);
-
+  const [mouseOnProfileBookmark, setMouseOnProfileBookmark] =
+    React.useState(false);
   const history = useHistory();
   const dispatch = useDispatch();
   const crnAuth = CrnAuth();
@@ -27,6 +28,18 @@ const Sidebar = ({ setRightSideContent }) => {
     window.open(ZOHO_LOGOUT_URL, "_self");
     dispatch(authActions.logoutProcess());
   };
+  React.useEffect(() => {
+    if (
+      window.location.pathname == "/my_bookmarks" ||
+      window.location.pathname.includes("/bookmarks")
+    ) {
+      console.log("This is bookmark related page");
+      setMouseOnProfileBookmark(true);
+    } else {
+      console.log("This is other page");
+      setMouseOnProfileBookmark(false);
+    }
+  }, [window.location.pathname]);
 
   const logout_user = () => {
     window.open(LOGOUT_URL, "_self");
@@ -111,6 +124,7 @@ const Sidebar = ({ setRightSideContent }) => {
           </li>
           <li
             onClick={(e) => handleProfileClick(e)}
+            onMouseOver={() => setMouseOnProfileBookmark(true)}
             className={
               window.location.pathname.includes("/my_bookmarks") ||
               window.location.pathname.includes("/bookmarks")
@@ -139,12 +153,13 @@ const Sidebar = ({ setRightSideContent }) => {
               Profile
             </h4>
           </li>
-          {displayProfileMenu ? (
+          {mouseOnProfileBookmark ? (
             <ul className={styles.Sidebar__profileMenu}>
               <li
                 onClick={(e) => {
                   history.push("/my_bookmarks");
                 }}
+                onMouseOver={() => setMouseOnProfileBookmark(true)}
                 className={
                   window.location.pathname.includes("/my_bookmarks") ||
                   window.location.pathname.includes("/bookmarks")
