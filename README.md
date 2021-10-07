@@ -1,6 +1,6 @@
 # Masai Refresh
 
-> A MERN based Quiz product where user can test there knowledge by taking quiz based on the topic of their choice. A comprehensive report is presented at the end of each quiz.
+> A MERN based Quiz product where user can test their knowledge by taking quiz based on the topic of their choice. A comprehensive report is presented at the end of each quiz.
 
 
 ## Built With
